@@ -80,6 +80,7 @@ def apply_self_locking_rules(multiworld: MultiWorld, player: int):
         "Horon Village: Tick Tock Trade": "Wooden Bird",
         "Eastern Suburbs: Guru-Guru Trade": "Engine Grease",
         "Subrosia: Smithy Hard Ore Reforge": "Hard Ore",
+        "Subrosia: Smithy Rusty Bell Reforge": "Rusty Bell",
         "Sunken City: Master's Plaque Trade": "Master's Plaque",
         "Subrosia: Market #1": "Star Ore",
     }

@@ -499,8 +499,7 @@ ITEMS_DATA = {
     },
     "Pirate's Bell": {
         'classification': ItemClassification.progression,
-        'id': 0x4a,
-        'subid': 0x02
+        'id': 0x25
     },
     "Treasure Map": {
         'classification': ItemClassification.useful,
