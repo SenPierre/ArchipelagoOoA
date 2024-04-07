@@ -226,7 +226,7 @@ ITEMS_DATA = {
     "Small Key (Sword & Shield Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
-        'subid': 0x07
+        'subid': 0x08
     },
     "Master Key (Hero's Cave)": {
         'classification': ItemClassification.progression,
@@ -271,7 +271,7 @@ ITEMS_DATA = {
     "Master Key (Sword & Shield Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
-        'subid': 0x07
+        'subid': 0x08
     },
     "Boss Key (Gnarled Root Dungeon)": {
         'classification': ItemClassification.progression,
