@@ -224,7 +224,7 @@ def make_holodrum_logic(player: int):
         # EYEGLASS LAKE SECTOR #########################################################################################
 
         ["horon village", "eyeglass lake, across bridge", False, lambda state: any([
-            oos_has_cape(state, player),
+            oos_can_jump_4_wide_pit(state, player),
             all([
                 oos_season_in_eyeglass_lake(state, player, "autumn"),
                 oos_has_feather(state, player)
@@ -367,7 +367,7 @@ def make_holodrum_logic(player: int):
         ["ghastly stump", "spool swamp north", False, lambda state: all([
             any([
                 oos_season_in_north_horon(state, player, "summer"),
-                oos_has_cape(state, player),
+                oos_can_jump_4_wide_pit(state, player),
                 oos_can_summon_ricky(state, player),
                 oos_can_summon_moosh(state, player)
             ])
@@ -905,7 +905,12 @@ def make_holodrum_logic(player: int):
             oos_season_in_central_woods_of_winter(state, player, "autumn"),
             any([
                 oos_has_sword(state, player),
-                oos_has_fools_ore(state, player)
+                oos_has_fools_ore(state, player),
+                # Moblin has the interesting property of being one-shottable using an ember seed
+                all([
+                    oos_option_medium_logic(state, player),
+                    oos_can_use_ember_seeds(state, player, False)
+                ])
             ])
         ])],
         ["spool swamp south (summer)", "golden octorok", False, lambda state: any([
