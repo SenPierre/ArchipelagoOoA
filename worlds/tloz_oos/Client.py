@@ -4,11 +4,13 @@ from typing import TYPE_CHECKING, Set, Dict
 from NetUtils import ClientStatus
 import worlds._bizhawk as bizhawk
 from worlds._bizhawk.client import BizHawkClient
-from worlds.tloz_oos import LOCATIONS_DATA, ITEMS_DATA, OracleOfSeasonsGoal
+from worlds.tloz_oos import LOCATIONS_DATA, ITEMS_DATA, OracleOfAgesGoal
 from .Data import build_item_id_to_name_dict, build_location_name_to_id_dict
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
+
+# TODO ADAPT TO OOA
 
 ROOM_AFTER_DRAGONOX = 0x0790
 ROOM_BLAINOS_GYM = 0x03B4
@@ -31,8 +33,8 @@ RAM_ADDRS = {
 }
 
 
-class OracleOfSeasonsClient(BizHawkClient):
-    game = "The Legend of Zelda - Oracle of Seasons"
+class OracleOfAgesClient(BizHawkClient):
+    game = "The Legend of Zelda - Oracle of Ages"
     system = "GBC"
     patch_suffix = ".apseasons"
     local_checked_locations: Set[int]
@@ -193,10 +195,10 @@ class OracleOfSeasonsClient(BizHawkClient):
     async def process_game_completion(self, ctx: "BizHawkClientContext", flag_bytes, current_room: int):
         game_clear = False
         if ctx.slot_data is not None:
-            if ctx.slot_data["goal"] == OracleOfSeasonsGoal.option_beat_onox:
+            if ctx.slot_data["goal"] == OracleOfAgesGoal.option_beat_onox:
                 # Room with Din's descending crystal was reached, it's a win
                 game_clear = (current_room == ROOM_AFTER_DRAGONOX)
-            elif ctx.slot_data["goal"] == OracleOfSeasonsGoal.option_beat_ganon:
+            elif ctx.slot_data["goal"] == OracleOfAgesGoal.option_beat_ganon:
                 # Room with Zelda lying down was reached, and Ganon was beaten
                 ganon_flag_offset = 0xCA9A - RAM_ADDRS["location_flags"][0]
                 ganon_was_beaten = (flag_bytes[ganon_flag_offset] & 0x80 == 0x80)

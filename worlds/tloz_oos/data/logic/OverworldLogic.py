@@ -1,915 +1,527 @@
 from worlds.tloz_oos.data.logic.LogicPredicates import *
 
 
-def make_holodrum_logic(player: int):
+def make_overworld_logic(player: int):
     return [
-        ["Menu", "horon village", False, None],
+        
+        # FOREST OF TIME
+        #######################################
+        ["Menu", "forest of time", False, None],
+        ["forest of time", "starting item", False, None],
+        ["forest of time", "nayru's house", False, None],
 
-        ["horon village", "mayor's gift", False, None],
-        ["horon village", "vasu's gift", False, None],
-        ["horon village", "mayor's house secret room", False, lambda state: oos_has_bombs(state, player)],
-        ["horon village", "horon heart piece", False, lambda state: oos_can_use_ember_seeds(state, player, False)],
-        ["horon village", "dr. left reward", False, lambda state: oos_can_use_ember_seeds(state, player, True)],
-        ["horon village", "old man in horon", False, lambda state: oos_can_use_ember_seeds(state, player, False)],
-        ["horon village", "old man trade", False, lambda state: any([
-            state.has("Fish", player),
-            oos_self_locking_item(state, player, "old man trade", "Fish")
+        # LYNNA CITY
+        #######################################
+        ["forest of time", "lynna city", True, lambda state: ooa_can_break_bush(state, player)],
+        ["lynna city", "south lynna tree", False, lambda state: ooa_can_harvest_tree(state, player, True)],
+        ["lynna city", "lynna city chest", False, lambda state: ooa_can_use_ember_seeds(state, player, False)],
+        ["lynna city", "lynna shop", False, lambda state: ooa_has_rupees(state, player, 400)],
+        ["lynna village", "hidden shop", False, lambda state: all([
+            ooa_can_go_back_to_present(state, player),
+            ooa_has_rupees(state, player, 400)
         ])],
-        ["horon village", "tick tock trade", False, lambda state: any([
-            state.has("Wooden Bird", player),
-            oos_self_locking_item(state, player, "tick tock trade", "Wooden Bird")
-        ])],
-        ["horon village", "maku tree", False, lambda state: oos_has_sword(state, player, False)],
-        ["horon village", "horon village SE chest", False, lambda state: all([
-            oos_has_bombs(state, player),
-            any([
-                oos_can_swim(state, player, False),
-                oos_season_in_horon_village(state, player, "winter"),
-                oos_can_jump_2_wide_liquid(state, player)
-            ])
-        ])],
-        ["horon village", "horon village SW chest", False, lambda state: all([
-            oos_season_in_horon_village(state, player, "autumn"),
-            oos_can_break_mushroom(state, player, True)
-        ])],
+        
+        ["lynna city", "mayor plen's house", False, lambda state: ooa_has_long_hook(state, player)],
+        ["lynna city", "lynna city comedian", False, lambda state: state.has("Cheesy Mustache", player)],
+        ["lynna city", "vasu's gift", False, None],
 
-        ["horon village", "maple trade", False, lambda state: all([
-            oos_can_meet_maple(state, player),
-            any([
-                state.has("Lon Lon Egg", player),
-                oos_self_locking_item(state, player, "maple trade", "Lon Lon Egg")
-            ])
-        ])],
-
-        ["horon village", "horon village portal", False, lambda state: any([
-            oos_has_magic_boomerang(state, player),
-            oos_can_jump_6_wide_pit(state, player)
-        ])],
-        ["horon village portal", "horon village", False, lambda state: any([
-            oos_can_trigger_lever(state, player),
-            oos_can_jump_6_wide_pit(state, player)
-        ])],
-
-        ["horon village", "horon village tree", False, lambda state: oos_can_harvest_tree(state, player, True)],
-
-        ["horon village", "horon shop", False, lambda state: oos_has_rupees(state, player, 200)],
-        ["horon village", "advance shop", False, lambda state: oos_has_rupees(state, player, 400)],
-        ["horon village", "member's shop", False, lambda state: all([
-            state.has("Member's Card", player),
-            oos_has_rupees(state, player, 600)
-        ])],
-
-        # WESTERN COAST ##############################################################################################
-
-        ["horon village", "black beast's chest", False, lambda state: all([
+        # LYNNA VILLAGE
+        #######################################
+        ["lynna city", "lynna village", True, None],
+        ["forest of time", "lynna village", False, lambda state: ooa_can_open_portal(state, player)],
+        ["lynna village", "black tower worker", False, None],
+        ["lynna village", "advance shop", False, lambda state: ooa_has_rupees(state, player, 400)],
+        ["lynna village", "ambi's palace tree", False, lambda state: ooa_can_harvest_tree(state, player, False)],
+        ["lynna village", "ambi's palace chest", False, lambda state: any([
             all([
-                oos_has_slingshot(state, player),
-                oos_can_use_ember_seeds(state, player, True),
+                ooa_option_hard_logic(state, player),
+                ooa_can_use_scent_seeds_for_smell(state, player),
+                ooa_can_use_pegasus_seeds(state, player)
             ]),
-            oos_can_use_mystery_seeds(state, player),
-            oos_can_kill_armored_enemy(state, player),
+            all([
+                ooa_can_break_bush(state, player),
+                ooa_can_dive(state, player)
+            ]),
+            ooa_can_switch_past_and_present(state, player)
         ])],
+        ["ambi's palace chest", "rescue nayru", False, lambda state: all([
+                ooa_has_switch_hook(state, player),
+                ooa_can_use_mystery_seeds(state, player),
+                ooa_can_kill_armored_enemy(state, player)
+            ])],
+        ["lynna village", "postman", False, lambda state: state.has("Poe Watch", player)],
+        ["lynna village", "toilet hand", False, lambda state: state.has("Stationery", player)],
+        ["lynna village", "mamamu yan", False, lambda state: state.has("Doggie Mask", player)],
+        ["lynna village", "sad boi", False, lambda state: state.has("Funny Joke", player)],
+        ["lynna village", "rafton's raft", False, lambda state: all([
+            state.has("Cheval Rope", player),
+            state.has("Island Chart", player)
+        ])],
+        ["rafton's raft", "rafton", False, lambda state: state.has("Magic Oar", player)],
+        ["lynna village", "d0 entrance", True, lambda state: ooa_can_remove_dirt(state, player, False)],
 
-        ["horon village", "d0 entrance", False, None],
+        # MAKU TREE
+        #######################################
+        ["d0 exit", "maku tree", True, lambda state: ooa_can_kill_normal_enemy(state, player)],
+        ["rescue nayru", "maku tree", False, None],
+        ["maku tree", "maku seed", False, lambda state: ooa_has_essences_for_maku_seed(state, player)],
+        # TODO : Check Essence 3, 5, 7
 
-        ["western coast after ship", "coast stump", False, lambda state: all([
-            oos_has_bombs(state, player),
+        
+        # SHORE PRESENT
+        #######################################
+        ["lynna city", "shore present", True, lambda state: any([
+            ooa_can_swim_deepwater(state, player, True),
+            ooa_has_bracelet(state, player),
+            ooa_can_go_back_to_present(state, player),
+            all([
+                ooa_can_break_bush(state, player, True),
+                ooa_can_jump_1_wide_pit(state, player, True)
+            ]),
+        ])],
+        ["shore present", "south shore dirt", False, lambda state: ooa_can_remove_dirt(state, player, True)],
+        ["shore present", "balloon guy's gift", False,  lambda state: all([
             any([
-                oos_has_feather(state, player),
-                oos_option_hard_logic(state, player)
+                ooa_has_seedshooter(state, player),
+                ooa_can_summon_ricky(state, player),
+                ooa_can_go_back_to_present(state, player), #lynna city and lynna village are connected, so no need to create a different logic                    
+            ]),
+            ooa_can_break_tingle_balloon(state, player)
+        ])],
+        ["balloon guy's gift", "balloon guy's upgrade", False, lambda state: ooa_has_seed_kind_count(state, player, 3)],
+        
+        # YOLL GRAVEYARD
+        #######################################
+        ["forest of time", "yoll graveyard", True, lambda state: ooa_can_use_ember_seeds(state, player, False)],
+        ["yoll graveyard", "cheval's grave", False, lambda state: any([
+            ooa_can_kill_normal_enemy(state, player, True),
+            ooa_can_jump_3_wide_pit                 
+        ])],
+        ["cheval's grave", "cheval's test", False, lambda state: lambda state: all([
+            any([
+                ooa_has_feather(state, player),
+                ooa_can_swim(state, player),                    
+            ]),
+            ooa_has_bracelet(state, player)
+        ])],
+        ["cheval's grave", "cheval's invention", False, lambda state: ooa_can_swim(state, player, False)],
+        ["yoll graveyard", "grave under tree", False, lambda state: ooa_can_use_ember_seeds(state, player, False)],
+        ["yoll graveyard", "graveyard door", False, lambda state: state.has("Graveyard Key", player)],
+        ["graveyard door", "syrup shop", False, lambda state: all([
+            any([
+                ooa_can_jump_2_wide_liquid(state, player),
+                ooa_can_swim(state, player, True),                    
+            ]),
+            ooa_has_rupees(state, player, 400)
+        ])],
+        ["graveyard door", "graveyard poe", False, lambda state: ooa_has_bracelet(state, player)],
+        ["graveyard door", "d1 entrance", False, None],
+
+        # FAIRIES' WOODS
+        #######################################
+        ["lynna city", "fairies' woods", True, lambda state: any([
+            ooa_can_swim(state, player, True),
+            ooa_has_bracelet(state, player),
+            ooa_can_switch_past_and_present(state, player),
+            all([ # it's possible to switch hook the octorok through the boulder to enter fairies' woods. 
+                ooa_option_hard_logic(state, player),
+                ooa_has_switch_hook(state, player)
             ])
         ])],
-
-        ["western coast after ship",  "old man near western coast house", False, lambda state: \
-            oos_can_use_ember_seeds(state, player, False)],
-
-        ["western coast after ship", "graveyard (winter)", False, lambda state: all([
-            oos_can_jump_3_wide_pit(state, player),
-            oos_season_in_western_coast(state, player, "winter")
+        ["fairies' woods", "fairies' woods chest", False, lambda state: any([
+            ooa_can_jump_1_wide_pit(state, player, True),
+            ooa_has_switch_hook(state, player)
         ])],
+        ["deku forest", "fairies' woods chest", False, lambda state: ooa_can_go_back_to_present(state, player)],
+        ["fairies' woods", "happy mask salesman", False, lambda state: state.has("Tasty Meat", player)],
+        ["deku forest", "d2 present entrance", False, lambda state: ooa_can_go_back_to_present(state, player)],
 
-        ["western coast after ship", "graveyard (autumn)", False, lambda state: all([
-            oos_can_jump_3_wide_pit(state, player),
-            oos_season_in_western_coast(state, player, "autumn")
+        # DEKU FOREST
+        #######################################
+        ["lynna village", "deku forest", True, lambda state: any([
+            ooa_has_bracelet(state, player),
+            ooa_can_switch_past_and_present(state, player),
         ])],
-
-        ["western coast after ship", "graveyard (summer or spring)", False, lambda state: any([
-            oos_can_jump_3_wide_pit(state, player),
-            oos_season_in_western_coast(state, player, "summer")
-        ])],
-
-        ["graveyard (winter)", "d7 entrance", False, lambda state: oos_can_remove_snow(state, player, False)],
-        ["graveyard (autumn)", "d7 entrance", False, None],
-        ["graveyard (summer or spring)", "d7 entrance", False, None],
-
-        ["d7 entrance", "graveyard (winter)", False, lambda state: \
-            oos_get_default_season(state, player, "WESTERN_COAST") == "winter"],
-        ["d7 entrance", "graveyard (autumn)", False, lambda state: \
-            oos_get_default_season(state, player, "WESTERN_COAST") == "autumn"],
-        ["d7 entrance", "graveyard (summer or spring)", False, lambda state: \
-            oos_get_default_season(state, player, "WESTERN_COAST") in ["summer", "spring"]],
-
-        ["graveyard (autumn)", "graveyard heart piece", False, lambda state: oos_has_bracelet(state, player)],
-
-        # EASTERN SUBURBS #############################################################################################
-
-        ["horon village", "suburbs", True, lambda state: oos_can_use_ember_seeds(state, player, False)],
-
-        ["suburbs", "windmill heart piece", False, lambda state: oos_season_in_eastern_suburbs(state, player, "winter")],
-        ["suburbs", "guru-guru trade", False, lambda state: any([
-            state.has("Engine Grease", player),
-            oos_self_locking_item(state, player, "guru-guru trade", "Engine Grease")
-        ])],
-
-        ["suburbs", "eastern suburbs spring cave", False, lambda state: all([
-            oos_has_bracelet(state, player),
-            oos_season_in_eastern_suburbs(state, player, "spring"),
+        ["deku forest", "deku forest cave east", False, None], # You need the bracelet or the ages song to access deku forest. Either way, you can access that too easily.
+        ["deku forest", "deku forest cave west", False, lambda state: any([
+            ooa_has_bracelet(state, player),                    
             any([
-                oos_has_magnet_gloves(state, player),
-                oos_can_jump_3_wide_pit(state, player)
+                ooa_can_jump_1_wide_pit(state, player, False),
+                ooa_has_switch_hook(state, player),
+                ooa_can_use_ember_seeds(state, player, False),        
+                ooa_can_warp_using_gale_seeds(state, player),   
+                ooa_can_switch_past_and_present(state, player),          
             ])
         ])],
-
-        ["eastern suburbs portal", "suburbs", False, lambda state: oos_can_break_bush(state, player, False)],
-        ["suburbs", "eastern suburbs portal", False, lambda state: oos_can_break_bush(state, player, True)],
-
-        ["suburbs", "suburbs fairy fountain", True, lambda state: any([
-            oos_can_swim(state, player, True),
-            oos_can_jump_1_wide_liquid(state, player, True)
-        ])],
-        ["suburbs", "suburbs fairy fountain (winter)", True, lambda state: any([
-            oos_season_in_eastern_suburbs(state, player, "winter")
-        ])],
-        ["suburbs fairy fountain (winter)", "suburbs fairy fountain", False, lambda state: \
-            oos_can_remove_season(state, player, "winter")],
-        ["suburbs fairy fountain", "suburbs fairy fountain (winter)", False, lambda state: \
-            oos_has_winter(state, player)],
-
-        ["suburbs fairy fountain", "sunken city", False, lambda state: \
-            oos_season_in_eastern_suburbs(state, player, "spring")],
-        ["sunken city", "suburbs fairy fountain", False, lambda state: any([
-            oos_season_in_eastern_suburbs(state, player, "spring"),
-            oos_can_warp(state, player)
-        ])],
-
-        # WOODS OF WINTER / 2D SECTOR ################################################################################
-
-        ["suburbs fairy fountain (winter)", "moblin road", False, lambda state: None],
-        ["moblin road", "suburbs fairy fountain (winter)", False, lambda state: \
-            oos_season_in_eastern_suburbs(state, player, "winter")],
-
-        ["sunken city", "moblin road", False, lambda state: all([
-            oos_has_flippers(state, player),
+        ["deku forest", "deku forest tree", False, lambda state: any([
+            ooa_can_harvest_tree(state, player, False),                    
             any([
-                oos_get_default_season(state, player, "SUNKEN_CITY") != "winter",
-                oos_can_remove_season(state, player, "winter")
-            ]),
+                ooa_can_jump_1_wide_pit(state, player, False),
+                ooa_has_switch_hook(state, player),
+                ooa_can_use_ember_seeds(state, player, False),        
+                ooa_can_warp_using_gale_seeds(state, player),   
+                ooa_can_switch_past_and_present(state, player),          
+            ])
+        ])],
+        ["deku forest", "deku forest soldier", False, lambda state: any([
+            ooa_has_mystery_seeds(state, player),                    
             any([
-                oos_can_warp(state, player),
+                ooa_can_jump_1_wide_pit(state, player, False),
+                ooa_can_use_ember_seeds(state, player, False),   
+                ooa_can_switch_past_and_present(state, player),
                 all([
-                    # We need both seasons to be able to climb back up
-                    oos_season_in_eastern_suburbs(state, player, "winter"),
-                    oos_has_spring(state, player)
+                    ooa_has_bracelet(state, player),
+                    any([
+                        ooa_can_warp_using_gale_seeds(state, player),
+                        ooa_has_switch_hook(state, player), 
+                    ])
+                ])                 
+            ])
+        ])],
+        ["deku forest", "d2 past entrance", False, lambda state: ooa_has_bombs(state, player)],
+
+        # CRESCENT PAST
+        #######################################
+        ["lynna village", "crescent past west", True, lambda state: ooa_can_swim_deepwater(state, player, False)],
+        ["rafton's raft", "crescent past west", False, None],
+        ["crescent present west", "crescent past west", False, lambda state: ooa_can_open_portal(state, player)],
+        ["crescent past west", "tokay crystal cave", False, lambda state: all([
+            any([
+                ooa_has_shovel(state, player),
+                ooa_can_break_crystal(state, player),                    
+            ]),
+            ooa_can_jump_1_wide_pit(state, player, False)
+        ])],
+        ["lynna village", "hidden tokay cave", True, lambda state: ooa_can_dive(state, player)],
+        ["crescent present west", "crescent past east", False, lambda state: any([
+            ooa_can_break_bush(state, player),
+            ooa_can_go_back_to_present(state, player),   
+        ])],
+        ["crescent past east", "tokay bomb cave", False, lambda state: all([
+            ooa_has_bracelet(state, player),
+            ooa_has_bombs(state, player),
+        ])],
+        ["crescent past east", "wild tokay game", False, lambda state: all([
+            ooa_has_bracelet(state, player),
+            ooa_has_bombs(state, player),
+        ])],
+        ["crescent past east", "tokay pot cave", False, lambda state: ooa_has_long_hook(state, player)],
+        ["crescent past east", "tokay market 1", False, lambda state: ooa_has_mystery_seeds(state, player)],
+        ["crescent past east", "tokay market 2", False, lambda state: ooa_has_scent_seeds(state, player)],
+
+        # CRESCENT PRESENT
+        #######################################
+        ["lynna city", "crescent present west", True, lambda state: ooa_can_swim_deepwater(state, player, True)],
+        ["crescent past west", "crescent present west", False, lambda state: any([
+            ooa_can_go_back_to_present(state, player),
+            all([
+                ooa_has_shovel(state, player),
+                ooa_can_open_portal(state, player),
+            ])
+        ])],
+        ["crescent present west", "d3 entrance", False, None],
+        ["lynna city", "under crescent island", True, lambda state: ooa_can_dive(state, player)],
+        ["crescent present east", "tokay chef", False, lambda state: state.has("Stink Bag", player)],
+        ["crescent past west", "crescent island tree", False, lambda state: all([
+            any([
+                ooa_has_bracelet(state, player),
+                ooa_can_switch_past_and_present(state, player),
+            ]),
+            state.has("Scent Seedling", player),
+            ooa_can_harvest_tree(state, player, False),
+            any([
+                ooa_can_open_portal(state, player),
+                all([
+                    # Can get the warp point by swimming under crescent island, but that's pretty unintuitive, so it's hard logic only. (medium maybe ?)
+                    ooa_option_hard_logic(state, player),
+                    ooa_can_dive(state, player),
+                    ooa_can_warp_using_gale_seeds(state, player),
+                ])
+            ]),
+        ])],
+
+        # NUUN
+        #######################################
+        ["fairies' woods", "nuun", True, lambda state: all([
+            ooa_can_use_ember_seeds(state, player, False),
+            ooa_has_seedshooter(state, player),
+        ])],
+        ["lynna village", "nuun", True, lambda state: ooa_can_go_back_to_present(state, player)],
+        ["nuun", "nuun (ricky)", True, lambda state: ooa_is_companion_ricky(state, player)],
+        ["nuun", "nuun (moosh)", True, lambda state: ooa_is_companion_moosh(state, player)],
+        ["nuun", "nuun (dimitri)", True, lambda state: ooa_is_companion_dimitri(state, player)],
+
+        ["nuun (ricky)", "nuun highlands cave", False, lambda state: any([
+            ooa_can_summon_ricky(state, player),
+            ooa_can_go_back_to_present(state, player),
+        ])],
+        ["nuun (moosh)", "nuun highlands cave", False, lambda state: any([
+            ooa_can_summon_moosh(state, player),
+            ooa_can_go_back_to_present(state, player),
+            all([
+                ooa_can_break_bush(state, player),
+                ooa_can_jump_3_wide_pit(state, player, False),
+            ])
+        ])],
+        ["nuun (dimitri)", "nuun highlands cave", False, lambda state: ooa_can_summon_dimitri(state, player)],
+
+
+        # SYMMETRY CITY PRESENT
+        #######################################
+        ["nuun", "symmetry present", True, lambda state: any([
+            ooa_can_go_back_to_present(state, player),
+            ooa_has_flute(state, player),
+            all([
+                ooa_is_companion_moosh(state, player),
+                ooa_can_break_bush(state, player),
+                ooa_can_jump_3_wide_pit(state, player, False),
+            ])
+        ])],
+        ["symmetry present", "symmetry city tree", False, lambda state: ooa_can_harvest_tree(state, player, False)],
+        ["symmetry present", "d4 entrance", False, lambda state: all([
+            state.has("Tuni Nut", player),
+            any([
+                ooa_can_go_back_to_present(state, player),
+                all([
+                    ooa_can_open_portal(state, player),
+                    ooa_can_warp(state, player),
                 ])
             ])
         ])],
 
-        ["moblin road", "woods of winter, 1st cave", False, lambda state: all([
-            oos_can_remove_rockslide(state, player, True),
-            oos_can_break_bush(state, player, False),
-            any([
-                oos_get_default_season(state, player, "WOODS_OF_WINTER") != "winter",
-                oos_can_remove_season(state, player, "winter")
-            ])
+        # SYMMETRY CITY PAST
+        #######################################
+        ["symmetry present", "symmetry past", False, lambda state: ooa_can_open_portal(state, player)],
+
+        ["symmetry past", "symmetry city brother", False, None],
+        ["symmetry past", "symmetry middle man", False, lambda state: state.has("Dumbbell", player)],
+        ["symmetry past", "tokkey's composition", False, lambda state: ooa_can_swim(state, player, False)],
+
+        ["symmetry past", "talus peaks", False, lambda state: all([
+            ooa_can_go_back_to_present(state, player),
+            ooa_has_bracelet(state, player)
         ])],
 
-        ["moblin road", "woods of winter, 2nd cave", False, lambda state: any([
-            oos_can_swim(state, player, False),
-            oos_can_jump_3_wide_liquid(state, player)
+        
+        # TALUS PEAK & RESTORATION WALL
+        #######################################
+        ["talus peaks", "bomb fairy", False, lambda state: ooa_has_bombs(state, player)],
+
+        ["talus peaks", "restoration wall", True, lambda state: any([
+            ooa_can_swim(state, player, False),
+            ooa_can_jump_3_wide_liquid(state, player)
         ])],
-
-        ["moblin road", "holly's house", False, lambda state: \
-            oos_season_in_woods_of_winter(state, player, "winter")],
-
-        ["moblin road", "old man near holly's house", False, lambda state: oos_can_use_ember_seeds(state, player, False)],
-
-        ["moblin road", "woods of winter heart piece", False, lambda state: any([
-            oos_can_swim(state, player, True),
-            oos_has_bracelet(state, player),
-            oos_can_jump_1_wide_liquid(state, player, True)
-        ])],
-
-        ["suburbs fairy fountain", "central woods of winter", False, lambda state: None],
-        ["suburbs fairy fountain (winter)", "central woods of winter", False, lambda state: any([
-            oos_can_jump_1_wide_pit(state, player, True),
-            oos_can_remove_snow(state, player, True)
-        ])],
-
-        ["central woods of winter", "woods of winter tree", False, lambda state: oos_can_harvest_tree(state, player, True)],
-        ["central woods of winter", "d2 entrance", False, lambda state: oos_can_break_bush(state, player, True)],
-        ["central woods of winter", "cave outside D2", False, lambda state: all([
-            oos_season_in_central_woods_of_winter(state, player, "autumn"),
-            oos_can_break_mushroom(state, player, True),
-            any([
-                oos_can_jump_4_wide_pit(state, player),
-                oos_has_magnet_gloves(state, player)
-            ])
-        ])],
-
-        ["central woods of winter", "d2 stump", True, None],
-
-        ["d2 stump", "d2 roof", True, lambda state: oos_has_bracelet(state, player)],
-        ["d2 roof", "d2 alt entrances", True, lambda state: not oos_option_no_d2_alt_entrance(state, player)],
-
-        # EYEGLASS LAKE SECTOR #########################################################################################
-
-        ["horon village", "eyeglass lake, across bridge", False, lambda state: any([
-            oos_has_cape(state, player),
+        ["restoration wall", "talus peaks chest", False, None],
+        ["fairies' woods", "restoration wall", True, lambda state: ooa_can_switch_past_and_present(state, player)],
+        ["restoration wall", "patch", True, lambda state: any([
+            ooa_has_sword(state, player),
             all([
-                oos_season_in_eyeglass_lake(state, player, "autumn"),
-                oos_has_feather(state, player)
-            ])
-        ])],
-
-        ["horon village", "d1 stump", True, lambda state: oos_can_break_bush(state, player, True)],
-        ["d1 stump", "north horon", True, lambda state: oos_has_bracelet(state, player)],
-        ["d1 stump", "malon trade", False, lambda state: any([
-            state.has("Cuccodex", player),
-            oos_self_locking_item(state, player, "malon trade", "Cuccodex")
-        ])],
-        ["d1 stump", "d1 island", True, lambda state: oos_can_break_bush(state, player, True)],
-        ["d1 stump", "old man near d1", False, lambda state: oos_can_use_ember_seeds(state, player, False)],
-
-        ["d1 island", "d1 entrance", True, lambda state: state.has("Gnarled Key", player)],
-        ["d1 island", "golden beasts old man", False, lambda state: all([
-            oos_season_in_eyeglass_lake(state, player, "summer"),
-            oos_can_beat_required_golden_beasts(state, player)
-        ])],
-
-        ["d1 stump", "eyeglass lake (default)", True, lambda state: all([
-            any([
-                oos_season_in_eyeglass_lake(state, player, "spring"),
-                oos_season_in_eyeglass_lake(state, player, "autumn"),
-            ]),
-            oos_can_jump_1_wide_pit(state, player, True),
-            any([
-                oos_can_swim(state, player, False),
-                all([
-                    # To be able to use Dimitri, we need the bracelet to throw him above the pit
-                    oos_option_medium_logic(state, player),
-                    oos_can_summon_dimitri(state, player),
-                    oos_has_bracelet(state, player)
-                ])
-            ])
-        ])],
-        ["d1 stump", "eyeglass lake (dry)", True, lambda state: all([
-            oos_season_in_eyeglass_lake(state, player, "summer"),
-            oos_can_jump_1_wide_pit(state, player, True)
-        ])],
-        ["d1 stump", "eyeglass lake (frozen)", True, lambda state: all([
-            oos_season_in_eyeglass_lake(state, player, "winter"),
-            oos_can_jump_1_wide_pit(state, player, True)
-        ])],
-
-        ["d5 stump", "eyeglass lake (default)", True, lambda state: all([
-            any([
-                oos_season_in_eyeglass_lake(state, player, "spring"),
-                oos_season_in_eyeglass_lake(state, player, "autumn"),
-            ]),
-            oos_can_swim(state, player, True)
-        ])],
-        ["d5 stump", "eyeglass lake (dry)", False, lambda state: all([
-            oos_season_in_eyeglass_lake(state, player, "summer"),
-            oos_can_swim(state, player, False)
-        ])],
-        ["d5 stump", "eyeglass lake (frozen)", True,
-         lambda state: oos_season_in_eyeglass_lake(state, player, "winter")],
-
-        ["eyeglass lake portal", "eyeglass lake (default)", False, lambda state: all([
-            oos_get_default_season(state, player, "EYEGLASS_LAKE") in ["autumn", "spring"],
-            oos_can_swim(state, player, False)
-        ])],
-        ["eyeglass lake (default)", "eyeglass lake portal", False, None],
-        ["eyeglass lake portal", "eyeglass lake (frozen)", False, lambda state: all([
-            oos_get_default_season(state, player, "EYEGLASS_LAKE") == "winter",
-            any([
-                oos_can_swim(state, player, False),
-                oos_can_jump_5_wide_liquid(state, player)
-            ])
-        ])],
-        ["eyeglass lake (frozen)", "eyeglass lake portal", False, lambda state: any([
-            oos_can_swim(state, player, True),
-            oos_can_jump_5_wide_liquid(state, player)
-        ])],
-        ["eyeglass lake portal", "eyeglass lake (dry)", False, lambda state: \
-            oos_get_default_season(state, player, "EYEGLASS_LAKE") == "summer"],
-
-        ["eyeglass lake (dry)", "dry eyeglass lake, west cave", False, lambda state: all([
-            oos_can_remove_rockslide(state, player, True),
-            oos_can_swim(state, player, False)  # chest is surrounded by water
-        ])],
-
-        ["d5 stump", "d5 entrance", False, lambda state: all([
-            any([
-                oos_has_autumn(state, player),
-                # If we don't have autumn, we need to ensure we were able to reach that node with autumn as default
-                # season without changing to another season which we wouldn't be able to revert back
-                all([
-                    oos_get_default_season(state, player, "EYEGLASS_LAKE") == "autumn",
-                    oos_can_swim(state, player, False)
-                ])
-            ]),
-            oos_can_break_mushroom(state, player, True)
-        ])],
-
-        ["d5 stump", "dry eyeglass lake, east cave", False, lambda state: all([
-            oos_has_summer(state, player),
-            oos_has_bracelet(state, player),
-        ])],
-
-        ["d5 entrance", "dry eyeglass lake, east cave", False, lambda state: all([
-            oos_get_default_season(state, player, "EYEGLASS_LAKE") == "summer",
-            oos_has_bracelet(state, player),
-        ])],
-
-        # NORTH HORON / HOLODRUM PLAIN ###############################################################################
-
-        ["north horon", "north horon tree", False, lambda state: oos_can_harvest_tree(state, player, True)],
-        ["north horon", "blaino prize", False, lambda state: oos_can_farm_rupees(state, player)],
-        ["north horon", "cave north of D1", False, lambda state: all([
-            oos_season_in_north_horon(state, player, "autumn"),
-            oos_can_break_mushroom(state, player, True),
-            oos_has_flippers(state, player)
-        ])],
-        ["north horon", "old man near blaino", False, lambda state: all([
-            any([
-                oos_season_in_north_horon(state, player, "summer"),
-                oos_can_summon_ricky(state, player)
-            ]),
-            oos_can_use_ember_seeds(state, player, False)
-        ])],
-        ["north horon", "underwater item below natzu bridge", False, lambda state: oos_can_swim(state, player, False)],
-
-        ["north horon", "temple remains lower stump", True, lambda state: oos_can_jump_3_wide_pit(state, player)],
-
-        ["ghastly stump", "mrs. ruul trade", False, lambda state: any([
-            state.has("Ghastly Doll", player),
-            oos_self_locking_item(state, player, "mrs. ruul trade", "Ghastly Doll")
-        ])],
-        ["ghastly stump", "old man near mrs. ruul", False, lambda state: oos_can_use_ember_seeds(state, player, False)],
-
-        ["north horon", "ghastly stump", True, lambda state: any([
-            oos_can_jump_1_wide_pit(state, player, True),
-            oos_season_in_north_horon(state, player, "winter")
-        ])],
-
-        ["spool swamp north", "ghastly stump", False, None],
-        ["ghastly stump", "spool swamp north", False, lambda state: all([
-            any([
-                oos_season_in_north_horon(state, player, "summer"),
-                oos_has_cape(state, player),
-                oos_can_summon_ricky(state, player),
-                oos_can_summon_moosh(state, player)
-            ])
-        ])],
-
-        ["ghastly stump", "spool swamp south", True, lambda state: all([
-            oos_can_swim(state, player, True),
-            oos_can_break_bush(state, player, True),
-        ])],
-
-        # Goron Mountain <-> North Horon <-> D1 island <-> Spool swamp waterway
-        ["spool swamp south", "d1 island", True, lambda state: oos_can_swim(state, player, True)],
-        ["d1 island", "north horon", True, lambda state: oos_can_swim(state, player, True)],
-        ["north horon", "goron mountain entrance", True, lambda state: oos_can_swim(state, player, True)],
-        ["goron mountain entrance", "natzu region, across water", True, lambda state: oos_can_swim(state, player, True)],
-        ["ghastly stump", "d1 island", True, lambda state: all([
-            oos_can_break_bush(state, player, True),
-            oos_can_swim(state, player, True)
-        ])],
-
-        ["d1 island", "old man in treehouse", False, lambda state: all([
-            oos_can_swim(state, player, True),
-            oos_has_essences_for_treehouse(state, player)
-        ])],
-        ["d1 island", "cave south of mrs. ruul", False, lambda state: oos_can_swim(state, player, False)],
-
-        # SPOOL SWAMP #############################################################################################
-
-        ["spool swamp north", "spool swamp tree", False, lambda state: oos_can_harvest_tree(state, player, True)],
-
-        ["spool swamp north", "floodgate keeper's house", False, lambda state: any([
-            oos_can_trigger_lever(state, player),
-            all([
-                oos_option_hard_logic(state, player),
-                oos_has_bracelet(state, player)
-            ])
-        ])],
-
-        ["spool swamp north", "spool swamp digging spot", False, lambda state: all([
-            oos_season_in_spool_swamp(state, player, "summer"),
-            oos_has_shovel(state, player)
-        ])],
-
-        ["floodgate keeper's house", "spool stump", False, lambda state: all([
-            any([
-                oos_can_use_pegasus_seeds(state, player),
-                oos_has_flippers(state, player),
-                oos_has_feather(state, player)
-            ]),
-            oos_has_bracelet(state, player),
-            state.has("Floodgate Key", player)
-        ])],
-
-        ["spool stump", "d3 entrance", False, lambda state: oos_season_in_spool_swamp(state, player, "summer")],
-
-        ["spool stump", "spool swamp middle", False, lambda state: any([
-            oos_get_default_season(state, player, "SPOOL_SWAMP") != 'spring',
-            oos_can_remove_season(state, player, 'spring'),
-            oos_has_flippers(state, player),
-            oos_can_summon_dimitri(state, player)
-        ])],
-
-        ["spool swamp middle", "spool swamp south gasha spot", False, lambda state: oos_can_summon_ricky(state, player)],
-        ["spool swamp south gasha spot", "spool swamp middle", False, lambda state: any([
-            oos_has_feather(state, player),
-            oos_can_break_bush(state, player, True)
-        ])],
-
-        ["spool swamp south gasha spot", "spool swamp portal", True, lambda state: oos_has_bracelet(state, player)],
-
-        ["spool swamp middle", "spool swamp south", True, lambda state: any([
-            oos_can_jump_2_wide_pit(state, player),
-            oos_can_summon_moosh(state, player),
-            oos_can_summon_dimitri(state, player),
-            oos_has_flippers(state, player)
-        ])],
-
-        ["spool swamp south", "spool swamp south (winter)", False, lambda state: \
-            oos_season_in_spool_swamp(state, player, "winter")],
-        ["spool swamp south", "spool swamp south (spring)", False, lambda state: \
-            oos_season_in_spool_swamp(state, player, "spring")],
-        ["spool swamp south", "spool swamp south (summer)", False, lambda state: \
-            oos_season_in_spool_swamp(state, player, "summer")],
-        ["spool swamp south", "spool swamp south (autumn)", False, lambda state: \
-            oos_season_in_spool_swamp(state, player, "autumn")],
-        ["spool swamp south (winter)", "spool swamp south", False, None],
-        ["spool swamp south (spring)", "spool swamp south", False, None],
-        ["spool swamp south (summer)", "spool swamp south", False, None],
-        ["spool swamp south (autumn)", "spool swamp south", False, None],
-
-        ["spool swamp south (spring)", "spool swamp south gasha spot", False, lambda state: \
-            oos_can_break_flowers(state, player, True)
-         ],
-        ["spool swamp south (winter)", "spool swamp south gasha spot", False, lambda state: \
-            oos_can_remove_snow(state, player, True)
-         ],
-        ["spool swamp south (summer)", "spool swamp south gasha spot", False, None],
-        ["spool swamp south (autumn)", "spool swamp south gasha spot", False, None],
-
-        ["spool swamp south gasha spot", "spool swamp south (spring)", False, lambda state: all([
-            oos_season_in_spool_swamp(state, player, "spring"),
-            oos_can_break_flowers(state, player, True)
-        ])],
-        ["spool swamp south gasha spot", "spool swamp south (winter)", False, lambda state: all([
-            oos_season_in_spool_swamp(state, player, "winter"),
-            oos_can_remove_snow(state, player, True)
-        ])],
-        ["spool swamp south gasha spot", "spool swamp south (summer)", False, lambda state: \
-            oos_season_in_spool_swamp(state, player, "summer")],
-        ["spool swamp south gasha spot", "spool swamp south (autumn)", False, lambda state: \
-            oos_season_in_spool_swamp(state, player, "autumn")],
-
-        ["spool swamp south (winter)", "spool swamp cave", False, lambda state: all([
-            oos_can_remove_snow(state, player, True),
-            oos_can_remove_rockslide(state, player, True)
-        ])],
-
-        ["spool swamp south (spring)", "spool swamp heart piece", False, lambda state: \
-            oos_can_swim(state, player, True)],
-
-        # NATZU REGION #############################################################################################
-
-        ["north horon", "natzu west", True, lambda state: any([
-            oos_can_jump_1_wide_pit(state, player, True),
-            oos_can_swim(state, player, True)
-        ])],
-
-        ["natzu west", "natzu west (ricky)", True, lambda state: oos_is_companion_ricky(state, player)],
-        ["natzu west", "natzu west (moosh)", True, lambda state: oos_is_companion_moosh(state, player)],
-        ["natzu west", "natzu west (dimitri)", True, lambda state: oos_is_companion_dimitri(state, player)],
-
-        ["natzu east (ricky)", "sunken city", True, lambda state: oos_is_companion_ricky(state, player)],
-        ["natzu east (moosh)", "sunken city", True, lambda state: all([
-            oos_is_companion_moosh(state, player),
-            any([
-                oos_can_summon_moosh(state, player),
-                oos_can_jump_3_wide_liquid(state, player)  # Not a liquid, but it's a diagonal jump so that's the same
-            ])
-        ])],
-        ["natzu east (dimitri)", "sunken city", True, lambda state: all([
-            oos_is_companion_dimitri(state, player),
-            oos_can_jump_1_wide_pit(state, player, False)
-        ])],
-        ["natzu east (dimitri)", "natzu region, across water", False, lambda state: \
-            oos_can_jump_5_wide_liquid(state, player)],
-
-        ["natzu west (ricky)", "natzu east (ricky)", True, lambda state: oos_can_summon_ricky(state, player)],
-        ["natzu west (moosh)", "natzu east (moosh)", True, lambda state: any([
-            oos_can_summon_moosh(state, player),
-            all([
-                oos_option_medium_logic(state, player),
-                oos_can_break_bush(state, player, True),
-                oos_can_jump_3_wide_pit(state, player)
-            ])
-        ])],
-        ["natzu west (dimitri)", "natzu east (dimitri)", True, lambda state: oos_can_swim(state, player, True)],
-
-        ["natzu east (ricky)", "moblin keep bridge", False, None],
-        ["natzu east (moosh)", "moblin keep bridge", False, lambda state: any([
-            oos_can_summon_moosh(state, player),
-            all([
-                oos_can_break_bush(state, player),
-                oos_can_jump_3_wide_pit(state, player)
-            ])
-        ])],
-        ["natzu east (dimitri)", "moblin keep bridge", False, lambda state: any([
-            oos_can_summon_dimitri(state, player),
-            all([
-                oos_option_hard_logic(state, player),
-                state.has("Swimmer's Ring", player)
-            ])
-        ])],
-        ["moblin keep bridge", "moblin keep", False, lambda state: any([
-            oos_has_flippers(state, player),
-            oos_can_jump_4_wide_liquid(state, player)
-        ])],
-        ["moblin keep", "moblin keep chest", False, lambda state: any([
-            oos_has_bracelet(state, player)
-        ])],
-        ["moblin keep", "sunken city", False, lambda state: oos_can_warp(state, player)],
-
-        ["natzu east (ricky)", "natzu river bank", True, lambda state: oos_can_summon_ricky(state, player)],
-        ["natzu east (moosh)", "natzu river bank", True, lambda state: oos_is_companion_moosh(state, player)],
-        ["natzu east (dimitri)", "natzu river bank", True, lambda state: oos_is_companion_dimitri(state, player)],
-        ["natzu river bank", "goron mountain entrance", True, lambda state: oos_can_swim(state, player, True)],
-
-        # SUNKEN CITY ############################################################################################
-
-        ["sunken city", "sunken city tree", False, lambda state: all([
-            any([
-                oos_has_feather(state, player),
-                oos_has_flippers(state, player),
-                oos_can_summon_dimitri(state, player),
-                oos_get_default_season(state, player, "SUNKEN_CITY") == "winter"
-            ]),
-            oos_can_harvest_tree(state, player, True)
-        ])],
-
-        ["sunken city", "sunken city dimitri", False, lambda state: any([
-            oos_can_summon_dimitri(state, player),
-            all([
-                oos_has_bombs(state, player),
+                ooa_option_medium_logic(state, player),
                 any([
-                    oos_has_feather(state, player),
-                    oos_has_flippers(state, player),
-                    oos_get_default_season(state, player, "SUNKEN_CITY") == "winter"
+                    ooa_has_shield(state, player),
+                    ooa_has_boomerang(state, player),
+                    ooa_has_switch_hook(state, player),
+                ])
+            ]),
+            all([
+                ooa_option_hard_logic(state, player),
+                any([
+                    ooa_has_scent_seeds(state, player),
+                    ooa_has_shovel(state, player),
                 ])
             ])
         ])],
+        ["patch", "patch tuni nut ceremony", False, lambda state: state.has("Cracked Tuni Nut", player)],
+        ["patch", "patch broken sword ceremony", False, lambda state: state.has("Broken Sword", player)],
 
-        ["sunken city", "ingo trade", False, lambda state: any([
-            state.has("Goron Vase", player),
-            oos_self_locking_item(state, player, "ingo trade", "Goron Vase")
-        ])],
-        ["sunken city", "syrup trade", False, lambda state: all([
-            any([
-                oos_get_default_season(state, player, "SUNKEN_CITY") == "winter",
-                all([
-                    oos_has_winter(state, player),
-                    any([
-                        oos_can_swim(state, player, True),
-                        state.has("_saved_dimitri_in_sunken_city", player)
-                    ])
-                ])
-            ]),
-            state.has("Mushroom", player)
-        ])],
-        ["syrup trade", "syrup shop", False, lambda state: oos_has_rupees(state, player, 800)],
-
-        # Use Dimitri to get the tree seeds, using dimitri to get seeds being medium difficulty
-        ["sunken city dimitri", "sunken city tree", False,lambda state: all([
-            oos_option_medium_logic(state, player),
-            oos_can_use_seeds(state, player)
-        ])],
-
-        ["sunken city dimitri", "master diver's challenge", False, lambda state: all([
-            oos_has_sword(state, player, False),
-            any([
-                oos_has_feather(state, player),
-                oos_has_flippers(state, player)
-            ])
-        ])],
-
-        ["sunken city dimitri", "master diver's reward", False, lambda state: any([
-            state.has("Master's Plaque", player),
-            oos_self_locking_item(state, player, "master diver's reward", "Master's Plaque")
-        ])],
-        ["sunken city dimitri", "chest in master diver's cave", False, None],
-
-        ["sunken city", "sunken city, summer cave", False, lambda state: all([
-            any([
-                oos_get_default_season(state, player, "SUNKEN_CITY") == "summer",
-                oos_has_summer(state, player)
-            ]),
-            oos_has_flippers(state, player),
-            oos_can_break_bush(state, player, False)
-        ])],
-
-        ["mount cucco", "sunken city", False, lambda state: oos_has_flippers(state, player)],
-        ["sunken city", "mount cucco", False, lambda state: all([
-            oos_has_flippers(state, player),
-            oos_season_in_sunken_city(state, player, "summer")
-        ])],
-
-        # MT. CUCCO / GORON MOUNTAINS ##############################################################################
-
-        ["mount cucco", "mt. cucco portal", True, None],
-
-        ["mount cucco", "rightmost rooster ledge", False, lambda state: all([
-            any([  # to reach the rooster
-                all([
-                    oos_season_in_mt_cucco(state, player, "spring"),
-                    any([
-                        oos_can_break_flowers(state, player, False),
-                        # Moosh can break flowers one way, but it won't be of any help when coming back so we need
-                        # to be able to warp out
-                        state.has("Spring Banana", player) and oos_can_warp(state, player),
-                    ])
+        # ROLLING RIDGE WEST
+        #######################################
+        ["lynna village", "old zora", False, lambda state: any([
+            ooa_can_switch_past_and_present(state, player),
+            all([
+                ooa_can_jump_1_wide_pit(state, player, False),
+                any([
+                    ooa_can_jump_3_wide_pit(state, player, False),
+                    ooa_has_switch_hook(state, player),
+                    ooa_can_swim_deepwater(state, player, False),
                 ]),
-                oos_option_hard_logic(state, player) and oos_can_warp(state, player),
             ]),
-            oos_has_bracelet(state, player),  # to grab the rooster
         ])],
-
-        ["rightmost rooster ledge", "mt. cucco, platform cave", False, None],
-        ["rightmost rooster ledge", "spring banana tree", False, lambda state: all([
-            oos_has_feather(state, player),
-            oos_season_in_mt_cucco(state, player, "spring"),
-            any([  # can harvest tree
-                oos_has_sword(state, player),
-                oos_has_fools_ore(state, player)
-            ])
-        ])],
-
-        ["mount cucco", "mt. cucco, talon's cave entrance", False, lambda state: \
-            oos_season_in_mt_cucco(state, player, "spring")],
-
-        ["mt. cucco, talon's cave entrance", "talon trade", False, lambda state: state.has("Megaphone", player)],
-        ["talon trade", "mt. cucco, talon's cave", False, None],
-
-        ["mt. cucco, talon's cave entrance", "mt. cucco heart piece", False, None],
-
-        ["mt. cucco, talon's cave entrance", "diving spot outside D4", False, lambda state: oos_has_flippers(state, player)],
-
-        ["mt. cucco, talon's cave entrance", "dragon keyhole", False, lambda state: all([
-            oos_has_winter(state, player),  # to reach cave
-            oos_has_feather(state, player),  # to jump in cave
-            oos_has_bracelet(state, player)  # to grab the rooster
-        ])],
-
-        ["dragon keyhole", "d4 entrance", False, lambda state: all([
-            state.has("Dragon Key", player),
-            oos_has_summer(state, player)
-        ])],
-
-        ["mount cucco", "goron mountain, across pits", False, lambda state: any([
-            state.has("Spring Banana", player),
-            oos_can_jump_4_wide_pit(state, player),
-        ])],
-
-        ["mount cucco", "goron blocked cave entrance", False, lambda state: any([
-                oos_can_remove_snow(state, player, False),
-                state.has("Spring Banana", player)
-        ])],
-        ["goron blocked cave entrance", "mount cucco", False, lambda state: \
-            oos_can_remove_snow(state, player, False)],
-
-        ["goron blocked cave entrance", "goron mountain", True, lambda state: oos_has_bracelet(state, player)],
-
-        ["goron blocked cave entrance", "goron's gift", False, lambda state: oos_has_bombs(state, player)],
-
-        ["goron mountain", "biggoron trade", False, lambda state: all([
-            oos_can_jump_1_wide_liquid(state, player, False),
+        ["lynna village", "ridge west past base", True, lambda state: all([
             any([
-                state.has("Lava Soup", player),
-                oos_self_locking_item(state, player, "biggoron trade", "Lava Soup")
-            ])
-        ])],
-
-        ["goron mountain", "chest in goron mountain", False, lambda state: all([
-            oos_has_bombs(state, player),
-            oos_can_jump_3_wide_liquid(state, player)
-        ])],
-        ["goron mountain", "old man in goron mountain", False, lambda state: \
-            oos_can_use_ember_seeds(state, player, False)],
-
-        ["goron mountain entrance", "goron mountain", True, lambda state: any([
-            oos_has_flippers(state, player),
-            oos_can_jump_4_wide_liquid(state, player),
-        ])],
-
-        ["goron mountain entrance", "temple remains lower stump", True, lambda state: \
-            oos_can_jump_3_wide_pit(state, player)],
-
-        # TARM RUINS ###############################################################################################
-
-        ["spool swamp north", "tarm ruins", False, lambda state: oos_has_required_jewels(state, player)],
-
-        ["tarm ruins", "lost woods stump", False, lambda state: all([
-            oos_has_summer(state, player),
-            oos_has_winter(state, player),
-            oos_has_autumn(state, player),
-            oos_can_break_mushroom(state, player, False)
-        ])],
-
-        ["lost woods stump", "lost woods", False, lambda state: oos_can_reach_lost_woods_pedestal(state, player)],
-
-        ["lost woods stump", "d6 sector", False, lambda state: all([
-            oos_has_winter(state, player),
-            oos_has_autumn(state, player),
-            oos_has_spring(state, player),
-            oos_has_summer(state, player),
-        ])],
-
-        ["d6 sector", "tarm ruins tree", False, lambda state: oos_can_harvest_tree(state, player, False)],
-        ["d6 sector", "tarm ruins, under tree", False, lambda state: all([
-            oos_season_in_tarm_ruins(state, player, "autumn"),
-            oos_can_break_mushroom(state, player, False),
-            oos_can_use_ember_seeds(state, player, False)
-        ])],
-
-        ["d6 sector", "d6 entrance", False, lambda state: all([
-            oos_season_in_tarm_ruins(state, player, "winter"),
+                ooa_can_switch_past_and_present(state, player),
+                ooa_can_jump_1_wide_pit(state, player, False),
+            ]),
             any([
-                oos_has_shovel(state, player),
-                oos_can_use_ember_seeds(state, player, False)
+                ooa_can_jump_3_wide_pit(state, player, False),
+                ooa_has_switch_hook(state, player),
             ]),
-            oos_season_in_tarm_ruins(state, player, "spring"),
-            oos_can_break_flowers(state, player, False)
         ])],
-        ["d6 entrance", "old man near d6", False, lambda state: oos_can_use_ember_seeds(state, player, False)],
-
-        # SAMASA DESERT ######################################################################################
-
-        ["suburbs", "samasa desert", False, lambda state: state.has("_met_pirates", player)],
-        ["samasa desert", "samasa desert pit", False, lambda state: oos_has_bracelet(state, player)],
-        ["samasa desert", "samasa desert chest", False, lambda state: oos_has_flippers(state, player)],
-
-        # TEMPLE REMAINS ####################################################################################
-
-        ["temple remains lower stump", "temple remains upper stump", False, lambda state: any([
-            all([  # Winter rule
-                oos_season_in_temple_remains(state, player, "winter"),
-                oos_can_remove_snow(state, player, False),
-                oos_can_break_bush(state, player, False),
-                oos_can_jump_6_wide_pit(state, player)
-            ]),
-            all([  # Summer rule
-                oos_season_in_temple_remains(state, player, "summer"),
-                oos_can_break_bush(state, player, False),
-                oos_can_jump_6_wide_pit(state, player)
-            ]),
-            all([  # Spring rule
-                oos_season_in_temple_remains(state, player, "spring"),
-                oos_can_break_flowers(state, player, False),
-                oos_can_break_bush(state, player, False),
-                oos_can_jump_6_wide_pit(state, player)
-            ]),
-            all([  # Autumn rule
-                oos_season_in_temple_remains(state, player, "autumn"),
-                oos_can_break_bush(state, player)
-            ])
+        ["ridge west past base", "goron elder", False, lambda state: state.has("Bomb Flower", player)],
+        ["ridge west present", "ridge west past", False, lambda state: ooa_can_open_portal(state, player)],
+        ["goron elder", "ridge west past", False, None],
+        ["ridge west past", "ridge west past base", False, None],
+        ["ridge west past", "ridge west tree", False, lambda state: ooa_can_harvest_tree(state, player, False)],
+        #########
+        ["ridge west past", "ridge west present", False, lambda state: ooa_can_go_back_to_present(state, player)],
+        ["ridge upper present", "ridge west present", False, None],
+        ["ridge west present", "goron's hiding place", False, lambda state: ooa_has_bombs(state, player)],
+        ["ridge west present", "ridge base chest", False, None],
+        ["ridge west present", "ridge west cave", False, None],
+        ["ridge west present", "under moblin keep", False, lambda state: all([
+            ooa_can_jump_1_wide_pit(state,player, False),
+            ooa_can_swim(state, player, False),
         ])],
-        ["temple remains upper stump", "temple remains lower stump", False, lambda state: any([
-            # Winter rule
-            oos_season_in_temple_remains(state, player, "winter"),
-            all([  # Summer rule
-                oos_season_in_temple_remains(state, player, "summer"),
-                oos_can_break_bush(state, player, False),
-                oos_can_jump_6_wide_pit(state, player)
-            ]),
-            all([  # Spring rule
-                oos_season_in_temple_remains(state, player, "spring"),
-                oos_can_break_flowers(state, player, False),
-                oos_can_break_bush(state, player, False),
-                oos_can_jump_6_wide_pit(state, player)
-            ]),
-            all([  # Autumn rule
-                oos_season_in_temple_remains(state, player, "autumn"),
-                oos_can_break_bush(state, player)
-            ])
+        ["ridge west present", "defeat great moblin", False, lambda state: all([
+            ooa_can_use_pegasus_seeds(state,player),
+            ooa_has_bracelet(state, player),
         ])],
-
-        ["temple remains upper stump", "temple remains lower portal", False, lambda state: all([
-            oos_season_in_temple_remains(state, player, "winter"),
-            oos_can_jump_1_wide_pit(state, player, False)
+        
+        # ROLLING UPPER
+        #######################################
+        ["defeat great moblin", "ridge upper present", False, lambda state: ooa_can_jump_2_wide_pit(state, player, False)],
+        ["ridge upper past", "ridge upper present", False, lambda state: ooa_can_go_back_to_present(state, player)],
+        ["ridge upper present", "d5 entrance", False, lambda state: state.has("Crown Key", player)],
+        ["ridge mid present", "ridge NE cave present", True, None],
+        ["ridge base present", "ridge upper past", True, lambda state: ooa_has_switch_hook(state, player)],
+        #####
+        ["ridge upper present", "ridge upper past", False, lambda state: ooa_can_switch_past_and_present(state, player)],
+        ["ridge upper present", "treasure hunting goron", False, lambda state: all([
+            ooa_has_bombs(state, player),
+            ooa_has_ember_seeds(state, player),
+            ooa_can_open_portal(state, player),
+            ooa_has_bracelet(state, player)
         ])],
-
-        ["temple remains lower portal", "temple remains upper stump", False, lambda state: any([
-            # Portal can be escaped only if default season is winter or if volcano erupted
+        ["ridge upper past", "bomb goron head", False, lambda state: ooa_has_bombs(state, player)],
+        
+        # ROLLING BASE
+        #######################################
+        ["ridge upper present", "ridge base present", True, None],
+        ["ridge base past east", "ridge base present", False, lambda state: ooa_can_go_back_to_present(state, player)],
+        ["ridge base past west", "ridge base present", False, lambda state: ooa_can_go_back_to_present(state, player)],
+        ["ridge base present", "d6 present entrance", False, lambda state: state.has("Old Mermaid Key", player)],
+        ["ridge base present", "pool in d6 entrance", False, lambda state: ooa_can_dive(state, player)],
+        ["ridge base present", "trade rock brisket", False, lambda state: state.has("Rock Brisket", player) and state.has("Brother Emblem", player)],
+        ["ridge base present", "first goron dance", False, lambda state: ooa_has_rupees(state, player, 10)],
+        #########
+        ["ridge base present", "ridge base past west", False, lambda state: any([
+            ooa_can_switch_past_and_present(state, player),
             all([
-                oos_get_default_season(state, player, "TEMPLE_REMAINS") == "winter",
-                oos_can_jump_1_wide_pit(state, player, False)
-            ]),
-            all([
-                state.has("_triggered_volcano", player),
-                oos_can_jump_2_wide_liquid(state, player)
-            ]),
-        ])],
-        ["temple remains lower portal", "temple remains lower stump", False, lambda state: \
-            # There is an added ledge in rando that enables jumping from the portal down to the stump, whatever
-            # the season is, but it is a risky action so we ask for the player to be able to warp back
-            oos_can_warp(state, player)],
-
-        ["temple remains lower stump", "temple remains heart piece", False, lambda state: all([
-            state.has("_triggered_volcano", player),
-            oos_can_jump_2_wide_liquid(state, player),
-            oos_can_remove_rockslide(state, player, False),
-        ])],
-
-        ["temple remains lower stump", "temple remains upper portal", False, lambda state: all([
-            state.has("_triggered_volcano", player),
-            oos_season_in_temple_remains(state, player, "summer"),
-            oos_can_jump_2_wide_liquid(state, player),
-            any([
-                oos_has_magnet_gloves(state, player),
-                oos_can_jump_6_wide_pit(state, player)
+                ooa_can_open_portal(state, player),
+                ooa_can_break_bush(state, player)
             ])
         ])],
-        ["temple remains upper portal", "temple remains lower stump", False, lambda state: all([
-            state.has("_triggered_volcano", player),
-            oos_can_jump_1_wide_liquid(state, player, False)
-        ])],
-
-        ["temple remains upper portal", "temple remains upper stump", False, lambda state: \
-            oos_can_jump_1_wide_pit(state, player, False)],
-
-        ["temple remains upper portal", "temple remains lower portal", False, lambda state: \
-            oos_get_default_season(state, player, "TEMPLE_REMAINS") == "winter"],
-
-
-        # ONOX CASTLE #############################################################################################
-
-        ["maku tree", "maku seed", False, lambda state: oos_has_essences_for_maku_seed(state, player)],
-        ["maku tree", "maku tree, 3 essences", False, lambda state: oos_has_essences(state, player, 3)],
-        ["maku tree", "maku tree, 5 essences", False, lambda state: oos_has_essences(state, player, 5)],
-        ["maku tree", "maku tree, 7 essences", False, lambda state: oos_has_essences(state, player, 7)],
-
-        ["north horon", "d9 entrance", False, lambda state: state.has("Maku Seed", player)],
-        ["d9 entrance", "onox beaten", False, lambda state: all([
-            oos_can_kill_armored_enemy(state, player),
-            oos_has_bombs(state, player),
-            oos_has_sword(state, player, False),
-            oos_has_feather(state, player),
+        ["lynna village", "ridge base past west", True, lambda state: all([
+            ooa_can_swim_deepwater(state, player, False),
             any([
-                oos_option_hard_logic(state, player),
-                oos_has_rod(state, player)
+                ooa_can_jump_1_wide_pit(state, player, False),
+                ooa_can_switch_past_and_present(state, player)
             ])
         ])],
-
-        ["onox beaten", "ganon beaten", False, lambda state: all([
-            oos_has_sword(state, player, False),
-            oos_has_slingshot(state, player),
-            oos_can_use_ember_seeds(state, player, True),
+        ["ridge base past west", "ridge diamonds past", False, lambda state: ooa_has_switch_hook(state, player)],
+        ["ridge base past west", "d6 past entrance", False, lambda state: all([
+            ooa_can_swim(state, player, False),
+            state.has("Mermaid Key", player)
         ])],
-
-        # GOLDEN BEASTS #############################################################################################
-
-        ["d0 entrance", "golden darknut", False, lambda state: all([
-            oos_season_in_western_coast(state, player, "spring"),
+        #########
+        ["ridge base past west", "ridge base past east", True, lambda state: ooa_can_swim(state, player, False)],
+        ["ridge base past east", "first goron dance", False, lambda state: ooa_has_rupees(state, player, 10)],
+        ["ridge base past east", "goron dance, with letter", False, lambda state: ooa_has_rupees(state, player, 10) and state.has("Letter of Introduction", player)],
+        ["ridge base past east", "trade goron vase", False, lambda state: state.has("Goron Vase", player) and state.has("Brother Emblem", player)],
+        #["ridge base past east", "rolling ridge past old man", False, lambda state: ooa_can_use_ember_seeds(state, player, False)],
+        
+        # ROLLING MID
+        #######################################
+        ["ridge base present", "ridge mid present", True, lambda state: all([
+            state.has("Brother Emblem", player),
             any([
-                oos_has_sword(state, player),
-                oos_has_fools_ore(state, player)
+                ooa_has_switch_hook(state, player),
+                ooa_can_jump_3_wide_pit(state, player, False),
             ])
         ])],
-        ["tarm ruins", "golden lynel", False, lambda state: all([
-            oos_season_in_lost_woods(state, player, "summer"),
-            oos_season_in_lost_woods(state, player, "winter"),
+        ["ridge mid past", "ridge mid present", False, lambda state: ooa_can_go_back_to_present(state, player)],
+        ["ridge mid present", "target carts", True, lambda state: all([
+            ooa_has_switch_hook(state, player),
+            state.has("_access_cart", player),
+        ])],
+        ["goron shooting gallery", "target carts", False, lambda state: ooa_can_go_back_to_present(state, player)],
+        ["target carts", "target carts 1", True, lambda state: all([
+            ooa_has_seedshooter(state, player),
             any([
-                oos_has_sword(state, player),
-                oos_has_fools_ore(state, player)
+                ooa_has_ember_seeds(state, player),
+                ooa_has_mystery_seeds(state, player),
+                ooa_has_pegasus_seeds(state, player),
+                ooa_has_scent_seeds(state, player),
             ])
         ])],
-        ["d2 entrance", "golden moblin", False, lambda state: all([
-            oos_season_in_central_woods_of_winter(state, player, "autumn"),
-            any([
-                oos_has_sword(state, player),
-                oos_has_fools_ore(state, player)
-            ])
+        ["target carts 1", "target carts 2", True, lambda state: None],
+        ["ridge mid present", "big bang game", True, lambda state: lambda state: state.has("Goronade", player)],
+        ["ridge mid present", "goron diamond cave", True, lambda state: any([
+            ooa_has_switch_hook(state, player),
+            ooa_can_jump_3_wide_pit(state, player, False),
         ])],
-        ["spool swamp south (summer)", "golden octorok", False, lambda state: any([
-            oos_has_sword(state, player),
-            oos_has_fools_ore(state, player)
+        #########
+        ["ridge mid present", "ridge mid past", False, lambda state: ooa_can_switch_past_and_present(state, player)],
+        ["ridge base past east", "ridge mid past", False, lambda state: all([
+            state.has("Brother Emblem", player),
+            ooa_can_jump_2_wide_pit(state, player, False),
         ])],
+        ["ridge mid past", "ridge move vine seed", False, lambda state: ooa_has_switch_hook(state, player)],
+        ["target carts", "goron shooting gallery", False, lambda state: all([
+            ooa_can_open_portal(state, player),
+            ooa_has_bracelet(state, player),
+        ])],
+        ["ridge mid present", "goron shooting gallery", False, lambda state: ooa_can_switch_past_and_present(state, player)],
+        ["ridge mid past", "ridge east tree", False, lambda state: all([
+            ooa_can_harvest_tree(state, player, False),
+            ooa_can_warp_using_gale_seeds(state, player),
+        ])],
+        ["goron shooting gallery", "ridge east tree", False, lambda state: ooa_can_harvest_tree(state, player, False)],
+        ["ridge mid past", "trade lava juice", False, lambda state: state.has("Lava Juice", player)],
+        ["ridge mid past", "ridge bush cave", False, lambda state: ooa_has_switch_hook(state, player)],
+        
+
+
+        # ZORA VILLAGE
+        #######################################
+        ["lynna city", "zora village", True, lambda state: all([
+            ooa_can_dive(state, player),
+            ooa_has_switch_hook(state, player),
+            ooa_can_switch_past_and_present(state, player),
+        ])],
+        ["zora village", "zora village tree", False, lambda state: ooa_can_harvest_tree(state, player, False)],
+        ["zora village", "zora village present", False, None],
+        ["zora village", "zora palace chest", False, None],
+        ["zora village", "zora NW cave", False, lambda state: all([
+            ooa_has_bombs(state, player),
+            ooa_has_glove(state, player),
+        ])],
+        ["zora village", "fairies' coast chest", False, None],
+        ["zora village", "library present", False, lambda state: state.has("Library Key", player)],
+        ["library present", "library past", False, lambda state: state.has("Book of Seals", player)],
+        ["zora village", "zora seas chest", False, lambda state: state.has("Fairy Powder", player)],
+        ["zora village", "d7 entrance", False, lambda state: all([
+            state.has("Fairy Powder", player),
+            state.has("Potion", player)
+        ])],
+        ["zora village", "fisher's island cave", False, lambda state: ooa_has_long_hook(state, player)],
+        ["d7 boss", "zora's reward", False, None],
+        
+        # SEA OF NO RETURN
+        #######################################
+        ["lynna city", "piratian captain", False, lambda state: all([
+            ooa_can_dive(state, player),
+            state.has("Zora Scale", player),
+        ])],
+        ["piratian captain", "sea of storms past", False, None],
+        ["crescent past west", "d8 entrance", False, lambda state: all([
+            state.has("Tokey Eyeball", player),
+            ooa_can_break_pot(state, player),
+            ooa_can_dive(state, player),
+            ooa_has_bombs(state, player),
+            ooa_can_jump_1_wide_pit(state, player, False),
+            ooa_can_kill_normal_enemy(state, player),
+        ])],
+        ["d8 entrance", "sea of no return", False, lambda state: ooa_has_glove(state, player)],
+
     ]

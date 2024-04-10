@@ -21,33 +21,21 @@ ITEMS_DATA = {
         'classification': ItemClassification.progression,
         'id': 0x05
     },
-    "Progressive Boomerang": {
+    "Boomerang": {
         'classification': ItemClassification.progression,
         'id': 0x06
     },
-    "Rod of Seasons (Spring)": {
+    "Progressive Harp": {
         'classification': ItemClassification.progression,
         'id': 0x07,
-        'subid': 0x02
     },
-    "Rod of Seasons (Summer)": {
-        'classification': ItemClassification.progression,
-        'id': 0x07,
-        'subid': 0x03
-    },
-    "Rod of Seasons (Autumn)": {
-        'classification': ItemClassification.progression,
-        'id': 0x07,
-        'subid': 0x04
-    },
-    "Rod of Seasons (Winter)": {
-        'classification': ItemClassification.progression,
-        'id': 0x07,
-        'subid': 0x05
-    },
-    "Magnetic Gloves": {
+    "Progressive Hook": {
         'classification': ItemClassification.progression,
         'id': 0x08
+    },
+    "Cane of Somaria": {
+        'classification': ItemClassification.progression,
+        'id': 0x09
     },
     "Biggoron's Sword": {
         'classification': ItemClassification.progression,
@@ -72,7 +60,7 @@ ITEMS_DATA = {
         'id': 0x0e,
         'subid': 0x02
     },
-    "Progressive Slingshot": {
+    "Seed Shooter": {
         'classification': ItemClassification.progression,
         'id': 0x13
     },
@@ -80,21 +68,17 @@ ITEMS_DATA = {
         'classification': ItemClassification.progression,
         'id': 0x15
     },
-    "Power Bracelet": {
+    "Progressive Bracelet": {
         'classification': ItemClassification.progression,
         'id': 0x16
     },
-    "Progressive Feather": {
+    "Feather": {
         'classification': ItemClassification.progression,
         'id': 0x17
     },
     "Seed Satchel": {
         'classification': ItemClassification.progression,
         'id': 0x19
-    },
-    "Fool's Ore": {
-        'classification': ItemClassification.useful,
-        'id': 0x1e
     },
     "Ember Seeds": {
         'classification': ItemClassification.progression,
@@ -156,10 +140,6 @@ ITEMS_DATA = {
         'id': 0x28,
         'subid': 0x08
     },
-    "Ore Chunks (50)": {
-        'classification': ItemClassification.progression_skip_balancing,
-        'id': 0x37
-    },
     "Heart Container": {
         'classification': ItemClassification.useful,
         'id': 0x2a
@@ -169,12 +149,7 @@ ITEMS_DATA = {
         'id': 0x2b,
         'subid': 0x01
     },
-    "Rare Peach Stone": {
-        'classification': ItemClassification.useful,
-        'id': 0x2b,
-        'subid': 0x02
-    },
-    "Flippers": {
+    "Progressive Flippers": {
         'classification': ItemClassification.progression,
         'id': 0x2e
     },
@@ -183,222 +158,227 @@ ITEMS_DATA = {
         'id': 0x2f
     },
 
-    "Small Key (Hero's Cave)": {
+    "Small Key (Maku Path)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x00
     },
-    "Small Key (Gnarled Root Dungeon)": {
+    "Small Key (Spirit's Grave)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x01
     },
-    "Small Key (Snake's Remains)": {
+    "Small Key (Wing Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x02
     },
-    "Small Key (Poison Moth's Lair)": {
+    "Small Key (Moonlit Grotto)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x03
     },
-    "Small Key (Dancing Dragon Dungeon)": {
+    "Small Key (Skull Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x04
     },
-    "Small Key (Unicorn's Cave)": {
+    "Small Key (Crown Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x05
     },
-    "Small Key (Ancient Ruins)": {
+    "Small Key (Mermaid's Cave Past)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x06
     },
-    "Small Key (Explorer's Crypt)": {
+    "Small Key (Mermaid's Cave Present)": {
+        'classification': ItemClassification.progression,
+        'id': 0x30,
+        'subid': 0x09
+    },
+    "Small Key (Jabu-Jabu's Belly)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x07
     },
-    "Small Key (Sword & Shield Dungeon)": {
+    "Small Key (Ancient Tomb)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
-        'subid': 0x07
+        'subid': 0x08
     },
-    "Master Key (Hero's Cave)": {
+    "Master Key (Maku Path)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x00
     },
-    "Master Key (Gnarled Root Dungeon)": {
+    "Master Key (Spirit's Grave)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x01
     },
-    "Master Key (Snake's Remains)": {
+    "Master Key (Wing Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x02
     },
-    "Master Key (Poison Moth's Lair)": {
+    "Master Key (Moonlit Grotto)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x03
     },
-    "Master Key (Dancing Dragon Dungeon)": {
+    "Master Key (Skull Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x04
     },
-    "Master Key (Unicorn's Cave)": {
+    "Master Key (Crown Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x05
     },
-    "Master Key (Ancient Ruins)": {
+    "Master Key (Mermaid's Cave)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x06
     },
-    "Master Key (Explorer's Crypt)": {
+    "Master Key (Jabu-Jabu's Belly)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x07
     },
-    "Master Key (Sword & Shield Dungeon)": {
+    "Master Key (Ancient Tomb)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
         'subid': 0x07
     },
-    "Boss Key (Gnarled Root Dungeon)": {
+    "Boss Key (Spirit's Grave)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
         'subid': 0x00
     },
-    "Boss Key (Snake's Remains)": {
+    "Boss Key (Wing Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
         'subid': 0x01
     },
-    "Boss Key (Poison Moth's Lair)": {
+    "Boss Key (Moonlit Grotto)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
         'subid': 0x02
     },
-    "Boss Key (Dancing Dragon Dungeon)": {
+    "Boss Key (Skull Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
         'subid': 0x03
     },
-    "Boss Key (Unicorn's Cave)": {
+    "Boss Key (Crown Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
         'subid': 0x04
     },
-    "Boss Key (Ancient Ruins)": {
+    "Boss Key (Mermaid's Cave)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
         'subid': 0x05
     },
-    "Boss Key (Explorer's Crypt)": {
+    "Boss Key (Jabu-Jabu's Belly)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
         'subid': 0x06
     },
-    "Boss Key (Sword & Shield Dungeon)": {
+    "Boss Key (Ancient Tomb)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
         'subid': 0x07
     },
-    "Compass (Hero's Cave)": {
-        'classification': ItemClassification.useful,
-        'id': 0x32,
-        'subid': 0x00
-    },
-    "Compass (Gnarled Root Dungeon)": {
+    "Compass (Spirit's Grave)": {
         'classification': ItemClassification.useful,
         'id': 0x32,
         'subid': 0x01
     },
-    "Compass (Snake's Remains)": {
+    "Compass (Wing Dungeon)": {
         'classification': ItemClassification.useful,
         'id': 0x32,
         'subid': 0x02
     },
-    "Compass (Poison Moth's Lair)": {
+    "Compass (Moonlit Grotto)": {
         'classification': ItemClassification.useful,
         'id': 0x32,
         'subid': 0x03
     },
-    "Compass (Dancing Dragon Dungeon)": {
+    "Compass (Skull Dungeon)": {
         'classification': ItemClassification.useful,
         'id': 0x32,
         'subid': 0x04
     },
-    "Compass (Unicorn's Cave)": {
+    "Compass (Crown Dungeon)": {
         'classification': ItemClassification.useful,
         'id': 0x32,
         'subid': 0x05
     },
-    "Compass (Ancient Ruins)": {
+    "Compass (Mermaid's Cave Past)": {
         'classification': ItemClassification.useful,
         'id': 0x32,
         'subid': 0x06
     },
-    "Compass (Explorer's Crypt)": {
+    "Compass (Mermaid's Cave Present)": {
+        'classification': ItemClassification.useful,
+        'id': 0x32,
+        'subid': 0x09
+    },
+    "Compass (Jabu-Jabu's Belly)": {
         'classification': ItemClassification.useful,
         'id': 0x32,
         'subid': 0x07
     },
-    "Compass (Sword & Shield Dungeon)": {
+    "Compass (Ancient Tomb)": {
         'classification': ItemClassification.useful,
         'id': 0x32,
         'subid': 0x08
     },
-    "Dungeon Map (Hero's Cave)": {
-        'classification': ItemClassification.useful,
-        'id': 0x33,
-        'subid': 0x00
-    },
-    "Dungeon Map (Gnarled Root Dungeon)": {
+    "Dungeon Map (Spirit's Grave)": {
         'classification': ItemClassification.useful,
         'id': 0x33,
         'subid': 0x01
     },
-    "Dungeon Map (Snake's Remains)": {
+    "Dungeon Map (Wing Dungeon)": {
         'classification': ItemClassification.useful,
         'id': 0x33,
         'subid': 0x02
     },
-    "Dungeon Map (Poison Moth's Lair)": {
+    "Dungeon Map (Moonlit Grotto)": {
         'classification': ItemClassification.useful,
         'id': 0x33,
         'subid': 0x03
     },
-    "Dungeon Map (Dancing Dragon Dungeon)": {
+    "Dungeon Map (Skull Dungeon)": {
         'classification': ItemClassification.useful,
         'id': 0x33,
         'subid': 0x04
     },
-    "Dungeon Map (Unicorn's Cave)": {
+    "Dungeon Map (Crown Dungeon)": {
         'classification': ItemClassification.useful,
         'id': 0x33,
         'subid': 0x05
     },
-    "Dungeon Map (Ancient Ruins)": {
+    "Dungeon Map (Mermaid's Cave Past)": {
         'classification': ItemClassification.useful,
         'id': 0x33,
         'subid': 0x06
     },
-    "Dungeon Map (Explorer's Crypt)": {
+    "Dungeon Map (Mermaid's Cave Present)": {
+        'classification': ItemClassification.useful,
+        'id': 0x33,
+        'subid': 0x09
+    },
+    "Dungeon Map (Jabu-Jabu's Belly)": {
         'classification': ItemClassification.useful,
         'id': 0x33,
         'subid': 0x07
     },
-    "Dungeon Map (Sword & Shield Dungeon)": {
+    "Dungeon Map (Ancient Tomb)": {
         'classification': ItemClassification.useful,
         'id': 0x33,
         'subid': 0x08
@@ -415,130 +395,145 @@ ITEMS_DATA = {
     #         'id': 0x36
     #     },
 
-    "Cuccodex": {
+    "Poe Clock": {
         'classification': ItemClassification.progression,
         'id': 0x55
     },
-    "Lon Lon Egg": {
+    "Stationery": {
         'classification': ItemClassification.progression,
         'id': 0x56
     },
-    "Ghastly Doll": {
+    "Stink Bag": {
         'classification': ItemClassification.progression,
         'id': 0x57
     },
-    "Iron Pot": {
+    "Tasty Meat": {
         'classification': ItemClassification.progression,
         'id': 0x35
     },
-    "Lava Soup": {
+    "Doggie Mask": {
         'classification': ItemClassification.progression,
         'id': 0x38
     },
-    "Goron Vase": {
+    "Dumbbell": {
         'classification': ItemClassification.progression,
         'id': 0x39
     },
-    "Fish": {
+    "Cheesy Mustache": {
         'classification': ItemClassification.progression,
         'id': 0x3a
     },
-    "Megaphone": {
+    "Funny Joke": {
         'classification': ItemClassification.progression,
         'id': 0x3b
     },
-    "Mushroom": {
+    "Touching Book": {
         'classification': ItemClassification.progression,
         'id': 0x3c
     },
-    "Wooden Bird": {
+    "Magic Oar": {
         'classification': ItemClassification.progression,
         'id': 0x3d
     },
-    "Engine Grease": {
+    "Sea Ukulele": {
         'classification': ItemClassification.progression,
         'id': 0x3e
     },
-    "Phonograph": {
+    "Broken Sword": {
          'classification': ItemClassification.progression,
          'id': 0x3f
     },
 
-    "Gnarled Key": {
+    "Bomb Flower": {
+        'classification': ItemClassification.progression,
+        'id': 0x49
+    },
+    "Book of Seals": {
         'classification': ItemClassification.progression,
         'id': 0x42
     },
-    "Floodgate Key": {
+    "Brother Emblem": {
         'classification': ItemClassification.progression,
         'id': 0x43
     },
-    "Dragon Key": {
+    "Cheval Rope": {
         'classification': ItemClassification.progression,
         'id': 0x44
     },
-    "Star Ore": {
+    "Crown Key": {
         'classification': ItemClassification.progression,
         'id': 0x45
     },
-    "Ribbon": {
+    "Fairy Powder": {
         'classification': ItemClassification.progression,
         'id': 0x46
     },
-    "Spring Banana": {
+    "Goron Vase": {
         'classification': ItemClassification.progression,
         'id': 0x47
     },
-    #   "ricky's gloves": {
-    #       'classification': ItemClassification.progression,
-    #       'pretty_name': "Ricky's Gloves",
-    #       'id': 0x48
-    #   },
-    "Rusty Bell": {
+    "Goronade": {
         'classification': ItemClassification.progression,
         'id': 0x4a
     },
-    "Pirate's Bell": {
+    "Graveyard Key": {
         'classification': ItemClassification.progression,
         'id': 0x4a,
         'subid': 0x02
     },
-    "Treasure Map": {
+    "Island Chart": {
         'classification': ItemClassification.useful,
         'id': 0x4b
     },
-    "Round Jewel": {
+    "Lava Juice": {
         'classification': ItemClassification.progression,
         'id': 0x4c
     },
-    "Pyramid Jewel": {
+    "Letter of Introduction": {
         'classification': ItemClassification.progression,
         'id': 0x4d
     },
-    "Square Jewel": {
+    "Library Key": {
         'classification': ItemClassification.progression,
         'id': 0x4e
     },
-    "X-Shaped Jewel": {
+    "Mermaid Key": {
         'classification': ItemClassification.progression,
         'id': 0x4f
     },
-    "Red Ore": {
+    "Old Mermaid Key": {
         'classification': ItemClassification.progression,
         'id': 0x50
     },
-    "Blue Ore": {
+    "Ricky's Gloves": {
+        'classification': ItemClassification.progression,
+        'id': 0x48
+    },
+    "Rock Brisket": {
         'classification': ItemClassification.progression,
         'id': 0x51
     },
-    "Hard Ore": {
+    "Scent Seedling": {
         'classification': ItemClassification.progression,
         'id': 0x52
     },
-    "Member's Card": {
+    "Slate": {
         'classification': ItemClassification.progression,
         'id': 0x53
     },
-    "Master's Plaque": {
+    "Tokay Eyeball": {
+        'classification': ItemClassification.progression,
+        'id': 0x54
+    },
+    "Cracked Tuni Nut": {
+        'classification': ItemClassification.progression,
+        'id': 0x54
+    },
+    "Tuni Nut": {
+        'classification': ItemClassification.progression,
+        'id': 0x54
+    },
+    "Zora Scale": {
         'classification': ItemClassification.progression,
         'id': 0x54
     },
@@ -937,46 +932,42 @@ ITEMS_DATA = {
         'ring': True
     },
 
-    "Bomb Flower": {
-        'classification': ItemClassification.progression,
-        'id': 0x49
-    },
-    "Fertile Soil": {
+    "Eternal Spirit": {
         'classification': ItemClassification.progression,
         'id': 0x40,
         'subid': 0x00
     },
-    "Gift of Time": {
+    "Ancient Wood": {
         'classification': ItemClassification.progression,
         'id': 0x40,
         'subid': 0x01
     },
-    "Bright Sun": {
+    "Echoing Howl": {
         'classification': ItemClassification.progression,
         'id': 0x40,
         'subid': 0x02
     },
-    "Soothing Rain": {
+    "Burning Flame": {
         'classification': ItemClassification.progression,
         'id': 0x40,
         'subid': 0x03
     },
-    "Nurturing Warmth": {
+    "Sacred Soil": {
         'classification': ItemClassification.progression,
         'id': 0x40,
         'subid': 0x04
     },
-    "Blowing Wind": {
+    "Lonely Peak": {
         'classification': ItemClassification.progression,
         'id': 0x40,
         'subid': 0x05
     },
-    "Seed of Life": {
+    "Rolling Sea": {
         'classification': ItemClassification.progression,
         'id': 0x40,
         'subid': 0x06
     },
-    "Changing Seasons": {
+    "Falling Star": {
         'classification': ItemClassification.progression,
         'id': 0x40,
         'subid': 0x07

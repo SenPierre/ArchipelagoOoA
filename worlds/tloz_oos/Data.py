@@ -17,6 +17,7 @@ def build_item_name_to_id_dict() -> Dict[str, int]:
     current_index = BASE_ITEM_ID
     for item_name in ITEMS_DATA.keys():
         item_name_to_id[item_name] = current_index
+        msg = "%s => %d" % (item_name, current_index)
         current_index += 1
     return item_name_to_id
 
