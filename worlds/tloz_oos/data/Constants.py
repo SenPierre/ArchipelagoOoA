@@ -66,7 +66,7 @@ DUNGEON_ENTRANCES = {
     "d0 entrance": "enter d0",
     "d1 entrance": "enter d1",
     "d2 past entrance": "enter d2",
-    "d2 present entrance": "enter d2",
+#    "d2 present entrance": "enter d2",
     "d3 entrance": "enter d3",
     "d4 entrance": "enter d4",
     "d5 entrance": "enter d5",
