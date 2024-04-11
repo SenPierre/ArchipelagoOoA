@@ -71,6 +71,7 @@ class OracleOfAgesWorld(World):
                    "advance_shop",
                    # Requirements
                    "required_essences",
+                   "required_slates",
                    ]
 
         slot_data = self.options.as_dict(*options)
@@ -165,6 +166,15 @@ class OracleOfAgesWorld(World):
 
         # TODO EVENTS
         self.create_event("ridge move vine seed", "_access_cart")
+
+        self.create_event("d3 S crystal", "_d3_S_crystal")
+        self.create_event("d3 E crystal", "_d3_E_crystal")
+        self.create_event("d3 W crystal", "_d3_W_crystal")
+        self.create_event("d3 N crystal", "_d3_N_crystal")
+        self.create_event("d3 B1F spinner", "_d3_B1F_spinner")
+
+        self.create_event("d6 wall B bombed", "_d6_wall_B_bombed")
+        self.create_event("d6 canal expanded", "_d6_canal_expanded")
 
     def exclude_problematic_locations(self):
         locations_to_exclude = []
@@ -366,7 +376,9 @@ class OracleOfAgesWorld(World):
         return self.random.choice(FILLER_ITEM_NAMES)
 
     def generate_output(self, output_directory: str):
-        write_patcherdata_file(self, output_directory)
+        #TODO
+        #write_patcherdata_file(self, output_directory)
+        return
 
     def write_spoiler(self, spoiler_handle):
         if self.options.shuffle_dungeons != "vanilla":

@@ -16,6 +16,7 @@ def write_patcherdata_file(world, output_directory: str):
             "companion": COMPANIONS[world.options.animal_companion.value],
             "warp_to_start": world.options.warp_to_start.current_key,
             "required_essences": world.options.required_essences.value,
+            "required_slates": world.options.slates.value,
             "heart_beep_interval": world.options.heart_beep_interval.current_key,
             "master_keys": world.options.master_keys.current_key,
             "quick_flute": world.options.quick_flute.current_key,

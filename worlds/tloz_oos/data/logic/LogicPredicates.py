@@ -89,9 +89,17 @@ def ooa_has_gale_seeds(state: CollectionState, player: int):
     return state.has("Gale Seeds", player) or state.multiworld.worlds[player].options.default_seed == "gale"
 
 
-def ooa_has_small_keys(state: CollectionState, player: int, dungeon_id: int, amount: int = 1):
-    return (state.has(f"Small Key ({DUNGEON_NAMES[dungeon_id]})", player, amount)
-            or state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player))
+def ooa_has_small_keys(state: CollectionState, player: int, dungeon_id: int, amount: int = 1, isPast: bool = False):
+    if dungeon_id != 6:
+        return (state.has(f"Small Key ({DUNGEON_NAMES[dungeon_id]})", player, amount)
+                or state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player))
+    elif isPast: #Maybe put the past or the present on index 9. Will avoid this weird case
+        return (state.has(f"Small Key (Mermaid's Cave Past)", player, amount)
+                or state.has(f"Master Key (Mermaid's Cave Past)", player))
+    else:
+        return (state.has(f"Small Key (Mermaid's Cave Present)", player, amount)
+                or state.has(f"Master Key (Mermaid's Cave Present)", player))
+
 
 
 def ooa_has_boss_key(state: CollectionState, player: int, dungeon_id: int):
@@ -132,6 +140,12 @@ def ooa_has_essences(state: CollectionState, player: int, target_count: int):
 
 def ooa_has_essences_for_maku_seed(state: CollectionState, player: int):
     return ooa_has_essences(state, player, state.multiworld.worlds[player].options.required_essences.value)
+    
+def ooa_has_slates(state: CollectionState, player: int, target_count):
+    return state.has("Slate", player, target_count)
+    
+def ooa_has_enough_slates(state: CollectionState, player: int):
+    return ooa_has_slates(state, player, state.multiworld.worlds[player].options.required_slates.value)
 
 
 # Various item predicates ###########################################
@@ -174,11 +188,24 @@ def ooa_can_farm_rupees(state: CollectionState, player: int):
 
 
 
+def ooa_can_trigger_switch(state: CollectionState, player: int):
+    return any([
+        ooa_has_boomerang(state, player),
+        ooa_has_bombs(state, player),
+        ooa_can_use_seeds(state, player),
+        ooa_has_sword(state, player, False),
+        ooa_has_switch_hook(state, player),
+        ooa_can_punch(state, player),
+        
+        # TODO: Regular beams?
+    ])
+
 def ooa_can_trigger_far_switch(state: CollectionState, player: int):
     return any([
         ooa_has_boomerang(state, player),
         ooa_has_bombs(state, player),
         ooa_has_seedshooter(state, player),
+        ooa_has_switch_hook(state, player),
         all([
             ooa_option_hard_logic(state, player),
             ooa_has_sword(state, player, False),
@@ -304,7 +331,7 @@ def ooa_can_jump_3_wide_pit(state: CollectionState, player: int, can_summon_comp
         ])
     ])
 
-def ooa_can_jump_4_wide_pit(state: CollectionState, player: int):
+def ooa_can_jump_4_wide_pit(state: CollectionState, player: int, can_summon_companion: bool):
     return all([
         can_summon_companion,
         ooa_can_summon_moosh(state, player)
@@ -340,9 +367,15 @@ def ooa_can_use_ember_seeds(state: CollectionState, player: int, accept_mystery_
     ])
 
 
-def ooa_can_use_scent_seeds(state: CollectionState, player: int):
+def ooa_can_use_scent_seeds_offensively(state: CollectionState, player: int):
     return all([
-        ooa_can_use_seeds(state, player),
+        any([
+            ooa_has_seedshooter(state, player),
+            all([
+                ooa_option_hard_logic(state, player),
+                ooa_has_satchel(state, player)
+            ])
+        ]),
         ooa_has_scent_seeds(state, player)
     ])
 
@@ -359,6 +392,11 @@ def ooa_can_use_pegasus_seeds(state: CollectionState, player: int):
         ooa_has_pegasus_seeds(state, player)
     ])
 
+def ooa_can_use_pegasus_seeds_for_stun(state: CollectionState, player: int):
+    return all([
+        ooa_has_seedshooter(state, player),
+        ooa_has_pegasus_seeds(state, player)
+    ])
 
 def ooa_can_warp_using_gale_seeds(state: CollectionState, player: int):
     return all([
@@ -367,7 +405,7 @@ def ooa_can_warp_using_gale_seeds(state: CollectionState, player: int):
     ])
 
 
-def ooa_can_use_gale_seeds_offensively(state: CollectionState, player: int):
+def ooa_can_use_gale_seeds_offensively(state: CollectionState, player: int, ranged: bool = False):
     # If we don't have gale seeds or aren't at least in medium logic, don't even try
     if not ooa_has_gale_seeds(state, player) or not ooa_option_medium_logic(state, player):
         return False
@@ -375,6 +413,7 @@ def ooa_can_use_gale_seeds_offensively(state: CollectionState, player: int):
     return any([
         ooa_has_seedshooter(state, player),
         all([
+            not ranged,
             ooa_has_satchel(state, player),
             any([
                 ooa_option_hard_logic(state, player),
@@ -517,6 +556,20 @@ def ooa_can_kill_normal_enemy(state: CollectionState, player: int, can_kill_with
         can_kill_with_hook and ooa_has_switch_hook(state, player),
     ])
 
+def ooa_can_kill_underwater(state: CollectionState, player: int, can_kill_with_hook: bool = False):
+    # If a pit is avaiable nearby, it can be used to put the enemies inside using
+    # items that are usually non-lethal
+    if pit_available and ooa_can_push_enemy(state, player):
+        return True
+
+    return any([
+        ooa_has_sword(state, player),
+        ooa_can_kill_normal_using_satchel(state, player),
+        ooa_can_kill_normal_using_seedshooter(state, player),
+        ooa_can_punch(state, player),
+        can_kill_with_hook and ooa_has_switch_hook(state, player),
+    ])
+
 def ooa_can_kill_normal_using_satchel(state: CollectionState, player: int):
     # Expect a 50+ seed satchel to ensure we can chain dungeon rooms to some extent if that's our only kill option
     if not ooa_has_satchel(state, player, 2):
@@ -586,6 +639,21 @@ def ooa_can_kill_stalfos(state: CollectionState, player: int):
     return any([
         ooa_can_kill_normal_enemy(state, player)
     ])
+    
+def ooa_can_kill_pols_voice(state: CollectionState, player: int, ranged: bool = False):
+    return any([
+        ooa_can_open_portal(state, player),
+        ooa_has_flute(state, player),
+        ooa_has_bombs(state, player),
+        ooa_can_use_gale_seeds_offensively(state, player, ranged)
+    ])
+
+def ooa_can_kill_armos(state: CollectionState, player: int, ranged: bool = False):
+    return any([
+        ooa_has_bombs(state, player),
+        ooa_can_use_scent_seeds_offensively(state, player)
+        # magic boomrang
+    ])
 
 
 def ooa_can_punch(state: CollectionState, player: int):
@@ -614,7 +682,7 @@ def ooa_can_trigger_lever_from_minecart(state: CollectionState, player: int):
         ooa_has_boomerang(state, player),
 
         # TODO: Test that to ensure our understanding is right
-        ooa_can_use_scent_seeds(state, player),
+        ooa_can_use_scent_seeds_offensively(state, player),
         ooa_can_use_mystery_seeds(state, player),
         ooa_has_seedshooter(state, player),  # any seed works using slingshot
     ])
@@ -682,3 +750,4 @@ def ooa_self_locking_item(state: CollectionState, player: int, region_name: str,
 def ooa_self_locking_small_key(state: CollectionState, player: int, region_name: str, dungeon: int):
     item_name = f"Small Key ({DUNGEON_NAMES[dungeon]})"
     return ooa_self_locking_item(state, player, region_name, item_name)
+

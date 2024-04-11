@@ -43,6 +43,15 @@ class OracleOfAgesRequiredEssences(Range):
     range_end = 8
     default = 8
 
+class OracleOfAgesRequiredSlates(Range):
+    """
+    The amount of slate that need to be obtained in order to get to the boss of the eigth dungeons.
+    """
+    display_name = "Required Slates"
+    range_start = 0
+    range_end = 4
+    default = 4
+
 class OracleOfAgesAnimalCompanion(Choice):
     """
     Determines which animal companion you can summon using the Flute, as well as the layout of the Nuun region.
@@ -269,6 +278,7 @@ class OracleOfAgesOptions(PerGameCommonOptions):
     goal: OracleOfAgesGoal
     logic_difficulty: OracleOfAgesLogicDifficulty
     required_essences: OracleOfAgesRequiredEssences
+    required_slates: OracleOfAgesRequiredSlates
     animal_companion: OracleOfAgesAnimalCompanion
     default_seed: OracleOfAgesDefaultSeedType
     shuffle_dungeons: OracleOfAgesDungeonShuffle

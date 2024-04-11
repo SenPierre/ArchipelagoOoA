@@ -814,8 +814,8 @@ LOCATIONS_DATA = {
     	"flag_byte": 0xFFFF
     },
     "Moonlit Grotto (B1F): East": {
-    	"patcher_name": "d3 east",
-    	"region_id": "d3 east",
+    	"patcher_name": "d3 B1F east",
+    	"region_id": "d3 B1F east",
     	"vanilla_item": "Boss Key (Moonlit Grotto)",
     	"dungeon" : 3,
     	"flag_byte": 0xFFFF

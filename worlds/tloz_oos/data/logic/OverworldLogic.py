@@ -65,6 +65,12 @@ def make_overworld_logic(player: int):
         ["d0 exit", "maku tree", True, lambda state: ooa_can_kill_normal_enemy(state, player)],
         ["rescue nayru", "maku tree", False, None],
         ["maku tree", "maku seed", False, lambda state: ooa_has_essences_for_maku_seed(state, player)],
+        ["maku seed", "veran beaten", False, lambda state: all([
+            ooa_can_use_mystery_seeds(state, player),
+            ooa_has_switch_hook(state, player),
+            ooa_has_bombs(state, player),
+            ooa_can_kill_normal_enemy(state, player),
+        ])],
         # TODO : Check Essence 3, 5, 7
 
         
