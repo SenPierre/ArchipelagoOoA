@@ -70,7 +70,7 @@ def make_holodrum_logic(player: int):
             oos_can_kill_armored_enemy(state, player),
         ])],
 
-        ["horon village", "d0 entrance", False, None],
+        ["horon village", "d0 entrance", True, None],
 
         ["western coast after ship", "coast stump", False, lambda state: all([
             oos_has_bombs(state, player),
@@ -206,7 +206,7 @@ def make_holodrum_logic(player: int):
         ])],
 
         ["central woods of winter", "woods of winter tree", False, lambda state: oos_can_harvest_tree(state, player, True)],
-        ["central woods of winter", "d2 entrance", False, lambda state: oos_can_break_bush(state, player, True)],
+        ["central woods of winter", "d2 entrance", True, lambda state: oos_can_break_bush(state, player, True)],
         ["central woods of winter", "cave outside D2", False, lambda state: all([
             oos_season_in_central_woods_of_winter(state, player, "autumn"),
             oos_can_break_mushroom(state, player, True),
@@ -321,6 +321,16 @@ def make_holodrum_logic(player: int):
             ]),
             oos_can_break_mushroom(state, player, True)
         ])],
+        ["d5 entrance", "d5 stump", False, lambda state: any([
+            # Leaving D5 entrance is a risky action since you need quite a few things to be able to get
+            # back to that entrance. Ensure player can warp if that's not the case.
+            all([
+                oos_can_jump_1_wide_pit(state, player, False),
+                oos_has_autumn(state, player),
+                oos_can_break_mushroom(state, player, True)
+            ]),
+            oos_can_warp(state, player)
+        ])],
 
         ["d5 stump", "dry eyeglass lake, east cave", False, lambda state: all([
             oos_has_summer(state, player),
@@ -422,6 +432,12 @@ def make_holodrum_logic(player: int):
         ])],
 
         ["spool stump", "d3 entrance", False, lambda state: oos_season_in_spool_swamp(state, player, "summer")],
+        ["d3 entrance", "spool stump", False, lambda state: any([
+            # Jumping down D3 entrance without having a way to put summer is a risky situation, so expect player
+            # to have a way to warp out
+            oos_season_in_spool_swamp(state, player, "summer"),
+            oos_can_warp(state, player)
+        ])],
 
         ["spool stump", "spool swamp middle", False, lambda state: any([
             oos_get_default_season(state, player, "SPOOL_SWAMP") != 'spring',
@@ -682,6 +698,7 @@ def make_holodrum_logic(player: int):
             state.has("Dragon Key", player),
             oos_has_summer(state, player)
         ])],
+        ["d4 entrance", "mt. cucco, talon's cave entrance", False, lambda state: oos_can_warp(state, player)],
 
         ["mount cucco", "goron mountain, across pits", False, lambda state: any([
             state.has("Spring Banana", player),

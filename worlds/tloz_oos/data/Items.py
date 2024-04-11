@@ -93,7 +93,7 @@ ITEMS_DATA = {
         'id': 0x19
     },
     "Fool's Ore": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'id': 0x1e
     },
     "Ember Seeds": {
@@ -109,7 +109,7 @@ ITEMS_DATA = {
         'id': 0x22
     },
     "Gale Seeds": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'id': 0x23
     },
     "Mystery Seeds": {

@@ -136,6 +136,10 @@ def oos_option_hard_logic(state: CollectionState, player: int):
     return state.multiworld.worlds[player].options.logic_difficulty == "hard"
 
 
+def oos_option_shuffled_dungeons(state: CollectionState, player: int):
+    return state.multiworld.worlds[player].options.shuffle_dungeons != "vanilla"
+
+
 def oos_option_allow_warp_to_start(state: CollectionState, player: int):
     return state.multiworld.worlds[player].options.warp_to_start.value
 
