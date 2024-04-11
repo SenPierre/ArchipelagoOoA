@@ -354,12 +354,11 @@ class OracleOfSeasonsWorld(World):
             ["Flute", COMPANIONS[self.options.animal_companion.value] + "'s Flute"],  # Put a specific flute
             ["Ricky's Gloves", "Progressive Sword"],    # Ricky's gloves are useless in current logic
             ["Gasha Seed", "Seed Satchel"],             # Add a 3rd satchel that is usually obtained in linked games (99 seeds)
-            ["Gasha Seed", "Bombs (10)"],               # Add one more bomb compared to vanilla to reach 99 max bombs
             ["Gasha Seed", "Rupees (200)"],             # Too many Gasha Seeds in vanilla pool, add more rupees and ore instead
-            ["Gasha Seed", "Ore Chunks (50)"],          # ^
-            ["Gasha Seed", "Ore Chunks (50)"],          # ^
-            ["Gasha Seed", "Ore Chunks (50)"],          # ^
         ]
+        for i in range(4):
+            # Replace a few Gasha Seeds by random filler items
+            item_pool_adjustements.append(["Gasha Seed", self.get_filler_item_name()])
 
         fools_ore_item = "Fool's Ore"
         if self.options.fools_ore == OracleOfSeasonsFoolsOre.option_excluded:
@@ -510,7 +509,9 @@ class OracleOfSeasonsWorld(World):
     def get_filler_item_name(self) -> str:
         FILLER_ITEM_NAMES = [
             "Rupees (1)", "Rupees (5)", "Rupees (10)", "Rupees (20)", "Rupees (30)", "Rupees (50)",
-            "Ore Chunks (50)", "Gasha Seed", "Potion"
+            "Ore Chunks (50)",
+            "Gasha Seed", "Gasha Seed", "Gasha Seed",
+            "Potion"
         ]
         return self.random.choice(FILLER_ITEM_NAMES)
 
