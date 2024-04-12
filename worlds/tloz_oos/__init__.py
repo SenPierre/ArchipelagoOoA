@@ -238,6 +238,10 @@ class OracleOfSeasonsWorld(World):
         self.create_events()
         self.exclude_problematic_locations()
 
+        if self.options.enforce_potion_in_shop:
+            self.get_location("Horon Village: Shop #3").place_locked_item(self.create_item("Potion"))
+            self.shop_prices["horon shop 3"] = 300
+
     def create_event(self, region_name, event_item_name):
         region = self.multiworld.get_region(region_name, self.player)
         location = Location(self.player, region_name + ".event", None, region)
@@ -387,6 +391,10 @@ class OracleOfSeasonsWorld(World):
         for i in range(removed_keys):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
+
+        if self.options.enforce_potion_in_shop:
+            # Remove one Potion from the item pool if it was placed inside Horon Shop
+            item_pool_dict["Potion"] -= 1
 
         return item_pool_dict
 

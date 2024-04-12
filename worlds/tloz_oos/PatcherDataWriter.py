@@ -29,6 +29,7 @@ def write_patcherdata_file(world, output_directory: str):
             "reveal_golden_ore_tiles": world.options.shuffle_golden_ore_spots == "shuffled_visible",
             "master_keys": world.options.master_keys.current_key,
             "quick_flute": world.options.quick_flute.current_key,
+            "renewable_horon_shop_3": world.options.enforce_potion_in_shop.current_key,
             "open_advance_shop": world.options.advance_shop.current_key,
             "character_sprite": world.options.character_sprite.current_key,
             "character_palette": world.options.character_palette.current_key,

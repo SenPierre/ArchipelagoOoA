@@ -414,6 +414,13 @@ class OracleOfSeasonsWarpToStart(DefaultOnToggle):
     display_name = "Warp to Start"
 
 
+class OracleOfSeasonsEnforcePotionInShop(Toggle):
+    """
+    When enabled, you are guaranteed to have a renewable Potion for 300 rupees inside Horon shop
+    """
+    display_name = "Enforce Potion in Shop"
+
+
 class OracleOfSeasonsCombatDifficulty(Choice):
     """
     Modifies the damage taken during combat to make this aspect of the game easier or harder depending on the
@@ -516,6 +523,7 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     advance_shop: OracleOfSeasonsAdvanceShop
     fools_ore: OracleOfSeasonsFoolsOre
     warp_to_start: OracleOfSeasonsWarpToStart
+    enforce_potion_in_shop: OracleOfSeasonsEnforcePotionInShop
     combat_difficulty: OracleOfSeasonsCombatDifficulty
     quick_flute: OracleOfSeasonsQuickFlute
     heart_beep_interval: OracleOfSeasonsHeartBeepInterval
