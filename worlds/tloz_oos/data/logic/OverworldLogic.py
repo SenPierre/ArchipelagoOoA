@@ -101,7 +101,7 @@ def make_overworld_logic(player: int):
         ["forest of time", "yoll graveyard", True, lambda state: ooa_can_use_ember_seeds(state, player, False)],
         ["yoll graveyard", "cheval's grave", False, lambda state: any([
             ooa_can_kill_normal_enemy(state, player, True),
-            ooa_can_jump_3_wide_pit                 
+            ooa_can_jump_3_wide_pit(state, player, True)
         ])],
         ["cheval's grave", "cheval's test", False, lambda state: lambda state: all([
             any([
@@ -245,6 +245,8 @@ def make_overworld_logic(player: int):
                 ])
             ]),
         ])],
+        ["crescent past east", "crescent present east", True, lambda state: ooa_can_open_portal(state, player)],
+        ["crescent past west", "crescent present east", False, lambda state: ooa_can_go_back_to_present(state, player)],
 
         # NUUN
         #######################################
@@ -521,7 +523,7 @@ def make_overworld_logic(player: int):
         ])],
         ["piratian captain", "sea of storms past", False, None],
         ["crescent past west", "d8 entrance", False, lambda state: all([
-            state.has("Tokey Eyeball", player),
+            state.has("Tokay Eyeball", player),
             ooa_can_break_pot(state, player),
             ooa_can_dive(state, player),
             ooa_has_bombs(state, player),

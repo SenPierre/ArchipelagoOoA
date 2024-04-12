@@ -49,10 +49,10 @@ def ooa_has_shovel(state: CollectionState, player: int):
     return state.has("Shovel", player)
 
 def ooa_has_flippers(state: CollectionState, player: int):
-    return state.has("Flippers", player)
+    return state.has("Progressive Flippers", player)
 
 def ooa_has_siren_suit(state: CollectionState, player: int):
-    return state.has("Flippers", player, 2)
+    return state.has("Progressive Flippers", player, 2)
 
 def ooa_has_switch_hook(state: CollectionState, player: int):
     return state.has("Progressive Hook", player)
@@ -89,16 +89,9 @@ def ooa_has_gale_seeds(state: CollectionState, player: int):
     return state.has("Gale Seeds", player) or state.multiworld.worlds[player].options.default_seed == "gale"
 
 
-def ooa_has_small_keys(state: CollectionState, player: int, dungeon_id: int, amount: int = 1, isPast: bool = False):
-    if dungeon_id != 6:
-        return (state.has(f"Small Key ({DUNGEON_NAMES[dungeon_id]})", player, amount)
-                or state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player))
-    elif isPast: #Maybe put the past or the present on index 9. Will avoid this weird case
-        return (state.has(f"Small Key (Mermaid's Cave Past)", player, amount)
-                or state.has(f"Master Key (Mermaid's Cave Past)", player))
-    else:
-        return (state.has(f"Small Key (Mermaid's Cave Present)", player, amount)
-                or state.has(f"Master Key (Mermaid's Cave Present)", player))
+def ooa_has_small_keys(state: CollectionState, player: int, dungeon_id: int, amount: int = 1):
+    return (state.has(f"Small Key ({DUNGEON_NAMES[dungeon_id]})", player, amount)
+            or state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player))
 
 
 
@@ -559,9 +552,6 @@ def ooa_can_kill_normal_enemy(state: CollectionState, player: int, can_kill_with
 def ooa_can_kill_underwater(state: CollectionState, player: int, can_kill_with_hook: bool = False):
     # If a pit is avaiable nearby, it can be used to put the enemies inside using
     # items that are usually non-lethal
-    if pit_available and ooa_can_push_enemy(state, player):
-        return True
-
     return any([
         ooa_has_sword(state, player),
         ooa_can_kill_normal_using_satchel(state, player),

@@ -2,6 +2,7 @@ from BaseClasses import MultiWorld
 from worlds.tloz_oos import LOCATIONS_DATA
 from worlds.tloz_oos.data.logic.DungeonsLogic import *
 from worlds.tloz_oos.data.logic.OverworldLogic import make_overworld_logic
+from worlds.tloz_oos.data.Regions import REGIONS
 
 def create_connections(multiworld: MultiWorld, player: int):
     dungeon_entrances = []
@@ -22,6 +23,21 @@ def create_connections(multiworld: MultiWorld, player: int):
         make_d8_logic(player),
         dungeon_entrances,
     ]
+
+    # Check unreachable regions
+    unused_region = REGIONS
+    unused_region.remove("Menu")
+    for logic_array in all_logic:
+        for entrance_desc in logic_array:
+            if entrance_desc[1] in unused_region:
+                unused_region.remove(entrance_desc[1])
+
+    if unused_region.count != 0:
+        print("Unused region :")
+        for region in unused_region:
+            print(region)
+        print("------------")
+
 
     # Create connections
     for logic_array in all_logic:

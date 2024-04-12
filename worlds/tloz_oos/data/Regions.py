@@ -235,7 +235,7 @@ REGIONS = [
     "d3 crossing bridge room 1",
     "d3 between two bridge room",
     "d3 crossing bridge room 2",
-    "d3 scent seed bush",
+    #"d3 scent seed bush",
     "d3 post-subterror",
     "d3 boss",
     #######

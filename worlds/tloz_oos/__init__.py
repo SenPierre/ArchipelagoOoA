@@ -1,6 +1,5 @@
-import os
 import logging
-
+import os
 import yaml
 
 from BaseClasses import Tutorial, Region, Location, LocationProgressType
@@ -215,10 +214,13 @@ class OracleOfAgesWorld(World):
                 item = self.create_item(loc_data['vanilla_item'])
                 location = self.multiworld.get_location(loc_name, self.player)
                 location.place_locked_item(item)
+                #print("placing locked item '",loc_data['vanilla_item'] ,"' in '",loc_name ,"'")
                 continue
             if not self.location_is_active(loc_name, loc_data):
+                #print("Can't create item '",loc_data['vanilla_item'] ,"' because '",loc_name ,"' is not active")
                 continue
             if "vanilla_item" not in loc_data:
+                #print("Can't create item from location '",loc_name ,"' because it doesn't have one")
                 continue
 
             item_name = loc_data['vanilla_item']
@@ -230,13 +232,13 @@ class OracleOfAgesWorld(World):
         # Perform adjustments on the item pool
         item_pool_adjustements = [
             ["Flute", COMPANIONS[self.options.animal_companion.value] + "'s Flute"],  # Put a specific flute
-            ["Ricky's Gloves", "Progressive Sword"],    # Ricky's gloves are useless in current logic. (Piap) Is it tho ? Kinda yes
+            #["Ricky's Gloves", "Progressive Sword"],    # Ricky's gloves are useless in current logic. (Piap) Is it tho ?
             ["Gasha Seed", "Seed Satchel"],             # Add a 3rd satchel that is usually obtained in linked games (99 seeds)
             ["Gasha Seed", "Bombs (10)"],               # Add one more bomb compared to vanilla to reach 99 max bombs
             ["Gasha Seed", "Rupees (200)"],             # Too many Gasha Seeds in vanilla pool, add more rupees and ore instead
             ["Gasha Seed", "Rupees (30)"],          # ^
             ["Gasha Seed", "Rupees (50)"],          # ^
-            ["Gasha Seed", "Rupees (100)"],          # ^
+            ["Gasha Seed", "Progressive Sword"],          # Need an additionnal sword to go to L3
         ]
 
         for i, pair in enumerate(item_pool_adjustements):

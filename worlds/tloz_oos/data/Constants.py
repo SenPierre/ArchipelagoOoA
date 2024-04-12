@@ -28,10 +28,10 @@ DUNGEON_NAMES = [
     "Moonlit Grotto",
     "Skull Dungeon",
     "Crown Dungeon",
-    "Mermaid's Cave (Present)",
-    "Mermaid's Cave (Past)",
+    "Mermaid's Cave Past",
     "Jabu-Jabu's Belly",
-    "Ancient Tomb"
+    "Ancient Tomb",
+    "Mermaid's Cave Present",
 ]
 
 REGIONS_CONVERSION_TABLE = {
@@ -70,7 +70,7 @@ DUNGEON_ENTRANCES = {
     "d3 entrance": "enter d3",
     "d4 entrance": "enter d4",
     "d5 entrance": "enter d5",
-    "d6 past entrance": "enter d6 present",
+    "d6 past entrance": "enter d6 past",
     "d6 present entrance": "enter d6 present",
     "d7 entrance": "enter d7",
     "d8 entrance": "enter d8",
@@ -101,9 +101,10 @@ ITEM_GROUPS = {
         "Small Key (Moonlit Grotto)",
         "Small Key (Skull Dungeon)",
         "Small Key (Crown Dungeon)",
-        "Small Key (Mermaid's Cave)",
+        "Small Key (Mermaid's Cave Past)",
         "Small Key (Jabu-Jabu's Belly)",
         "Small Key (Ancient Tomb)",
+        "Small Key (Mermaid's Cave Present)",
     ],
     "Boss Keys": [
         "Boss Key (Spirit's Grave)",
@@ -111,9 +112,10 @@ ITEM_GROUPS = {
         "Boss Key (Moonlit Grotto)",
         "Boss Key (Skull Dungeon)",
         "Boss Key (Crown Dungeon)",
-        "Boss Key (Mermaid's Cave)",
+        "Boss Key (Mermaid's Cave Past)",
         "Boss Key (Jabu-Jabu's Belly)",
         "Boss Key (Ancient Tomb)",
+        #"Boss Key (Mermaid's Cave Present)",
     ],
     "Compasses": [
         "Compass (Spirit's Grave)",
@@ -121,9 +123,10 @@ ITEM_GROUPS = {
         "Compass (Moonlit Grotto)",
         "Compass (Skull Dungeon)",
         "Compass (Crown Dungeon)",
-        "Compass (Mermaid's Cave)",
+        "Compass (Mermaid's Cave Past)",
         "Compass (Jabu-Jabu's Belly)",
         "Compass (Ancient Tomb)",
+        "Compass (Mermaid's Cave Present)",
     ],
     "Dungeon Maps": [
         "Dungeon Map (Spirit's Grave)",
@@ -131,9 +134,10 @@ ITEM_GROUPS = {
         "Dungeon Map (Moonlit Grotto)",
         "Dungeon Map (Skull Dungeon)",
         "Dungeon Map (Crown Dungeon)",
-        "Dungeon Map (Mermaid's Cave)",
+        "Dungeon Map (Mermaid's Cave Past)",
         "Dungeon Map (Jabu-Jabu's Belly)",
         "Dungeon Map (Ancient Tomb)"
+        "Dungeon Map (Mermaid's Cave Present)",
     ],
     "Master Keys": [
         "Master Key (Maku Road)",
@@ -142,9 +146,10 @@ ITEM_GROUPS = {
         "Master Key (Moonlit Grotto)",
         "Master Key (Skull Dungeon)",
         "Master Key (Crown Dungeon)",
-        "Master Key (Mermaid's Cave)",
+        "Master Key (Mermaid's Cave Past)",
         "Master Key (Jabu-Jabu's Belly)",
         "Master Key (Ancient Tomb)",
+        "Master Key (Mermaid's Cave Present)",
     ]
 }
 
@@ -220,15 +225,7 @@ LOCATION_GROUPS = {
         "Crown Dungeon (B1F): Six-Statue Puzzle",
         "Crown Dungeon (1F): Boss",
     ],
-    'D6': [
-        "Mermaid's Cave (Present): Vire Chest",
-        "Mermaid's Cave (Present): Spinner Chest",
-        "Mermaid's Cave (Present): Rope Chest",
-        "Mermaid's Cave (Present): RNG Chest",
-        "Mermaid's Cave (Present): Diamond Chest",
-        "Mermaid's Cave (Present): Beamos Chest",
-        "Mermaid's Cave (Present): Cube Chest",
-        "Mermaid's Cave (Present): Channel Chest",
+    'D6 Past': [
         "Mermaid's Cave (Past) (1F): Stalfos Chest",
         "Mermaid's Cave (Past) (1F): Color Room",
         "Mermaid's Cave (Past) (1F): Pool Chest",
@@ -272,6 +269,16 @@ LOCATION_GROUPS = {
         'Ancient Tomb (1F): Stalfos',
         'Ancient Tomb (B3F): Single Chest',
         'Ancient Tomb (B3F): Boss',
+    ],
+    'D6 Present': [
+        "Mermaid's Cave (Present): Vire Chest",
+        "Mermaid's Cave (Present): Spinner Chest",
+        "Mermaid's Cave (Present): Rope Chest",
+        "Mermaid's Cave (Present): RNG Chest",
+        "Mermaid's Cave (Present): Diamond Chest",
+        "Mermaid's Cave (Present): Beamos Chest",
+        "Mermaid's Cave (Present): Cube Chest",
+        "Mermaid's Cave (Present): Channel Chest",
     ],
     'Trade Sequence': [
         'Yoll Graveyard: Graveyard Poe',

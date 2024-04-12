@@ -1,8 +1,6 @@
 
 BASE_LOCATION_ID = 27022001000
 
-# TODO
-
 LOCATIONS_DATA = {
     ##########################################
     "Impa Gift": {
@@ -81,7 +79,7 @@ LOCATIONS_DATA = {
         "scouting_mask": 0xFFFF
     },
     # -----
-    "Lynna City Chest": {
+    "Mayor Plen's House": {
         "patcher_name": "mayor plen's house",
         "region_id": "mayor plen's house",
         "vanilla_item": "Green Luck Ring",
@@ -220,7 +218,7 @@ LOCATIONS_DATA = {
     "Graveyard Poe": {
         "patcher_name": "graveyard poe",
         "region_id": "graveyard poe",
-        "vanilla_item": "Seed Satchel",
+        "vanilla_item": "Poe Clock",
         "flag_byte": 0xFFFF,
     },
     ##########################################
@@ -374,7 +372,7 @@ LOCATIONS_DATA = {
     "Goron's Hiding Place": {
         "patcher_name": "goron's hiding place",
         "region_id": "goron's hiding place",
-        "vanilla_item": "Crown Key",
+        "vanilla_item": "Golden Joy Ring",
         "flag_byte": 0xFFFF,
     },
     "Ridge Base Chest": {
@@ -425,7 +423,7 @@ LOCATIONS_DATA = {
     "Ridge Diamonds Past": {
         "patcher_name": "ridge diamonds past",
         "region_id": "ridge diamonds past",
-        "vanilla_item": "Goronade",
+        "vanilla_item": "Rupees (50)",
         "flag_byte": 0xFFFF,
     },
     ##########################################
@@ -668,7 +666,7 @@ LOCATIONS_DATA = {
     "Wing Dungeon (1F): Color Room": {
     	"patcher_name": "d2 color room",
     	"region_id": "d2 color room",
-    	"vanilla_item": "Small Key (Wing Dungeon)",
+    	"vanilla_item": "Boss Key (Wing Dungeon)",
     	"dungeon" : 2,
     	"flag_byte": 0xFFFF
     },
@@ -1015,7 +1013,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Present): RNG Chest": {
     	"patcher_name": "d6 present rng chest",
     	"region_id": "d6 present rng chest",
-    	"vanilla_item": "Boss Key (Mermaid's Cave)",
+    	"vanilla_item": "Boss Key (Mermaid's Cave Past)",
     	"dungeon" : 6,
     	"flag_byte": 0xFFFF
     },

@@ -502,7 +502,7 @@ def make_d5_logic(player: int):
             ooa_can_trigger_far_switch(state, player),
             ooa_has_small_keys(state, player, 5, 5),
         ])],
-        ["d5 red peg chest", "d5 diamond chest", False, lambda state: any([
+        ["d5 red peg chest", "d5 owl puzzle", False, lambda state: any([
             ooa_option_hard_logic(state, player),
             ooa_has_cane(state, player)
         ])],
@@ -524,7 +524,7 @@ def make_d6past_logic(player: int):
             ooa_can_dive(state, player),
             ooa_can_kill_underwater(state, player, True),
         ])],
-        ["enter d6 present", "d6 past color room", False, lambda state: all([
+        ["enter d6 past", "d6 past color room", False, lambda state: all([
             ooa_can_kill_normal_enemy(state, player, True),
             any([
                 ooa_has_feather(state, player),
@@ -534,7 +534,7 @@ def make_d6past_logic(player: int):
                 ])
             ])
         ])],
-        ["enter d6 present", "d6 past stalfos chest", False, lambda state: all([
+        ["enter d6 past", "d6 past stalfos chest", False, lambda state: all([
             ooa_can_use_ember_seeds(state, player, False),
             any([
                 ooa_option_hard_logic(state, player),
@@ -548,10 +548,11 @@ def make_d6past_logic(player: int):
         ])],
 
         # past, 1 key
-        ["enter d6 present", "d6 wall B bombed", False, lambda state: all([
+        ["enter d6 past", "d6 wall B bombed", False, lambda state: all([
             ooa_has_cane(state, player),
             ooa_has_bracelet(state, player),
-            ooa_has_small_keys(state, player, 6, 1, True),
+            ooa_can_jump_1_wide_pit(state, player, False),
+            ooa_has_small_keys(state, player, 6, 1),
             ooa_has_bombs(state, player)
         ])],
         ["d6 wall B bombed", "d6 past spear chest", False, lambda state: ooa_can_dive(state, player)],
@@ -564,7 +565,7 @@ def make_d6past_logic(player: int):
             ooa_can_dive(state, player),
             ooa_can_kill_normal_enemy(state, player),
             ooa_can_kill_underwater(state, player),
-            ooa_has_small_keys(state, player, 6, 3, True),
+            ooa_has_small_keys(state, player, 6, 3),
             ooa_has_seedshooter(state, player),
         ])],
     ]
@@ -621,7 +622,7 @@ def make_d6present_logic(player: int):
             any([
                 ooa_can_swim(state, player, False),
                 all([
-                    ooa_has_small_keys(state, player, 6, 2, False),
+                    ooa_has_small_keys(state, player, 9, 2),
                     ooa_has_switch_hook(state, player),
                 ])
             ])
@@ -633,18 +634,18 @@ def make_d6present_logic(player: int):
         ["d6 present beamos chest", "d6 present rng chest", False, lambda state: all([
             ooa_has_bracelet(state, player),
             ooa_can_kill_normal_enemy(state, player, True),
-            ooa_has_small_keys(state, player, 6, 3, False),
+            ooa_has_small_keys(state, player, 9, 3),
         ])],
 
         ["enter d6 present", "d6 present channel chest", False, lambda state: all([
             state.has("_d6_canal_expanded", player),
             ooa_has_switch_hook(state, player),
-            ooa_has_small_keys(state, player, 6, 3, False),
+            ooa_has_small_keys(state, player, 9, 3),
         ])],
 
         ["d6 present spinner chest", "d6 present vire chest", False, lambda state: all([
             ooa_can_kill_normal_enemy(state, player, True),
-            ooa_has_small_keys(state, player, 6, 3, False),
+            ooa_has_small_keys(state, player, 9, 3),
         ])],
     ]
 
@@ -694,14 +695,14 @@ def make_d7_logic(player: int):
         ])],
         ["d7 drain", "d7 boxed chest", False, None],
         ["d7 drain", "d7 cane/diamond puzzle", False, lambda state: all([
-            ooa_has_long_hook(),
-            ooa_has_cane(),
+            ooa_has_long_hook(state, player),
+            ooa_has_cane(state, player),
         ])],
 
         # 4 keys - enough to choose any water level (middle water level keydoor doesn't
         # necessarily need to be unlocked since water level resets upon reentry)
         ["enter d7 with suit", "d7 flood", False, lambda state: all([
-            ooa_has_long_hook(),
+            ooa_has_long_hook(state, player),
             ooa_has_small_keys(state, player, 7, 4),
         ])],
         ["d7 flood", "d7 terrace", False, None],

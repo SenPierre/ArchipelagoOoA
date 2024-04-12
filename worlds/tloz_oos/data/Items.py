@@ -154,7 +154,7 @@ ITEMS_DATA = {
         'id': 0x2e
     },
     "Potion": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'id': 0x2f
     },
 
@@ -278,7 +278,7 @@ ITEMS_DATA = {
         'id': 0x31,
         'subid': 0x04
     },
-    "Boss Key (Mermaid's Cave)": {
+    "Boss Key (Mermaid's Cave Past)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
         'subid': 0x05
