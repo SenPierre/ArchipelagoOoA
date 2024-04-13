@@ -81,18 +81,18 @@ def apply_self_locking_rules(multiworld: MultiWorld, player: int):
     # Process other self-locking items
     OTHER_SELF_LOCKING_ITEMS = {
         # TODO Trade Sequence OOA
-        #"North Horon: Malon Trade": "Cuccodex",
-        #"Maple Trade": "Lon Lon Egg",
-        #"Holodrum Plain: Mrs. Ruul Trade": "Ghastly Doll",
-        #"Subrosia: Subrosian Chef Trade": "Iron Pot",
-        #"Goron Mountain: Biggoron Trade": "Lava Soup",
-        #"Sunken City: Ingo Trade": "Goron Vase",
-        #"North Horon: Yelling Old Man Trade": "Fish",
-        #"Horon Village: Tick Tock Trade": "Wooden Bird",
-        #"Eastern Suburbs: Guru-Guru Trade": "Engine Grease",
-        #"Subrosia: Smithy Hard Ore Reforge": "Hard Ore",
-        #"Sunken City: Master's Plaque Trade": "Master's Plaque",
-        #"Subrosia: Market #1": "Star Ore",
+        'Yoll Graveyard: Graveyard Poe':"Poe Clock",
+        'Lynna Village: Postman':"Stationery",
+        'Lynna Village: Toilet Hand':"Stink Bag",
+        'Crescent Island: Tokay Chef':"Tasty Meat",
+        'Nuun: Happy Mask Salesman':"Doggie Mask",
+        'Lynna Village: Mamamu Yan':"Dumbbell",
+        'Symmetry City: Middle man':"Cheesy Mustache",
+        'Lynna City: Comedian':"Funny Joke",
+        'Lynna Village: Sad boi':"Touching Book",
+        'Maple Trade':"Magic Oar",
+        'Lynna Village Coast: Rafton':"Sea Ukulele",
+        'Shore of No Return: Old Zora':"Broken Sword",
     }
 
     for loc_name, item_name in OTHER_SELF_LOCKING_ITEMS.items():

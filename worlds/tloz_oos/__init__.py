@@ -232,13 +232,13 @@ class OracleOfAgesWorld(World):
         # Perform adjustments on the item pool
         item_pool_adjustements = [
             ["Flute", COMPANIONS[self.options.animal_companion.value] + "'s Flute"],  # Put a specific flute
-            #["Ricky's Gloves", "Progressive Sword"],    # Ricky's gloves are useless in current logic. (Piap) Is it tho ?
             ["Gasha Seed", "Seed Satchel"],             # Add a 3rd satchel that is usually obtained in linked games (99 seeds)
             ["Gasha Seed", "Bombs (10)"],               # Add one more bomb compared to vanilla to reach 99 max bombs
-            ["Gasha Seed", "Rupees (200)"],             # Too many Gasha Seeds in vanilla pool, add more rupees and ore instead
-            ["Gasha Seed", "Rupees (30)"],          # ^
-            ["Gasha Seed", "Rupees (50)"],          # ^
-            ["Gasha Seed", "Progressive Sword"],          # Need an additionnal sword to go to L3
+            ["Gasha Seed", "Potion"],                   # Too many Gasha Seeds in vanilla pool, add potion which is used for the zora king
+            ["Gasha Seed", "Potion"],                   # ^
+            ["Gasha Seed", "Potion"],                   # ^
+            ["Gasha Seed", "Potion"],                   # ^
+            ["Gasha Seed", "Progressive Sword"],        # Need an additionnal sword to go to L3
         ]
 
         for i, pair in enumerate(item_pool_adjustements):
@@ -357,7 +357,7 @@ class OracleOfAgesWorld(World):
             self.pre_fill_items.append(seed_item)
 
         # TODO PREFILL REWORK 
-        seeds_to_place = set([name for name in SEED_ITEMS])
+        seeds_to_place = set([name for name in SEED_ITEMS if name != SEED_ITEMS[self.options.default_seed.value]])
 
         manually_placed_trees = ["Lynna City: Seed Tree"]
         trees_to_process = [name for name in TREES_TABLE.values() if name not in manually_placed_trees]
@@ -369,6 +369,10 @@ class OracleOfAgesWorld(World):
         self.random.shuffle(trees_to_process)
         for seed in seeds_to_place:
             place_seed(seed, trees_to_process.pop())
+
+        while len(trees_to_process) != 0:
+            place_seed(self.random.choice(SEED_ITEMS), trees_to_process.pop())
+            
 
     def get_filler_item_name(self) -> str:
         FILLER_ITEM_NAMES = [

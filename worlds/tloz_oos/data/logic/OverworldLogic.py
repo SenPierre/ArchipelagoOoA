@@ -7,6 +7,10 @@ def make_overworld_logic(player: int):
         # FOREST OF TIME
         #######################################
         ["Menu", "forest of time", False, None],
+        ["Menu", "maple trade", False, lambda state: all([
+            ooa_can_kill_normal_enemy(state, player, True),
+            state.has("Touching Book", player)
+        ])],
         ["forest of time", "starting item", False, None],
         ["forest of time", "nayru's house", False, None],
 
@@ -22,7 +26,7 @@ def make_overworld_logic(player: int):
         ])],
         
         ["lynna city", "mayor plen's house", False, lambda state: ooa_has_long_hook(state, player)],
-        ["lynna city", "lynna city comedian", False, lambda state: state.has("Cheesy Mustache", player)],
+        ["lynna city", "lynna city comedian trade", False, lambda state: state.has("Cheesy Mustache", player)],
         ["lynna city", "vasu's gift", False, None],
 
         # LYNNA VILLAGE
@@ -49,15 +53,15 @@ def make_overworld_logic(player: int):
                 ooa_can_use_mystery_seeds(state, player),
                 ooa_can_kill_armored_enemy(state, player)
             ])],
-        ["lynna village", "postman", False, lambda state: state.has("Poe Watch", player)],
-        ["lynna village", "toilet hand", False, lambda state: state.has("Stationery", player)],
-        ["lynna village", "mamamu yan", False, lambda state: state.has("Doggie Mask", player)],
-        ["lynna village", "sad boi", False, lambda state: state.has("Funny Joke", player)],
+        ["lynna village", "postman trade", False, lambda state: state.has("Poe Watch", player)],
+        ["lynna village", "toilet hand trade", False, lambda state: state.has("Stationery", player)],
+        ["lynna village", "mamamu yan trade", False, lambda state: state.has("Doggie Mask", player)],
+        ["lynna village", "sad boi trade", False, lambda state: state.has("Funny Joke", player)],
         ["lynna village", "rafton's raft", False, lambda state: all([
             state.has("Cheval Rope", player),
             state.has("Island Chart", player)
         ])],
-        ["rafton's raft", "rafton", False, lambda state: state.has("Magic Oar", player)],
+        ["rafton's raft", "rafton trade", False, lambda state: state.has("Magic Oar", player)],
         ["lynna village", "d0 entrance", True, lambda state: ooa_can_remove_dirt(state, player, False)],
 
         # MAKU TREE
@@ -103,10 +107,10 @@ def make_overworld_logic(player: int):
             ooa_can_kill_normal_enemy(state, player, True),
             ooa_can_jump_3_wide_pit(state, player, True)
         ])],
-        ["cheval's grave", "cheval's test", False, lambda state: lambda state: all([
+        ["cheval's grave", "cheval's test", False, lambda state: all([
             any([
                 ooa_has_feather(state, player),
-                ooa_can_swim(state, player),                    
+                ooa_can_swim(state, player, False),                    
             ]),
             ooa_has_bracelet(state, player)
         ])],
@@ -120,7 +124,7 @@ def make_overworld_logic(player: int):
             ]),
             ooa_has_rupees(state, player, 400)
         ])],
-        ["graveyard door", "graveyard poe", False, lambda state: ooa_has_bracelet(state, player)],
+        ["graveyard door", "graveyard poe trade", False, lambda state: ooa_has_bracelet(state, player)],
         ["graveyard door", "d1 entrance", False, None],
 
         # FAIRIES' WOODS
@@ -139,7 +143,7 @@ def make_overworld_logic(player: int):
             ooa_has_switch_hook(state, player)
         ])],
         ["deku forest", "fairies' woods chest", False, lambda state: ooa_can_go_back_to_present(state, player)],
-        ["fairies' woods", "happy mask salesman", False, lambda state: state.has("Tasty Meat", player)],
+        ["fairies' woods", "happy mask salesman trade", False, lambda state: state.has("Tasty Meat", player)],
         ["deku forest", "d2 present entrance", False, lambda state: ooa_can_go_back_to_present(state, player)],
 
         # DEKU FOREST
@@ -148,8 +152,8 @@ def make_overworld_logic(player: int):
             ooa_has_bracelet(state, player),
             ooa_can_switch_past_and_present(state, player),
         ])],
-        ["deku forest", "deku forest cave east", False, None], # You need the bracelet or the ages song to access deku forest. Either way, you can access that too easily.
-        ["deku forest", "deku forest cave west", False, lambda state: any([
+        ["deku forest", "deku forest cave east", False, None], # You need the bracelet or the ages song to access deku forest. Either way, you can access that easily.
+        ["deku forest", "deku forest cave west", False, lambda state: all([
             ooa_has_bracelet(state, player),                    
             any([
                 ooa_can_jump_1_wide_pit(state, player, False),
@@ -159,7 +163,7 @@ def make_overworld_logic(player: int):
                 ooa_can_switch_past_and_present(state, player),          
             ])
         ])],
-        ["deku forest", "deku forest tree", False, lambda state: any([
+        ["deku forest", "deku forest tree", False, lambda state: all([
             ooa_can_harvest_tree(state, player, False),                    
             any([
                 ooa_can_jump_1_wide_pit(state, player, False),
@@ -169,7 +173,7 @@ def make_overworld_logic(player: int):
                 ooa_can_switch_past_and_present(state, player),          
             ])
         ])],
-        ["deku forest", "deku forest soldier", False, lambda state: any([
+        ["deku forest", "deku forest soldier", False, lambda state: all([
             ooa_has_mystery_seeds(state, player),                    
             any([
                 ooa_can_jump_1_wide_pit(state, player, False),
@@ -227,7 +231,7 @@ def make_overworld_logic(player: int):
         ])],
         ["crescent present west", "d3 entrance", False, None],
         ["lynna city", "under crescent island", True, lambda state: ooa_can_dive(state, player)],
-        ["crescent present east", "tokay chef", False, lambda state: state.has("Stink Bag", player)],
+        ["crescent present east", "tokay chef trade", False, lambda state: state.has("Stink Bag", player)],
         ["crescent past west", "crescent island tree", False, lambda state: all([
             any([
                 ooa_has_bracelet(state, player),
@@ -302,7 +306,7 @@ def make_overworld_logic(player: int):
         ["symmetry present", "symmetry past", False, lambda state: ooa_can_open_portal(state, player)],
 
         ["symmetry past", "symmetry city brother", False, None],
-        ["symmetry past", "symmetry middle man", False, lambda state: state.has("Dumbbell", player)],
+        ["symmetry past", "symmetry middle man trade", False, lambda state: state.has("Dumbbell", player)],
         ["symmetry past", "tokkey's composition", False, lambda state: ooa_can_swim(state, player, False)],
 
         ["symmetry past", "talus peaks", False, lambda state: all([
@@ -344,7 +348,7 @@ def make_overworld_logic(player: int):
 
         # ROLLING RIDGE WEST
         #######################################
-        ["lynna village", "old zora", False, lambda state: any([
+        ["lynna village", "old zora trade", False, lambda state: any([
             ooa_can_switch_past_and_present(state, player),
             all([
                 ooa_can_jump_1_wide_pit(state, player, False),
@@ -354,6 +358,7 @@ def make_overworld_logic(player: int):
                     ooa_can_swim_deepwater(state, player, False),
                 ]),
             ]),
+            state.has("Sea Ukulele", player)
         ])],
         ["lynna village", "ridge west past base", True, lambda state: all([
             any([
@@ -391,7 +396,10 @@ def make_overworld_logic(player: int):
         ["ridge upper past", "ridge upper present", False, lambda state: ooa_can_go_back_to_present(state, player)],
         ["ridge upper present", "d5 entrance", False, lambda state: state.has("Crown Key", player)],
         ["ridge mid present", "ridge NE cave present", True, None],
-        ["ridge base present", "ridge upper past", True, lambda state: ooa_has_switch_hook(state, player)],
+        ["ridge base present", "ridge upper present", False, lambda state: ooa_can_jump_3_wide_pit(state, player, False)],
+        ["ridge base past west", "ridge upper past", True, lambda state: all([
+            ooa_has_switch_hook(state, player),
+        ])],
         #####
         ["ridge upper present", "ridge upper past", False, lambda state: ooa_can_switch_past_and_present(state, player)],
         ["ridge upper present", "treasure hunting goron", False, lambda state: all([
@@ -404,7 +412,7 @@ def make_overworld_logic(player: int):
         
         # ROLLING BASE
         #######################################
-        ["ridge upper present", "ridge base present", True, None],
+        ["ridge upper present", "ridge base present", False, None],
         ["ridge base past east", "ridge base present", False, lambda state: ooa_can_go_back_to_present(state, player)],
         ["ridge base past west", "ridge base present", False, lambda state: ooa_can_go_back_to_present(state, player)],
         ["ridge base present", "d6 present entrance", False, lambda state: state.has("Old Mermaid Key", player)],
@@ -463,7 +471,7 @@ def make_overworld_logic(player: int):
             ])
         ])],
         ["target carts 1", "target carts 2", True, lambda state: None],
-        ["ridge mid present", "big bang game", True, lambda state: lambda state: state.has("Goronade", player)],
+        ["ridge mid present", "big bang game", True, lambda state: state.has("Goronade", player)],
         ["ridge mid present", "goron diamond cave", True, lambda state: any([
             ooa_has_switch_hook(state, player),
             ooa_can_jump_3_wide_pit(state, player, False),
@@ -529,6 +537,20 @@ def make_overworld_logic(player: int):
             ooa_has_bombs(state, player),
             ooa_can_jump_1_wide_pit(state, player, False),
             ooa_can_kill_normal_enemy(state, player),
+            any([
+                # Finding the road in the dark room
+                ooa_has_cane(state, player),
+                all([
+                    ooa_option_medium_logic(state, player),
+                    any([
+                        ooa_can_kill_normal_enemy(state, player, False),
+                        ooa_can_push_enemy(state, player),
+                        ooa_has_boomerang(state, player),
+                        ooa_has_switch_hook(state, player),
+                        ooa_can_use_pegasus_seeds_for_stun(state, player),
+                    ])
+                ])
+            ]),
         ])],
         ["d8 entrance", "sea of no return", False, lambda state: ooa_has_glove(state, player)],
 

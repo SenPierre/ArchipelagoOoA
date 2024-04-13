@@ -11,7 +11,6 @@ REGIONS = [
     "lynna shop",
     "hidden shop",
     "mayor plen's house",
-    "lynna city comedian",
     "vasu's gift",
     #######
     "lynna village",
@@ -20,10 +19,6 @@ REGIONS = [
     "ambi's palace tree",
     "ambi's palace chest",
     "rescue nayru",
-    "postman",
-    "toilet hand",
-    "mamamu yan",
-    "sad boi",
     "rafton's raft",
     "rafton",
     "d0 entrance",
@@ -44,13 +39,11 @@ REGIONS = [
     "grave under tree",
     "graveyard door",
     "syrup shop",
-    "graveyard poe",
     "d1 entrance",
 
     #######
     "fairies' woods",
     "fairies' woods chest",
-    "happy mask salesman",
     "d2 present entrance",
     #######
     "deku forest",
@@ -77,7 +70,6 @@ REGIONS = [
     #######
     "crescent present east",
     "crescent island tree",
-    "tokay chef",
 
     #######
     "nuun",
@@ -109,7 +101,6 @@ REGIONS = [
     "ridge west past",
     "ridge west tree",
     "goron elder",
-    "old zora",
     #######
     "ridge west present",
     "ridge west cave",
@@ -334,4 +325,18 @@ REGIONS = [
     'd8 boss',
     #######
     "veran beaten",
+    #######
+    
+    "graveyard poe trade",
+    "postman trade",
+    "toilet hand trade",
+    "mamamu yan trade",
+    "tokay chef trade",
+    "happy mask salesman trade",
+    "symmetry middle man trade",
+    "lynna city comedian trade",
+    "sad boi trade",
+    "maple trade",
+    "rafton trade",
+    "old zora trade",
 ]

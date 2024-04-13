@@ -214,13 +214,6 @@ LOCATIONS_DATA = {
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF
     },
-    # -----
-    "Graveyard Poe": {
-        "patcher_name": "graveyard poe",
-        "region_id": "graveyard poe",
-        "vanilla_item": "Poe Clock",
-        "flag_byte": 0xFFFF,
-    },
     ##########################################
     "Fairies' Woods Chest": {
         "patcher_name": "fairies' woods chest",
@@ -568,6 +561,81 @@ LOCATIONS_DATA = {
         "region_id": "sea of no return",
         "vanilla_item": "Blue Ring",
         "flag_byte": 0xFFFF,
+    },
+    ##########################################
+    "Yoll Graveyard: Graveyard Poe Trade": {
+        "patcher_name": "graveyard poe trade",
+        "region_id": "graveyard poe trade",
+        "vanilla_item": "Poe Clock",
+        "flag_byte": 0xFFFF,
+    },
+    "Lynna Village: Postman Trade": {
+        "patcher_name": "postman trade",
+        "region_id": "postman trade",
+        "vanilla_item": "Stationery",
+        "flag_byte": 0xC880
+    },
+    "Lynna Village: The Toilet Hand Trade": {
+        "patcher_name": "toilet hand trade",
+        "region_id": "toilet hand trade",
+        "vanilla_item": "Stink Bag",
+        "flag_byte": 0xC640,
+        "bit_mask": 0x08
+    },
+    "Crescent Island (Present): Tokay Chef Trade": {
+        "patcher_name": "tokay chef trade",
+        "region_id": "tokay chef trade",
+        "vanilla_item": "Tasty Meat",
+        "flag_byte": 0xC8B3
+    },
+    "Nuun Highland: Happy Mask Salesman Trade": {
+        "patcher_name": "happy mask salesman trade",
+        "region_id": "happy mask salesman trade",
+        "vanilla_item": "Doggie Mask",
+        "flag_byte": 0xC88F
+    },
+    "Lynna Village: Mamamu Yan Trade": {
+        "patcher_name": "mamamu yan trade",
+        "region_id": "mamamu yan trade",
+        "vanilla_item": "Dumbbell",
+        "flag_byte": 0xC708
+    },
+    "Symmetry City: Middle Man Trade": {
+        "patcher_name": "symmetry middle man trade",
+        "region_id": "symmetry middle man trade",
+        "vanilla_item": "Cheesy Mustache",
+        "flag_byte": 0xC899
+    },
+    "Lynna City: Comedian Trade": {
+        "patcher_name": "lynna city comedian trade",
+        "region_id": "lynna city comedian trade",
+        "vanilla_item": "Funny Joke",
+        "flag_byte": 0xC7B7
+    },
+    "Lynna Village: Sad Boi Trade": {
+        "patcher_name": "sad boi trade",
+        "region_id": "sad boi trade",
+        "vanilla_item": "Touching Book",
+        "flag_byte": 0xCAB6,
+        "bit_mask": 0x40
+    },
+    "Maple Trade": {
+        "patcher_name": "maple trade",
+        "region_id": "maple trade",
+        "vanilla_item": "Magic Oar",
+        "flag_byte": 0xC89C
+    },
+    "Lynna Village: Rafton Trade": {
+        "patcher_name": "rafton trade",
+        "region_id": "rafton trade",
+        "vanilla_item": "Sea Ukulele",
+        "flag_byte": 0xC883
+    },
+    "Rolling Ridge: Old Zora Trade": {
+        "patcher_name": "old zora trade",
+        "region_id": "old zora trade",
+        "vanilla_item": "Broken Sword",
+        "flag_byte": 0xC7DA
     },
     ##########################################
     "Maku Path: Key Chest": {
@@ -993,56 +1061,56 @@ LOCATIONS_DATA = {
     	"patcher_name": "d6 present vire chest",
     	"region_id": "d6 present vire chest",
     	"vanilla_item": "Progressive Flippers",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
     	"flag_byte": 0xFFFF
     },
     "Mermaid's Cave (Present): Spinner Chest": {
     	"patcher_name": "d6 present spinner chest",
     	"region_id": "d6 present spinner chest",
     	"vanilla_item": "Small Key (Mermaid's Cave Present)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
     	"flag_byte": 0xFFFF
     },
     "Mermaid's Cave (Present): Rope Chest": {
     	"patcher_name": "d6 present rope chest",
     	"region_id": "d6 present rope chest",
     	"vanilla_item": "Small Key (Mermaid's Cave Present)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
     	"flag_byte": 0xFFFF
     },
     "Mermaid's Cave (Present): RNG Chest": {
     	"patcher_name": "d6 present rng chest",
     	"region_id": "d6 present rng chest",
     	"vanilla_item": "Boss Key (Mermaid's Cave Past)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
     	"flag_byte": 0xFFFF
     },
     "Mermaid's Cave (Present): Diamond Chest": {
     	"patcher_name": "d6 present diamond chest",
     	"region_id": "d6 present diamond chest",
     	"vanilla_item": "Dungeon Map (Mermaid's Cave Present)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
     	"flag_byte": 0xFFFF
     },
     "Mermaid's Cave (Present): Beamos Chest": {
     	"patcher_name": "d6 present beamos chest",
     	"region_id": "d6 present beamos chest",
     	"vanilla_item": "Rupees (10)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
     	"flag_byte": 0xFFFF
     },
     "Mermaid's Cave (Present): Cube Chest": {
     	"patcher_name": "d6 present cube chest",
     	"region_id": "d6 present cube chest",
     	"vanilla_item": "Small Key (Mermaid's Cave Present)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
     	"flag_byte": 0xFFFF
     },
     "Mermaid's Cave (Present): Channel Chest": {
     	"patcher_name": "d6 present channel chest",
     	"region_id": "d6 present channel chest",
     	"vanilla_item": "Compass (Mermaid's Cave Present)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
     	"flag_byte": 0xFFFF
     },
     # ======

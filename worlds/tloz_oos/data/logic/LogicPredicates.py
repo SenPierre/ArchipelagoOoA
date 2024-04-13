@@ -436,6 +436,7 @@ def ooa_can_break_bush(state: CollectionState, player: int, can_summon_companion
     return any([
         ooa_has_sword(state, player),
         ooa_has_bracelet(state, player),
+        ooa_has_switch_hook(state, player),
         (can_summon_companion and ooa_has_flute(state, player)),
         all([
             # Consumables need at least medium logic, since they need a good knowledge of the game

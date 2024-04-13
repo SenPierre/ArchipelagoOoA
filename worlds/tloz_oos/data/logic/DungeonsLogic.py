@@ -401,12 +401,11 @@ def make_d5_logic(player: int):
         ["d5 switch A", "d5 dark room", False, lambda state: all([
             ooa_can_trigger_switch(state, player),
             any([
-                # This part of the logic doesn't make sens to me...
-                # TODO UNDERSTAND
+                # Finding the road in the dark room
                 ooa_has_cane(state, player),
                 ooa_has_switch_hook(state, player),
                 all([
-                    ooa_option_hard_logic(state, player),
+                    ooa_option_medium_logic(state, player),
                     any([
                         ooa_can_kill_normal_enemy(state, player, False),
                         ooa_can_push_enemy(state, player),
@@ -745,17 +744,17 @@ def make_d8_logic(player: int):
         ])],
 
         # 1 key - access B1F
-        ["d8 1f single chest", "d8 ghini chest", False, lambda state: all([
+        ["d8 ghini chest", "d8 nw chest", False, lambda state: all([
             ooa_has_small_keys(state, player, 8, 1),
             ooa_has_switch_hook(state, player),
             ooa_has_cane(state, player),
             ooa_can_use_ember_seeds(state, player, True),
             ooa_has_seedshooter(state, player),
         ])],
-        ["d8 ghini chest", "d8 nw chest", False, None],
 
         # 2 keys - access SE spinner
-        ["d8 ghini chest", "d8 blue peg chest", False, lambda state: ooa_has_small_keys(state, player, 8, 2)],
+        ["d8 1f single chest", "d8 ghini chest", False, lambda state: ooa_has_small_keys(state, player, 8, 2)],
+        ["d8 ghini chest", "d8 blue peg chest", False, None],
         ["d8 blue peg chest", "d8 blade trap", False, None],
         ["d8 blue peg chest", "d8 sarcophagus chest", False, lambda state: ooa_has_glove(state, player)],
         ["d8 blue peg chest", "d8 stalfos", False, lambda state: ooa_can_kill_stalfos(state, player)],
