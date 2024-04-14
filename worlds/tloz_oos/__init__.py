@@ -39,6 +39,7 @@ class OracleOfSeasonsWeb(WebWorld):
     )
     tutorials = [setup_en, setup_fr]
 
+
 class OracleOfSeasonsWorld(World):
     """
     The Legend of Zelda: Oracles of Seasons is one of the rare Capcom entries to the series.
@@ -84,7 +85,9 @@ class OracleOfSeasonsWorld(World):
                    # Logic-impacting options
                    "logic_difficulty", "horon_village_season", "warp_to_start",
                    "shuffle_dungeons", "shuffle_portals", "lost_woods_item_sequence",
-                   "duplicate_seed_tree", "default_seed",
+                   "duplicate_seed_tree", "default_seed", "master_keys",
+                   "remove_d0_alt_entrance", "remove_d2_alt_entrance",
+                   "keysanity_small_keys", "keysanity_boss_keys",
                    # Locations
                    "shuffle_golden_ore_spots", "shuffle_old_men", "advance_shop",
                    # Requirements
