@@ -311,7 +311,7 @@ class OracleOfAgesWorld(World):
         # before anything else.
         collection_state = self.multiworld.get_all_state(False)
 
-        for i in range(0, 9):
+        for i in range(0, 10):
             # Build a list of locations in this dungeon
             dungeon_location_names = [name for name, loc in LOCATIONS_DATA.items()
                                       if "dungeon" in loc and loc["dungeon"] == i]

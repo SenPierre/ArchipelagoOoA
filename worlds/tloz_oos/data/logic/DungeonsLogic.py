@@ -602,10 +602,11 @@ def make_d6present_logic(player: int):
         ["d6 present handmaster room", "d6 present cube chest", False, lambda state: all([
             ooa_has_switch_hook(state, player),
             ooa_has_bombs(state, player),
-            any([
-                ooa_option_hard_logic(state, player),
-                ooa_can_jump_1_wide_pit(state, player, False),
-            ])
+        ])],
+        ["enter d6 present", "d6 present cube chest", False, lambda state: all([
+            ooa_option_hard_logic(state, player),
+            ooa_can_jump_1_wide_pit(state, player, False),
+            ooa_has_bombs(state, player),
         ])],
         ["d6 present handmaster room", "d6 present spinner chest", False, lambda state: all([
             state.has("_d6_wall_B_bombed", player),
@@ -621,7 +622,7 @@ def make_d6present_logic(player: int):
             any([
                 ooa_can_swim(state, player, False),
                 all([
-                    ooa_has_small_keys(state, player, 9, 2),
+                    ooa_has_small_keys(state, player, 9, 3),
                     ooa_has_switch_hook(state, player),
                 ])
             ])
@@ -744,7 +745,7 @@ def make_d8_logic(player: int):
         ])],
 
         # 1 key - access B1F
-        ["d8 ghini chest", "d8 nw chest", False, lambda state: all([
+        ["d8 1f single chest", "d8 nw chest", False, lambda state: all([
             ooa_has_small_keys(state, player, 8, 1),
             ooa_has_switch_hook(state, player),
             ooa_has_cane(state, player),
@@ -753,7 +754,7 @@ def make_d8_logic(player: int):
         ])],
 
         # 2 keys - access SE spinner
-        ["d8 1f single chest", "d8 ghini chest", False, lambda state: ooa_has_small_keys(state, player, 8, 2)],
+        ["d8 nw chest", "d8 ghini chest", False, lambda state: ooa_has_small_keys(state, player, 8, 2)],
         ["d8 ghini chest", "d8 blue peg chest", False, None],
         ["d8 blue peg chest", "d8 blade trap", False, None],
         ["d8 blue peg chest", "d8 sarcophagus chest", False, lambda state: ooa_has_glove(state, player)],

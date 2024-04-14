@@ -507,6 +507,12 @@ LOCATIONS_DATA = {
         "vanilla_item": "Green Holy Ring",
         "flag_byte": 0xFFFF,
     },
+    "Zora King Gift": {
+        "patcher_name": "zora king gift",
+        "region_id": "zora king gift",
+        "vanilla_item": "Library Key",
+        "flag_byte": 0xFFFF,
+    },
     "Library Present": {
         "patcher_name": "library present",
         "region_id": "library present",
@@ -1333,7 +1339,7 @@ LOCATIONS_DATA = {
     	"dungeon" : 8,
     	"flag_byte": 0xFFFF
     },
-    'Ancient Tomb (1F): Sarcophagus Chest': {
+    'Ancient Tomb (B1F): Sarcophagus Chest': {
     	"patcher_name": "d8 sarcophagus chest",
     	"region_id": "d8 sarcophagus chest",
     	"vanilla_item": "Gasha Seed",
@@ -1368,7 +1374,7 @@ LOCATIONS_DATA = {
     	"dungeon" : 8,
     	"flag_byte": 0xFFFF
     },
-    'Ancient Tomb (1F): Stalfos': {
+    'Ancient Tomb (B1F): Stalfos': {
     	"patcher_name": "d8 stalfos",
     	"region_id": "d8 stalfos",
     	"vanilla_item": "Small Key (Ancient Tomb)",

@@ -53,7 +53,7 @@ def make_overworld_logic(player: int):
                 ooa_can_use_mystery_seeds(state, player),
                 ooa_can_kill_armored_enemy(state, player)
             ])],
-        ["lynna village", "postman trade", False, lambda state: state.has("Poe Watch", player)],
+        ["lynna village", "postman trade", False, lambda state: state.has("Poe Clock", player)],
         ["lynna village", "toilet hand trade", False, lambda state: state.has("Stationery", player)],
         ["lynna village", "mamamu yan trade", False, lambda state: state.has("Doggie Mask", player)],
         ["lynna village", "sad boi trade", False, lambda state: state.has("Funny Joke", player)],
@@ -470,7 +470,7 @@ def make_overworld_logic(player: int):
                 ooa_has_scent_seeds(state, player),
             ])
         ])],
-        ["target carts 1", "target carts 2", True, lambda state: None],
+        ["target carts 1", "target carts 2", True, None],
         ["ridge mid present", "big bang game", True, lambda state: state.has("Goronade", player)],
         ["ridge mid present", "goron diamond cave", True, lambda state: any([
             ooa_has_switch_hook(state, player),
@@ -516,9 +516,11 @@ def make_overworld_logic(player: int):
         ["zora village", "library present", False, lambda state: state.has("Library Key", player)],
         ["library present", "library past", False, lambda state: state.has("Book of Seals", player)],
         ["zora village", "zora seas chest", False, lambda state: state.has("Fairy Powder", player)],
-        ["zora village", "d7 entrance", False, lambda state: all([
-            state.has("Fairy Powder", player),
+        ["zora village", "zora king gift", False, lambda state: all([
             state.has("Potion", player)
+        ])],
+        ["zora king gift", "d7 entrance", False, lambda state: all([
+            state.has("Fairy Powder", player),
         ])],
         ["zora village", "fisher's island cave", False, lambda state: ooa_has_long_hook(state, player)],
         ["d7 boss", "zora's reward", False, None],

@@ -20,7 +20,6 @@ REGIONS = [
     "ambi's palace chest",
     "rescue nayru",
     "rafton's raft",
-    "rafton",
     "d0 entrance",
     #######
     "maku tree",
@@ -84,7 +83,6 @@ REGIONS = [
     #######
     "symmetry past",
     "symmetry city brother",
-    "symmetry middle man",
     "tokkey's composition",
     #######
     "talus peaks",
@@ -156,6 +154,7 @@ REGIONS = [
     "library present",
     "library past",
     "zora seas chest",
+    "zora king gift",
     "d7 entrance",
     "fisher's island cave",
     "zora's reward",
