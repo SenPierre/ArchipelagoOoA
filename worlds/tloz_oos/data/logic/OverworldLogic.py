@@ -348,17 +348,19 @@ def make_overworld_logic(player: int):
 
         # ROLLING RIDGE WEST
         #######################################
-        ["lynna village", "old zora trade", False, lambda state: any([
-            ooa_can_switch_past_and_present(state, player),
-            all([
-                ooa_can_jump_1_wide_pit(state, player, False),
-                any([
-                    ooa_can_jump_3_wide_pit(state, player, False),
-                    ooa_has_switch_hook(state, player),
-                    ooa_can_swim_deepwater(state, player, False),
+        ["lynna village", "old zora trade", False, lambda state: all([
+            any([
+                ooa_can_switch_past_and_present(state, player),
+                all([
+                    ooa_can_jump_1_wide_pit(state, player, False),
+                    any([
+                        ooa_can_jump_3_wide_pit(state, player, False),
+                        ooa_has_switch_hook(state, player),
+                        ooa_can_swim_deepwater(state, player, False),
+                    ]),
                 ]),
             ]),
-            state.has("Sea Ukulele", player)
+            state.has("Sea Ukulele", player),
         ])],
         ["lynna village", "ridge west past base", True, lambda state: all([
             any([
