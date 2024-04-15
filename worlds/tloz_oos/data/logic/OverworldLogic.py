@@ -27,6 +27,7 @@ def make_overworld_logic(player: int):
         
         ["lynna city", "mayor plen's house", False, lambda state: ooa_has_long_hook(state, player)],
         ["lynna city", "lynna city comedian trade", False, lambda state: state.has("Cheesy Mustache", player)],
+        ["lynna city", "mamamu yan trade", False, lambda state: state.has("Doggie Mask", player)],
         ["lynna city", "vasu's gift", False, None],
 
         # LYNNA VILLAGE
@@ -55,7 +56,6 @@ def make_overworld_logic(player: int):
             ])],
         ["lynna village", "postman trade", False, lambda state: state.has("Poe Clock", player)],
         ["lynna village", "toilet hand trade", False, lambda state: state.has("Stationery", player)],
-        ["lynna village", "mamamu yan trade", False, lambda state: state.has("Doggie Mask", player)],
         ["lynna village", "sad boi trade", False, lambda state: state.has("Funny Joke", player)],
         ["lynna village", "rafton's raft", False, lambda state: all([
             state.has("Cheval Rope", player),

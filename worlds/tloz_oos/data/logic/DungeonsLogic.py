@@ -752,10 +752,10 @@ def make_d8_logic(player: int):
             ooa_can_use_ember_seeds(state, player, True),
             ooa_has_seedshooter(state, player),
         ])],
+        ["d8 nw chest", "d8 ghini chest", False, lambda state: ooa_can_kill_normal_enemy(state, player)],
 
         # 2 keys - access SE spinner
-        ["d8 nw chest", "d8 ghini chest", False, lambda state: ooa_has_small_keys(state, player, 8, 2)],
-        ["d8 ghini chest", "d8 blue peg chest", False, None],
+        ["d8 ghini chest", "d8 blue peg chest", False, lambda state: ooa_has_small_keys(state, player, 8, 2)],
         ["d8 blue peg chest", "d8 blade trap", False, None],
         ["d8 blue peg chest", "d8 sarcophagus chest", False, lambda state: ooa_has_glove(state, player)],
         ["d8 blue peg chest", "d8 stalfos", False, lambda state: ooa_can_kill_stalfos(state, player)],

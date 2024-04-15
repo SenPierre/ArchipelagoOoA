@@ -600,7 +600,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Doggie Mask",
         "flag_byte": 0xC88F
     },
-    "Lynna Village: Mamamu Yan Trade": {
+    "Lynna City: Mamamu Yan Trade": {
         "patcher_name": "mamamu yan trade",
         "region_id": "mamamu yan trade",
         "vanilla_item": "Dumbbell",
@@ -1087,7 +1087,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Present): RNG Chest": {
     	"patcher_name": "d6 present rng chest",
     	"region_id": "d6 present rng chest",
-    	"vanilla_item": "Boss Key (Mermaid's Cave Past)",
+    	"vanilla_item": "Boss Key (Mermaid's Cave)",
     	"dungeon" : 9,
     	"flag_byte": 0xFFFF
     },

@@ -278,7 +278,7 @@ ITEMS_DATA = {
         'id': 0x31,
         'subid': 0x04
     },
-    "Boss Key (Mermaid's Cave Past)": {
+    "Boss Key (Mermaid's Cave)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
         'subid': 0x05

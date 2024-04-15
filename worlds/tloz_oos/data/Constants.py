@@ -112,10 +112,9 @@ ITEM_GROUPS = {
         "Boss Key (Moonlit Grotto)",
         "Boss Key (Skull Dungeon)",
         "Boss Key (Crown Dungeon)",
-        "Boss Key (Mermaid's Cave Past)",
+        "Boss Key (Mermaid's Cave)",
         "Boss Key (Jabu-Jabu's Belly)",
         "Boss Key (Ancient Tomb)",
-        #"Boss Key (Mermaid's Cave Present)",
     ],
     "Compasses": [
         "Compass (Spirit's Grave)",

@@ -32,13 +32,6 @@ def create_connections(multiworld: MultiWorld, player: int):
             if entrance_desc[1] in unused_region:
                 unused_region.remove(entrance_desc[1])
 
-    if unused_region.count != 0:
-        print("Unused region :")
-        for region in unused_region:
-            print(region)
-        print("------------")
-
-
     # Create connections
     for logic_array in all_logic:
         for entrance_desc in logic_array:

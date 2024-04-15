@@ -338,6 +338,29 @@ class OracleOfAgesWorld(World):
                         raise exc
                     logging.debug(f"Failed to shuffle dungeon items for player {self.player}. Retrying...")
 
+        # D6 specific item that can appear in both dungeon (the boss key)
+        d6CommonDungeon = "(Mermaid's Cave)"
+        
+        D6_location_names = [name for name, loc in LOCATIONS_DATA.items() if "dungeon" in loc and loc["dungeon"] == 6 or "dungeon" in loc and loc["dungeon"] == 9]
+        dungeon_locations = [loc for loc in self.multiworld.get_locations(self.player) if loc.name in D6_location_names]
+        confined_dungeon_items = [item for item in self.dungeon_items if item.name.endswith(d6CommonDungeon) ]
+        
+        for item in confined_dungeon_items:
+            collection_state.remove(item)
+
+        # Preplace D6 Boss key
+        for attempts_remaining in range(2, -1, -1):
+            self.random.shuffle(dungeon_locations)
+            try:
+                fill_restrictive(self.multiworld, collection_state, dungeon_locations, confined_dungeon_items,
+                                    single_player_placement=True, lock=True, allow_excluded=True)
+                break
+            except FillError as exc:
+                if attempts_remaining == 0:
+                    raise exc
+                logging.debug(f"Failed to shuffle dungeon items for player {self.player}. Retrying...")
+        
+
     def pre_fill_seeds(self) -> None:
         
         TREES_TABLE = {
