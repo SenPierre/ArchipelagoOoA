@@ -252,7 +252,6 @@ class OracleOfSeasonsWorld(World):
         location.place_locked_item(Item(event_item_name, ItemClassification.progression, None, self.player))
 
     def create_events(self):
-        self.create_event("subrosian smithy bell", "Pirate's Bell")
         self.create_event("maku seed", "Maku Seed")
 
         if self.options.goal == OracleOfSeasonsGoal.option_beat_onox:
