@@ -122,8 +122,13 @@ def oos_has_small_keys(state: CollectionState, player: int, dungeon_id: int, amo
 
 
 def oos_has_boss_key(state: CollectionState, player: int, dungeon_id: int):
-    return (state.has(f"Boss Key ({DUNGEON_NAMES[dungeon_id]})", player)
-            or state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player))
+    return any([
+        state.has(f"Boss Key ({DUNGEON_NAMES[dungeon_id]})", player),
+        all([
+            state.multiworld.worlds[player].options.master_keys == "all_dungeon_keys",
+            state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player)
+        ])
+    ])
 
 
 # Options and generation predicates ###########################################
