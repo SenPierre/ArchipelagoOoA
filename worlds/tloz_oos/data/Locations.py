@@ -344,7 +344,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xFFFF,
     },
     ##########################################
-    "Ridge West Cave": {
+    "Ridge West Surface Stair": {
         "patcher_name": "ridge west cave",
         "region_id": "ridge west cave",
         "vanilla_item": "Rupees (30)",
@@ -368,7 +368,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Golden Joy Ring",
         "flag_byte": 0xFFFF,
     },
-    "Ridge Base Chest": {
+    "Ridge Chest West Base On Terrace": {
         "patcher_name": "ridge base chest",
         "region_id": "ridge base chest",
         "vanilla_item": "Rupees (50)",
