@@ -87,12 +87,13 @@ class OracleOfSeasonsWorld(World):
                    "shuffle_dungeons", "shuffle_portals", "lost_woods_item_sequence",
                    "duplicate_seed_tree", "default_seed", "master_keys",
                    "remove_d0_alt_entrance", "remove_d2_alt_entrance",
-                   "keysanity_small_keys", "keysanity_boss_keys",
                    # Locations
                    "shuffle_golden_ore_spots", "shuffle_old_men", "advance_shop",
                    # Requirements
                    "required_essences", "tarm_gate_required_jewels", "treehouse_old_man_requirement",
                    "sign_guy_requirement", "golden_beasts_requirement",
+                   # Tracker QoL
+                   "enforce_potion_in_shop", "keysanity_small_keys", "keysanity_boss_keys",
                    ]
 
         slot_data = self.options.as_dict(*options)
