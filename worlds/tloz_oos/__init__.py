@@ -118,10 +118,7 @@ class OracleOfSeasonsWorld(World):
         self.randomize_old_men()
 
         if self.options.shuffle_dungeons == "shuffle":
-            shuffled_entrances = list(self.dungeon_entrances.values())
-            self.random.shuffle(shuffled_entrances)
-            self.dungeon_entrances = dict(zip(self.dungeon_entrances, shuffled_entrances))
-
+            self.shuffle_dungeons()
         if self.options.shuffle_portals == "shuffle":
             self.shuffle_portals()
 
@@ -161,6 +158,31 @@ class OracleOfSeasonsWorld(World):
                 single_season = self.random.choice(SEASONS)
             for region in self.default_seasons:
                 self.default_seasons[region] = single_season
+
+    def shuffle_dungeons(self):
+        shuffled_dungeons = list(self.dungeon_entrances.values())
+        self.random.shuffle(shuffled_dungeons)
+        self.dungeon_entrances = dict(zip(self.dungeon_entrances, shuffled_dungeons))
+
+        # If alt entrances are left as-is, we need to ensure D3 entrance doesn't lead to a dungeon with an alternate
+        # entrance (D0 or D2) because people might leave by the front door and get caught in a drowning loop of doom
+        forbidden_d3_dungeons = []
+        if not self.options.remove_d0_alt_entrance:
+            forbidden_d3_dungeons.append("enter d0")
+        if not self.options.remove_d2_alt_entrance:
+            forbidden_d3_dungeons.append("enter d2")
+
+        d3_dungeon = self.dungeon_entrances["d3 entrance"]
+        if d3_dungeon in forbidden_d3_dungeons:
+            # Randomly pick a valid dungeon for D3 entrance, and make the entrance that was going to that dungeon
+            # lead to the problematic dungeon instead
+            allowed_dungeons = [d for d in DUNGEON_ENTRANCES.values() if d not in forbidden_d3_dungeons]
+            dungeon_to_swap = self.random.choice(allowed_dungeons)
+            for k in self.dungeon_entrances.keys():
+                if self.dungeon_entrances[k] == dungeon_to_swap:
+                    self.dungeon_entrances[k] = d3_dungeon
+                    break
+            self.dungeon_entrances["d3 entrance"] = dungeon_to_swap
 
     def shuffle_portals(self):
         shuffled_portals = list(self.portal_connections.values())

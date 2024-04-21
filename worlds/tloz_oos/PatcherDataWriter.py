@@ -51,15 +51,13 @@ def write_patcherdata_file(world, output_directory: str):
     for region_name, value in world.old_man_rupee_values.items():
         yamlObj["old man rupee values"][region_name] = value
 
-    if world.options.shuffle_dungeons != "vanilla":
-        yamlObj["dungeon entrances"] = {}
-        for entrance, dungeon in world.dungeon_entrances.items():
-            yamlObj["dungeon entrances"][entrance] = dungeon.replace("enter ", "")
+    yamlObj["dungeon entrances"] = {}
+    for entrance, dungeon in world.dungeon_entrances.items():
+        yamlObj["dungeon entrances"][entrance] = dungeon.replace("enter ", "")
 
-    if world.options.shuffle_portals != "vanilla":
-        yamlObj["subrosia portals"] = {}
-        for portal_holo, portal_sub in world.portal_connections.items():
-            yamlObj["subrosia portals"][PORTALS_CONVERSION_TABLE[portal_holo]] = PORTALS_CONVERSION_TABLE[portal_sub]
+    yamlObj["subrosia portals"] = {}
+    for portal_holo, portal_sub in world.portal_connections.items():
+        yamlObj["subrosia portals"][PORTALS_CONVERSION_TABLE[portal_holo]] = PORTALS_CONVERSION_TABLE[portal_sub]
 
     for loc in world.multiworld.get_locations(world.player):
         if loc.address is None:
