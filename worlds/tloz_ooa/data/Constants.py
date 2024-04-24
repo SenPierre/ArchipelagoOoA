@@ -22,7 +22,7 @@ SEED_ITEMS = [
 ]
 
 DUNGEON_NAMES = [
-    "Maku Road",
+    "Maku Path",
     "Spirit's Grave",
     "Wing Dungeon",
     "Moonlit Grotto",
@@ -95,7 +95,7 @@ SHOP_PRICES_DIVIDERS = {
 
 ITEM_GROUPS = {
     "Small Keys": [
-        "Small Key (Maku Road)",
+        "Small Key (Maku Path)",
         "Small Key (Spirit's Grave)",
         "Small Key (Wing Dungeon)",
         "Small Key (Moonlit Grotto)",
@@ -139,7 +139,7 @@ ITEM_GROUPS = {
         "Dungeon Map (Mermaid's Cave Present)",
     ],
     "Master Keys": [
-        "Master Key (Maku Road)",
+        "Master Key (Maku Path)",
         "Master Key (Spirit's Grave)",
         "Master Key (Wing Dungeon)",
         "Master Key (Moonlit Grotto)",

@@ -269,11 +269,6 @@ class OracleOfAgesWorld(World):
 
     def create_items(self):
         item_pool_dict = self.build_item_pool_dict()
-
-        i = 0
-        for item_name, quantity in item_pool_dict.items():
-            i = i + quantity
-        print (i)
         
         # Create items following the dictionary that was previously constructed
         self.create_rings(item_pool_dict["Random Ring"])
@@ -366,7 +361,6 @@ class OracleOfAgesWorld(World):
                 if attempts_remaining == 0:
                     raise exc
                 logging.debug(f"Failed to shuffle dungeon items for player {self.player}. Retrying...")
-        
 
     def pre_fill_seeds(self) -> None:
         
@@ -386,7 +380,6 @@ class OracleOfAgesWorld(World):
             self.multiworld.get_location(location_name, self.player).place_locked_item(seed_item)
             self.pre_fill_items.append(seed_item)
 
-        # TODO PREFILL REWORK 
         seeds_to_place = set([name for name in SEED_ITEMS if name != SEED_ITEMS[self.options.default_seed.value]])
 
         manually_placed_trees = ["Lynna City: Seed Tree"]
@@ -412,7 +405,7 @@ class OracleOfAgesWorld(World):
         return self.random.choice(FILLER_ITEM_NAMES)
 
     def generate_output(self, output_directory: str):
-        #write_patcherdata_file(self, output_directory)
+        write_patcherdata_file(self, output_directory)
         return
 
     def write_spoiler(self, spoiler_handle):
