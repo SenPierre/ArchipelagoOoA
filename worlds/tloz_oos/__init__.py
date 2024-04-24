@@ -283,6 +283,9 @@ class OracleOfAgesWorld(World):
                     self.dungeon_items.append(self.create_item(item_name))
                 else:
                     self.multiworld.itempool.append(self.create_item(item_name))
+        
+        
+        self.multiworld.itempool.append(self.create_item("Biggoron's Sword"))
 
     def create_rings(self, amount):
         # Get a subset of as many rings as needed, with a potential filter on quality depending on chosen options
@@ -405,8 +408,7 @@ class OracleOfAgesWorld(World):
         return self.random.choice(FILLER_ITEM_NAMES)
 
     def generate_output(self, output_directory: str):
-        #TODO
-        #write_patcherdata_file(self, output_directory)
+        write_patcherdata_file(self, output_directory)
         return
 
     def write_spoiler(self, spoiler_handle):
