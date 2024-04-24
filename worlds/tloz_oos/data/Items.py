@@ -31,11 +31,11 @@ ITEMS_DATA = {
     },
     "Progressive Hook": {
         'classification': ItemClassification.progression,
-        'id': 0x08
+        'id': 0x0a
     },
     "Cane of Somaria": {
         'classification': ItemClassification.progression,
-        'id': 0x09
+        'id': 0x04
     },
     "Biggoron's Sword": {
         'classification': ItemClassification.progression,
