@@ -93,7 +93,7 @@ ITEMS_DATA = {
         'id': 0x19
     },
     "Fool's Ore": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'id': 0x1e
     },
     "Ember Seeds": {
@@ -109,7 +109,7 @@ ITEMS_DATA = {
         'id': 0x22
     },
     "Gale Seeds": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'id': 0x23
     },
     "Mystery Seeds": {
@@ -226,7 +226,7 @@ ITEMS_DATA = {
     "Small Key (Sword & Shield Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
-        'subid': 0x07
+        'subid': 0x08
     },
     "Master Key (Hero's Cave)": {
         'classification': ItemClassification.progression,
@@ -271,7 +271,7 @@ ITEMS_DATA = {
     "Master Key (Sword & Shield Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
-        'subid': 0x07
+        'subid': 0x08
     },
     "Boss Key (Gnarled Root Dungeon)": {
         'classification': ItemClassification.progression,
@@ -499,8 +499,7 @@ ITEMS_DATA = {
     },
     "Pirate's Bell": {
         'classification': ItemClassification.progression,
-        'id': 0x4a,
-        'subid': 0x02
+        'id': 0x25
     },
     "Treasure Map": {
         'classification': ItemClassification.useful,

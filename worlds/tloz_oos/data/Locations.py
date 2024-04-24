@@ -471,7 +471,6 @@ LOCATIONS_DATA = {
         "patcher_name": "subrosian smithy bell",
         "region_id": "subrosian smithy bell",
         "vanilla_item": "Pirate's Bell",
-        "randomized": False,
         "flag_byte": 0xC897,
         "bit_mask": 0x80
     },

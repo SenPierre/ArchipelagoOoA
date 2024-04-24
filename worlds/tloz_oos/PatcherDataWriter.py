@@ -24,11 +24,12 @@ def write_patcherdata_file(world, output_directory: str):
             "treehouse_old_man_requirement": world.options.treehouse_old_man_requirement.value,
             "sign_guy_requirement": world.options.sign_guy_requirement.value,
             "tarm_gate_required_jewels": world.options.tarm_gate_required_jewels.value,
-            "remove_d0_alt_entrance": world.options.remove_d0_alt_entrance.value,
-            "remove_d2_alt_entrance": world.options.remove_d2_alt_entrance.value,
+            "remove_d0_alt_entrance": world.options.remove_d0_alt_entrance.current_key,
+            "remove_d2_alt_entrance": world.options.remove_d2_alt_entrance.current_key,
             "reveal_golden_ore_tiles": world.options.shuffle_golden_ore_spots == "shuffled_visible",
             "master_keys": world.options.master_keys.current_key,
             "quick_flute": world.options.quick_flute.current_key,
+            "renewable_horon_shop_3": world.options.enforce_potion_in_shop.current_key,
             "open_advance_shop": world.options.advance_shop.current_key,
             "character_sprite": world.options.character_sprite.current_key,
             "character_palette": world.options.character_palette.current_key,
@@ -50,15 +51,13 @@ def write_patcherdata_file(world, output_directory: str):
     for region_name, value in world.old_man_rupee_values.items():
         yamlObj["old man rupee values"][region_name] = value
 
-    if world.options.shuffle_dungeons != "vanilla":
-        yamlObj["dungeon entrances"] = {}
-        for entrance, dungeon in world.dungeon_entrances.items():
-            yamlObj["dungeon entrances"][entrance] = dungeon.replace("enter ", "")
+    yamlObj["dungeon entrances"] = {}
+    for entrance, dungeon in world.dungeon_entrances.items():
+        yamlObj["dungeon entrances"][entrance] = dungeon.replace("enter ", "")
 
-    if world.options.shuffle_portals != "vanilla":
-        yamlObj["subrosia portals"] = {}
-        for portal_holo, portal_sub in world.portal_connections.items():
-            yamlObj["subrosia portals"][PORTALS_CONVERSION_TABLE[portal_holo]] = PORTALS_CONVERSION_TABLE[portal_sub]
+    yamlObj["subrosia portals"] = {}
+    for portal_holo, portal_sub in world.portal_connections.items():
+        yamlObj["subrosia portals"][PORTALS_CONVERSION_TABLE[portal_holo]] = PORTALS_CONVERSION_TABLE[portal_sub]
 
     for loc in world.multiworld.get_locations(world.player):
         if loc.address is None:

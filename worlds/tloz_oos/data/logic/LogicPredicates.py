@@ -122,8 +122,13 @@ def oos_has_small_keys(state: CollectionState, player: int, dungeon_id: int, amo
 
 
 def oos_has_boss_key(state: CollectionState, player: int, dungeon_id: int):
-    return (state.has(f"Boss Key ({DUNGEON_NAMES[dungeon_id]})", player)
-            or state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player))
+    return any([
+        state.has(f"Boss Key ({DUNGEON_NAMES[dungeon_id]})", player),
+        all([
+            state.multiworld.worlds[player].options.master_keys == "all_dungeon_keys",
+            state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player)
+        ])
+    ])
 
 
 # Options and generation predicates ###########################################
@@ -134,6 +139,10 @@ def oos_option_medium_logic(state: CollectionState, player: int):
 
 def oos_option_hard_logic(state: CollectionState, player: int):
     return state.multiworld.worlds[player].options.logic_difficulty == "hard"
+
+
+def oos_option_shuffled_dungeons(state: CollectionState, player: int):
+    return state.multiworld.worlds[player].options.shuffle_dungeons != "vanilla"
 
 
 def oos_option_allow_warp_to_start(state: CollectionState, player: int):

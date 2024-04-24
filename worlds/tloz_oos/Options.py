@@ -407,11 +407,19 @@ class OracleOfSeasonsFoolsOre(Choice):
 
 class OracleOfSeasonsWarpToStart(DefaultOnToggle):
     """
-    When enabled, you can warp to start by holding Start while exiting map screen.
+    When enabled, you can warp to start by pressing A+B during the whiteout of the screen leading to inventory or
+    map menu.
     This can be used to make backtracking a bit more bearable in seeds where Gale Seeds take time to obtain and prevent
     most softlock situations from happening
     """
     display_name = "Warp to Start"
+
+
+class OracleOfSeasonsEnforcePotionInShop(Toggle):
+    """
+    When enabled, you are guaranteed to have a renewable Potion for 300 rupees inside Horon shop
+    """
+    display_name = "Enforce Potion in Shop"
 
 
 class OracleOfSeasonsCombatDifficulty(Choice):
@@ -516,6 +524,7 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     advance_shop: OracleOfSeasonsAdvanceShop
     fools_ore: OracleOfSeasonsFoolsOre
     warp_to_start: OracleOfSeasonsWarpToStart
+    enforce_potion_in_shop: OracleOfSeasonsEnforcePotionInShop
     combat_difficulty: OracleOfSeasonsCombatDifficulty
     quick_flute: OracleOfSeasonsQuickFlute
     heart_beep_interval: OracleOfSeasonsHeartBeepInterval
