@@ -35,6 +35,7 @@ def make_overworld_logic(player: int):
         ["lynna city", "lynna village", True, None],
         ["forest of time", "lynna village", False, lambda state: ooa_can_open_portal(state, player)],
         ["lynna village", "black tower worker", False, None],
+        ["lynna village", "black tower heartpiece", False, lambda state: ooa_can_remove_dirt(state, player, False)],
         ["lynna village", "advance shop", False, lambda state: ooa_has_rupees(state, player, 400)],
         ["lynna village", "ambi's palace tree", False, lambda state: ooa_can_harvest_tree(state, player, False)],
         ["lynna village", "ambi's palace chest", False, lambda state: any([
@@ -116,6 +117,7 @@ def make_overworld_logic(player: int):
         ])],
         ["cheval's grave", "cheval's invention", False, lambda state: ooa_can_swim(state, player, False)],
         ["yoll graveyard", "grave under tree", False, lambda state: ooa_can_use_ember_seeds(state, player, False)],
+        ["yoll graveyard", "yoll graveyard heartpiece", False, lambda state: ooa_has_bracelet(state, player)],
         ["yoll graveyard", "graveyard door", False, lambda state: state.has("Graveyard Key", player)],
         ["graveyard door", "syrup shop", False, lambda state: all([
             any([
@@ -153,6 +155,8 @@ def make_overworld_logic(player: int):
             ooa_can_switch_past_and_present(state, player),
         ])],
         ["deku forest", "deku forest cave east", False, None], # You need the bracelet or the ages song to access deku forest. Either way, you can access that easily.
+        ["deku forest", "deku forest heartpiece", False, lambda state: ooa_can_use_ember_seeds(state, player, False)],
+        ["deku forest", "restoration wall heartpiece", False, lambda state: ooa_can_jump_1_wide_pit(state, player, False)], # Still need feather inside the cave
         ["deku forest", "deku forest cave west", False, lambda state: all([
             ooa_has_bracelet(state, player),                    
             any([
@@ -307,6 +311,7 @@ def make_overworld_logic(player: int):
 
         ["symmetry past", "symmetry city brother", False, None],
         ["symmetry past", "symmetry middle man trade", False, lambda state: state.has("Dumbbell", player)],
+        ["symmetry past", "symmetry city heartpiece", False, lambda state: ooa_can_go_back_to_present(state, player)],
         ["symmetry past", "tokkey's composition", False, lambda state: ooa_can_swim(state, player, False)],
 
         ["symmetry past", "talus peaks", False, lambda state: all([
@@ -374,6 +379,7 @@ def make_overworld_logic(player: int):
         ])],
         ["ridge west past base", "goron elder", False, lambda state: state.has("Bomb Flower", player)],
         ["ridge west present", "ridge west past", False, lambda state: ooa_can_open_portal(state, player)],
+        ["ridge west present", "ridge west heartpiece", False, lambda state: ooa_has_bombs(state, player)],
         ["goron elder", "ridge west past", False, None],
         ["ridge west past", "ridge west past base", False, None],
         ["ridge west past", "ridge west tree", False, lambda state: ooa_can_harvest_tree(state, player, False)],
@@ -411,6 +417,7 @@ def make_overworld_logic(player: int):
             ooa_has_bracelet(state, player)
         ])],
         ["ridge upper past", "bomb goron head", False, lambda state: ooa_has_bombs(state, player)],
+        ["ridge upper past", "ridge upper heartpiece", False, lambda state: ooa_can_go_back_to_present(state, player)],
         
         # ROLLING BASE
         #######################################

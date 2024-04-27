@@ -6,6 +6,7 @@ def make_d0_logic(player: int):
         ["enter d0", "d0 key chest", False, lambda state: ooa_can_kill_normal_enemy(state, player)],
         ["enter d0", "d0 behind the door", True, lambda state: ooa_has_small_keys(state, player, 0, 1)],
         ["d0 behind the door", "d0 basement", False, None],
+        ["d0 behind the door", "maku path heartpiece", False, lambda state: ooa_can_kill_normal_enemy(state, player)],
         #["d0 behind the door", "d0 heart piece", False, None],
         ["d0 behind the door", "d0 exit", False, lambda state: ooa_can_kill_normal_enemy(state, player)],
         ["d0 exit", "d0 behind the door", False, None],

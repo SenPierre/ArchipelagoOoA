@@ -326,6 +326,7 @@ REGIONS = [
     "veran beaten",
     #######
     
+    # trade
     "graveyard poe trade",
     "postman trade",
     "toilet hand trade",
@@ -338,4 +339,14 @@ REGIONS = [
     "maple trade",
     "rafton trade",
     "old zora trade",
+
+    # heart pieces
+    "black tower heartpiece",
+    "maku path heartpiece",
+    "yoll graveyard heartpiece",
+    "deku forest heartpiece",
+    "restoration wall heartpiece",
+    "symmetry city heartpiece",
+    "ridge west heartpiece",
+    "ridge upper heartpiece",
 ]

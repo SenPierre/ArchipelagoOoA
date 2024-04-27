@@ -208,7 +208,7 @@ LOCATIONS_DATA = {
     "Syrup Shop Item #3": {
         "patcher_name": "syrup shop 3",
         "region_id": "syrup shop",
-        "vanilla_item": "Piece of Heart",
+        "vanilla_item": "Gasha Seed",
         "flag_byte": 0xFFFF,
         "bit_mask": 0xFFFF,
         "scouting_byte": 0xFFFF,
@@ -585,69 +585,116 @@ LOCATIONS_DATA = {
         "patcher_name": "postman trade",
         "region_id": "postman trade",
         "vanilla_item": "Stationery",
-        "flag_byte": 0xC880
+        "flag_byte": 0xFFFF
     },
     "Lynna Village: The Toilet Hand Trade": {
         "patcher_name": "toilet hand trade",
         "region_id": "toilet hand trade",
         "vanilla_item": "Stink Bag",
-        "flag_byte": 0xC640,
-        "bit_mask": 0x08
+        "flag_byte": 0xFFFF
     },
     "Crescent Island (Present): Tokay Chef Trade": {
         "patcher_name": "tokay chef trade",
         "region_id": "tokay chef trade",
         "vanilla_item": "Tasty Meat",
-        "flag_byte": 0xC8B3
+        "flag_byte": 0xFFFF
     },
     "Nuun Highland: Happy Mask Salesman Trade": {
         "patcher_name": "happy mask salesman trade",
         "region_id": "happy mask salesman trade",
         "vanilla_item": "Doggie Mask",
-        "flag_byte": 0xC88F
+        "flag_byte": 0xFFFF
     },
     "Lynna City: Mamamu Yan Trade": {
         "patcher_name": "mamamu yan trade",
         "region_id": "mamamu yan trade",
         "vanilla_item": "Dumbbell",
-        "flag_byte": 0xC708
+        "flag_byte": 0xFFFF
     },
     "Symmetry City: Middle Man Trade": {
         "patcher_name": "symmetry middle man trade",
         "region_id": "symmetry middle man trade",
         "vanilla_item": "Cheesy Mustache",
-        "flag_byte": 0xC899
+        "flag_byte": 0xFFFF
     },
     "Lynna City: Comedian Trade": {
         "patcher_name": "lynna city comedian trade",
         "region_id": "lynna city comedian trade",
         "vanilla_item": "Funny Joke",
-        "flag_byte": 0xC7B7
+        "flag_byte": 0xFFFF
     },
     "Lynna Village: Sad Boi Trade": {
         "patcher_name": "sad boi trade",
         "region_id": "sad boi trade",
         "vanilla_item": "Touching Book",
-        "flag_byte": 0xCAB6,
-        "bit_mask": 0x40
+        "flag_byte": 0xFFFF
     },
     "Maple Trade": {
         "patcher_name": "maple trade",
         "region_id": "maple trade",
         "vanilla_item": "Magic Oar",
-        "flag_byte": 0xC89C
+        "flag_byte": 0xFFFF
     },
     "Lynna Village: Rafton Trade": {
         "patcher_name": "rafton trade",
         "region_id": "rafton trade",
         "vanilla_item": "Sea Ukulele",
-        "flag_byte": 0xC883
+        "flag_byte": 0xFFFF
     },
     "Rolling Ridge: Old Zora Trade": {
         "patcher_name": "old zora trade",
         "region_id": "old zora trade",
         "vanilla_item": "Broken Sword",
-        "flag_byte": 0xC7DA
+        "flag_byte": 0xFFFF
+    },
+    ##########################################
+    "Black Tower Heart Piece": {
+        "patcher_name": "black tower heartpiece",
+        "region_id": "black tower heartpiece",
+        "vanilla_item": "Piece of Heart",
+        "flag_byte": 0xFFFF
+    },
+    "Maku Path Heart Piece": {
+        "patcher_name": "maku path heartpiece",
+        "region_id": "maku path heartpiece",
+        "vanilla_item": "Piece of Heart",
+        "flag_byte": 0xFFFF
+    },
+    "Yoll Graveyard Heart Piece": {
+        "patcher_name": "yoll graveyard heartpiece",
+        "region_id": "yoll graveyard heartpiece",
+        "vanilla_item": "Piece of Heart",
+        "flag_byte": 0xFFFF
+    },
+    "Deku Forest Heart Piece": {
+        "patcher_name": "deku forest heartpiece",
+        "region_id": "deku forest heartpiece",
+        "vanilla_item": "Piece of Heart",
+        "flag_byte": 0xFFFF
+    },
+    "Restoration Wall Heart Piece": {
+        "patcher_name": "restoration wall heartpiece",
+        "region_id": "restoration wall heartpiece",
+        "vanilla_item": "Piece of Heart",
+        "flag_byte": 0xFFFF
+    },
+    "Symmetry City Heart Piece": {
+        "patcher_name": "symmetry city heartpiece",
+        "region_id": "symmetry city heartpiece",
+        "vanilla_item": "Piece of Heart",
+        "flag_byte": 0xFFFF
+    },
+    "Ridge West Heart Piece": {
+        "patcher_name": "ridge west heartpiece",
+        "region_id": "ridge west heartpiece",
+        "vanilla_item": "Piece of Heart",
+        "flag_byte": 0xFFFF
+    },
+    "Ridge Upper Heart Piece": {
+        "patcher_name": "ridge upper heartpiece",
+        "region_id": "ridge upper heartpiece",
+        "vanilla_item": "Piece of Heart",
+        "flag_byte": 0xFFFF
     },
     ##########################################
     "Maku Path: Key Chest": {
