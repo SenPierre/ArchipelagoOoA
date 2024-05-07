@@ -69,8 +69,9 @@ class OracleOfAgesWorld(World):
                    # Locations
                    "advance_shop",
                    # Requirements
-                   "required_essences",
-                   "required_slates",
+                   "required_essences", "required_slates",
+                   # keysanity
+                   "keysanity_small_keys", "keysanity_boss_keys", "keysanity_slates"
                    ]
 
         slot_data = self.options.as_dict(*options)
@@ -101,6 +102,8 @@ class OracleOfAgesWorld(World):
         if not self.options.keysanity_maps_compasses:
             self.options.non_local_items.value -= self.item_name_groups["Dungeon Maps"]
             self.options.non_local_items.value -= self.item_name_groups["Compasses"]
+        if not self.options.keysanity_slates:
+            self.options.non_local_items.value -= set(["Slate"])
 
     def randomize_shop_prices(self):
         prices_pool = get_prices_pool()
@@ -282,6 +285,8 @@ class OracleOfAgesWorld(World):
                     self.dungeon_items.append(self.create_item(item_name))
                 elif ("Compass" in item_name or "Dungeon Map" in item_name) and not self.options.keysanity_maps_compasses:
                     self.dungeon_items.append(self.create_item(item_name))
+                elif "Slate" in item_name and not self.options.keysanity_slates:
+                    self.dungeon_items.append(self.create_item(item_name))
                 else:
                     self.multiworld.itempool.append(self.create_item(item_name))        
 
@@ -322,7 +327,7 @@ class OracleOfAgesWorld(World):
 
             # Build a list of dungeon items that are "confined" (i.e. must be placed inside this dungeon)
             # See `create_items` to see how `self.dungeon_items` is populated depending on current options.
-            confined_dungeon_items = [item for item in self.dungeon_items if item.name.endswith(f"({DUNGEON_NAMES[i]})")]
+            confined_dungeon_items = [item for item in self.dungeon_items if item.name.endswith(f"({DUNGEON_NAMES[i]})") or (i == 8 and "Slate" in item.name)]
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
             for item in confined_dungeon_items:

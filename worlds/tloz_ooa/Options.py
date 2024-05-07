@@ -155,6 +155,12 @@ class OracleOfAgesMapCompassShuffle(Toggle):
     display_name = "Maps & Compasses Outside Dungeon"
 
 
+class OracleOfAgesSlateShuffle(Toggle):
+    """
+    If enabled, Slates can be found anywhere instead of being confined in Dungeon 8.
+    """
+    display_name = "Slates Outside Dungeon 8"
+
 
 class OracleOfAgesRingQuality(Choice):
     """
@@ -286,6 +292,7 @@ class OracleOfAgesOptions(PerGameCommonOptions):
     keysanity_small_keys: OracleOfAgesSmallKeyShuffle
     keysanity_boss_keys: OracleOfAgesBossKeyShuffle
     keysanity_maps_compasses: OracleOfAgesMapCompassShuffle
+    keysanity_slates: OracleOfAgesSlateShuffle
     ring_quality: OracleOfAgesRingQuality
     shop_prices_factor: OracleOfAgesPricesFactor
     advance_shop: OracleOfAgesAdvanceShop

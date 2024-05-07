@@ -149,7 +149,7 @@ ITEM_GROUPS = {
         "Master Key (Jabu-Jabu's Belly)",
         "Master Key (Ancient Tomb)",
         "Master Key (Mermaid's Cave Present)",
-    ]
+    ],
 }
 
 LOCATION_GROUPS = {
