@@ -188,7 +188,15 @@ def ooa_can_trigger_switch(state: CollectionState, player: int):
     return any([
         ooa_has_boomerang(state, player),
         ooa_has_bombs(state, player),
-        ooa_can_use_seeds(state, player),
+        ooa_has_seedshooter(state, player),
+        all([
+            ooa_has_satchel(state, player),
+            any([
+                ooa_has_ember_seeds(state, player),
+                ooa_has_scent_seeds(state, player),
+                ooa_has_mystery_seeds(state, player)
+            ])
+        ]),
         ooa_has_sword(state, player, False),
         ooa_has_switch_hook(state, player),
         ooa_can_punch(state, player),
@@ -553,12 +561,33 @@ def ooa_can_kill_normal_enemy(state: CollectionState, player: int, can_kill_with
         can_kill_with_hook and ooa_has_switch_hook(state, player),
     ])
 
-def ooa_can_kill_underwater(state: CollectionState, player: int, can_kill_with_hook: bool = False):
-    # If a pit is avaiable nearby, it can be used to put the enemies inside using
-    # items that are usually non-lethal
+def ooa_can_kill_moldorm(state:CollectionState, player:int, pit_available:bool=False):
+    if pit_available and ooa_can_push_enemy(state, player):
+        return True
+
     return any([
         ooa_has_sword(state, player),
-        ooa_can_kill_normal_using_satchel(state, player),
+        ooa_can_use_scent_seeds_offensively(state, player),
+        # Not including mystery seed, because even in hard logic this is just pure torture
+        (ooa_option_medium_logic(state, player) and ooa_has_bombs(state, player, 4)),
+        (ooa_option_medium_logic(state, player) and ooa_has_cane(state, player)),
+        ooa_can_punch(state, player),
+        ooa_has_switch_hook(state, player),
+    ])
+
+def ooa_generic_boss_and_miniboss_kill(state:CollectionState, player:int):
+    return any([
+        ooa_has_sword(state, player),
+        ooa_can_use_scent_seeds_offensively(state, player),
+        # TODO : Check bombs damage on bosses
+        #(ooa_option_medium_logic(state, player) and ooa_has_bombs(state, player, 4)),
+        ooa_can_punch(state, player),
+        ooa_has_switch_hook(state, player),
+    ])
+
+def ooa_can_kill_underwater(state: CollectionState, player: int, can_kill_with_hook: bool = False):
+    return any([
+        ooa_has_sword(state, player),
         ooa_can_kill_normal_using_seedshooter(state, player),
         ooa_can_punch(state, player),
         can_kill_with_hook and ooa_has_switch_hook(state, player),
