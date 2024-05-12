@@ -373,7 +373,12 @@ def make_d4_logic(player: int):
         ["d4 large floor puzzle", "d4 boss", False, lambda state: all([
             ooa_has_boss_key(state, player, 4),
             ooa_has_switch_hook(state, player),
-            ooa_generic_boss_and_miniboss_kill(state, player),
+            any([
+                ooa_has_sword(state, player),
+                ooa_can_use_scent_seeds_offensively(state, player),
+                #(ooa_option_medium_logic(state, player) and ooa_has_bombs(state, player, 4)),
+                ooa_can_punch(state, player),
+            ])
         ])],
         
         # 5 keys 
@@ -394,7 +399,7 @@ def make_d5_logic(player: int):
             any([
                 ooa_can_trigger_switch(state, player),
                 all([
-                    ooa_option_medium_logic(state, player),
+                    ooa_option_hard_logic(state, player), # Not hard to reproduce but clearly not instinctive to find.
                     ooa_has_bracelet(state, player),
                 ])
             ])
@@ -420,7 +425,7 @@ def make_d5_logic(player: int):
         ["d5 switch A", "d5 like-like chest", False, lambda state: any([
             ooa_can_trigger_far_switch(state, player),
             all([
-                ooa_option_medium_logic(state, player),
+                ooa_option_hard_logic(state, player), # Not hard to reproduce but clearly not instinctive to find.
                 ooa_has_bracelet(state, player),
             ]),
             all([
@@ -478,7 +483,10 @@ def make_d5_logic(player: int):
             ooa_has_small_keys(state, player, 5, 2),
             any([
                 ooa_has_cane(state, player),
-                ooa_can_jump_3_wide_pit(state, player, False),
+                all([
+                    ooa_option_hard_logic(state, player),
+                    ooa_can_jump_3_wide_pit(state, player, False), # May need a proper check. Bomb jump ?
+                ]),
                 all([
                     ooa_option_hard_logic(state, player),
                     ooa_has_sword(state, player),
@@ -512,7 +520,7 @@ def make_d5_logic(player: int):
 def make_d6past_logic(player: int):
     return [
         ["enter d6 past", "d6 wall A bombed", False, lambda state: ooa_has_bombs(state, player)],
-        ["d6 wall A bombed", "d6 past wizzrobe", False, lambda state: ooa_can_kill_normal_enemy(state, player)],
+        ["d6 wall A bombed", "d6 past wizzrobe", False, lambda state: ooa_can_kill_wizzrobes(state, player)],
         ["d6 wall A bombed", "d6 past pool chest", False, lambda state: all([
             ooa_can_use_ember_seeds(state, player, True),
             ooa_can_swim(state, player, False),
@@ -576,7 +584,6 @@ def make_d6past_logic(player: int):
                         ooa_has_ember_seeds(state, player),
                     ]),
                 ]),
-                ooa_has_switch_hook(state, player),
                 ooa_can_punch(state, player),
             ])
         ])],
@@ -615,11 +622,10 @@ def make_d6present_logic(player: int):
         ["d6 present handmaster room", "d6 present cube chest", False, lambda state: all([
             ooa_has_switch_hook(state, player),
             ooa_has_bombs(state, player),
-        ])],
-        ["enter d6 present", "d6 present cube chest", False, lambda state: all([
-            ooa_option_hard_logic(state, player),
-            ooa_can_jump_1_wide_pit(state, player, False),
-            ooa_has_bombs(state, player),
+            any([
+                ooa_option_hard_logic(state, player),
+                ooa_can_jump_1_wide_pit(state, player, False)
+            ])
         ])],
         ["d6 present handmaster room", "d6 present spinner chest", False, lambda state: all([
             state.has("_d6_wall_B_bombed", player),

@@ -575,6 +575,18 @@ def ooa_can_kill_moldorm(state:CollectionState, player:int, pit_available:bool=F
         ooa_has_switch_hook(state, player),
     ])
 
+def ooa_can_kill_wizzrobes(state:CollectionState, player:int, pit_available:bool=False):
+    if pit_available and ooa_can_push_enemy(state, player):
+        return True
+
+    return any([
+        ooa_has_sword(state, player),
+        ooa_can_kill_normal_using_satchel(state, player),
+        ooa_can_kill_normal_using_seedshooter(state, player),
+        (ooa_option_medium_logic(state, player) and ooa_has_bombs(state, player, 4)),
+        ooa_can_punch(state, player),
+    ])
+
 def ooa_generic_boss_and_miniboss_kill(state:CollectionState, player:int):
     return any([
         ooa_has_sword(state, player),
