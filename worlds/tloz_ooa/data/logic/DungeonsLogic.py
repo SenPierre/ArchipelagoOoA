@@ -313,7 +313,10 @@ def make_d4_logic(player: int):
         # before the others, effectively adding +1 key requirement to most checks)
 
         # 1 keys
-        ["enter d4", "d4 minecart A", False, lambda state: ooa_has_small_keys(state, player, 4, 1)],
+        ["enter d4", "d4 minecart A", False, lambda state: all([
+            ooa_has_small_keys(state, player, 4, 1),
+            ooa_can_jump_1_wide_liquid(state, player, False)
+        ])],
         ["d4 minecart A", "d4 first crystal switch", False, lambda state: any([
             ooa_has_seedshooter(state, player),
             all([
@@ -351,7 +354,10 @@ def make_d4_logic(player: int):
         # 4 keys
         ["d4 color tile drop", "d4 minecart D", False, lambda state: ooa_has_small_keys(state, player, 4, 4)],
 
-        ["d4 minecart D", "d4 small floor puzzle", False, lambda state: ooa_generic_boss_and_miniboss_kill(state, player)],
+        ["d4 minecart D", "d4 small floor puzzle", False, lambda state: all([
+            ooa_generic_boss_and_miniboss_kill(state, player),
+            ooa_has_bombs(state, player)
+        ])],
         ["d4 minecart D", "d4 large floor puzzle", False, lambda state: any([
             all([
                 ooa_can_jump_1_wide_liquid(state, player, False),
@@ -378,6 +384,7 @@ def make_d4_logic(player: int):
                 ooa_can_use_scent_seeds_offensively(state, player),
                 #(ooa_option_medium_logic(state, player) and ooa_has_bombs(state, player, 4)),
                 ooa_can_punch(state, player),
+                ooa_has_boomerang(state, player)
             ])
         ])],
         

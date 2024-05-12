@@ -19,6 +19,7 @@ def make_overworld_logic(player: int):
         ["forest of time", "lynna city", True, lambda state: ooa_can_break_bush(state, player)],
         ["lynna city", "south lynna tree", False, lambda state: ooa_can_harvest_tree(state, player, True)],
         ["lynna city", "lynna city chest", False, lambda state: ooa_can_use_ember_seeds(state, player, False)],
+        ["lynna village", "lynna city chest", False, lambda state: ooa_can_go_back_to_present(state, player)],
         ["lynna city", "lynna shop", False, lambda state: ooa_has_rupees(state, player, 400)],
         ["lynna village", "hidden shop", False, lambda state: all([
             ooa_can_go_back_to_present(state, player),
@@ -51,10 +52,13 @@ def make_overworld_logic(player: int):
             ooa_can_switch_past_and_present(state, player)
         ])],
         ["ambi's palace chest", "rescue nayru", False, lambda state: all([
-                ooa_has_switch_hook(state, player),
-                ooa_can_use_mystery_seeds(state, player),
-                ooa_can_kill_armored_enemy(state, player)
-            ])],
+            ooa_has_switch_hook(state, player),
+            ooa_can_use_mystery_seeds(state, player),
+            any([
+                ooa_has_sword(state, player),
+                ooa_can_punch(state, player)
+            ])
+        ])],
         ["lynna village", "postman trade", False, lambda state: state.has("Poe Clock", player)],
         ["lynna village", "toilet hand trade", False, lambda state: state.has("Stationery", player)],
         ["lynna village", "sad boi trade", False, lambda state: state.has("Funny Joke", player)],
@@ -74,7 +78,10 @@ def make_overworld_logic(player: int):
             ooa_can_use_mystery_seeds(state, player),
             ooa_has_switch_hook(state, player),
             ooa_has_bombs(state, player),
-            ooa_can_kill_normal_enemy(state, player),
+            any([
+                ooa_has_sword(state, player),
+                ooa_can_punch(state, player)
+            ])
         ])],
         # TODO : Check Essence 3, 5, 7
 
