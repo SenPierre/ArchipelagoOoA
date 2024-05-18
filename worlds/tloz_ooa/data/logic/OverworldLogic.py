@@ -298,6 +298,7 @@ def make_overworld_logic(player: int):
                 ooa_is_companion_moosh(state, player),
                 ooa_can_break_bush(state, player),
                 ooa_can_jump_3_wide_pit(state, player, False),
+                ooa_option_hard_logic(state, player),
             ])
         ])],
         ["symmetry present", "symmetry city tree", False, lambda state: ooa_can_harvest_tree(state, player, False)],
@@ -314,7 +315,13 @@ def make_overworld_logic(player: int):
 
         # SYMMETRY CITY PAST
         #######################################
-        ["symmetry present", "symmetry past", False, lambda state: ooa_can_open_portal(state, player)],
+        ["symmetry present", "symmetry past", False,  lambda state: any([
+            ooa_can_switch_past_and_present(state, player),
+            all([
+                ooa_can_open_portal(state, player),
+                ooa_can_break_bush(state, player, False)
+            ])
+        ])],
 
         ["symmetry past", "symmetry city brother", False, None],
         ["symmetry past", "symmetry middle man trade", False, lambda state: state.has("Dumbbell", player)],
@@ -366,7 +373,7 @@ def make_overworld_logic(player: int):
                 all([
                     ooa_can_jump_1_wide_pit(state, player, False),
                     any([
-                        ooa_can_jump_3_wide_pit(state, player, False),
+                        ooa_can_jump_4_wide_pit(state, player, False),
                         ooa_has_switch_hook(state, player),
                         ooa_can_swim_deepwater(state, player, False),
                     ]),
@@ -380,12 +387,15 @@ def make_overworld_logic(player: int):
                 ooa_can_jump_1_wide_pit(state, player, False),
             ]),
             any([
-                ooa_can_jump_3_wide_pit(state, player, False),
+                ooa_can_jump_4_wide_pit(state, player, False),
                 ooa_has_switch_hook(state, player),
             ]),
         ])],
         ["ridge west past base", "goron elder", False, lambda state: state.has("Bomb Flower", player)],
-        ["ridge west present", "ridge west past", False, lambda state: ooa_can_open_portal(state, player)],
+        ["ridge west present", "ridge west past", False, lambda state: all([
+            ooa_can_open_portal(state, player),
+            ooa_has_bracelet(state, player)
+        ])],
         ["ridge west present", "ridge west heartpiece", False, lambda state: ooa_has_bombs(state, player)],
         ["goron elder", "ridge west past", False, None],
         ["ridge west past", "ridge west past base", False, None],
@@ -504,6 +514,7 @@ def make_overworld_logic(player: int):
             ooa_has_bracelet(state, player),
         ])],
         ["ridge mid present", "goron shooting gallery", False, lambda state: ooa_can_switch_past_and_present(state, player)],
+        ["goron shooting gallery", "goron shooting gallery price", False, lambda state: ooa_has_sword(state, player)],
         ["ridge mid past", "ridge east tree", False, lambda state: all([
             ooa_can_harvest_tree(state, player, False),
             ooa_can_warp_using_gale_seeds(state, player),

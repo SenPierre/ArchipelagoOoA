@@ -439,9 +439,9 @@ LOCATIONS_DATA = {
         "flag_byte": 0xFFFF,
     },
     ##########################################
-    "Goron shooting gallery": {
-        "patcher_name": "goron shooting gallery",
-        "region_id": "goron shooting gallery",
+    "Goron shooting gallery Price": {
+        "patcher_name": "goron shooting gallery price",
+        "region_id": "goron shooting gallery price",
         "vanilla_item": "Lava Juice",
         "flag_byte": 0xFFFF,
     },

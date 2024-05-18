@@ -381,7 +381,6 @@ def make_d4_logic(player: int):
             ooa_has_switch_hook(state, player),
             any([
                 ooa_has_sword(state, player),
-                ooa_can_use_scent_seeds_offensively(state, player),
                 #(ooa_option_medium_logic(state, player) and ooa_has_bombs(state, player, 4)),
                 ooa_can_punch(state, player),
                 ooa_has_boomerang(state, player)
