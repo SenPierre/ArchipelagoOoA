@@ -434,7 +434,10 @@ def make_overworld_logic(player: int):
             ooa_has_bracelet(state, player)
         ])],
         ["ridge upper past", "bomb goron head", False, lambda state: ooa_has_bombs(state, player)],
-        ["ridge upper past", "ridge upper heartpiece", False, lambda state: ooa_can_go_back_to_present(state, player)],
+        ["ridge upper past", "ridge upper heartpiece", False, lambda state: all([
+            ooa_can_go_back_to_present(state, player),
+            ooa_can_break_bush(state, player)
+        ])],
         
         # ROLLING BASE
         #######################################
