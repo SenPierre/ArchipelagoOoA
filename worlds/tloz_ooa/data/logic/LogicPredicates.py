@@ -96,11 +96,21 @@ def ooa_has_small_keys(state: CollectionState, player: int, dungeon_id: int, amo
 def ooa_has_boss_key(state: CollectionState, player: int, dungeon_id: int):
     # Specific case for D6, because of course D6 is mess.
     if (dungeon_id == 6):
-        return (state.has("Boss Key (Mermaid's Cave)", player)
-            or state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player))
+        return any([
+            state.has("Boss Key (Mermaid's Cave)", player),
+            all([
+                state.multiworld.worlds[player].options.master_keys == "all_dungeon_keys",
+                state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player)
+            ])
+        ])
 
-    return (state.has(f"Boss Key ({DUNGEON_NAMES[dungeon_id]})", player)
-            or state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player))
+    return any([
+        state.has(f"Boss Key ({DUNGEON_NAMES[dungeon_id]})", player),
+        all([
+            state.multiworld.worlds[player].options.master_keys == "all_dungeon_keys",
+            state.has(f"Master Key ({DUNGEON_NAMES[dungeon_id]})", player)
+        ])
+    ])
 
 
 # Options and generation predicates ###########################################
@@ -197,11 +207,9 @@ def ooa_can_trigger_switch(state: CollectionState, player: int):
                 ooa_has_mystery_seeds(state, player)
             ])
         ]),
-        ooa_has_sword(state, player, False),
+        ooa_has_sword(state, player),
         ooa_has_switch_hook(state, player),
         ooa_can_punch(state, player),
-        
-        # TODO: Regular beams?
     ])
 
 def ooa_can_trigger_far_switch(state: CollectionState, player: int):
@@ -220,10 +228,7 @@ def ooa_can_trigger_far_switch(state: CollectionState, player: int):
 
 
 def ooa_has_bombs(state: CollectionState, player: int, amount: int = 1):
-    if state.has("Bombs (10)", player, amount):
-        return True
-
-    return False
+    return state.has("Bombs (10)", player, amount)
 
 
 def ooa_has_flute(state: CollectionState, player: int):
