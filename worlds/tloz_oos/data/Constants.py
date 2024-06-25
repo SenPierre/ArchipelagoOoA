@@ -81,14 +81,6 @@ VALID_RUPEE_VALUES = [
     0, 1, 2, 5, 10, 20, 25, 30, 40, 50, 60, 70, 80, 100, 200, 300, 400, 500, 900, 999
 ]
 
-DAMAGE_MODIFIER_VALUES = {
-    "peaceful": -4,
-    "easier": -2,
-    "vanilla": 0,
-    "harder": 2,
-    "insane": 4,
-}
-
 DEFAULT_SEASONS = {
     "EYEGLASS_LAKE": "winter",
     "HOLODRUM_PLAIN": "spring",

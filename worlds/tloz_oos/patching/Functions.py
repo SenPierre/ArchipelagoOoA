@@ -1,11 +1,29 @@
 from typing import List
 
+from settings import get_settings
 from . import RomData
 from .Util import *
 from .z80asm.Assembler import Z80Assembler
 from .Constants import *
 from ..data.Constants import *
-from .. import LOCATIONS_DATA, ITEMS_DATA
+from .. import LOCATIONS_DATA, OracleOfSeasonsOldMenShuffle, OracleOfSeasonsGoal, OracleOfSeasonsAnimalCompanion, \
+    OracleOfSeasonsMasterKeys, OracleOfSeasonsFoolsOre, OracleOfSeasonsGoldenOreSpotsShuffle
+from pathlib import Path
+
+
+def get_asm_files(patch_data):
+    asm_files = ASM_FILES.copy()
+    if patch_data["options"]["quick_flute"]:
+        asm_files.append("asm/conditional/quick_flute.yaml")
+    if patch_data["options"]["shuffle_old_men"] == OracleOfSeasonsOldMenShuffle.option_turn_into_locations:
+        asm_files.append("asm/conditional/old_men_as_locations.yaml")
+    if patch_data["options"]["remove_d0_alt_entrance"]:
+        asm_files.append("asm/conditional/remove_d0_alt_entrance.yaml")
+    if patch_data["options"]["remove_d2_alt_entrance"]:
+        asm_files.append("asm/conditional/remove_d2_alt_entrance.yaml")
+    if patch_data["options"]["goal"] == OracleOfSeasonsGoal.option_beat_ganon:
+        asm_files.append("asm/conditional/ganon_goal.yaml")
+    return asm_files
 
 
 def get_chest_addr(rom: RomData, group_and_room: int):
@@ -37,7 +55,7 @@ def write_chest_contents(rom: RomData, patch_data):
 
 
 def define_samasa_combination(assembler: Z80Assembler, patch_data):
-    samasa_combination = [int(number) for number in patch_data["settings"]["samasa_gate_sequence"].split(" ")]
+    samasa_combination = [int(number) for number in patch_data["samasa_gate_sequence"].split(" ")]
 
     # 1) Define the combination itself and its length for the gate check
     assembler.add_floating_chunk("samasaCombination", samasa_combination)
@@ -168,7 +186,7 @@ def define_location_constants(assembler: Z80Assembler, patch_data):
 
 
 def define_option_constants(assembler: Z80Assembler, patch_data):
-    settings = patch_data["settings"]
+    options = patch_data["options"]
 
     assembler.define_byte("option.startingGroup", 0x00)
     assembler.define_byte("option.startingRoom", 0xb6)
@@ -177,24 +195,26 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
     assembler.define_byte("option.startingPos", 0x55)
     assembler.define_byte("option.startingSeason", SEASON_VALUES[patch_data["default_seasons"]["EYEGLASS_LAKE"]])
 
-    assembler.define_byte("option.animalCompanion", 0x0b + COMPANION_VALUES[patch_data["settings"]["companion"]])
-    assembler.define_byte("option.tarmGateRequiredJewels", settings["tarm_gate_required_jewels"])
-    assembler.define_byte("option.receivedDamageModifier", settings["received_damage_modifier"])
-    assembler.define_byte("option.defaultSeedType", SEED_VALUES[patch_data["settings"]["default_seed"]])
+    assembler.define_byte("option.animalCompanion", 0x0b + patch_data["options"]["animal_companion"])
+    assembler.define_byte("option.defaultSeedType", 0x20 + patch_data["options"]["default_seed"])
+    assembler.define_byte("option.receivedDamageModifier", options["combat_difficulty"])
+    assembler.define_byte("option.openAdvanceShop", options["advance_shop"])
+    assembler.define_byte("option.warpToStart", options["warp_to_start"])
 
-    assembler.define_byte("option.openAdvanceShop", settings["open_advance_shop"])
-    assembler.define_byte("option.warpToStart", settings["warp_to_start"])
+    assembler.define_byte("option.requiredEssences", options["required_essences"])
+    assembler.define_byte("option.goldenBeastsRequirement", options["golden_beasts_requirement"])
+    assembler.define_byte("option.treehouseOldManRequirement", options["treehouse_old_man_requirement"])
+    assembler.define_byte("option.tarmGateRequiredJewels", options["tarm_gate_required_jewels"])
+    assembler.define_byte("option.signGuyRequirement", options["sign_guy_requirement"])
+    define_sign_guy_requirement_digits(assembler, options["sign_guy_requirement"])
 
-    assembler.define_byte("option.goldenBeastsRequirement", settings["golden_beasts_requirement"])
-    assembler.define_byte("option.treehouseOldManRequirement", settings["treehouse_old_man_requirement"])
+    assembler.define_byte("option.removeD0AltEntrance", options["remove_d0_alt_entrance"])
 
-    assembler.define_byte("option.signGuyRequirement", settings["sign_guy_requirement"])
-    define_sign_guy_requirement_digits(assembler, settings["sign_guy_requirement"])
+    reveal_ore = options["shuffle_golden_ore_spots"] == OracleOfSeasonsGoldenOreSpotsShuffle.option_shuffled_visible
+    assembler.define_byte("option.revealGoldenOreTiles", 1 if reveal_ore else 0)
 
-    assembler.define_byte("option.removeD0AltEntrance", settings["remove_d0_alt_entrance"])
-    assembler.define_byte("option.revealGoldenOreTiles", int(settings["reveal_golden_ore_tiles"]))
-    assembler.define_byte("option.requiredEssences", settings["required_essences"])
-    assembler.define_byte("option.foolsOreDamage", (-1 * settings["fools_ore_damage"] + 0x100))
+    fools_ore_damage = 3 if options["fools_ore"] == OracleOfSeasonsFoolsOre.option_balanced else 12
+    assembler.define_byte("option.foolsOreDamage", (-1 * fools_ore_damage + 0x100))
 
 
 def define_season_constants(assembler: Z80Assembler, patch_data):
@@ -230,7 +250,7 @@ def set_lost_woods_sequence(assembler: Z80Assembler, patch_data):
         DIRECTION_LEFT: [0x20, 0x05, 0x1e]
     }
 
-    sequence_as_text = patch_data["settings"]["lost_woods_item_sequence"].split(" ")
+    sequence_as_text = patch_data["lost_woods_item_sequence"].split(" ")
     sequence = [TEXT_MATCHINGS[word] for word in sequence_as_text]
 
     string_bytes = []
@@ -295,6 +315,27 @@ def alter_treasures(rom: RomData):
 
     # Give bracelet a level for ages multiworld compatibility
     # set_treasure_data(rom, "Power Bracelet", None, None, 0x01)
+
+
+def apply_miscellaneous_options(rom: RomData, patch_data):
+    # If companion is Dimitri, allow calling him using the Flute inside Sunken City
+    if patch_data["options"]["animal_companion"] == OracleOfSeasonsAnimalCompanion.option_dimitri:
+        rom.write_byte(0x24f39, 0xa7)
+        rom.write_byte(0x24f3b, 0xe7)
+
+    # If horon shop 3 is set to be a renewable Potion, manually edit the shop flag for
+    # that slot to zero to make it stay after buying
+    if patch_data["options"]["enforce_potion_in_shop"]:
+        rom.write_byte(0x20cfa, 0x00)
+
+    if patch_data["options"]["master_keys"] != OracleOfSeasonsMasterKeys.option_disabled:
+        # Remove small key consumption on keydoor opened
+        rom.write_byte(0x18357, 0x00)
+        # Change obtention text
+        rom.write_bytes(0x7546f, [0x20, 0x02, 0xe5, 0x20])
+    if patch_data["options"]["master_keys"] == OracleOfSeasonsMasterKeys.option_all_dungeon_keys:
+        # Remove boss key consumption on boss keydoor opened
+        rom.write_word(0x1834f, 0x0000)
 
 
 def set_file_select_text(assembler: Z80Assembler, slot_name: str):
@@ -410,3 +451,50 @@ def define_text_constants(assembler: Z80Assembler, patch_data):
         0x02, 0x6e, 0x05, 0xda, 0x04, 0xaa, 0x01,   # Satchel to use
         0x74, 0x68, 0x65, 0x6d, 0x2e, 0x00          # them.
     ])
+
+
+def set_heart_beep_interval_from_settings(rom: RomData):
+    heart_beep_interval = get_settings().tloz_oos_options["heart_beep_interval"]
+    if heart_beep_interval == "half":
+        rom.write_byte(0x9116, 0x3f * 2)
+    elif heart_beep_interval == "quarter":
+        rom.write_byte(0x9116, 0x3f * 4)
+    elif heart_beep_interval == "disabled":
+        rom.write_bytes(0x9116, [0x00, 0xc9])  # Put a return to avoid beeping entirely
+
+
+def set_character_sprite_from_settings(rom: RomData):
+    sprite = get_settings().tloz_oos_options["character_sprite"]
+    if sprite != "link":
+        sprite_bytes = list(Path(f"./data/sprites/oos_ooa/{sprite}.bin").read_bytes())
+        rom.write_bytes(0x68000, sprite_bytes)
+
+    PALETTE_BYTES = {
+        "green": 0x00,
+        "blue": 0x01,
+        "red": 0x02,
+        "orange": 0x03,
+    }
+
+    palette = sprite = get_settings().tloz_oos_options["character_palette"]
+    if palette != "green" and palette in PALETTE_BYTES:
+        palette_byte = PALETTE_BYTES[palette]
+        # Link in-game
+        for addr in range(0x141cc, 0x141df, 2):
+            rom.write_byte(addr, 0x08 | palette_byte)
+        # Link palette restored after Medusa Head / Ganon stun attacks
+        rom.write_byte(0x1516d, 0x08 | palette_byte)
+        # Link standing still in file select (fileSelectDrawLink:@sprites0)
+        rom.write_byte(0x8d46, palette_byte)
+        rom.write_byte(0x8d4a, palette_byte)
+        # Link animated in file select (@sprites1 & @sprites2)
+        rom.write_byte(0x8d4f, palette_byte)
+        rom.write_byte(0x8d53, palette_byte)
+        rom.write_byte(0x8d58, 0x20 | palette_byte)
+        rom.write_byte(0x8d5c, 0x20 | palette_byte)
+
+
+def inject_slot_name(rom: RomData, slot_name: str):
+    slot_name_as_bytes = list(str.encode(slot_name))
+    slot_name_as_bytes += [0x00] * (0x40 - len(slot_name_as_bytes))
+    rom.write_bytes(0xfffc0, slot_name_as_bytes)

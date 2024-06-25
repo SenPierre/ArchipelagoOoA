@@ -377,20 +377,6 @@ SEASON_VALUES = {
     "chaotic": 0xff
 }
 
-COMPANION_VALUES = {
-    "ricky": 0x00,
-    "dimitri": 0x01,
-    "moosh": 0x02
-}
-
-SEED_VALUES = {
-    "ember": 0x20,
-    "scent": 0x21,
-    "pegasus": 0x22,
-    "mystery": 0x23,
-    "gale": 0x24
-}
-
 # Scripting constants
 DELAY_6 = 0xf6
 CALL_SCRIPT = 0xc0
