@@ -3,8 +3,6 @@
 # graphics.
 
 # set hl = the address of the sprite for treasure with ID b and subID c.
-# it's usually most convenient to call this through lookupItemSprite or
-# lookupItemSpriteReverse.
 3f//lookupItemSprite_body: |
     ld e,$15
     ld hl,getTreasureDataSprite
@@ -17,33 +15,40 @@
     rst 10
     ret
 
-3f//readWord: |
-    push de
-    call readByte
-    ld b,e
-    pop de
-    inc hl
-    push de
-    call readByte
-    ld c,e
-    pop de
-    ret
-
-# used if item at e:hl is stored in (ID,subID) order.
-3f//lookupItemSprite: |
-    push bc
-    call readWord
-    call lookupItemSprite_body
-    pop bc
-    ret
+# format (ID, subID, jump address). these functions *must* pop af as the last
+# instruction before returning.
+3f//customSpriteJumpTable: |
+    dwbe 4700, locations.memberShop1
+    dwbe 4702, locations.memberShop2
+    dwbe 4705, locations.memberShop3
+    dwbe 4704, locations.horonShop1
+    dwbe 4703, locations.horonShop2
+    dwbe 4701, locations.horonShop3
+    dwbe 470e, locations.advanceShop1
+    dwbe 470f, locations.advanceShop2
+    dwbe 4710, locations.advanceShop3
+    dwbe 4709, locations.syrupShop2
+    dwbe 470a, locations.syrupShop3
+    dwbe 470b, locations.syrupShop1
+    dwbe 5900, locations.lostWoodsPedestal
+    dwbe 8100, locations.subrosianMarket1
+    dwbe 8104, locations.subrosianMarket2
+    dwbe 810a, locations.subrosianMarket3
+    dwbe 810c, locations.subrosianMarket4
+    dwbe 810d, locations.subrosianMarket5
+    dwbe c600, locations.d0SwordChest
+    dwbe e602, locations.templeOfSeasons
+    dwbe 9400, locations.mapleTrade
+    db ff
 
 # overrides the sprite data loaded for certain interactions. this is mostly
 # used for "non-item" interactions that depict items, like the ones in shops.
 3f//checkLoadCustomSprite: |
     call $4437  ; _interactionGetData
     push af
-    push bc
     push hl
+    push bc
+    
     ld e,$41
     ld a,(de)
     ld b,a
@@ -53,19 +58,19 @@
     ld e,$02
     ld hl,customSpriteJumpTable
     call searchDoubleKey
-    jr nc,@done
+    jr c,@customSprite
+    pop bc
+    pop hl
+    pop af
+    ret
+
+    @customSprite:
+    pop bc
     ldi a,(hl)
     ld b,a
-    ld a,(hl)
+    ld c,(hl)
     pop hl
-    ld h,a
-    ld l,b
-    pop bc
-    jp (hl)
-    
-    @done:
-    pop hl
-    pop bc
+    call lookupItemSprite_body
     pop af
     ret
 3f/4356/: call checkLoadCustomSprite
@@ -97,183 +102,6 @@
     ret
 00/25d9/: call overrideAnimationId
 00/2600/: call overrideAnimationId
-
-# format (ID, subID, jump address). these functions *must* pop af as the last
-# instruction before returning.
-3f//customSpriteJumpTable: |
-    db 47,00
-    dw setMembersShop1Sprite
-    db 47,02
-    dw setMembersShop2Sprite
-    db 47,05
-    dw setMembersShop3Sprite
-    db 47,04
-    dw setHoronShop1Sprite
-    db 47,03
-    dw setHoronShop2Sprite
-    db 47,01
-    dw setHoronShop3Sprite
-    db 47,0e
-    dw setAdvanceShop1Sprite
-    db 47,0f
-    dw setAdvanceShop2Sprite
-    db 47,10
-    dw setAdvanceShop3Sprite
-    db 47,09
-    dw setSyrup2Sprite
-    db 47,0a
-    dw setSyrup3Sprite
-    db 47,0b
-    dw setSyrup1Sprite
-    db 59,00
-    dw setPedestalSprite
-    db 6e,00
-    dw setStolenFeatherSprite
-    db 81,00
-    dw setMarket1Sprite
-    db 81,04
-    dw setMarket2Sprite
-    db 81,0a
-    dw setMarket3Sprite
-    db 81,0c
-    dw setMarket4Sprite
-    db 81,0d
-    dw setMarket5Sprite
-    db c6,00
-    dw setHerosCaveSprite
-    db e6,02
-    dw setTempleOfSeasonsSprite
-    db ff
-
-3f//setMembersShop1Sprite: |
-    ld e,$08
-    ld hl,$4cce
-    jp setGenericSprite
-
-3f//setMembersShop2Sprite: |
-    ld e,$08
-    ld hl,$4cd2
-    jp setGenericSprite
-
-3f//setMembersShop3Sprite: |
-    ld e,$08
-    ld hl,$4cd8
-    jp setGenericSprite
-
-3f//setHoronShop1Sprite: |
-    ld e,$08
-    ld hl,$4cd6
-    jp setGenericSprite
-
-3f//setHoronShop2Sprite: |
-    ld e,$08
-    ld hl,$4cd4
-    jp setGenericSprite
-
-3f//setHoronShop3Sprite: |
-    ld e,$08
-    ld hl,$4cd0
-    jp setGenericSprite
-
-3f//setAdvanceShop1Sprite: |
-    ld e,$08
-    ld hl,$4cea
-    jp setGenericSprite
-
-3f//setAdvanceShop2Sprite: |
-    ld e,$08
-    ld hl,$4cec
-    jp setGenericSprite
-
-3f//setAdvanceShop3Sprite: |
-    ld e,$08
-    ld hl,$4cee
-    jp setGenericSprite
-
-3f//setSyrup1Sprite: |
-    ld e,$08
-    ld hl,$4ce4
-    jp setGenericSprite
-
-3f//setSyrup2Sprite: |
-    ld e,$08
-    ld hl,$4ce0
-    jp setGenericSprite
-
-3f//setSyrup3Sprite: |
-    ld e,$08
-    ld hl,$4ce2
-    jp setGenericSprite
-
-3f//setPedestalSprite: |
-    ld e,$0b
-    ld hl,$6418
-    jp setGenericSprite
-
-3f//setStolenFeatherSprite: |
-    ld hl,$671e
-    ld a,(wFeatherLevel)
-    cp $02
-    jr nz,@next
-    ld hl,$6721
-    @next:
-    pop af
-    ret
-
-3f//setMarket1Sprite: |
-    ld e,$09
-    ld hl,$77da
-    jp setGenericSprite
-
-3f//setMarket2Sprite: |
-    ld e,$09
-    ld hl,$77e2
-    jp setGenericSprite
-
-3f//setMarket3Sprite: |
-    ld e,$09
-    ld hl,$77ee
-    jp setGenericSprite
-
-3f//setMarket4Sprite: |
-    ld e,$09
-    ld hl,$77f2
-    jp setGenericSprite
-
-3f//setMarket5Sprite: |
-    ld e,$09
-    ld hl,$77f4
-    jp setGenericSprite
-
-3f//setGenericSprite: |
-    call lookupItemSprite
-    pop af
-    ret
-
-# ID and subID not adjacent.
-3f//setHerosCaveSprite: |
-    ld b,locations.d0SwordChest.id
-    ld c,locations.d0SwordChest.subid
-    call lookupItemSprite_body
-    pop af
-    ret
-
-# ID and subID not adjacent.
-3f//setTempleOfSeasonsSprite: |
-    ld e,$15
-    ld hl,$70ce
-    push bc
-    call readByte
-    ld b,e
-    dec hl
-    dec hl
-    ld e,$15
-    call readByte
-    ld c,e
-    call lookupItemSprite_body
-    pop bc
-    pop af
-    ret
 
 # give the noble sword (lost woods pedestal) object OAM pointers compatible
 # with normal treasure graphics.
