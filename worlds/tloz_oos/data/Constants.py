@@ -1,10 +1,4 @@
-VERSION = "6.2"
-
-COMPANIONS = [
-    "Ricky",
-    "Dimitri",
-    "Moosh"
-]
+VERSION = "7.0"
 
 SEASONS = [
     "spring",
@@ -46,20 +40,6 @@ DUNGEON_NAMES = [
     "Explorer's Crypt",
     "Sword & Shield Dungeon"
 ]
-
-REGIONS_CONVERSION_TABLE = {
-    "EYEGLASS_LAKE": "north horon",
-    "NORTH_HORON": "holodrum plain",
-    "EASTERN_SUBURBS": "eastern suburbs",
-    "WOODS_OF_WINTER": "woods of winter",
-    "SUNKEN_CITY": "sunken city",
-    "WESTERN_COAST": "western coast",
-    "SPOOL_SWAMP": "spool swamp",
-    "TEMPLE_REMAINS": "temple remains",
-    "LOST_WOODS": "lost woods",
-    "TARM_RUINS": "tarm ruins",
-    "HORON_VILLAGE": "horon village"
-}
 
 PORTALS_CONVERSION_TABLE = {
     "eastern suburbs portal": "eastern suburbs",
@@ -111,7 +91,7 @@ DAMAGE_MODIFIER_VALUES = {
 
 DEFAULT_SEASONS = {
     "EYEGLASS_LAKE": "winter",
-    "NORTH_HORON": "spring",
+    "HOLODRUM_PLAIN": "spring",
     "EASTERN_SUBURBS": "autumn",
     "WOODS_OF_WINTER": "summer",
     "SUNKEN_CITY": "summer",
@@ -177,22 +157,22 @@ RUPEE_OLD_MAN_LOCATIONS = [
 SAMASA_GATE_CODE = [2, 2, 1, 0, 0, 3, 3, 3]
 
 SHOP_PRICES_DIVIDERS = {
-    "horon shop 1": 1,
-    "horon shop 2": 1,
-    "horon shop 3": 1,
-    "member shop 1": 1,
-    "member shop 2": 1,
-    "member shop 3": 1,
-    "advance shop 1": 1,
-    "advance shop 2": 1,
-    "advance shop 3": 1,
-    "syrup shop 1": 1,
-    "syrup shop 2": 1,
-    "syrup shop 3": 1,
-    "subrosian market 2": 2,
-    "subrosian market 3": 2,
-    "subrosian market 4": 2,
-    "subrosian market 5": 2,
+    "horonShop1": 1,
+    "horonShop2": 1,
+    "horonShop3": 1,
+    "memberShop1": 1,
+    "memberShop2": 1,
+    "memberShop3": 1,
+    "advanceShop1": 1,
+    "advanceShop2": 1,
+    "advanceShop3": 1,
+    "syrupShop1": 1,
+    "syrupShop2": 1,
+    "syrupShop3": 1,
+    "subrosianMarket2": 2,
+    "subrosianMarket3": 2,
+    "subrosianMarket4": 2,
+    "subrosianMarket5": 2,
 }
 
 ITEM_GROUPS = {
@@ -382,3 +362,34 @@ LOCATION_GROUPS = {
         'Sunken City: Syrup Shop #3'
     ]
 }
+
+TREASURE_SPAWN_INSTANT = 0x00
+TREASURE_SPAWN_POOF = 0x10
+TREASURE_SPAWN_DROP = 0x20
+TREASURE_SPAWN_CHEST = 0x30
+TREASURE_SPAWN_DIVE = 0x40
+TREASURE_SPAWN_DIG = 0x50
+TREASURE_SPAWN_DELAYED_CHEST = 0x60
+
+TREASURE_GRAB_INSTANT = 0x00
+TREASURE_GRAB_ONE_HAND = 0x01
+TREASURE_GRAB_TWO_HANDS = 0x02
+TREASURE_GRAB_SPIN_SLASH = 0x03
+
+TREASURE_SET_ITEM_ROOM_FLAG = 0x08
+
+COLLECT_TOUCH = TREASURE_SPAWN_INSTANT | TREASURE_GRAB_TWO_HANDS | TREASURE_SET_ITEM_ROOM_FLAG
+COLLECT_POOF = TREASURE_SPAWN_POOF | TREASURE_GRAB_TWO_HANDS | TREASURE_SET_ITEM_ROOM_FLAG
+COLLECT_DROP = TREASURE_SPAWN_DROP | TREASURE_GRAB_ONE_HAND | TREASURE_SET_ITEM_ROOM_FLAG
+COLLECT_CHEST = TREASURE_SPAWN_CHEST | TREASURE_SET_ITEM_ROOM_FLAG
+COLLECT_DIVE = TREASURE_SPAWN_DIVE | TREASURE_GRAB_ONE_HAND | TREASURE_SET_ITEM_ROOM_FLAG
+COLLECT_DIG = TREASURE_SPAWN_DIG | TREASURE_GRAB_TWO_HANDS | TREASURE_SET_ITEM_ROOM_FLAG
+COLLECT_DELAYED_CHEST = TREASURE_SPAWN_DELAYED_CHEST | TREASURE_GRAB_INSTANT | TREASURE_SET_ITEM_ROOM_FLAG
+COLLECT_SPINSLASH = TREASURE_SPAWN_INSTANT | TREASURE_GRAB_SPIN_SLASH
+COLLECT_FAKE_POOF = TREASURE_SPAWN_POOF | TREASURE_GRAB_INSTANT | TREASURE_SET_ITEM_ROOM_FLAG
+COLLECT_KEYDROP = TREASURE_SPAWN_DROP | TREASURE_GRAB_INSTANT | TREASURE_SET_ITEM_ROOM_FLAG
+COLLECT_DIVER_ROOM = 0x80
+COLLECT_POE_SKIP_ROOM = 0x81
+COLLECT_MAKU_TREE = 0x82
+COLLECT_D5_ARMOS_PUZZLE = 0x83
+COLLECT_TALON_CAVE = 0x84

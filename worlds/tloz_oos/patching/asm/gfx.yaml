@@ -1,0 +1,296 @@
+# Most of the code here has to do with interactions other than
+# the id $60 "treasure" interaction that must use treasure interaction
+# graphics.
+
+# set hl = the address of the sprite for treasure with ID b and subID c.
+# it's usually most convenient to call this through lookupItemSprite or
+# lookupItemSpriteReverse.
+3f//lookupItemSprite_body: |
+    ld e,$15
+    ld hl,getTreasureDataSprite
+    call interBankCall
+    ld a,e
+    ld hl,$66dc     ; interaction60SubidData
+    add a,a
+    rst 10
+    ld a,e
+    rst 10
+    ret
+
+3f//readWord: |
+    push de
+    call readByte
+    ld b,e
+    pop de
+    inc hl
+    push de
+    call readByte
+    ld c,e
+    pop de
+    ret
+
+# used if item at e:hl is stored in (ID,subID) order.
+3f//lookupItemSprite: |
+    push bc
+    call readWord
+    call lookupItemSprite_body
+    pop bc
+    ret
+
+# overrides the sprite data loaded for certain interactions. this is mostly
+# used for "non-item" interactions that depict items, like the ones in shops.
+3f//checkLoadCustomSprite: |
+    call $4437  ; _interactionGetData
+    push af
+    push bc
+    push hl
+    ld e,$41
+    ld a,(de)
+    ld b,a
+    inc e
+    ld a,(de)
+    ld c,a
+    ld e,$02
+    ld hl,customSpriteJumpTable
+    call searchDoubleKey
+    jr nc,@done
+    ldi a,(hl)
+    ld b,a
+    ld a,(hl)
+    pop hl
+    ld h,a
+    ld l,b
+    pop bc
+    jp (hl)
+    
+    @done:
+    pop hl
+    pop bc
+    pop af
+    ret
+3f/4356/: call checkLoadCustomSprite
+
+# Inject the "Archipelago Item" sprite in an unused sector of last items spritesheet
+1c/3a80/: |
+    db $03,$03,$07,$04,$0F,$08,$3F,$3C,$7E,$43,$F9,$87,$FD,$BF,$FA,$C6
+    db $FB,$87,$F7,$8C,$EF,$98,$8F,$F8,$4F,$78,$38,$3F,$04,$07,$03,$03
+    db $C0,$C0,$E0,$20,$90,$70,$3C,$FC,$7E,$C2,$F9,$87,$FD,$BF,$7F,$43
+    db $F9,$C7,$F1,$2F,$D1,$3F,$91,$7F,$12,$FE,$1C,$FC,$20,$E0,$C0,$C0
+# Use that custom sprite with a blue palette inside GFX#53 (will be used for regular remote items)
+3f/67d5/: db $61,$06,$43
+# Use that custom sprite with a red palette inside GFX#52 (will be used for progression remote items)
+3f/67d2/: db $61,$06,$53
+
+# Make the rod of seasons interaction behave like a regular item, graphically.
+# Otherwise, asymmetric wide items can't go there.
+14//overrideAnimationId: |
+    ld e,$41
+    ld a,(de) # ID
+    cp $e6
+    ret nz
+    ld e,$42
+    ld a,(de) # sub ID
+    cp $02
+    ld a,$e6
+    ret nz
+    ld a,$60
+    ret
+00/25d9/: call overrideAnimationId
+00/2600/: call overrideAnimationId
+
+# format (ID, subID, jump address). these functions *must* pop af as the last
+# instruction before returning.
+3f//customSpriteJumpTable: |
+    db 47,00
+    dw setMembersShop1Sprite
+    db 47,02
+    dw setMembersShop2Sprite
+    db 47,05
+    dw setMembersShop3Sprite
+    db 47,04
+    dw setHoronShop1Sprite
+    db 47,03
+    dw setHoronShop2Sprite
+    db 47,01
+    dw setHoronShop3Sprite
+    db 47,0e
+    dw setAdvanceShop1Sprite
+    db 47,0f
+    dw setAdvanceShop2Sprite
+    db 47,10
+    dw setAdvanceShop3Sprite
+    db 47,09
+    dw setSyrup2Sprite
+    db 47,0a
+    dw setSyrup3Sprite
+    db 47,0b
+    dw setSyrup1Sprite
+    db 59,00
+    dw setPedestalSprite
+    db 6e,00
+    dw setStolenFeatherSprite
+    db 81,00
+    dw setMarket1Sprite
+    db 81,04
+    dw setMarket2Sprite
+    db 81,0a
+    dw setMarket3Sprite
+    db 81,0c
+    dw setMarket4Sprite
+    db 81,0d
+    dw setMarket5Sprite
+    db c6,00
+    dw setHerosCaveSprite
+    db e6,02
+    dw setTempleOfSeasonsSprite
+    db ff
+
+3f//setMembersShop1Sprite: |
+    ld e,$08
+    ld hl,$4cce
+    jp setGenericSprite
+
+3f//setMembersShop2Sprite: |
+    ld e,$08
+    ld hl,$4cd2
+    jp setGenericSprite
+
+3f//setMembersShop3Sprite: |
+    ld e,$08
+    ld hl,$4cd8
+    jp setGenericSprite
+
+3f//setHoronShop1Sprite: |
+    ld e,$08
+    ld hl,$4cd6
+    jp setGenericSprite
+
+3f//setHoronShop2Sprite: |
+    ld e,$08
+    ld hl,$4cd4
+    jp setGenericSprite
+
+3f//setHoronShop3Sprite: |
+    ld e,$08
+    ld hl,$4cd0
+    jp setGenericSprite
+
+3f//setAdvanceShop1Sprite: |
+    ld e,$08
+    ld hl,$4cea
+    jp setGenericSprite
+
+3f//setAdvanceShop2Sprite: |
+    ld e,$08
+    ld hl,$4cec
+    jp setGenericSprite
+
+3f//setAdvanceShop3Sprite: |
+    ld e,$08
+    ld hl,$4cee
+    jp setGenericSprite
+
+3f//setSyrup1Sprite: |
+    ld e,$08
+    ld hl,$4ce4
+    jp setGenericSprite
+
+3f//setSyrup2Sprite: |
+    ld e,$08
+    ld hl,$4ce0
+    jp setGenericSprite
+
+3f//setSyrup3Sprite: |
+    ld e,$08
+    ld hl,$4ce2
+    jp setGenericSprite
+
+3f//setPedestalSprite: |
+    ld e,$0b
+    ld hl,$6418
+    jp setGenericSprite
+
+3f//setStolenFeatherSprite: |
+    ld hl,$671e
+    ld a,(wFeatherLevel)
+    cp $02
+    jr nz,@next
+    ld hl,$6721
+    @next:
+    pop af
+    ret
+
+3f//setMarket1Sprite: |
+    ld e,$09
+    ld hl,$77da
+    jp setGenericSprite
+
+3f//setMarket2Sprite: |
+    ld e,$09
+    ld hl,$77e2
+    jp setGenericSprite
+
+3f//setMarket3Sprite: |
+    ld e,$09
+    ld hl,$77ee
+    jp setGenericSprite
+
+3f//setMarket4Sprite: |
+    ld e,$09
+    ld hl,$77f2
+    jp setGenericSprite
+
+3f//setMarket5Sprite: |
+    ld e,$09
+    ld hl,$77f4
+    jp setGenericSprite
+
+3f//setGenericSprite: |
+    call lookupItemSprite
+    pop af
+    ret
+
+# ID and subID not adjacent.
+3f//setHerosCaveSprite: |
+    ld b,locations.d0SwordChest.id
+    ld c,locations.d0SwordChest.subid
+    call lookupItemSprite_body
+    pop af
+    ret
+
+# ID and subID not adjacent.
+3f//setTempleOfSeasonsSprite: |
+    ld e,$15
+    ld hl,$70ce
+    push bc
+    call readByte
+    ld b,e
+    dec hl
+    dec hl
+    ld e,$15
+    call readByte
+    ld c,e
+    call lookupItemSprite_body
+    pop bc
+    pop af
+    ret
+
+# give the noble sword (lost woods pedestal) object OAM pointers compatible
+# with normal treasure graphics.
+14/53d7/: dw 5719
+14/55a7/: dw 684f
+
+# give items that don't normally appear as treasure interactions entries in
+# the treasure graphics table.
+3f/67b4/: db 5d,0c,13 # member's card
+3f/67b7/: db 65,14,33 # treasure map
+3f/67ba/: db 60,14,00 # fool's ore
+3f/67c6/: db 5d,10,26 # rare peach stone
+3f/67c9/: db 65,0c,23 # ribbon
+3f/67bd/: db 5d,00,23 # potion
+
+# also flutes with different palettes? idk how this works in vanilla
+3f/6790/: |
+    db 5f,16,33
+    db 5f,16,23
+    db 5f,16,13

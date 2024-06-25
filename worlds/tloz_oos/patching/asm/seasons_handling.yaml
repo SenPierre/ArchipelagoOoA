@@ -1,0 +1,90 @@
+# Natzu and Samasa Desert are summer only, and goron mountain is winter only.
+# Northern Peak doesn't matter (it might become spring after you beat the game).
+# Note that these names don't correspond 1:1 with the names used on the overworld map,
+# which aren't delineated based on season boundaries.
+01/7e50/: db defaultSeason.HORON_VILLAGE
+01/7e60/: db defaultSeason.EYEGLASS_LAKE    # eyeglass lake / d1 sector
+01/7e61/: db defaultSeason.EASTERN_SUBURBS
+01/7e62/: db defaultSeason.WOODS_OF_WINTER  # from d2 to holly's house
+01/7e63/: db defaultSeason.SPOOL_SWAMP
+01/7e64/: db defaultSeason.HOLODRUM_PLAIN   # from blaino to mrs. ruul
+01/7e65/: db defaultSeason.SUNKEN_CITY      # also mt. cucco
+01/7e67/: db defaultSeason.LOST_WOODS       # from jewel gate to lost woods
+01/7e68/: db defaultSeason.TARM_RUINS       # d6 sector
+01/7e6b/: db defaultSeason.WESTERN_COAST
+01/7e6c/: db defaultSeason.TEMPLE_REMAINS
+
+# [Warp Group, Warp Dest, Arrival Position, Season to apply]
+# An arrival pos of "00" means it isn't checked
+# A season of "FF" means nothing changes
+04//specificWarpSeasons: |
+    db 03,ab,44,defaultSeason.HORON_VILLAGE     ; subrosia to horon
+    db 03,a8,14,defaultSeason.TEMPLE_REMAINS    ; subrosia to temple remains
+    db 85,12,00,defaultSeason.WOODS_OF_WINTER   ; sunken city to woods of winter
+    db 80,a7,00,defaultSeason.EYEGLASS_LAKE     ; warp to start (holodrum)
+    db ff
+
+# This function aims to fix season handling for Subrosia -> interior map warps
+# There are two occurences of this in the game
+# 1) Subrosia -> Horon warp (mainly for Fixed Horon Season setting)
+# 2) Subrosia -> Upper Temple Remains warp (to put back default Temple Remains season when coming from that portal)
+04//checkSpecificWarps: |
+    push bc
+    push hl
+
+    ld a,(wWarpDestGroup)
+    ld b,a
+    ld a,(wWarpDestRoom)
+    ld c,a
+    ld e,$02
+    ld hl,specificWarpSeasons
+    call searchDoubleKey
+    jr nc,@done
+
+    ldi a,(hl)
+    or a
+    jr z,@noPosCheck
+    ld b,a
+    ld a,(wWarpDestPos)
+    cp b
+    jr nz,@done
+
+    @noPosCheck:
+    ld a,(hl)
+    cp $04    ; if season is >= 4, it's an invalid placeholder season -> don't change anything
+    jr nc,@done
+    ld (wRoomStateModifier),a
+
+    @done:
+    pop hl
+    pop bc
+    jp loadScreenMusicAndSetRoomPack
+04/465f/: jp checkSpecificWarps
+
+# Change setHoronVillageSeason to remove the random component if fixedHoronSeason != 0xff
+02/3e2c/: |
+    ld a,defaultSeason.HORON_VILLAGE
+    cp $ff
+    nop
+    nop
+
+# Rewrite checkRoomPackAfterWarp_body to process "chaotic" state which is
+# now represented by 0xFF value.
+01/7e6e/: |
+    ld a,(wActiveRoomPack)
+    cp $f0
+    jp nc,$7e09  ; determineCompanionRegionSeason
+
+    ld hl,$7e50  ; roomPackSeasonTable
+    rst 10       ; addAToHL
+    ld a,(hl)
+
+    ; If season is 0xff, pick a random season instead
+    cp $ff
+    jr nz,@setSeason
+    call getRandomNumber
+    and $03
+    
+    @setSeason:
+    ld (wRoomStateModifier),a
+    ret

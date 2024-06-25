@@ -11,11 +11,12 @@ from .Data import *
 from worlds.tloz_oos.data.Items import *
 from .Logic import create_connections, apply_self_locking_rules
 from .Options import *
-from .PatcherDataWriter import write_patcherdata_file
+from .PatchWriter import oos_create_appp_patch
 from .data import LOCATIONS_DATA
 from .data.Constants import *
 from .data.Regions import REGIONS
 from .Client import OracleOfSeasonsClient  # Unused, but required to register with BizHawkClient
+# from patching.ProcedurePatch import OoSProcedurePatch  # Unused, but required to register
 
 
 class OracleOfSeasonsWeb(WebWorld):
@@ -97,15 +98,15 @@ class OracleOfSeasonsWorld(World):
                    ]
 
         slot_data = self.options.as_dict(*options)
-        slot_data["animal_companion"] = COMPANIONS[self.options.animal_companion.value]
+        slot_data["animal_companion"] = self.options.animal_companion.current_key.title()
         slot_data["default_seed"] = SEED_ITEMS[self.options.default_seed.value]
 
         slot_data["default_seasons_option"] = self.options.default_seasons.current_key
         slot_data["default_seasons"] = {}
         for region_name, season in self.default_seasons.items():
-            slot_data["default_seasons"][REGIONS_CONVERSION_TABLE[region_name]] = season
+            slot_data["default_seasons"][region_name] = season
         if self.options.horon_village_season == "vanilla":
-            slot_data["default_seasons"][REGIONS_CONVERSION_TABLE["HORON_VILLAGE"]] = "chaotic"
+            slot_data["default_seasons"]["HORON_VILLAGE"] = "chaotic"
 
         slot_data["dungeon_entrances"] = self.dungeon_entrances
         slot_data["portal_connections"] = self.portal_connections
@@ -380,7 +381,7 @@ class OracleOfSeasonsWorld(World):
 
         # Perform adjustments on the item pool
         item_pool_adjustements = [
-            ["Flute", COMPANIONS[self.options.animal_companion.value] + "'s Flute"],  # Put a specific flute
+            ["Flute", self.options.animal_companion.current_key.title() + "'s Flute"],  # Put a specific flute
             ["Ricky's Gloves", "Progressive Sword"],    # Ricky's gloves are useless in current logic
             ["Gasha Seed", "Seed Satchel"],             # Add a 3rd satchel that is usually obtained in linked games (99 seeds)
             ["Gasha Seed", "Rupees (200)"],             # Too many Gasha Seeds in vanilla pool, add more rupees and ore instead
@@ -549,12 +550,15 @@ class OracleOfSeasonsWorld(World):
         return self.random.choice(FILLER_ITEM_NAMES)
 
     def generate_output(self, output_directory: str):
-        write_patcherdata_file(self, output_directory)
+        patch = oos_create_appp_patch(self)
+        rom_path = os.path.join(output_directory, f"{self.multiworld.get_out_file_name_base(self.player)}"
+                                                  f"{patch.patch_file_ending}")
+        patch.write(rom_path)
 
     def write_spoiler(self, spoiler_handle):
         spoiler_handle.write(f"\n\nDefault Seasons ({self.multiworld.player_name[self.player]}):\n")
         for region_name, season in self.default_seasons.items():
-            spoiler_handle.write(f"\t- {REGIONS_CONVERSION_TABLE[region_name]} --> {season}\n")
+            spoiler_handle.write(f"\t- {region_name} --> {season}\n")
 
         if self.options.shuffle_dungeons != "vanilla":
             spoiler_handle.write(f"\nDungeon Entrances ({self.multiworld.player_name[self.player]}):\n")
