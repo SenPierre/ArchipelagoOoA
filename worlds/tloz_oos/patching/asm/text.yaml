@@ -4,14 +4,14 @@
     nop
     nop
 
-# 1e/6265/emberSeedText: '' # 1704, cutscene after d1
-# 10//useEmberSeedText: |
-#     cp $e5
-#     jr nz,@done
-#     ld bc,$1704
-#     @done:
-#     jp showText
-# 10/4ade/: call useEmberSeedText
+1e/6265/TX_1704: /include text.getEmberSeeds # 1704, cutscene after d1
+10//useEmberSeedText: |
+    cp $e5
+    jr nz,@done
+    ld bc,$1704
+    @done:
+    jp showText
+10/4ade/: call useEmberSeedText
 
 # Remove the mention of seeds being included with the seed satchel, since Ember was most likely
 # the wrong one in random given seed type
@@ -108,11 +108,3 @@
 #     ld (w7ActiveBank),a
 #     ret
 # 3f/4fd9/: call useOwlText
-
-#   # TODO: What's the point of that text?
-#  emberSeedText: |
-#    \x02\x12\x04\x79\x01 # You got Ember
-#    \x02\x53! \x05\xa9\x01 # Seeds! Open
-#    y\x02\x65 # your Seed
-#    \x02\x6e\x05\xda\x04\xaa\x01 # Satchel to use
-#    them.\x00 # them.
