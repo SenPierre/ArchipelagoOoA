@@ -15,7 +15,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Gnarled Key",
         # Maku Tree has several rooms depending on the amount of essences owned
         "flag_byte": [0xc80b, 0xc80c, 0xc82b, 0xc82c, 0xc82d, 0xc85b, 0xc85c, 0xc85d, 0xc85e, 0xc87b],
-        "rooms": [0x020b, 0x020c, 0x022b, 0x022c, 0x022d, 0x025b, 0x025c, 0x025d, 0x025e, 0x027b],
+        "room": [0x020b, 0x020c, 0x022b, 0x022c, 0x022d, 0x025b, 0x025c, 0x025d, 0x025e, 0x027b],
         "collect": COLLECT_MAKU_TREE,
         "map_tile": 0xc9,
         "symbolic_name": "makuTree",
@@ -322,7 +322,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xcab6,
         "bit_mask": 0x60,  # 0x60 is needed here to ensure we're not sending Talon's wakeup item as a false positive
         "room": 0x05b6,
-        "collect": COLLECT_TALON_CAVE,
+        "collect": COLLECT_CHEST,
         "map_tile": 0x1b,
     },
     "Tarm Ruins: Chest in Rabbit Hole Under Tree": {
@@ -517,7 +517,7 @@ LOCATIONS_DATA = {
         "region_id": "subrosia seaside",
         "vanilla_item": "Star Ore",
         "flag_byte": [0xc865, 0xc866, 0xc875, 0xc876],
-        "rooms": [0x0166, 0x0176, 0x0175, 0x0165],
+        "room": [0x0166, 0x0176, 0x0175, 0x0165],
         "collect": COLLECT_DIG,
         "map_tile": 0xb0,
         "symbolic_name": "subrosiaSeaside",
@@ -1666,7 +1666,6 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc640,
         "bit_mask": 0x08,
         "room": 0x00e8,  # no fixed room for Maple, put Horon's fountain as an indication for Treasure Map
-        "collect": COLLECT_TOUCH,
         "symbolic_name": "mapleTrade",
     },
     "Holodrum Plain: Mrs. Ruul Trade": {
@@ -1718,7 +1717,6 @@ LOCATIONS_DATA = {
         "flag_byte": 0xcab6,
         "bit_mask": 0x40,
         "room": 0x05b6,
-        "collect": COLLECT_TALON_CAVE,
         "map_tile": 0x1b,
         "symbolic_name": "talonTrade",
     },

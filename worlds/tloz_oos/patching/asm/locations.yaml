@@ -384,6 +384,9 @@
     ld (hl),$68
     ld l,$4d        ; x
     ld (hl),$48
+    ; Put a forced collect mode which overrides any kind of deduction from room ID
+    ld l,$71
+    ld (hl),COLLECT_PICKUP_NOFLAG
     ret
 # Edit caveTalonScript to call that specific function
 0b/607d/: |

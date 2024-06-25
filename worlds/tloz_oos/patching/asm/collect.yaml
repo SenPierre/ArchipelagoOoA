@@ -83,7 +83,6 @@
     dw collectPoeSkipRoom
     dw collectMakuTree
     dw collectD5Armos
-    dw collectTalonCave
 
 # master diver's room has chest on the left and reward on the right.
 06//collectDiverRoom: |
@@ -133,14 +132,4 @@
     ld e,COLLECT_CHEST
     ret z
     ld e,COLLECT_CHEST_NOFLAG
-    ret
-
-# Talon's cave contains two checks: one chest and one gift from Talon
-06//collectTalonCave: |
-    ld e,$4d
-    ld a,(de) # object x position
-    cp $80
-    ld e,COLLECT_PICKUP_NOFLAG
-    ret c
-    ld e,COLLECT_CHEST
     ret

@@ -122,10 +122,9 @@ def define_compass_rooms_table(assembler: Z80Assembler, patch_data):
 
         if dungeon != 0xff:
             location_data = LOCATIONS_DATA[location_name]
-            if "room" in location_data:
-                rooms = [location_data["room"]]
-            else:
-                rooms = [room for room in location_data["rooms"]]
+            rooms = location_data["room"]
+            if not isinstance(rooms, list):
+                rooms = [rooms]
             for room in rooms:
                 room_id = room & 0xff
                 group_id = room >> 8
@@ -142,18 +141,18 @@ def define_collect_properties_table(assembler: Z80Assembler, patch_data):
     """
     table = []
     for location_name, item_name in patch_data["locations"].items():
-        # Use no pickup animation for falling small keys
         location_data = LOCATIONS_DATA[location_name]
         if "collect" not in location_data:
             continue
         mode = location_data["collect"]
+
+        # Use no pickup animation for falling small keys
         if mode == COLLECT_DROP and item_name.startswith("Small Key"):
             mode &= 0xf8  # Set grab mode to TREASURE_GRAB_INSTANT
 
-        if "room" in location_data:
-            rooms = [location_data["room"]]
-        else:
-            rooms = [room for room in location_data["rooms"]]
+        rooms = location_data["room"]
+        if not isinstance(rooms, list):
+            rooms = [rooms]
         for room in rooms:
             room_id = room & 0xff
             group_id = room >> 8
