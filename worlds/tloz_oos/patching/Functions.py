@@ -546,17 +546,8 @@ def set_dungeon_warps(rom: RomData, patch_data):
 def set_portal_warps(rom: RomData, patch_data):
     warp_matchings = patch_data["subrosia_portals"]
 
-    DEFAULT_PORTAL_CONNECTIONS = {
-        "eastern suburbs": "volcanoes east",
-        "spool swamp": "subrosia market",
-        "mt. cucco": "strange brothers",
-        "eyeglass lake": "great furnace",
-        "horon village": "house of pirates",
-        "temple remains lower": "volcanoes west",
-        "temple remains upper": "d8 entrance"
-    }
     values = {}
-    for portal_1, portal_2 in DEFAULT_PORTAL_CONNECTIONS.items():
+    for portal_1, portal_2 in PORTAL_CONNECTIONS.items():
         values[portal_1] = rom.read_word(PORTAL_WARPS[portal_2]["addr"])
         values[portal_2] = rom.read_word(PORTAL_WARPS[portal_1]["addr"])
 

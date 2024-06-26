@@ -456,59 +456,59 @@ DUNGEON_EXITS = {
 }
 
 PORTAL_WARPS = {
-    "eastern suburbs": {
+    "eastern suburbs portal": {
         "addr": 0x134fd,
         "map_tile": 0x9a
     },
-    "volcanoes east": {
+    "volcanoes east portal": {
         "addr": 0x136b5,
         "map_tile": 0x00  # TODO
     },
-    "spool swamp": {
+    "spool swamp portal": {
         "addr": 0x13501,
         "map_tile": 0xb0
     },
-    "subrosia market": {
+    "subrosia market portal": {
         "addr": 0x136b9,
         "map_tile": 0x00  # TODO
     },
-    "mt. cucco": {
+    "mt. cucco portal": {
         "addr": 0x13601,
         "map_tile": 0x1e
     },
-    "strange brothers": {
+    "strange brothers portal": {
         "addr": 0x136bd,
         "map_tile": 0x00  # TODO
     },
-    "eyeglass lake": {
+    "eyeglass lake portal": {
         "addr": 0x13509,
         "map_tile": 0xb9
     },
-    "great furnace": {
+    "great furnace portal": {
         "addr": 0x136c1,
         "map_tile": 0x00  # TODO
     },
-    "horon village": {
+    "horon village portal": {
         "addr": 0x13905,
         "map_tile": 0xf7
     },
-    "house of pirates": {
+    "house of pirates portal": {
         "addr": 0x13729,
         "map_tile": 0x00  # TODO
     },
-    "temple remains lower": {
+    "temple remains lower portal": {
         "addr": 0x1350d,
         "map_tile": 0x25
     },
-    "volcanoes west": {
+    "volcanoes west portal": {
         "addr": 0x136c5,
         "map_tile": 0x00  # TODO
     },
-    "temple remains upper": {
+    "temple remains upper portal": {
         "addr": 0x1388d,
         "map_tile": 0x04
     },
-    "d8 entrance": {
+    "d8 entrance portal": {
         "addr": 0x136c9,
         "map_tile": 0x00  # TODO
     }

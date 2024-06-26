@@ -28,7 +28,8 @@ def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
         "lost_woods_item_sequence": ' '.join(world.lost_woods_item_sequence),
         "default_seasons": world.default_seasons,
         "old_man_rupee_values": world.old_man_rupee_values,
-        "dungeon_entrances": {a: b.replace("enter ", "") for a, b in world.dungeon_entrances.items()},
+        "dungeon_entrances": {a.replace(" entrance", ""): b.replace("enter ", "")
+                              for a, b in world.dungeon_entrances.items()},
         "locations": {},
         "subrosia_portals": world.portal_connections,
         "shop_prices": world.shop_prices
