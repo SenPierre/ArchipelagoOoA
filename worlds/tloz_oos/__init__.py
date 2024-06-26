@@ -1,8 +1,6 @@
 import os
 import logging
 
-import yaml
-
 from BaseClasses import Tutorial, Region, Location, LocationProgressType
 from Fill import fill_restrictive, FillError
 from Options import Accessibility
@@ -79,6 +77,7 @@ class OracleOfSeasonsWorld(World):
         self.old_man_rupee_values = OLD_MAN_RUPEE_VALUES.copy()
         self.samasa_gate_code = SAMASA_GATE_CODE.copy()
         self.shop_prices = SHOP_PRICES_DIVIDERS.copy()
+        self.random_rings_pool = []
 
     def fill_slot_data(self) -> dict:
         # Put options that are useful to the tracker inside slot data
@@ -137,6 +136,7 @@ class OracleOfSeasonsWorld(World):
                 self.samasa_gate_code.append(self.random.randint(0, 3))
 
         self.randomize_shop_prices()
+        self.create_random_rings_pool()
 
     def restrict_non_local_items(self):
         # Restrict non_local_items option in cases where it's incompatible with other options that enforce items
@@ -226,6 +226,16 @@ class OracleOfSeasonsWorld(World):
                 if value > floating_price:
                     self.shop_prices[key] = VALID_RUPEE_VALUES[i-1]
                     break
+
+    def create_random_rings_pool(self):
+        # Get a subset of as many rings as needed, with a potential filter on quality depending on chosen options
+        ring_names = [name for name, idata in ITEMS_DATA.items() if "ring" in idata and idata["ring"] is True]
+        if self.options.ring_quality == "only_useful":
+            forbidden_classes = [ItemClassification.filler, ItemClassification.trap]
+            ring_names = [name for name in ring_names if ITEMS_DATA[name]["classification"] not in forbidden_classes]
+
+        self.random.shuffle(ring_names)
+        self.random_rings_pool = ring_names
 
     def location_is_active(self, location_name, location_data):
         if "conditional" not in location_data or location_data["conditional"] is False:
@@ -414,7 +424,7 @@ class OracleOfSeasonsWorld(World):
             for boss_key_name in ITEM_GROUPS["Boss Keys"]:
                 removed_keys += 1
                 del item_pool_dict[boss_key_name]
-        for i in range(removed_keys):
+        for _ in range(removed_keys):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
 
@@ -426,33 +436,18 @@ class OracleOfSeasonsWorld(World):
 
     def create_items(self):
         item_pool_dict = self.build_item_pool_dict()
-
-        # Create items following the dictionary that was previously constructed
-        self.create_rings(item_pool_dict["Random Ring"])
-        del item_pool_dict["Random Ring"]
-
         for item_name, quantity in item_pool_dict.items():
-            for i in range(quantity):
+            for _ in range(quantity):
                 if ("Small Key" in item_name or "Master Key" in item_name) and not self.options.keysanity_small_keys:
                     self.dungeon_items.append(self.create_item(item_name))
                 elif "Boss Key" in item_name and not self.options.keysanity_boss_keys:
                     self.dungeon_items.append(self.create_item(item_name))
                 elif ("Compass" in item_name or "Dungeon Map" in item_name) and not self.options.keysanity_maps_compasses:
                     self.dungeon_items.append(self.create_item(item_name))
+                elif item_name == "Random Ring":
+                    self.multiworld.itempool.append(self.create_item(self.get_random_ring_name()))
                 else:
                     self.multiworld.itempool.append(self.create_item(item_name))
-
-    def create_rings(self, amount):
-        # Get a subset of as many rings as needed, with a potential filter on quality depending on chosen options
-        ring_names = [name for name, idata in ITEMS_DATA.items() if "ring" in idata and idata["ring"] is True]
-        if self.options.ring_quality == "only_useful":
-            forbidden_classes = [ItemClassification.filler, ItemClassification.trap]
-            ring_names = [name for name in ring_names if ITEMS_DATA[name]["classification"] not in forbidden_classes]
-
-        self.random.shuffle(ring_names)
-        del ring_names[amount:]
-        for ring_name in ring_names:
-            self.multiworld.itempool.append(self.create_item(ring_name))
 
     def get_pre_fill_items(self):
         return self.pre_fill_items
@@ -542,12 +537,23 @@ class OracleOfSeasonsWorld(World):
 
     def get_filler_item_name(self) -> str:
         FILLER_ITEM_NAMES = [
-            "Rupees (1)", "Rupees (5)", "Rupees (10)", "Rupees (20)", "Rupees (30)", "Rupees (50)",
+            "Rupees (1)", "Rupees (1)", "Rupees (5)", "Rupees (5)", "Rupees (10)", "Rupees (10)",
+            "Rupees (20)", "Rupees (30)", "Rupees (50)",
             "Ore Chunks (50)",
+            "Random Ring", "Random Ring",
             "Gasha Seed", "Gasha Seed", "Gasha Seed",
             "Potion"
         ]
-        return self.random.choice(FILLER_ITEM_NAMES)
+
+        item_name = self.random.choice(FILLER_ITEM_NAMES)
+        if item_name == "Random Ring":
+            return self.get_random_ring_name()
+        return item_name
+
+    def get_random_ring_name(self):
+        if len(self.random_rings_pool) > 0:
+            return self.random_rings_pool.pop()
+        return "Rupees (1)"
 
     def generate_output(self, output_directory: str):
         patch = oos_create_appp_patch(self)
