@@ -5,11 +5,8 @@ import pkgutil
 import yaml
 
 import Utils
-from settings import get_settings
 from worlds.Files import APProcedurePatch, APTokenMixin, APPatchExtension
 
-from ..data.Locations import LOCATIONS_DATA
-from ..data.Items import ITEMS_DATA
 from .Functions import *
 from .Constants import *
 from .RomData import RomData
@@ -52,7 +49,7 @@ class OoSPatchExtensions(APPatchExtension):
         define_collect_properties_table(assembler, patch_data)
         define_samasa_combination(assembler, patch_data)
         set_lost_woods_sequence(assembler, patch_data)
-        set_file_select_text(assembler, patch_data["slot_name"])
+        set_file_select_text(assembler, caller.player_name)
 
         # Parse assembler files, compile them and write the result in the ROM
         print(f"Compiling ASM files...")
@@ -74,7 +71,7 @@ class OoSPatchExtensions(APPatchExtension):
 
         set_heart_beep_interval_from_settings(rom_data)
         set_character_sprite_from_settings(rom_data)
-        inject_slot_name(rom_data, patch_data["slot_name"])
+        inject_slot_name(rom_data, caller.player_name)
 
         rom_data.update_checksum(0x14e)
         return rom_data.output()

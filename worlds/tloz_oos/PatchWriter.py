@@ -12,7 +12,10 @@ if TYPE_CHECKING:
 def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
     patch = OoSProcedurePatch()
 
-    yamlObj = {
+    patch.player = world.player
+    patch.player_name = world.multiworld.get_player_name(world.player)
+
+    patch_data = {
         "version": VERSION,
         "options": world.options.as_dict(*[
             "advance_shop", "animal_companion", "combat_difficulty", "default_seed",
@@ -23,28 +26,16 @@ def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
         ]),
         "samasa_gate_sequence": ' '.join([str(x) for x in world.samasa_gate_code]),
         "lost_woods_item_sequence": ' '.join(world.lost_woods_item_sequence),
-        "slot_name": world.multiworld.get_player_name(world.player),
-        "default_seasons": {},
-        "old_man_rupee_values": {},
+        "default_seasons": world.default_seasons,
+        "old_man_rupee_values": world.old_man_rupee_values,
+        "dungeon_entrances": {a: b.replace("enter ", "") for a, b in world.dungeon_entrances.items()},
         "locations": {},
+        "subrosia_portals": world.portal_connections,
         "shop_prices": world.shop_prices
     }
 
-    for region_name, season in world.default_seasons.items():
-        yamlObj["default_seasons"][region_name] = season
     if world.options.horon_village_season == "vanilla":
-        yamlObj["default_seasons"]["HORON_VILLAGE"] = "chaotic"
-
-    for region_name, value in world.old_man_rupee_values.items():
-        yamlObj["old_man_rupee_values"][region_name] = value
-
-    yamlObj["dungeon_entrances"] = {}
-    for entrance, dungeon in world.dungeon_entrances.items():
-        yamlObj["dungeon_entrances"][entrance.replace(" entrance", "")] = dungeon.replace("enter ", "")
-
-    yamlObj["subrosia_portals"] = {}
-    for portal_holo, portal_sub in world.portal_connections.items():
-        yamlObj["subrosia_portals"][PORTALS_CONVERSION_TABLE[portal_holo]] = PORTALS_CONVERSION_TABLE[portal_sub]
+        patch_data["default_seasons"]["HORON_VILLAGE"] = "chaotic"
 
     for loc in world.multiworld.get_locations(world.player):
         if loc.address is None:
@@ -56,7 +47,7 @@ def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
             item_name = "Archipelago Progression Item"
         else:
             item_name = "Archipelago Item"
-        yamlObj["locations"][loc.name] = item_name
+        patch_data["locations"][loc.name] = item_name
 
-    patch.write_file("patch.dat", yaml.dump(yamlObj).encode('utf-8'))
+    patch.write_file("patch.dat", yaml.dump(patch_data).encode('utf-8'))
     return patch

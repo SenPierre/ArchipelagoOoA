@@ -427,6 +427,7 @@ class OracleOfSeasonsWorld(World):
         item_pool_adjustements = [
             ["Flute", self.options.animal_companion.current_key.title() + "'s Flute"],  # Put a specific flute
             ["Ricky's Gloves", "Progressive Sword"],    # Ricky's gloves are useless in current logic
+            ["Treasure Map", "Ore Chunks (50)"],        # Treasure Map would be non-functional in most cases, just remove it
             ["Gasha Seed", "Seed Satchel"],             # Add a 3rd satchel that is usually obtained in linked games (99 seeds)
             ["Gasha Seed", "Rupees (200)"],             # Too many Gasha Seeds in vanilla pool, add more rupees and ore instead
         ]
