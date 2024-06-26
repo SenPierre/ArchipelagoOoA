@@ -26,6 +26,13 @@ class OoSPatchExtensions(APPatchExtension):
         rom_data = RomData(rom)
         patch_data = yaml.load(caller.get_file(patch_file).decode("utf-8"), yaml.Loader)
 
+        if patch_data["version"] != VERSION:
+            raise Exception(f"Invalid version: this seed was generated on v{patch_data['version']}, "
+                            f"you are currently using v{VERSION}")
+
+        if patch_data["options"]["enforce_potion_in_shop"]:
+            patch_data["locations"]["Horon Village: Shop #3"] = "Potion"
+
         assembler = Z80Assembler()
 
         # Define static values & data blocks

@@ -384,6 +384,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Flute",
         "flag_byte": 0xc640,
         "bit_mask": 0x80,
+        "conditional": True,
         "scouting_byte": 0xc8a6,
         "room": 0x03a6,
         "collect": COLLECT_TOUCH,

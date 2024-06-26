@@ -221,7 +221,10 @@ class OracleOfSeasonsWorld(World):
         self.random.shuffle(prices_pool)
         global_prices_factor = self.options.shop_prices_factor.value / 100.0
         for key, divider in self.shop_prices.items():
-            floating_price = prices_pool.pop() * global_prices_factor / divider
+            if key == "horonShop3" and self.options.enforce_potion_in_shop:
+                floating_price = 300 * global_prices_factor / divider
+            else:
+                floating_price = prices_pool.pop() * global_prices_factor / divider
             for i, value in enumerate(VALID_RUPEE_VALUES):
                 if value > floating_price:
                     self.shop_prices[key] = VALID_RUPEE_VALUES[i-1]
@@ -248,6 +251,8 @@ class OracleOfSeasonsWorld(World):
             return self.options.shuffle_golden_ore_spots != "vanilla"
         if location_name in RUPEE_OLD_MAN_LOCATIONS:
             return self.options.shuffle_old_men == OracleOfSeasonsOldMenShuffle.option_turn_into_locations
+        if location_name == "Horon Village: Shop #3":
+            return not self.options.enforce_potion_in_shop
 
         return False
 
@@ -274,10 +279,6 @@ class OracleOfSeasonsWorld(World):
 
         self.create_events()
         self.exclude_problematic_locations()
-
-        if self.options.enforce_potion_in_shop:
-            self.get_location("Horon Village: Shop #3").place_locked_item(self.create_item("Potion"))
-            self.shop_prices["horon shop 3"] = 300
 
     def create_event(self, region_name, event_item_name):
         region = self.multiworld.get_region(region_name, self.player)
@@ -396,7 +397,7 @@ class OracleOfSeasonsWorld(World):
             ["Gasha Seed", "Seed Satchel"],             # Add a 3rd satchel that is usually obtained in linked games (99 seeds)
             ["Gasha Seed", "Rupees (200)"],             # Too many Gasha Seeds in vanilla pool, add more rupees and ore instead
         ]
-        for i in range(4):
+        for _ in range(4):
             # Replace a few Gasha Seeds by random filler items
             item_pool_adjustements.append(["Gasha Seed", self.get_filler_item_name()])
 
@@ -427,10 +428,6 @@ class OracleOfSeasonsWorld(World):
         for _ in range(removed_keys):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
-
-        if self.options.enforce_potion_in_shop:
-            # Remove one Potion from the item pool if it was placed inside Horon Shop
-            item_pool_dict["Potion"] -= 1
 
         return item_pool_dict
 
