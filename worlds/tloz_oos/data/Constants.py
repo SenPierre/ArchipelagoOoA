@@ -41,24 +41,6 @@ DUNGEON_NAMES = [
     "Sword & Shield Dungeon"
 ]
 
-PORTALS_CONVERSION_TABLE = {
-    "eastern suburbs portal": "eastern suburbs",
-    "eyeglass lake portal": "eyeglass lake",
-    "horon village portal": "horon village",
-    "mt. cucco portal": "mt. cucco",
-    "spool swamp portal": "spool swamp",
-    "temple remains lower portal": "temple remains lower",
-    "temple remains upper portal": "temple remains upper",
-
-    "subrosia portal 1": "volcanoes east",
-    "subrosia portal 2": "subrosia market",
-    "subrosia portal 3": "strange brothers",
-    "subrosia portal 4": "house of pirates",
-    "subrosia portal 5": "great furnace",
-    "subrosia portal 6": "volcanoes west",
-    "subrosia portal 7": "d8 entrance",
-}
-
 ESSENCES = [
     "Fertile Soil",
     "Gift of Time",
@@ -108,13 +90,13 @@ DUNGEON_CONNECTIONS = {
 }
 
 PORTAL_CONNECTIONS = {
-    "eastern suburbs portal": "subrosia portal 1",
-    "spool swamp portal": "subrosia portal 2",
-    "mt. cucco portal": "subrosia portal 3",
-    "horon village portal": "subrosia portal 4",
-    "eyeglass lake portal": "subrosia portal 5",
-    "temple remains lower portal": "subrosia portal 6",
-    "temple remains upper portal": "subrosia portal 7",
+    "eastern suburbs portal": "volcanoes east portal",
+    "spool swamp portal": "subrosia market portal",
+    "mt. cucco portal": "strange brothers portal",
+    "horon village portal": "house of pirates portal",
+    "eyeglass lake portal": "great furnace portal",
+    "temple remains lower portal": "volcanoes west portal",
+    "temple remains upper portal": "d8 entrance portal",
 }
 
 LOST_WOODS_ITEM_SEQUENCE = [

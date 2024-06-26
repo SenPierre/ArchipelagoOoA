@@ -5,13 +5,13 @@ def make_subrosia_logic(player: int):
     return [
         # Portals ###############################################################
 
-        ["subrosia portal 1", "subrosia temple sector", True, None],
-        ["subrosia portal 2", "subrosia market sector", True, None],
-        ["subrosia portal 3", "subrosia hide and seek sector", True, lambda state: oos_has_feather(state, player)],
-        ["subrosia portal 4", "subrosia pirates sector", True, None],
-        ["subrosia portal 5", "subrosia furnace sector", True, None],
-        ["subrosia portal 6", "subrosia volcano sector", True, None],
-        ["subrosia portal 7", "d8 entrance", True, None],
+        ["volcanoes east portal", "subrosia temple sector", True, None],
+        ["subrosia market portal", "subrosia market sector", True, None],
+        ["strange brothers portal", "subrosia hide and seek sector", True, lambda state: oos_has_feather(state, player)],
+        ["house of pirates portal", "subrosia pirates sector", True, None],
+        ["great furnace portal", "subrosia furnace sector", True, None],
+        ["volcanoes west portal", "subrosia volcano sector", True, None],
+        ["d8 entrance portal", "d8 entrance", True, None],
 
         ["subrosia pirates sector", "western coast after ship", False, lambda state: state.has("Pirate's Bell", player)],
 

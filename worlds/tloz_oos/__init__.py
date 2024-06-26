@@ -119,7 +119,7 @@ class OracleOfSeasonsWorld(World):
 
         if self.options.shuffle_dungeons == "shuffle":
             self.shuffle_dungeons()
-        if self.options.shuffle_portals == "shuffle":
+        if self.options.shuffle_portals != "vanilla":
             self.shuffle_portals()
 
         if self.options.lost_woods_item_sequence == "randomized":
@@ -186,9 +186,28 @@ class OracleOfSeasonsWorld(World):
             self.dungeon_entrances["d3 entrance"] = dungeon_to_swap
 
     def shuffle_portals(self):
-        shuffled_portals = list(self.portal_connections.values())
-        self.random.shuffle(shuffled_portals)
-        self.portal_connections = dict(zip(self.portal_connections, shuffled_portals))
+        holodrum_portals = list(PORTAL_CONNECTIONS.keys())
+        subrosian_portals = list(PORTAL_CONNECTIONS.values())
+        if self.options.shuffle_portals == "shuffle_outwards":
+            # Shuffle Outwards: connect Holodrum portals with random Subrosian portals
+            self.random.shuffle(subrosian_portals)
+            self.portal_connections = dict(zip(holodrum_portals, subrosian_portals))
+        else:
+            # Shuffle: connect any portal with any other portal. To keep both dimensions available, we need to ensure
+            # that at least one Subrosian portal that is not D8 portal is connected to Holodrum
+            self.random.shuffle(holodrum_portals)
+            guaranteed_portal_holodrum = holodrum_portals.pop(0)
+
+            self.random.shuffle(subrosian_portals)
+            if subrosian_portals[0] == "d8 entrance portal":
+                subrosian_portals[0], subrosian_portals[1] = subrosian_portals[1], subrosian_portals[0]
+            guaranteed_portal_subrosia = subrosian_portals.pop(0)
+
+            shuffled_portals = holodrum_portals + subrosian_portals
+            self.random.shuffle(shuffled_portals)
+            it = iter(shuffled_portals)
+            self.portal_connections = dict(zip(it, it))
+            self.portal_connections[guaranteed_portal_holodrum] = guaranteed_portal_subrosia
 
         # If accessibility is not locations, don't perform any check on what was randomly picked
         if self.options.accessibility != Accessibility.option_locations:
@@ -196,12 +215,26 @@ class OracleOfSeasonsWorld(World):
 
         # If accessibility IS locations, we need to ensure that Temple Remains upper portal doesn't lead to the volcano
         # that can be triggered to open Temple Remains cave, since it would make it unreachable forever.
-        # In that case, just swap it with a random other portal.
-        if self.portal_connections["temple remains upper portal"] == "subrosia portal 6":
-            other_portals = [key for key in PORTAL_CONNECTIONS.keys() if key != "temple remains upper portal"]
-            portal_to_swap = self.random.choice(other_portals)
-            self.portal_connections["temple remains upper portal"] = self.portal_connections[portal_to_swap]
-            self.portal_connections[portal_to_swap] = "subrosia portal 6"
+        # Same goes with D8 <-> Volcanoes west portal in free shuffle mode.
+        # In that case, just redo the shuffle recursively until we end up with a satisfying shuffle.
+        if not self.is_volcanoes_west_portal_reachable():
+            self.shuffle_portals()
+
+    def are_portals_connected(self, portal_1, portal_2):
+        if portal_1 in self.portal_connections:
+            if self.portal_connections[portal_1] == portal_2:
+                return True
+        if portal_2 in self.portal_connections:
+            if self.portal_connections[portal_2] == portal_1:
+                return True
+        return False
+
+    def is_volcanoes_west_portal_reachable(self):
+        if self.are_portals_connected("temple remains upper portal", "volcanoes west portal"):
+            return False
+        if self.are_portals_connected("d8 entrance portal", "volcanoes west portal"):
+            return False
+        return True
 
     def randomize_old_men(self):
         if self.options.shuffle_old_men == OracleOfSeasonsOldMenShuffle.option_shuffled_values:
@@ -316,7 +349,7 @@ class OracleOfSeasonsWorld(World):
 
         # Don't create an event for the triggerable volcano in Subrosia if portals layout make it unreachable, since
         # events are technically progression and generator doesn't like locked progression. At all.
-        if self.portal_connections["temple remains upper portal"] != "subrosia portal 6":
+        if self.is_volcanoes_west_portal_reachable():
             self.create_event("bomb temple remains", "_triggered_volcano")
 
         self.create_event("golden darknut", "_beat_golden_darknut")
@@ -349,7 +382,7 @@ class OracleOfSeasonsWorld(World):
 
         # If Temple Remains upper portal is connected to triggerable volcano portal in Subrosia, this makes a check
         # in the bombable cave of Temple Remains unreachable forever. Exclude it in such conditions.
-        if self.portal_connections["temple remains upper portal"] == "subrosia portal 6":
+        if not self.is_volcanoes_west_portal_reachable():
             locations_to_exclude.append("Temple Remains: Item in Cave Behind Rockslide")
 
         for name in locations_to_exclude:
@@ -571,4 +604,4 @@ class OracleOfSeasonsWorld(World):
         if self.options.shuffle_portals != "vanilla":
             spoiler_handle.write(f"\nSubrosia Portals ({self.multiworld.player_name[self.player]}):\n")
             for portal_holo, portal_sub in self.portal_connections.items():
-                spoiler_handle.write(f"\t- {PORTALS_CONVERSION_TABLE[portal_holo]} --> {PORTALS_CONVERSION_TABLE[portal_sub]}\n")
+                spoiler_handle.write(f"\t- {portal_holo} --> {portal_sub}\n")
