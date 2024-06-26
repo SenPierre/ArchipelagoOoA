@@ -73,7 +73,7 @@ class OracleOfSeasonsWorld(World):
         self.pre_fill_items = []
         self.dungeon_items = []
         self.default_seasons = DEFAULT_SEASONS.copy()
-        self.dungeon_entrances = DUNGEON_ENTRANCES.copy()
+        self.dungeon_entrances = DUNGEON_CONNECTIONS.copy()
         self.portal_connections = PORTAL_CONNECTIONS.copy()
         self.lost_woods_item_sequence = LOST_WOODS_ITEM_SEQUENCE.copy()
         self.old_man_rupee_values = OLD_MAN_RUPEE_VALUES.copy()
@@ -177,7 +177,7 @@ class OracleOfSeasonsWorld(World):
         if d3_dungeon in forbidden_d3_dungeons:
             # Randomly pick a valid dungeon for D3 entrance, and make the entrance that was going to that dungeon
             # lead to the problematic dungeon instead
-            allowed_dungeons = [d for d in DUNGEON_ENTRANCES.values() if d not in forbidden_d3_dungeons]
+            allowed_dungeons = [d for d in DUNGEON_CONNECTIONS.values() if d not in forbidden_d3_dungeons]
             dungeon_to_swap = self.random.choice(allowed_dungeons)
             for k in self.dungeon_entrances.keys():
                 if self.dungeon_entrances[k] == dungeon_to_swap:

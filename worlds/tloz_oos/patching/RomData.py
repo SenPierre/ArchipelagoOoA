@@ -1,6 +1,8 @@
 from collections.abc import Collection
 from typing import Optional
 
+from worlds.tloz_oos.patching.Util import hex_str
+
 
 class RomData:
     buffer: bytearray
@@ -50,6 +52,22 @@ class RomData:
             result += b
         result &= 0xffff
         self.write_word_be(address, result & 0xffff)
+
+    def get_chest_addr(self, group_and_room: int):
+        """
+        Return the address where to edit item ID and sub-ID to modify the contents
+        of the chest contained in given room of given group
+        """
+        base_addr = 0x54f6c
+        room = group_and_room & 0xFF
+        group = group_and_room >> 8
+        current_addr = 0x50000 + self.read_word(base_addr + (group * 2))
+        while self.read_byte(current_addr) != 0xff:
+            chest_room = self.read_byte(current_addr + 1)
+            if chest_room == room:
+                return current_addr + 2
+            current_addr += 4
+        raise Exception(f"Unknown chest in room {group}|{hex_str(room)}")
 
     def output(self) -> bytes:
         return bytes(self.file)

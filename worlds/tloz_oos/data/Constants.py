@@ -95,7 +95,7 @@ DEFAULT_SEASONS = {
     "HORON_VILLAGE": "spring"
 }
 
-DUNGEON_ENTRANCES = {
+DUNGEON_CONNECTIONS = {
     "d0 entrance": "enter d0",
     "d1 entrance": "enter d1",
     "d2 entrance": "enter d2",
@@ -124,15 +124,16 @@ LOST_WOODS_ITEM_SEQUENCE = [
     "summer", "left"
 ]
 
+# The order of keys in this dictionary matters, since it's the same as the one used inside the ROM
 OLD_MAN_RUPEE_VALUES = {
-    "old man in horon": 100,
-    "old man near d1": 100,
-    "old man near blaino": 200,
     "old man in goron mountain": 300,
+    "old man near blaino": 200,
+    "old man near d1": 100,
     "old man near western coast house": 300,
+    "old man in horon": 100,
+    "old man near d6": -200,
     "old man near holly's house": -50,
-    "old man near mrs. ruul": -100,
-    "old man near d6": -200
+    "old man near mrs. ruul": -100
 }
 
 RUPEE_OLD_MAN_LOCATIONS = [

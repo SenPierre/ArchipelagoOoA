@@ -273,36 +273,6 @@ class Z80Assembler:
 
         return output
 
-    def resolve_names_old(self, arg: str, current_addr: GameboyAddress, local_labels: Dict[str, GameboyAddress], opcode: str):
-        enclosed_in_parentheses = arg.startswith("(") and arg.endswith(")")
-        if enclosed_in_parentheses:
-            arg = arg[1:-1]
-        output = arg
-
-        if arg in self.defines:
-            output = self.defines[arg]
-        else:
-            addr = None
-            if arg in local_labels:
-                addr = local_labels[arg]
-            elif arg in self.global_labels:
-                addr = self.global_labels[arg]
-            if addr:
-                if opcode == "jr" and current_addr.bank == addr.bank:
-                    # If opcode is "jr", we need to use an 8-bit relative offset instead of a 16-bit absolute address
-                    difference = addr.offset - (current_addr.offset + 2)
-                    if difference > 0x7f or difference < (-1 * 0x7f):
-                        raise Exception(f"Label {arg} is too far away, offset cannot be expressed as a single byte ({difference})")
-                    if difference < 0:
-                        difference = 0x100 + difference
-                    output = "$" + hex(difference)[2:].rjust(2, '0')
-                else:
-                    output = addr.to_word()
-
-        if enclosed_in_parentheses:
-            output = f"({output})"
-        return output
-
     def compile_all(self):
         """
         Perform a full compilation of all previously added blocks.

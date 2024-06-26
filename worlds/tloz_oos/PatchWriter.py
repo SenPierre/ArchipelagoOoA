@@ -40,7 +40,7 @@ def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
 
     yamlObj["dungeon_entrances"] = {}
     for entrance, dungeon in world.dungeon_entrances.items():
-        yamlObj["dungeon_entrances"][entrance] = dungeon.replace("enter ", "")
+        yamlObj["dungeon_entrances"][entrance.replace(" entrance", "")] = dungeon.replace("enter ", "")
 
     yamlObj["subrosia_portals"] = {}
     for portal_holo, portal_sub in world.portal_connections.items():

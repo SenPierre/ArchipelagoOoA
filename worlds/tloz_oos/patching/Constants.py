@@ -377,6 +377,143 @@ SEASON_VALUES = {
     "chaotic": 0xff
 }
 
+DUNGEON_ENTRANCES = {
+    "d0": {
+        "addr": 0x13651,
+        "map_tile": 0xd4,
+        "room": 0xd4,
+        "group": 0x00,
+        "position": 0x54
+    },
+    "d1": {
+        "addr": 0x1346d,
+        "map_tile": 0x96,
+        "room": 0x96,
+        "group": 0x00,
+        "position": 0x44
+    },
+    "d2": {
+        "addr": 0x13659,
+        "map_tile": 0x8d,
+        "room": 0x8d,
+        "group": 0x00,
+        "position": 0x24
+    },
+    "d3": {
+        "addr": 0x13671,
+        "map_tile": 0x60,
+        "room": 0x60,
+        "group": 0x00,
+        "position": 0x25
+    },
+    "d4": {
+        "addr": 0x13479,
+        "map_tile": 0x1d,
+        "room": 0x1d,
+        "group": 0x00,
+        "position": 0x13
+    },
+    "d5": {
+        "addr": 0x1347d,
+        "map_tile": 0x8a,
+        "room": 0x8a,
+        "group": 0x00,
+        "position": 0x25
+    },
+    "d6": {
+        "addr": 0x13481,
+        "map_tile": 0x00,
+        "room": 0x00,
+        "group": 0x00,
+        "position": 0x34
+    },
+    "d7": {
+        "addr": 0x13485,
+        "map_tile": 0xd0,
+        "room": 0xd0,
+        "group": 0x00,
+        "position": 0x34
+    },
+    "d8": {
+        "addr": 0x1369d,
+        "map_tile": 0x04,
+        "room": 0x00,
+        "group": 0x01,
+        "position": 0x23
+    },
+}
+
+DUNGEON_EXITS = {
+    "d0": 0x13909,
+    "d1": 0x1390d,
+    "d2": 0x13911,
+    "d3": 0x13915,
+    "d4": 0x13919,
+    "d5": 0x1391d,
+    "d6": 0x13921,
+    "d7": 0x13a89,
+    "d8": 0x13a8d,
+}
+
+PORTAL_WARPS = {
+    "eastern suburbs": {
+        "addr": 0x134fd,
+        "map_tile": 0x9a
+    },
+    "volcanoes east": {
+        "addr": 0x136b5,
+        "map_tile": 0x00  # TODO
+    },
+    "spool swamp": {
+        "addr": 0x13501,
+        "map_tile": 0xb0
+    },
+    "subrosia market": {
+        "addr": 0x136b9,
+        "map_tile": 0x00  # TODO
+    },
+    "mt. cucco": {
+        "addr": 0x13601,
+        "map_tile": 0x1e
+    },
+    "strange brothers": {
+        "addr": 0x136bd,
+        "map_tile": 0x00  # TODO
+    },
+    "eyeglass lake": {
+        "addr": 0x13509,
+        "map_tile": 0xb9
+    },
+    "great furnace": {
+        "addr": 0x136c1,
+        "map_tile": 0x00  # TODO
+    },
+    "horon village": {
+        "addr": 0x13905,
+        "map_tile": 0xf7
+    },
+    "house of pirates": {
+        "addr": 0x13729,
+        "map_tile": 0x00  # TODO
+    },
+    "temple remains lower": {
+        "addr": 0x1350d,
+        "map_tile": 0x25
+    },
+    "volcanoes west": {
+        "addr": 0x136c5,
+        "map_tile": 0x00  # TODO
+    },
+    "temple remains upper": {
+        "addr": 0x1388d,
+        "map_tile": 0x04
+    },
+    "d8 entrance": {
+        "addr": 0x136c9,
+        "map_tile": 0x00  # TODO
+    }
+}
+
 # Scripting constants
 DELAY_6 = 0xf6
 CALL_SCRIPT = 0xc0

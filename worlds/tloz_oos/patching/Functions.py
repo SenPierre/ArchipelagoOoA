@@ -26,28 +26,15 @@ def get_asm_files(patch_data):
     return asm_files
 
 
-def get_chest_addr(rom: RomData, group_and_room: int):
-    """
-    Return the address where to edit item ID and sub-ID to modify the contents
-    of the chest contained in given room of given group
-    """
-    base_addr = 0x54f6c
-    room = group_and_room & 0xFF
-    group = group_and_room >> 8
-    current_addr = 0x50000 + rom.read_word(base_addr + (group * 2))
-    while rom.read_byte(current_addr) != 0xff:
-        chest_room = rom.read_byte(current_addr + 1)
-        if chest_room == room:
-            return current_addr + 2
-        current_addr += 4
-    raise Exception(f"Unknown chest in room {group}|{hex_str(room)}")
-
-
 def write_chest_contents(rom: RomData, patch_data):
+    """
+    Chest locations are packed inside several big tables in the ROM, unlike other more specific locations.
+    This puts the item described in the patch data inside each chest in the game.
+    """
     for location_name, location_data in LOCATIONS_DATA.items():
         if 'collect' not in location_data or location_data['collect'] != COLLECT_CHEST:
             continue
-        chest_addr = get_chest_addr(rom, location_data['room'])
+        chest_addr = rom.get_chest_addr(location_data['room'])
         item_name = patch_data["locations"][location_name]
         item_id, item_subid = get_item_id_and_subid(item_name)
         rom.write_byte(chest_addr, item_id)
@@ -115,7 +102,8 @@ def define_compass_rooms_table(assembler: Z80Assembler, patch_data):
     for location_name, item_name in patch_data["locations"].items():
         _, item_subid = get_item_id_and_subid(item_name)
         dungeon = 0xff
-        if item_name.startswith("Small Key") or item_name.startswith("Master Key") or item_name.startswith("Dungeon Map"):
+        if item_name.startswith("Small Key") or item_name.startswith("Master Key") or item_name.startswith(
+                "Dungeon Map"):
             dungeon = item_subid
         elif item_name.startswith("Boss Key"):
             dungeon = item_subid + 1
@@ -316,6 +304,19 @@ def alter_treasures(rom: RomData):
     # set_treasure_data(rom, "Power Bracelet", None, None, 0x01)
 
 
+def set_old_men_rupee_values(rom: RomData, patch_data):
+    for i, name in enumerate(OLD_MAN_RUPEE_VALUES.keys()):
+        if name in patch_data["old_man_rupee_values"]:
+            value = patch_data["old_man_rupee_values"][name]
+            value_byte = RUPEE_VALUES[abs(value)]
+            rom.write_byte(0x56233 + i, value_byte)
+
+            if abs(value) == value:
+                rom.write_word(0x2987b + (i * 2), 0x7472)  # Give rupees
+            else:
+                rom.write_word(0x2987b + (i * 2), 0x7488)  # Take rupees
+
+
 def apply_miscellaneous_options(rom: RomData, patch_data):
     # If companion is Dimitri, allow calling him using the Flute inside Sunken City
     if patch_data["options"]["animal_companion"] == OracleOfSeasonsAnimalCompanion.option_dimitri:
@@ -413,8 +414,8 @@ def define_text_constants(assembler: Z80Assembler, patch_data):
             item_name_bytes = process_item_name_for_shop_text(patch_data["locations"][location_name])
 
             text_bytes = [0x09, 0x01] + item_name_bytes + [0x03, 0xe2]  # Item name
-            text_bytes.extend([0x20, 0x0c, 0x08, 0x02, 0x8f, 0x01])     # Price
-            text_bytes.extend([0x02, 0x00, 0x00])                       # OK / No thanks
+            text_bytes.extend([0x20, 0x0c, 0x08, 0x02, 0x8f, 0x01])  # Price
+            text_bytes.extend([0x02, 0x00, 0x00])  # OK / No thanks
             assembler.add_floating_chunk(f"text.{symbolic_name}", text_bytes)
 
     # Subrosian market slots
@@ -424,31 +425,31 @@ def define_text_constants(assembler: Z80Assembler, patch_data):
         if location_name not in patch_data["locations"]:
             continue
         item_name_bytes = process_item_name_for_shop_text(patch_data["locations"][location_name])
-        text_bytes = [0x09, 0x01] + item_name_bytes + [0x03, 0xe2]            # (Item name)
-        text_bytes.extend([0x02, 0x08])                                                # "I'll trade for"
+        text_bytes = [0x09, 0x01] + item_name_bytes + [0x03, 0xe2]  # (Item name)
+        text_bytes.extend([0x02, 0x08])  # "I'll trade for"
         if market_slot == 1:
-            text_bytes.extend([0x02, 0x8e, 0x2e, 0x01])                                # "Star-Shaped Ore."
+            text_bytes.extend([0x02, 0x8e, 0x2e, 0x01])  # "Star-Shaped Ore."
         else:
             text_bytes.extend([0x09, 0x01, 0x0c, 0x08, 0x20, 0x02, 0x09, 0x2e, 0x01])  # "(number) Ore Chunks."
         assembler.add_floating_chunk(f"text.{symbolic_name}", text_bytes)
 
     assembler.add_floating_chunk("text.subrosianMarketEnd", [
-        0x04, 0xfc, 0x02, 0x8b, 0x04, 0xb7,     # How about it?
-        0x02, 0xfe, 0x03, 0xbf, 0x00            # Sure / No
+        0x04, 0xfc, 0x02, 0x8b, 0x04, 0xb7,  # How about it?
+        0x02, 0xfe, 0x03, 0xbf, 0x00  # Sure / No
     ])
 
     assembler.add_floating_chunk("text.getArchipelagoItem", [
-        0x03, 0xe8, 0x04, 0x42, 0x05, 0xea,                                      # You found an
+        0x03, 0xe8, 0x04, 0x42, 0x05, 0xea,  # You found an
         0x69, 0x74, 0x65, 0x6d, 0x20, 0x04, 0x91, 0x61, 0x6e, 0x03, 0x0f, 0x01,  # item for another
-        0x03, 0x75, 0x21, 0x00                                                   # world!
+        0x03, 0x75, 0x21, 0x00  # world!
     ])
 
     assembler.add_floating_chunk("text.getEmberSeeds", [
-        0x02, 0x12, 0x04, 0x79, 0x01,               # You got Ember
-        0x02, 0x53, 0x21, 0x20, 0x05, 0xa9, 0x01,   # Seeds! Open
-        0x79, 0x02, 0x65,                           # your Seed
-        0x02, 0x6e, 0x05, 0xda, 0x04, 0xaa, 0x01,   # Satchel to use
-        0x74, 0x68, 0x65, 0x6d, 0x2e, 0x00          # them.
+        0x02, 0x12, 0x04, 0x79, 0x01,  # You got Ember
+        0x02, 0x53, 0x21, 0x20, 0x05, 0xa9, 0x01,  # Seeds! Open
+        0x79, 0x02, 0x65,  # your Seed
+        0x02, 0x6e, 0x05, 0xda, 0x04, 0xaa, 0x01,  # Satchel to use
+        0x74, 0x68, 0x65, 0x6d, 0x2e, 0x00  # them.
     ])
 
 
@@ -497,3 +498,69 @@ def inject_slot_name(rom: RomData, slot_name: str):
     slot_name_as_bytes = list(str.encode(slot_name))
     slot_name_as_bytes += [0x00] * (0x40 - len(slot_name_as_bytes))
     rom.write_bytes(0xfffc0, slot_name_as_bytes)
+
+
+def set_dungeon_warps(rom: RomData, patch_data):
+    warp_matchings = patch_data["dungeon_entrances"]
+    enter_values = {name: rom.read_word(dungeon["addr"]) for name, dungeon in DUNGEON_ENTRANCES.items()}
+    exit_values = {name: rom.read_word(addr) for name, addr in DUNGEON_EXITS.items()}
+
+    # Apply warp matchings expressed in the patch
+    for from_name, to_name in warp_matchings.items():
+        entrance_addr = DUNGEON_ENTRANCES[from_name]["addr"]
+        exit_addr = DUNGEON_EXITS[to_name]
+        rom.write_word(entrance_addr, enter_values[to_name])
+        rom.write_word(exit_addr, exit_values[from_name])
+
+    # Build a map dungeon => entrance (useful for essence warps)
+    entrance_map = dict((v, k) for k, v in warp_matchings.items())
+
+    # D0 Chest Warp (hardcoded warp using a specific format)
+    d0_new_entrance = DUNGEON_ENTRANCES[entrance_map["d0"]]
+    rom.write_bytes(0x2bbe5, [
+        d0_new_entrance["room"],
+        d0_new_entrance["group"],
+        d0_new_entrance["position"]
+    ])
+
+    # D1-D8 Essence Warps (hardcoded in one array using a unified format)
+    for i in range(8):
+        entrance = DUNGEON_ENTRANCES[entrance_map[f"d{i + 1}"]]
+        rom.write_bytes(0x24b59 + (i * 4), [
+            entrance["group"] | 0x80,
+            entrance["room"],
+            entrance["position"]
+        ])
+
+    # Change Minimap popups to indicate the randomized dungeon's name
+    for i in range(8):
+        entrance_name = f"d{i}"
+        dungeon_index = int(warp_matchings[entrance_name][1:])
+        map_tile = DUNGEON_ENTRANCES[entrance_name]["map_tile"]
+        rom.write_byte(0xaa19 + map_tile, 0x81 | (dungeon_index << 3))
+    # Dungeon 8 specific case (since it's in Subrosia)
+    dungeon_index = int(warp_matchings["d8"][1:])
+    rom.write_byte(0xab19, 0x81 | (dungeon_index << 3))
+
+
+def set_portal_warps(rom: RomData, patch_data):
+    warp_matchings = patch_data["subrosia_portals"]
+
+    DEFAULT_PORTAL_CONNECTIONS = {
+        "eastern suburbs": "volcanoes east",
+        "spool swamp": "subrosia market",
+        "mt. cucco": "strange brothers",
+        "eyeglass lake": "great furnace",
+        "horon village": "house of pirates",
+        "temple remains lower": "volcanoes west",
+        "temple remains upper": "d8 entrance"
+    }
+    values = {}
+    for portal_1, portal_2 in DEFAULT_PORTAL_CONNECTIONS.items():
+        values[portal_1] = rom.read_word(PORTAL_WARPS[portal_2]["addr"])
+        values[portal_2] = rom.read_word(PORTAL_WARPS[portal_1]["addr"])
+
+    # Apply warp matchings expressed in the patch
+    for from_name, to_name in warp_matchings.items():
+        rom.write_word(PORTAL_WARPS[from_name]["addr"], values[to_name])
+        rom.write_word(PORTAL_WARPS[to_name]["addr"], values[from_name])
