@@ -38,7 +38,6 @@
     dwbe 810d, locations.subrosianMarket5
     dwbe c600, locations.d0SwordChest
     dwbe e602, locations.templeOfSeasons
-    dwbe 9400, locations.mapleTrade
     db ff
 
 # overrides the sprite data loaded for certain interactions. this is mostly

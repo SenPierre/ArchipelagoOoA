@@ -84,7 +84,7 @@ DEFINES = {
     "wAnimalTutorialFlags": "$c646",
     "wDungeonCompasses": "$c67c",
     "wDungeonMaps": "$c67e",
-    "wObtainedTreasureFlags": "$c69a",
+    "wObtainedTreasureFlags": "$c692",
     "wNetCountInL": "$c6a0",
     "wNetCountInH": "$c6a1",
     "wLinkMaxHealth": "$c6a3",

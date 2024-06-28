@@ -305,6 +305,8 @@ def alter_treasures(rom: RomData):
 
 
 def set_old_men_rupee_values(rom: RomData, patch_data):
+    if patch_data["options"]["shuffle_old_men"] == OracleOfSeasonsOldMenShuffle.option_turn_into_locations:
+        return
     for i, name in enumerate(OLD_MAN_RUPEE_VALUES.keys()):
         if name in patch_data["old_man_rupee_values"]:
             value = patch_data["old_man_rupee_values"][name]
