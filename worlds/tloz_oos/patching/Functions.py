@@ -32,7 +32,10 @@ def write_chest_contents(rom: RomData, patch_data):
     This puts the item described in the patch data inside each chest in the game.
     """
     for location_name, location_data in LOCATIONS_DATA.items():
-        if 'collect' not in location_data or location_data['collect'] != COLLECT_CHEST:
+        # Some very specific chests don't have the "COLLECT_CHEST" type but still are chests
+        is_special_chest = location_name in ["Sunken City: Chest in Master Diver's Cave",
+                                             "Explorer's Crypt (1F): Chest Behind Cracked Wall"]
+        if not is_special_chest and ('collect' not in location_data or location_data['collect'] != COLLECT_CHEST):
             continue
         chest_addr = rom.get_chest_addr(location_data['room'])
         item_name = patch_data["locations"][location_name]
