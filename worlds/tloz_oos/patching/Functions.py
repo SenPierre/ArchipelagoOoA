@@ -284,8 +284,8 @@ def alter_treasures(rom: RomData):
     # Some treasures don't exist as interactions in base game, we need to add
     # text & sprite references for them to work properly in a randomized context
     set_treasure_data(rom, "Fool's Ore", 0x36, 0x4a)
-    set_treasure_data(rom, "Rare Peach Stone", None, 0x4e)
-    set_treasure_data(rom, "Ribbon", 0x41, 0x4f)
+    set_treasure_data(rom, "Rare Peach Stone", None, 0x3f)
+    set_treasure_data(rom, "Ribbon", 0x41, 0x4c)
     set_treasure_data(rom, "Treasure Map", 0x6c, 0x49)
     set_treasure_data(rom, "Member's Card", 0x45, 0x48)
     set_treasure_data(rom, "Potion", 0x6d, 0x4b)
@@ -298,13 +298,10 @@ def alter_treasures(rom: RomData):
     # not drops (see asm/seasons/bomb_bag_behavior)
     set_treasure_data(rom, "Bombs (10)", None, None, 0x90)
 
-    # Make Seasons flutes real treasures like Ages ones are
-    # set_treasure_data(rom, "Ricky's Flute", None, None, 0x0b)
-    # set_treasure_data(rom, "Dimitri's Flute", None, None, 0x0c)
-    # set_treasure_data(rom, "Moosh's Flute", None, None, 0x0d)
-
-    # Give bracelet a level for ages multiworld compatibility
-    # set_treasure_data(rom, "Power Bracelet", None, None, 0x01)
+    # Colored Rod of Seasons to make them recognizable
+    set_treasure_data(rom, "Rod of Seasons (Spring)", None, 0x4f)
+    set_treasure_data(rom, "Rod of Seasons (Autumn)", None, 0x50)
+    set_treasure_data(rom, "Rod of Seasons (Winter)", None, 0x51)
 
 
 def set_old_men_rupee_values(rom: RomData, patch_data):
