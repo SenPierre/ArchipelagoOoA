@@ -454,6 +454,11 @@ def define_text_constants(assembler: Z80Assembler, patch_data):
         0x74, 0x68, 0x65, 0x6d, 0x2e, 0x00  # them.
     ])
 
+    assembler.add_floating_chunk("text.getOreChunks25", [
+        0x02, 0x12, 0x32, 0x35, 0x01,  # You got 25
+        0x02, 0x09, 0x21, 0x00  # Ore Chunks!
+    ])
+
 
 def set_heart_beep_interval_from_settings(rom: RomData):
     heart_beep_interval = get_settings().tloz_oos_options["heart_beep_interval"]

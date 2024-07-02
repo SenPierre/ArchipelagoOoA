@@ -1,8 +1,13 @@
+1d/5b01/TX_0057: /include text.getArchipelagoItem  # Ring Box L1 in vanilla
+1d/5b1e/TX_0058: /include text.getOreChunks25      # Ring Box L2 in vanilla
+
+# ???
 0a/7b9e/: |
     ret
     nop
     nop
 
+# Handle default seed text which doesn't exist in vanilla game
 1e/6265/TX_1704: /include text.getEmberSeeds # 1704, cutscene after d1
 10//useEmberSeedText: |
     cp $e5
@@ -80,8 +85,6 @@
     @done:
     jp showTextNonExitable
 0b/42e8/: call scriptShowTextNonExitableCustom
-
-1d/5b01/getArchipelagoItemText: /include text.getArchipelagoItem
 
 # overwrites rosa hide and seek preamble
 # 1f/4533/cliffWarningText: ''

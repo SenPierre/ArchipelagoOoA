@@ -158,7 +158,18 @@ ITEMS_DATA = {
     },
     "Ore Chunks (50)": {
         'classification': ItemClassification.progression_skip_balancing,
-        'id': 0x37
+        'id': 0x37,
+        'subid': 0x00
+    },
+    "Ore Chunks (25)": {
+        'classification': ItemClassification.progression_skip_balancing,
+        'id': 0x37,
+        'subid': 0x01
+    },
+    "Ore Chunks (10)": {
+        'classification': ItemClassification.progression_skip_balancing,
+        'id': 0x37,
+        'subid': 0x02
     },
     "Heart Container": {
         'classification': ItemClassification.useful,

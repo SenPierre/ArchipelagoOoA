@@ -100,12 +100,6 @@
 
 # give items that don't normally appear as treasure interactions entries in
 # the treasure graphics table.
-3f/67b4/: db 5d,0c,13 # member's card
-3f/67b7/: db 65,14,33 # treasure map
-3f/67ba/: db 60,14,00 # fool's ore
-3f/67c6/: db 5d,10,26 # rare peach stone
-3f/67c9/: db 65,0c,23 # ribbon
-3f/67bd/: db 5d,00,23 # potion
 3f/6790/: db 5f,16,33  # Ricky's flute (GFX #3c)
 3f/6793/: db 5f,16,23  # Dimitri's flute (GFX #3d)
 3f/6796/: db 5f,16,13  # Moosh's flute (GFX #3e)
@@ -116,6 +110,8 @@
 3f/67ba/: db 60,14,00  # Fool's Ore (GFX #4a)
 3f/67bd/: db 5d,00,23  # Potion (GFX #4b)
 3f/67c0/: db 65,0c,23  # Ribbon (GFX #4c)
+3f/67c3/: db 5c,0c,20  # Ore Chunks x10 (GFX #4d)
+3f/67c6/: db 5c,0c,10  # Ore Chunks x25 (GFX #4e)
 
 # Add custom palette variants for rod of seasons to be able to know which
 # season it gives at first sight

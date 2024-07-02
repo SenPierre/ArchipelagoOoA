@@ -569,8 +569,8 @@ class OracleOfSeasonsWorld(World):
     def get_filler_item_name(self) -> str:
         FILLER_ITEM_NAMES = [
             "Rupees (1)", "Rupees (1)", "Rupees (5)", "Rupees (5)", "Rupees (10)", "Rupees (10)",
-            "Rupees (20)", "Rupees (30)", "Rupees (50)",
-            "Ore Chunks (50)",
+            "Rupees (20)", "Rupees (30)",
+            "Ore Chunks (50)", "Ore Chunks (25)", "Ore Chunks (25)", "Ore Chunks (10)", "Ore Chunks (10)",
             "Random Ring", "Random Ring",
             "Gasha Seed", "Gasha Seed", "Gasha Seed",
             "Potion"
