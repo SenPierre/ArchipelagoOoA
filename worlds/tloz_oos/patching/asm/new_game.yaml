@@ -32,6 +32,19 @@
   ; Animal vars
   ld a,$ff
   ld (wAnimalTutorialFlags),a
+  
+  ; Starting Maps & Compasses
+  ld a,option.startingMapsCompasses
+  or a
+  jr z,@skipMapsCompasses
+  ld a,$ff
+  ld hl,wDungeonCompasses
+  ldi (hl),a
+  ldi (hl),a
+  ldi (hl),a
+  ld (hl),a
+  @skipMapsCompasses:
+  
   ; Remove the requirement to go in the screen under Sunken City tree to make Dimitri bullies appear
   ld a,$20
   ld (wDimitriState),a

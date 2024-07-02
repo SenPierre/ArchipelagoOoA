@@ -448,6 +448,15 @@ class OracleOfSeasonsQuickFlute(DefaultOnToggle):
     display_name = "Quick Flute"
 
 
+class OracleOfSeasonsStartingMapsCompasses(Toggle):
+    """
+    When enabled, you will start the game with maps and compasses for every dungeon in the game.
+    This makes navigation easier and removes those items for the pool, which are replaced with random filler items.
+    Unlike 'start_inventory_from_pool', this is performed instanatly and silently when starting the game.
+    """
+    display_name = "Start with Dungeon Maps & Compasses"
+
+
 class OracleOfSeasonsHeartBeepInterval(Choice):
     """
     - Default: play the beeping sound at the usual frequency when low on health
@@ -530,7 +539,5 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     enforce_potion_in_shop: OracleOfSeasonsEnforcePotionInShop
     combat_difficulty: OracleOfSeasonsCombatDifficulty
     quick_flute: OracleOfSeasonsQuickFlute
-    heart_beep_interval: OracleOfSeasonsHeartBeepInterval
-    character_sprite: OracleOfSeasonsCharacterSprite
-    character_palette: OracleOfSeasonsCharacterPalette
+    starting_maps_compasses: OracleOfSeasonsStartingMapsCompasses
     death_link: DeathLink

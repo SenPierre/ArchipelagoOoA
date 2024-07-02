@@ -406,6 +406,7 @@ class OracleOfSeasonsWorld(World):
 
     def build_item_pool_dict(self):
         item_pool_dict = {}
+        filler_item_count = 0
         for loc_name, loc_data in LOCATIONS_DATA.items():
             if "randomized" in loc_data and loc_data["randomized"] is False:
                 item = self.create_item(loc_data['vanilla_item'])
@@ -421,7 +422,31 @@ class OracleOfSeasonsWorld(World):
             if "Ring" in item_name:
                 item_name = "Random Ring"
 
+            if self.options.master_keys != OracleOfSeasonsMasterKeys.option_disabled and "Small Key" in item_name:
+                # Small Keys don't exist if Master Keys are set to replace them
+                filler_item_count += 1
+                continue
+            if self.options.master_keys == OracleOfSeasonsMasterKeys.option_all_dungeon_keys and "Boss Key" in item_name:
+                # Boss keys don't exist if Master Keys are set to replace them
+                filler_item_count += 1
+                continue
+            if self.options.starting_maps_compasses and ("Compass" in item_name or "Dungeon Map" in item_name):
+                # Compasses and Dungeon Maps don't exist if player starts with them
+                filler_item_count += 1
+                continue
+
             item_pool_dict[item_name] = item_pool_dict.get(item_name, 0) + 1
+
+        # If Master Keys are enabled, put one for every dungeon
+        if self.options.master_keys != OracleOfSeasonsMasterKeys.option_disabled:
+            for small_key_name in ITEM_GROUPS["Master Keys"]:
+                item_pool_dict[small_key_name] = 1
+                filler_item_count -= 1
+
+        # Add as many filler items as required
+        for _ in range(filler_item_count):
+            random_filler_item = self.get_filler_item_name()
+            item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
 
         # Perform adjustments on the item pool
         item_pool_adjustements = [
@@ -438,30 +463,13 @@ class OracleOfSeasonsWorld(World):
         fools_ore_item = "Fool's Ore"
         if self.options.fools_ore == OracleOfSeasonsFoolsOre.option_excluded:
             fools_ore_item = "Gasha Seed"
-        item_pool_adjustements.append(["Rod of Seasons", fools_ore_item]) # No lone rod of seasons supported for now
+        item_pool_adjustements.append(["Rod of Seasons", fools_ore_item])
 
         for i, pair in enumerate(item_pool_adjustements):
             original_name = pair[0]
             replacement_name = pair[1]
             item_pool_dict[original_name] -= 1
             item_pool_dict[replacement_name] = item_pool_dict.get(replacement_name, 0) + 1
-
-        # If Master Keys replace Small Keys, remove all Small Keys but one for every dungeon
-        removed_keys = 0
-        if self.options.master_keys != OracleOfSeasonsMasterKeys.option_disabled:
-            for small_key_name in ITEM_GROUPS["Small Keys"]:
-                removed_keys += item_pool_dict[small_key_name] - 1
-                del item_pool_dict[small_key_name]
-            for small_key_name in ITEM_GROUPS["Master Keys"]:
-                item_pool_dict[small_key_name] = 1
-        # If Master Keys replace Boss Keys, remove Boss Keys from item pool
-        if self.options.master_keys == OracleOfSeasonsMasterKeys.option_all_dungeon_keys:
-            for boss_key_name in ITEM_GROUPS["Boss Keys"]:
-                removed_keys += 1
-                del item_pool_dict[boss_key_name]
-        for _ in range(removed_keys):
-            random_filler_item = self.get_filler_item_name()
-            item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
 
         return item_pool_dict
 

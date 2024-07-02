@@ -22,7 +22,7 @@ def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
             "enforce_potion_in_shop", "fools_ore", "goal", "golden_beasts_requirement", "master_keys",
             "quick_flute", "remove_d0_alt_entrance", "remove_d2_alt_entrance", "required_essences",
             "shuffle_golden_ore_spots", "shuffle_old_men", "sign_guy_requirement", "tarm_gate_required_jewels",
-            "treehouse_old_man_requirement", "warp_to_start"
+            "treehouse_old_man_requirement", "warp_to_start", "starting_maps_compasses",
         ]),
         "samasa_gate_sequence": ' '.join([str(x) for x in world.samasa_gate_code]),
         "lost_woods_item_sequence": ' '.join(world.lost_woods_item_sequence),

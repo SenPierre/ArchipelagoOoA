@@ -184,6 +184,7 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
     assembler.define_byte("option.startingPosX", 0x58)
     assembler.define_byte("option.startingPos", 0x55)
     assembler.define_byte("option.startingSeason", SEASON_VALUES[patch_data["default_seasons"]["EYEGLASS_LAKE"]])
+    assembler.define_byte("option.startingMapsCompasses", patch_data["options"]["starting_maps_compasses"])
 
     assembler.define_byte("option.animalCompanion", 0x0b + patch_data["options"]["animal_companion"])
     assembler.define_byte("option.defaultSeedType", 0x20 + patch_data["options"]["default_seed"])
