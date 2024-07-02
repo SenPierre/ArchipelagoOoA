@@ -59,8 +59,12 @@
 
 # Change D8 introduction text to “Sword & Shield Dungeon” from “Sword & Shield Maze”, since every other mention of it
 # was using “Dungeon” naming
-1d/61a1/TX_0208:
-    db $44,$05,$8a,$00 # "Dungeon"
+1d/61a1/TX_0208: db $44,$05,$8a,$00 # "Dungeon"
+
+# Shorten initial Maku Tree text script when giving Gnarled Key, replacing lots of instructions by ineffective
+# "disableinput" instructions
+0b/716a/: db $bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd,$bd
+# (TX_1700 & TX_1701 are therefore free to use)
 
 # replace text in script command 9a (showtextnonexitable) using
 # scriptTextReplacements: four-byte entries, first two bytes are old text
