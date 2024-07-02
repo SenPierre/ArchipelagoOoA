@@ -105,8 +105,7 @@ def define_compass_rooms_table(assembler: Z80Assembler, patch_data):
     for location_name, item_name in patch_data["locations"].items():
         _, item_subid = get_item_id_and_subid(item_name)
         dungeon = 0xff
-        if item_name.startswith("Small Key") or item_name.startswith("Master Key") or item_name.startswith(
-                "Dungeon Map"):
+        if item_name.startswith("Small Key") or item_name.startswith("Master Key"):
             dungeon = item_subid
         elif item_name.startswith("Boss Key"):
             dungeon = item_subid + 1
@@ -206,6 +205,9 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
 
     fools_ore_damage = 3 if options["fools_ore"] == OracleOfSeasonsFoolsOre.option_balanced else 12
     assembler.define_byte("option.foolsOreDamage", (-1 * fools_ore_damage + 0x100))
+
+    keysanity = patch_data["options"]["keysanity_small_keys"] or patch_data["options"]["keysanity_boss_keys"]
+    assembler.define_byte("option.customCompassChimes", 1 if keysanity else 0)
 
 
 def define_season_constants(assembler: Z80Assembler, patch_data):

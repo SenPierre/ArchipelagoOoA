@@ -197,6 +197,7 @@ DEFINES = {
     "SND_SOLVEPUZZLE_2": "$5b",
     "SND_GETSEED": "$5e",
     "SND_TELEPORT": "$8d",
+    "SND_COMPASS": "$a2",
 
     "TREASURE_SHIELD": "$01",
     "TREASURE_PUNCH": "$02",

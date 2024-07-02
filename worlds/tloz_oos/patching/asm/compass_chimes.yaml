@@ -188,12 +188,26 @@
     ld a,(hl)
     ld b,a
 
+    ; Check if player owns the compass for this dungeon
     ld hl,wDungeonCompasses
     call checkFlag
     ret z
 
-    ld a,$d3   ; Sounds d4-db are the compass chimes
-    add a,b
+    ; If keysanity is not enabled, use vanilla compass chime
+    ld a,option.customCompassChimes
+    or a
+    jr z,@vanillaChime
+    
+    ; Else, try using a custom chime if relevant (= not Hero's Cave)
+    ld a,b
+    or a
+    jr z,@vanillaChime  ; if dungeon is 0 (Hero's Cave), use vanilla chime
+    add a,$d3  ; Sounds d4-db are the custom compass chimes
+    jr @playSound
+    
+    @vanillaChime:
+    ld a,SND_COMPASS
+    @playSound:
     jp playSound
 # Up to 49e5-4A1B (included)
 
