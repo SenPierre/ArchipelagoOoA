@@ -286,7 +286,8 @@ class OracleOfSeasonsWorld(World):
             return self.options.shuffle_old_men == OracleOfSeasonsOldMenShuffle.option_turn_into_locations
         if location_name == "Horon Village: Shop #3":
             return not self.options.enforce_potion_in_shop
-
+        if location_name.startswith("Gasha Nut #"):
+            return int(location_name[11:]) <= self.options.deterministic_gasha_locations
         return False
 
     def create_location(self, region_name: str, location_name: str, local: bool):
@@ -401,6 +402,9 @@ class OracleOfSeasonsWorld(World):
         progression_items_in_hard_logic = ["Expert's Ring", "Fist Ring", "Swimmer's Ring"]
         if self.options.logic_difficulty == "hard" and name in progression_items_in_hard_logic:
             classification = ItemClassification.progression
+        # Gasha Seeds become progression if at least one nut is set as a location
+        if self.options.deterministic_gasha_locations > 0 and name == "Gasha Seed":
+            classification = ItemClassification.progression
 
         return Item(name, classification, ap_code, self.player)
 
@@ -422,6 +426,9 @@ class OracleOfSeasonsWorld(World):
             if "Ring" in item_name:
                 item_name = "Random Ring"
 
+            if item_name == "Filler Item":
+                filler_item_count += 1
+                continue
             if self.options.master_keys != OracleOfSeasonsMasterKeys.option_disabled and "Small Key" in item_name:
                 # Small Keys don't exist if Master Keys are set to replace them
                 filler_item_count += 1

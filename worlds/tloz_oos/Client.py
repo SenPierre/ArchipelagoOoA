@@ -149,6 +149,14 @@ class OracleOfSeasonsClient(BizHawkClient):
                     local_checked_locations.add(location_id)
                     break
 
+        # Check how many deterministic Gasha Nuts have been opened, and mark their matching locations as checked
+        byte_offset = 0xC649 - RAM_ADDRS["location_flags"][0]
+        gasha_counter = flag_bytes[byte_offset] >> 2
+        for i in range(gasha_counter):
+            name = f"Gasha Nut #{i + 1}"
+            location_id = self.location_name_to_id[name]
+            local_checked_locations.add(location_id)
+
         # Send locations
         if self.local_checked_locations != local_checked_locations:
             self.local_checked_locations = local_checked_locations

@@ -343,7 +343,7 @@
 # Make Maple trade a randomized item which sets a custom flag, both for client tracking purpose
 # and to prevent from obtaining this item several times (@state3 of INTERACID_GHASTLY_DOLL)
 0a/53cc/: |
-    call $239b  # interactionIncState
+    call interactionIncState
 
     # Test flag to skip treasure creation if item has already been obtained (from several Lon Lon Eggs in pool)
     ld a,(wBoughtShopItems2)

@@ -173,6 +173,14 @@ def define_location_constants(assembler: Z80Assembler, patch_data):
         assembler.define_byte(f"locations.{symbolic_name}.subid", item_subid)
         assembler.define_word(f"locations.{symbolic_name}", (item_id << 8) + item_subid)
 
+    # Process deterministic Gasha Nut locations to define a table
+    deterministic_gasha_table = []
+    for i in range(int(patch_data["options"]["deterministic_gasha_locations"])):
+        item_name = patch_data["locations"][f"Gasha Nut #{i+1}"]
+        item_id, item_subid = get_item_id_and_subid(item_name)
+        deterministic_gasha_table.extend([item_id, item_subid])
+    assembler.add_floating_chunk("deterministicGashaLootTable", deterministic_gasha_table)
+
 
 def define_option_constants(assembler: Z80Assembler, patch_data):
     options = patch_data["options"]
@@ -199,6 +207,7 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
     define_sign_guy_requirement_digits(assembler, options["sign_guy_requirement"])
 
     assembler.define_byte("option.removeD0AltEntrance", options["remove_d0_alt_entrance"])
+    assembler.define_byte("option.deterministicGashaLootCount", options["deterministic_gasha_locations"])
 
     reveal_ore = options["shuffle_golden_ore_spots"] == OracleOfSeasonsGoldenOreSpotsShuffle.option_shuffled_visible
     assembler.define_byte("option.revealGoldenOreTiles", 1 if reveal_ore else 0)

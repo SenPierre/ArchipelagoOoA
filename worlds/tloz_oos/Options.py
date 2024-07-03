@@ -353,6 +353,20 @@ class OracleOfSeasonsSamasaGateCodeLength(Range):
     default = 8
 
 
+class OracleOfSeasonsGashaLocations(Range):
+    """
+    The amount of successive Gasha Nuts that will have pre-generated items inside which are taken into account
+    regarding logic. This means the first X Gasha Nuts you will open will contain deterministic items which might
+    be required to complete the seed, and any nut after this will contain random items following the same logic as
+    the vanilla game.
+    """
+    display_name = "Deterministic Gasha Locations"
+
+    range_start = 0
+    range_end = 15
+    default = 0
+
+
 class OracleOfSeasonsRingQuality(Choice):
     """
     Defines the quality of the rings that will be shuffled in your seed:
@@ -531,6 +545,7 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     lost_woods_item_sequence: OracleOfSeasonsLostWoodsItemSequence
     samasa_gate_code: OracleOfSeasonsSamasaGateCode
     samasa_gate_code_length: OracleOfSeasonsSamasaGateCodeLength
+    deterministic_gasha_locations: OracleOfSeasonsGashaLocations
     ring_quality: OracleOfSeasonsRingQuality
     shop_prices_factor: OracleOfSeasonsPricesFactor
     advance_shop: OracleOfSeasonsAdvanceShop

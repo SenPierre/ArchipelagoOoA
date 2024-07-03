@@ -421,15 +421,15 @@ def make_holodrum_logic(player: int):
             oos_has_shovel(state, player)
         ])],
 
-        ["floodgate keeper's house", "spool stump", False, lambda state: all([
+        ["floodgate keeper's house", "floodgate keyhole", False, lambda state: all([
             any([
                 oos_can_use_pegasus_seeds(state, player),
                 oos_has_flippers(state, player),
                 oos_has_feather(state, player)
             ]),
-            oos_has_bracelet(state, player),
-            state.has("Floodgate Key", player)
+            oos_has_bracelet(state, player)
         ])],
+        ["floodgate keyhole", "spool stump", False, lambda state: state.has("Floodgate Key", player)],
 
         ["spool stump", "d3 entrance", False, lambda state: oos_season_in_spool_swamp(state, player, "summer")],
         ["d3 entrance", "spool stump", False, lambda state: any([
@@ -634,10 +634,7 @@ def make_holodrum_logic(player: int):
         ["sunken city dimitri", "chest in master diver's cave", False, None],
 
         ["sunken city", "sunken city, summer cave", False, lambda state: all([
-            any([
-                oos_get_default_season(state, player, "SUNKEN_CITY") == "summer",
-                oos_has_summer(state, player)
-            ]),
+            oos_season_in_sunken_city(state, player, "summer"),
             oos_has_flippers(state, player),
             oos_can_break_bush(state, player, False)
         ])],
@@ -934,4 +931,98 @@ def make_holodrum_logic(player: int):
             oos_has_sword(state, player),
             oos_has_fools_ore(state, player)
         ])],
+
+        # GASHA TREES #############################################################################################
+
+        ["horon village", "gasha spot", False, lambda state: oos_can_harvest_gasha(state, player)],
+        # Gasha spot above Impa is less accessible than Horon's (requires destroying bushes)
+        ["suburbs", "gasha spot", False, lambda state: all([
+            oos_can_break_bush(state, player, True),
+            oos_can_harvest_gasha(state, player),
+        ])],
+        ["ghastly stump", "gasha spot", False, lambda state: all([
+            oos_can_break_bush(state, player, True),
+            oos_has_shovel(state, player),
+            oos_can_harvest_gasha(state, player),
+        ])],
+        ["d1 island", "gasha spot", False, lambda state: all([
+            oos_can_swim(state, player, True),
+            any([
+                oos_can_break_bush(state, player, False),
+                oos_can_summon_dimitri(state, player),  # Only Dimitri can be brought here
+            ]),
+            oos_can_harvest_gasha(state, player),
+        ])],
+        ["spool swamp south gasha spot", "gasha spot", False, lambda state: all([
+            oos_has_bracelet(state, player),
+            oos_can_harvest_gasha(state, player),
+        ])],
+        ["floodgate keyhole", "gasha spot", False, lambda state: all([
+            oos_has_bracelet(state, player),
+            oos_can_harvest_gasha(state, player),
+        ])],
+        ["sunken city", "gasha spot", False, lambda state: all([
+            oos_season_in_sunken_city(state, player, "summer"),
+            oos_can_swim(state, player, False),
+            oos_can_break_bush(state, player, False),
+            oos_can_harvest_gasha(state, player),
+        ])],
+        ["sunken city dimitri", "gasha spot", False, lambda state: oos_can_harvest_gasha(state, player)],
+
+        ["goron mountain entrance", "gasha spot", False, lambda state: all([
+            any([
+                oos_has_shovel(state, player),      # Left spot
+                oos_has_bracelet(state, player),    # Right spot
+            ]),
+            oos_can_harvest_gasha(state, player),
+        ])],
+
+        ["d5 stump", "gasha spot", False, lambda state: all([
+            oos_has_shovel(state, player),
+            oos_can_break_bush(state, player),
+            oos_can_harvest_gasha(state, player),
+        ])],
+
+        ["mount cucco", "gasha spot", False, lambda state: all([
+            oos_season_in_mt_cucco(state, player, "autumn"),
+            oos_can_break_mushroom(state, player, False),
+            oos_can_harvest_gasha(state, player),
+        ])],
+
+        ["d6 sector", "gasha spot", False, lambda state: all([
+            oos_has_shovel(state, player),
+            oos_can_harvest_gasha(state, player),
+        ])],
+
+        ["samasa desert", "gasha spot", False, lambda state: all([
+            oos_has_shovel(state, player),
+            oos_can_harvest_gasha(state, player),
+        ])],
+
+        ["western coast after ship", "gasha spot", False, lambda state: all([
+            oos_has_shovel(state, player),
+            oos_can_harvest_gasha(state, player),
+        ])],
+
+        # Temple Remains spot
+        ["north horon", "gasha spot", False, lambda state: all([
+            oos_has_shovel(state, player),
+            oos_can_harvest_gasha(state, player),
+        ])],
+
+        ["gasha spot", "gasha tree 1",  False, lambda state: state.has("Gasha Seed", player, 1)],
+        ["gasha spot", "gasha tree 2",  False, lambda state: state.has("Gasha Seed", player, 2)],
+        ["gasha spot", "gasha tree 3",  False, lambda state: state.has("Gasha Seed", player, 3)],
+        ["gasha spot", "gasha tree 4",  False, lambda state: state.has("Gasha Seed", player, 4)],
+        ["gasha spot", "gasha tree 5",  False, lambda state: state.has("Gasha Seed", player, 5)],
+        ["gasha spot", "gasha tree 6",  False, lambda state: state.has("Gasha Seed", player, 6)],
+        ["gasha spot", "gasha tree 7",  False, lambda state: state.has("Gasha Seed", player, 7)],
+        ["gasha spot", "gasha tree 8",  False, lambda state: state.has("Gasha Seed", player, 8)],
+        ["gasha spot", "gasha tree 9",  False, lambda state: state.has("Gasha Seed", player, 9)],
+        ["gasha spot", "gasha tree 10", False, lambda state: state.has("Gasha Seed", player, 10)],
+        ["gasha spot", "gasha tree 11", False, lambda state: state.has("Gasha Seed", player, 11)],
+        ["gasha spot", "gasha tree 12", False, lambda state: state.has("Gasha Seed", player, 12)],
+        ["gasha spot", "gasha tree 13", False, lambda state: state.has("Gasha Seed", player, 13)],
+        ["gasha spot", "gasha tree 14", False, lambda state: state.has("Gasha Seed", player, 14)],
+        ["gasha spot", "gasha tree 15", False, lambda state: state.has("Gasha Seed", player, 15)],
     ]

@@ -659,6 +659,12 @@ def oos_can_harvest_tree(state: CollectionState, player: int, can_use_companion:
     ])
 
 
+def oos_can_harvest_gasha(state: CollectionState, player: int):
+    if not oos_can_kill_normal_enemy(state, player):
+        return False  # No kill = plant cannot grow
+    return oos_has_sword(state, player) or oos_has_fools_ore(state, player)
+
+
 def oos_can_push_enemy(state: CollectionState, player: int):
     return any([
         oos_has_rod(state, player),
