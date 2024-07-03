@@ -34,7 +34,7 @@ RAM_ADDRS = {
 class OracleOfSeasonsClient(BizHawkClient):
     game = "The Legend of Zelda - Oracle of Seasons"
     system = "GBC"
-    patch_suffix = ".apseasons"
+    patch_suffix = ".apoos"
     local_checked_locations: Set[int]
     local_scouted_locations: Set[int]
     item_id_to_name: Dict[int, str]
