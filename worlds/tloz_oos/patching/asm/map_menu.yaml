@@ -53,7 +53,7 @@
     ld a,(wMinimapGroup)
     inc a
     cp $02
-    jr z,@swapToDungeon
+    jr nc,@swapToDungeon
     
     ld (wMinimapGroup),a
     jr @open
