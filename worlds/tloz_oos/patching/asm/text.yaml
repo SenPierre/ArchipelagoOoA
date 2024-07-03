@@ -95,6 +95,15 @@
     jp showTextNonExitable
 0b/42e8/: call scriptShowTextNonExitableCustom
 
+# In case where dungeon has not been visited, make popup indicate a generic
+# "Unknown Dungeon" instead of the original region where the dungeon is located,
+# which can be a spoiler in runs with shuffled dungeons
+02/60f8/: |
+    ld b,$06
+    ld c,$02
+# Replace TX_0602 (linked story text) by "Unknown Dungeon"
+1d/6735/TX_0602: db $55,$6e,$04,$98,$6e,$20,$44,$05,$8a,$00
+
 # overwrites rosa hide and seek preamble
 # 1f/4533/cliffWarningText: ''
 # 1f/4584/hssSkipWarningText: ''
