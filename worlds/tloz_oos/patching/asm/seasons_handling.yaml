@@ -88,3 +88,62 @@
     @setSeason:
     ld (wRoomStateModifier),a
     ret
+
+
+# Allow for a "quick-switch" to a specific season if the player is holding a specific
+# diagonal during the season transition. This diagonal matches the season icon layout
+# displayed next to the Rod of Seasons in the game top bar.
+14//smartSeasonSwitch_body: |
+    ld a,(wKeysPressed)
+    ld b,a
+    
+    ; NW => summer
+    ld a,BTN_UP | BTN_LEFT
+    and b
+    cp BTN_UP | BTN_LEFT
+    jr nz,@testNE
+    ld b,SEASON_SPRING  ; Make it as if current season was spring to try switching to summer
+    ret
+    
+    ; NE => autumn
+    @testNE:
+    ld a,BTN_UP | BTN_RIGHT
+    and b
+    cp BTN_UP | BTN_RIGHT
+    jr nz,@testSE
+    ld b,SEASON_SUMMER  ; Make it as if current season was summer to try switching to autumn
+    ret
+    
+    ; SE => winter
+    @testSE:
+    ld a,BTN_DOWN | BTN_RIGHT
+    and b
+    cp BTN_DOWN | BTN_RIGHT
+    jr nz,@testSW
+    ld b,SEASON_AUTUMN  ; Make it as if current season was autumn to try switching to winter
+    ret
+    
+    ; SW => spring
+    @testSW:
+    ld a,BTN_DOWN | BTN_RIGHT
+    and b
+    cp BTN_DOWN | BTN_RIGHT
+    jr nz,@vanillaCycle
+    ld b,SEASON_WINTER  ; Make it as if current season was winter to try switching to spring
+    ret
+    
+    ; No special input, use the real current season to deduce next season
+    @vanillaCycle:
+    ld a,(wRoomStateModifier)
+    ld b,a
+    ret
+08//smartSeasonSwitch: |
+    push hl
+    ld e,$14
+    ld hl,smartSeasonSwitch_body
+    call interBankCall
+    pop hl
+    ld a,b
+    ret
+# Inject this in place of "ld a,(wRoomStateModifier)" inside interactionCode15 (INTERACID_USED_ROD_OF_SEASONS)
+08/514f/: call smartSeasonSwitch

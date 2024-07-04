@@ -189,6 +189,10 @@ DEFINES = {
     "BTN_A": "$01",
     "BTN_B": "$02",
     "BTN_START": "$08",
+    "BTN_RIGHT": "$10",
+    "BTN_LEFT": "$20",
+    "BTN_UP": "$40",
+    "BTN_DOWN": "$80",
     "COLLECT_PICKUP": "$0a",
     "COLLECT_PICKUP_NOFLAG": "$02",
     "COLLECT_CHEST": "$38",
@@ -201,6 +205,11 @@ DEFINES = {
     "SND_GETSEED": "$5e",
     "SND_TELEPORT": "$8d",
     "SND_COMPASS": "$a2",
+
+    "SEASON_SPRING": "$00",
+    "SEASON_SUMMER": "$01",
+    "SEASON_AUTUMN": "$02",
+    "SEASON_WINTER": "$03",
 
     "TREASURE_SHIELD": "$01",
     "TREASURE_PUNCH": "$02",

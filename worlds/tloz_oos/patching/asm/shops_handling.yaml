@@ -58,22 +58,19 @@
     call giveTreasureCustom
 
     ld e,$42
-    ld a,(de)   ; subid
-    add a,a
-    add a,a
+    ld a,(de)    ; interaction subid
     ld hl,shopItemReplacementTable
-    rst 10      ; addAToHL
-    ld a,(hl)   ; flag_addr -> a
-    or a
-    jr z,@done
-
+    add a,a
+    rst 18       ; rst_addDoubleIndex
     inc hl
-    ld c,(hl)   ; bitmask -> c
+    ldd a,(hl)    ; bitmask -> a
+    or a
+    jr z,@done    
+    
+    ld l,(hl)   ; flag_addr -> l
     ld h,$c6
-    ld l,a
-    ld a,(hl)   ; flag_value -> a
-    or c
-    ld (hl),a
+    or (hl)     ; bitmask | flag_value -> a
+    ld (hl),a   ; store flag_value with added bit
 
     @done:
     pop hl
