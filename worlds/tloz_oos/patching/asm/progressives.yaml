@@ -106,8 +106,7 @@
     @next:
     ld a,c
     add a,a
-    add a,a
-    rst 10
+    rst 18
     inc hl
     jp getUpgradedTreasure
 
