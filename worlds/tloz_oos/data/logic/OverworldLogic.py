@@ -347,13 +347,13 @@ def make_holodrum_logic(player: int):
         ["north horon", "north horon tree", False, lambda state: oos_can_harvest_tree(state, player, True)],
         ["north horon", "blaino prize", False, lambda state: oos_can_farm_rupees(state, player)],
         ["north horon", "cave north of D1", False, lambda state: all([
-            oos_season_in_north_horon(state, player, "autumn"),
+            oos_season_in_holodrum_plain(state, player, "autumn"),
             oos_can_break_mushroom(state, player, True),
             oos_has_flippers(state, player)
         ])],
         ["north horon", "old man near blaino", False, lambda state: all([
             any([
-                oos_season_in_north_horon(state, player, "summer"),
+                oos_season_in_holodrum_plain(state, player, "summer"),
                 oos_can_summon_ricky(state, player)
             ]),
             oos_can_use_ember_seeds(state, player, False)
@@ -370,13 +370,13 @@ def make_holodrum_logic(player: int):
 
         ["north horon", "ghastly stump", True, lambda state: any([
             oos_can_jump_1_wide_pit(state, player, True),
-            oos_season_in_north_horon(state, player, "winter")
+            oos_season_in_holodrum_plain(state, player, "winter")
         ])],
 
         ["spool swamp north", "ghastly stump", False, None],
         ["ghastly stump", "spool swamp north", False, lambda state: all([
             any([
-                oos_season_in_north_horon(state, player, "summer"),
+                oos_season_in_holodrum_plain(state, player, "summer"),
                 oos_can_jump_4_wide_pit(state, player),
                 oos_can_summon_ricky(state, player),
                 oos_can_summon_moosh(state, player)

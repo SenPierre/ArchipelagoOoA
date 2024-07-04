@@ -909,8 +909,8 @@ def oos_season_in_temple_remains(state: CollectionState, player: int, season: st
     return oos_has_season(state, player, season) and state.has("_reached_remains_stump", player)
 
 
-def oos_season_in_north_horon(state: CollectionState, player: int, season: str):
-    if oos_get_default_season(state, player, "NORTH_HORON") == season:
+def oos_season_in_holodrum_plain(state: CollectionState, player: int, season: str):
+    if oos_get_default_season(state, player, "HOLODRUM_PLAIN") == season:
         return True
     return oos_has_season(state, player, season) and state.has("_reached_ghastly_stump", player)
 

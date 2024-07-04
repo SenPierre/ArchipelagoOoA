@@ -1,8 +1,6 @@
 import os
 import logging
 
-import yaml
-
 from BaseClasses import Tutorial, Region, Location, LocationProgressType
 from Fill import fill_restrictive, FillError
 from Options import Accessibility
@@ -11,11 +9,12 @@ from .Data import *
 from worlds.tloz_oos.data.Items import *
 from .Logic import create_connections, apply_self_locking_rules
 from .Options import *
-from .PatcherDataWriter import write_patcherdata_file
+from .PatchWriter import oos_create_appp_patch
 from .data import LOCATIONS_DATA
 from .data.Constants import *
 from .data.Regions import REGIONS
 from .Client import OracleOfSeasonsClient  # Unused, but required to register with BizHawkClient
+# from patching.ProcedurePatch import OoSProcedurePatch  # Unused, but required to register
 
 
 class OracleOfSeasonsWeb(WebWorld):
@@ -72,12 +71,13 @@ class OracleOfSeasonsWorld(World):
         self.pre_fill_items = []
         self.dungeon_items = []
         self.default_seasons = DEFAULT_SEASONS.copy()
-        self.dungeon_entrances = DUNGEON_ENTRANCES.copy()
+        self.dungeon_entrances = DUNGEON_CONNECTIONS.copy()
         self.portal_connections = PORTAL_CONNECTIONS.copy()
         self.lost_woods_item_sequence = LOST_WOODS_ITEM_SEQUENCE.copy()
         self.old_man_rupee_values = OLD_MAN_RUPEE_VALUES.copy()
         self.samasa_gate_code = SAMASA_GATE_CODE.copy()
         self.shop_prices = SHOP_PRICES_DIVIDERS.copy()
+        self.random_rings_pool = []
 
     def fill_slot_data(self) -> dict:
         # Put options that are useful to the tracker inside slot data
@@ -97,15 +97,15 @@ class OracleOfSeasonsWorld(World):
                    ]
 
         slot_data = self.options.as_dict(*options)
-        slot_data["animal_companion"] = COMPANIONS[self.options.animal_companion.value]
+        slot_data["animal_companion"] = self.options.animal_companion.current_key.title()
         slot_data["default_seed"] = SEED_ITEMS[self.options.default_seed.value]
 
         slot_data["default_seasons_option"] = self.options.default_seasons.current_key
         slot_data["default_seasons"] = {}
         for region_name, season in self.default_seasons.items():
-            slot_data["default_seasons"][REGIONS_CONVERSION_TABLE[region_name]] = season
+            slot_data["default_seasons"][region_name] = season
         if self.options.horon_village_season == "vanilla":
-            slot_data["default_seasons"][REGIONS_CONVERSION_TABLE["HORON_VILLAGE"]] = "chaotic"
+            slot_data["default_seasons"]["HORON_VILLAGE"] = "chaotic"
 
         slot_data["dungeon_entrances"] = self.dungeon_entrances
         slot_data["portal_connections"] = self.portal_connections
@@ -119,7 +119,7 @@ class OracleOfSeasonsWorld(World):
 
         if self.options.shuffle_dungeons == "shuffle":
             self.shuffle_dungeons()
-        if self.options.shuffle_portals == "shuffle":
+        if self.options.shuffle_portals != "vanilla":
             self.shuffle_portals()
 
         if self.options.lost_woods_item_sequence == "randomized":
@@ -136,6 +136,7 @@ class OracleOfSeasonsWorld(World):
                 self.samasa_gate_code.append(self.random.randint(0, 3))
 
         self.randomize_shop_prices()
+        self.create_random_rings_pool()
 
     def restrict_non_local_items(self):
         # Restrict non_local_items option in cases where it's incompatible with other options that enforce items
@@ -176,7 +177,7 @@ class OracleOfSeasonsWorld(World):
         if d3_dungeon in forbidden_d3_dungeons:
             # Randomly pick a valid dungeon for D3 entrance, and make the entrance that was going to that dungeon
             # lead to the problematic dungeon instead
-            allowed_dungeons = [d for d in DUNGEON_ENTRANCES.values() if d not in forbidden_d3_dungeons]
+            allowed_dungeons = [d for d in DUNGEON_CONNECTIONS.values() if d not in forbidden_d3_dungeons]
             dungeon_to_swap = self.random.choice(allowed_dungeons)
             for k in self.dungeon_entrances.keys():
                 if self.dungeon_entrances[k] == dungeon_to_swap:
@@ -185,9 +186,28 @@ class OracleOfSeasonsWorld(World):
             self.dungeon_entrances["d3 entrance"] = dungeon_to_swap
 
     def shuffle_portals(self):
-        shuffled_portals = list(self.portal_connections.values())
-        self.random.shuffle(shuffled_portals)
-        self.portal_connections = dict(zip(self.portal_connections, shuffled_portals))
+        holodrum_portals = list(PORTAL_CONNECTIONS.keys())
+        subrosian_portals = list(PORTAL_CONNECTIONS.values())
+        if self.options.shuffle_portals == "shuffle_outwards":
+            # Shuffle Outwards: connect Holodrum portals with random Subrosian portals
+            self.random.shuffle(subrosian_portals)
+            self.portal_connections = dict(zip(holodrum_portals, subrosian_portals))
+        else:
+            # Shuffle: connect any portal with any other portal. To keep both dimensions available, we need to ensure
+            # that at least one Subrosian portal that is not D8 portal is connected to Holodrum
+            self.random.shuffle(holodrum_portals)
+            guaranteed_portal_holodrum = holodrum_portals.pop(0)
+
+            self.random.shuffle(subrosian_portals)
+            if subrosian_portals[0] == "d8 entrance portal":
+                subrosian_portals[0], subrosian_portals[1] = subrosian_portals[1], subrosian_portals[0]
+            guaranteed_portal_subrosia = subrosian_portals.pop(0)
+
+            shuffled_portals = holodrum_portals + subrosian_portals
+            self.random.shuffle(shuffled_portals)
+            it = iter(shuffled_portals)
+            self.portal_connections = dict(zip(it, it))
+            self.portal_connections[guaranteed_portal_holodrum] = guaranteed_portal_subrosia
 
         # If accessibility is not locations, don't perform any check on what was randomly picked
         if self.options.accessibility != Accessibility.option_locations:
@@ -195,12 +215,26 @@ class OracleOfSeasonsWorld(World):
 
         # If accessibility IS locations, we need to ensure that Temple Remains upper portal doesn't lead to the volcano
         # that can be triggered to open Temple Remains cave, since it would make it unreachable forever.
-        # In that case, just swap it with a random other portal.
-        if self.portal_connections["temple remains upper portal"] == "subrosia portal 6":
-            other_portals = [key for key in PORTAL_CONNECTIONS.keys() if key != "temple remains upper portal"]
-            portal_to_swap = self.random.choice(other_portals)
-            self.portal_connections["temple remains upper portal"] = self.portal_connections[portal_to_swap]
-            self.portal_connections[portal_to_swap] = "subrosia portal 6"
+        # Same goes with D8 <-> Volcanoes west portal in free shuffle mode.
+        # In that case, just redo the shuffle recursively until we end up with a satisfying shuffle.
+        if not self.is_volcanoes_west_portal_reachable():
+            self.shuffle_portals()
+
+    def are_portals_connected(self, portal_1, portal_2):
+        if portal_1 in self.portal_connections:
+            if self.portal_connections[portal_1] == portal_2:
+                return True
+        if portal_2 in self.portal_connections:
+            if self.portal_connections[portal_2] == portal_1:
+                return True
+        return False
+
+    def is_volcanoes_west_portal_reachable(self):
+        if self.are_portals_connected("temple remains upper portal", "volcanoes west portal"):
+            return False
+        if self.are_portals_connected("d8 entrance portal", "volcanoes west portal"):
+            return False
+        return True
 
     def randomize_old_men(self):
         if self.options.shuffle_old_men == OracleOfSeasonsOldMenShuffle.option_shuffled_values:
@@ -220,11 +254,24 @@ class OracleOfSeasonsWorld(World):
         self.random.shuffle(prices_pool)
         global_prices_factor = self.options.shop_prices_factor.value / 100.0
         for key, divider in self.shop_prices.items():
-            floating_price = prices_pool.pop() * global_prices_factor / divider
+            if key == "horonShop3" and self.options.enforce_potion_in_shop:
+                floating_price = 300 * global_prices_factor / divider
+            else:
+                floating_price = prices_pool.pop() * global_prices_factor / divider
             for i, value in enumerate(VALID_RUPEE_VALUES):
                 if value > floating_price:
                     self.shop_prices[key] = VALID_RUPEE_VALUES[i-1]
                     break
+
+    def create_random_rings_pool(self):
+        # Get a subset of as many rings as needed, with a potential filter on quality depending on chosen options
+        ring_names = [name for name, idata in ITEMS_DATA.items() if "ring" in idata and idata["ring"] is True]
+        if self.options.ring_quality == "only_useful":
+            forbidden_classes = [ItemClassification.filler, ItemClassification.trap]
+            ring_names = [name for name in ring_names if ITEMS_DATA[name]["classification"] not in forbidden_classes]
+
+        self.random.shuffle(ring_names)
+        self.random_rings_pool = ring_names
 
     def location_is_active(self, location_name, location_data):
         if "conditional" not in location_data or location_data["conditional"] is False:
@@ -237,6 +284,8 @@ class OracleOfSeasonsWorld(World):
             return self.options.shuffle_golden_ore_spots != "vanilla"
         if location_name in RUPEE_OLD_MAN_LOCATIONS:
             return self.options.shuffle_old_men == OracleOfSeasonsOldMenShuffle.option_turn_into_locations
+        if location_name == "Horon Village: Shop #3":
+            return not self.options.enforce_potion_in_shop
 
         return False
 
@@ -263,10 +312,6 @@ class OracleOfSeasonsWorld(World):
 
         self.create_events()
         self.exclude_problematic_locations()
-
-        if self.options.enforce_potion_in_shop:
-            self.get_location("Horon Village: Shop #3").place_locked_item(self.create_item("Potion"))
-            self.shop_prices["horon shop 3"] = 300
 
     def create_event(self, region_name, event_item_name):
         region = self.multiworld.get_region(region_name, self.player)
@@ -304,7 +349,7 @@ class OracleOfSeasonsWorld(World):
 
         # Don't create an event for the triggerable volcano in Subrosia if portals layout make it unreachable, since
         # events are technically progression and generator doesn't like locked progression. At all.
-        if self.portal_connections["temple remains upper portal"] != "subrosia portal 6":
+        if self.is_volcanoes_west_portal_reachable():
             self.create_event("bomb temple remains", "_triggered_volcano")
 
         self.create_event("golden darknut", "_beat_golden_darknut")
@@ -337,7 +382,7 @@ class OracleOfSeasonsWorld(World):
 
         # If Temple Remains upper portal is connected to triggerable volcano portal in Subrosia, this makes a check
         # in the bombable cave of Temple Remains unreachable forever. Exclude it in such conditions.
-        if self.portal_connections["temple remains upper portal"] == "subrosia portal 6":
+        if not self.is_volcanoes_west_portal_reachable():
             locations_to_exclude.append("Temple Remains: Item in Cave Behind Rockslide")
 
         for name in locations_to_exclude:
@@ -380,12 +425,13 @@ class OracleOfSeasonsWorld(World):
 
         # Perform adjustments on the item pool
         item_pool_adjustements = [
-            ["Flute", COMPANIONS[self.options.animal_companion.value] + "'s Flute"],  # Put a specific flute
+            ["Flute", self.options.animal_companion.current_key.title() + "'s Flute"],  # Put a specific flute
             ["Ricky's Gloves", "Progressive Sword"],    # Ricky's gloves are useless in current logic
+            ["Treasure Map", "Ore Chunks (50)"],        # Treasure Map would be non-functional in most cases, just remove it
             ["Gasha Seed", "Seed Satchel"],             # Add a 3rd satchel that is usually obtained in linked games (99 seeds)
             ["Gasha Seed", "Rupees (200)"],             # Too many Gasha Seeds in vanilla pool, add more rupees and ore instead
         ]
-        for i in range(4):
+        for _ in range(4):
             # Replace a few Gasha Seeds by random filler items
             item_pool_adjustements.append(["Gasha Seed", self.get_filler_item_name()])
 
@@ -413,45 +459,26 @@ class OracleOfSeasonsWorld(World):
             for boss_key_name in ITEM_GROUPS["Boss Keys"]:
                 removed_keys += 1
                 del item_pool_dict[boss_key_name]
-        for i in range(removed_keys):
+        for _ in range(removed_keys):
             random_filler_item = self.get_filler_item_name()
             item_pool_dict[random_filler_item] = item_pool_dict.get(random_filler_item, 0) + 1
-
-        if self.options.enforce_potion_in_shop:
-            # Remove one Potion from the item pool if it was placed inside Horon Shop
-            item_pool_dict["Potion"] -= 1
 
         return item_pool_dict
 
     def create_items(self):
         item_pool_dict = self.build_item_pool_dict()
-
-        # Create items following the dictionary that was previously constructed
-        self.create_rings(item_pool_dict["Random Ring"])
-        del item_pool_dict["Random Ring"]
-
         for item_name, quantity in item_pool_dict.items():
-            for i in range(quantity):
+            for _ in range(quantity):
                 if ("Small Key" in item_name or "Master Key" in item_name) and not self.options.keysanity_small_keys:
                     self.dungeon_items.append(self.create_item(item_name))
                 elif "Boss Key" in item_name and not self.options.keysanity_boss_keys:
                     self.dungeon_items.append(self.create_item(item_name))
                 elif ("Compass" in item_name or "Dungeon Map" in item_name) and not self.options.keysanity_maps_compasses:
                     self.dungeon_items.append(self.create_item(item_name))
+                elif item_name == "Random Ring":
+                    self.multiworld.itempool.append(self.create_item(self.get_random_ring_name()))
                 else:
                     self.multiworld.itempool.append(self.create_item(item_name))
-
-    def create_rings(self, amount):
-        # Get a subset of as many rings as needed, with a potential filter on quality depending on chosen options
-        ring_names = [name for name, idata in ITEMS_DATA.items() if "ring" in idata and idata["ring"] is True]
-        if self.options.ring_quality == "only_useful":
-            forbidden_classes = [ItemClassification.filler, ItemClassification.trap]
-            ring_names = [name for name in ring_names if ITEMS_DATA[name]["classification"] not in forbidden_classes]
-
-        self.random.shuffle(ring_names)
-        del ring_names[amount:]
-        for ring_name in ring_names:
-            self.multiworld.itempool.append(self.create_item(ring_name))
 
     def get_pre_fill_items(self):
         return self.pre_fill_items
@@ -541,20 +568,34 @@ class OracleOfSeasonsWorld(World):
 
     def get_filler_item_name(self) -> str:
         FILLER_ITEM_NAMES = [
-            "Rupees (1)", "Rupees (5)", "Rupees (10)", "Rupees (20)", "Rupees (30)", "Rupees (50)",
+            "Rupees (1)", "Rupees (1)", "Rupees (5)", "Rupees (5)", "Rupees (10)", "Rupees (10)",
+            "Rupees (20)", "Rupees (30)", "Rupees (50)",
             "Ore Chunks (50)",
+            "Random Ring", "Random Ring",
             "Gasha Seed", "Gasha Seed", "Gasha Seed",
             "Potion"
         ]
-        return self.random.choice(FILLER_ITEM_NAMES)
+
+        item_name = self.random.choice(FILLER_ITEM_NAMES)
+        if item_name == "Random Ring":
+            return self.get_random_ring_name()
+        return item_name
+
+    def get_random_ring_name(self):
+        if len(self.random_rings_pool) > 0:
+            return self.random_rings_pool.pop()
+        return "Rupees (1)"
 
     def generate_output(self, output_directory: str):
-        write_patcherdata_file(self, output_directory)
+        patch = oos_create_appp_patch(self)
+        rom_path = os.path.join(output_directory, f"{self.multiworld.get_out_file_name_base(self.player)}"
+                                                  f"{patch.patch_file_ending}")
+        patch.write(rom_path)
 
     def write_spoiler(self, spoiler_handle):
         spoiler_handle.write(f"\n\nDefault Seasons ({self.multiworld.player_name[self.player]}):\n")
         for region_name, season in self.default_seasons.items():
-            spoiler_handle.write(f"\t- {REGIONS_CONVERSION_TABLE[region_name]} --> {season}\n")
+            spoiler_handle.write(f"\t- {region_name} --> {season}\n")
 
         if self.options.shuffle_dungeons != "vanilla":
             spoiler_handle.write(f"\nDungeon Entrances ({self.multiworld.player_name[self.player]}):\n")
@@ -564,4 +605,4 @@ class OracleOfSeasonsWorld(World):
         if self.options.shuffle_portals != "vanilla":
             spoiler_handle.write(f"\nSubrosia Portals ({self.multiworld.player_name[self.player]}):\n")
             for portal_holo, portal_sub in self.portal_connections.items():
-                spoiler_handle.write(f"\t- {PORTALS_CONVERSION_TABLE[portal_holo]} --> {PORTALS_CONVERSION_TABLE[portal_sub]}\n")
+                spoiler_handle.write(f"\t- {portal_holo} --> {portal_sub}\n")

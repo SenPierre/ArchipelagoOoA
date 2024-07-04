@@ -155,12 +155,15 @@ class OracleOfSeasonsDungeonShuffle(Choice):
 class OracleOfSeasonsPortalShuffle(Choice):
     """
     - Vanilla: pairs of portals are the same as in the original game
-    - Shuffle: each portal in Holodrum is connected to a random portal in Subrosia picked at generation time
+    - Shuffle Outwards: each portal is connected to a random portal in the opposite dimension picked at generation time
+    - Shuffle: each portal is connected to a random portal, which might be in the same dimension (with the guarantee of
+      having at least one portal going across dimensions)
     """
     display_name = "Shuffle Subrosia Portals"
 
     option_vanilla = 0
-    option_shuffle = 1
+    option_shuffle_outwards = 1
+    option_shuffle = 2
 
     default = 0
 
@@ -429,13 +432,13 @@ class OracleOfSeasonsCombatDifficulty(Choice):
     """
     display_name = "Combat Difficulty"
 
-    option_peaceful = 0
-    option_easier = 1
-    option_vanilla = 2
-    option_harder = 3
+    option_peaceful = -4
+    option_easier = -2
+    option_vanilla = 0
+    option_harder = 2
     option_insane = 4
 
-    default = 2
+    default = 0
 
 
 class OracleOfSeasonsQuickFlute(DefaultOnToggle):

@@ -1,0 +1,133 @@
+  # --- subscreen 1 display changes to accomodate with trade items ---
+
+  # subscreen1TreasureData becomes a table of Treasure IDs only
+  # "composite" treasures become only one base entry, which is then handled specifically in the submenu function
+  # New treasure table format is [treasure_id,position_offset]
+  02//subscreen1TreasureDataNew: |
+    db TREASURE_ROUND_JEWEL
+    db TREASURE_PYRAMID_JEWEL
+    db TREASURE_SQUARE_JEWEL
+    db TREASURE_X_SHAPED_JEWEL
+
+    db TREASURE_CUCCODEX
+    db TREASURE_LON_LON_EGG
+    db TREASURE_GHASTLY_DOLL
+    db TREASURE_IRON_POT
+    db TREASURE_LAVA_SOUP
+    db TREASURE_GORON_VASE
+    db TREASURE_FISH
+    db TREASURE_MEGAPHONE
+    db TREASURE_MUSHROOM
+    db TREASURE_WOODEN_BIRD
+    db TREASURE_ENGINE_GREASE
+    db TREASURE_PHONOGRAPH
+    db TREASURE_SPRING_BANANA
+    db TREASURE_MASTERS_PLAQUE
+    db TREASURE_RED_ORE
+    db TREASURE_HARD_ORE
+    db TREASURE_BLUE_ORE
+
+    db TREASURE_GNARLED_KEY
+    db TREASURE_FLOODGATE_KEY
+    db TREASURE_DRAGON_KEY
+    db TREASURE_RUSTY_BELL
+    db TREASURE_PIRATES_BELL
+    db TREASURE_STAR_ORE
+
+    db TREASURE_BOMB_FLOWER
+
+    db TREASURE_RIBBON
+    db TREASURE_MEMBERS_CARD
+    db TREASURE_FLIPPERS
+  
+    db TREASURE_POTION
+    db TREASURE_GASHA_SEED
+    db $00
+
+  # This table contains the position where to draw the sprite on screen depending on the ID of the slot
+  # we are currently processing.
+  02//slotPositionsTable: |
+    db $01,$04,$07,$0a,$0d
+    db $31,$34,$37,$3a,$3d
+    db $61,$64,$67,$6a,$6d
+    db $00
+
+  # This extension procedure injected at the beginning of inventorySubscreen1_drawTreasures initializes
+  # the "current slot" value in RAM with an appropriate value
+  02//inventorySubscreen1_drawTreasures_setup: |
+    ld hl,subscreen1TreasureDataNew
+    xor a
+    ld (wSubscreen1CurrentSlotIndex),a
+    ret
+  02/5b2b/: call inventorySubscreen1_drawTreasures_setup
+
+  # This extension procedure is the core change of this subscreen.
+  # Instead of reading position where to draw sprites from the input table, we are sequentially
+  # drawing sprites in empty slot from left to right, top to bottom.
+  # This procedure specifically take the "current slot index" from RAM, increment it in most cases
+  # and determines the position where to draw the sprite from the ID (using the slotPositionsTable declared above).
+  02//inventorySubscreen1_drawTreasures_computeAddr: |
+    ldh ($8b),a
+
+    ; re-read treasure ID for specific cases
+    dec hl
+    ldi a,(hl)
+    ld b,$00
+    cp TREASURE_ROUND_JEWEL
+    jr z,@computePos
+    cp TREASURE_PYRAMID_JEWEL
+    jr nz,@notPyramid
+    ld b,$01
+    jr z,@computePos
+    @notPyramid:
+    cp TREASURE_SQUARE_JEWEL
+    jr nz,@notSquare
+    ld b,$10
+    jr z,@computePos
+    @notSquare:
+    cp TREASURE_X_SHAPED_JEWEL
+    jr nz,@increaseCurrentSlotIfNotSpecific
+    ld b,$11
+    jr z,@computePos
+
+    @increaseCurrentSlotIfNotSpecific:
+    push hl
+    ld hl,wSubscreen1CurrentSlotIndex
+    inc (hl)
+    pop hl
+
+    @computePos:
+    ld a,(wSubscreen1CurrentSlotIndex)
+    ld de,slotPositionsTable
+    call addAToDe
+    ld a,(de)
+    or a
+    jr nz,@notEndOfTable
+    pop de
+    jp $5b58    ; undrawRingBox
+
+    @notEndOfTable:
+    add a,b
+    ret
+  02/5b39/: call inventorySubscreen1_drawTreasures_computeAddr
+
+  # This extension procedure is only there to put the current slot ID in register A (two first instructions are from the base function)
+  02//inventorySubscreen1_drawTreasures_loopend: |
+    ld c,(hl)
+
+    ; pop HL while preserving return address
+    pop de
+    pop hl
+    push de
+
+    ld a,(wSubscreen1CurrentSlotIndex)
+    ret
+  02/5b49/: call inventorySubscreen1_drawTreasures_loopend
+
+  # Remove the two "inc" instructions at the end of the function
+  02/5b54/: |
+    nop
+    nop
+
+  # Remove the Maku Seed from the subscreen
+  02/5d26/: ret
