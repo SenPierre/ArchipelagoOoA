@@ -261,10 +261,16 @@ def oos_can_farm_rupees(state: CollectionState, player: int):
 
 
 def oos_has_ore_chunks(state: CollectionState, player: int, amount: int):
+    world = state.multiworld.worlds[player]
+    if world.options.shuffle_golden_ore_spots == "vanilla":
+        return oos_can_farm_ore_chunks(state, player)
+
     if not oos_can_farm_ore_chunks(state, player):
         return False
 
     ore_chunks = 0
+    ore_chunks += state.count("Ore Chunks (10)", player) * 10
+    ore_chunks += state.count("Ore Chunks (25)", player) * 25
     ore_chunks += state.count("Ore Chunks (50)", player) * 50
     return ore_chunks >= amount
 
@@ -274,8 +280,11 @@ def oos_can_farm_ore_chunks(state: CollectionState, player: int):
         oos_has_shovel(state, player),
         all([
             oos_option_medium_logic(state, player),
-            oos_has_magic_boomerang(state, player),
-            oos_has_sword(state, player)
+            any([
+                oos_has_magic_boomerang(state, player),
+                oos_has_sword(state, player),
+                oos_has_bracelet(state, player)
+            ])
         ]),
         all([
             oos_option_hard_logic(state, player),
