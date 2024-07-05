@@ -1,4 +1,4 @@
-# The Legend of Zelda: Oracle of Seasons
+# The Legend of Zelda: Oracle of Seasons # TODO ADAPT
 
 ## Where is the settings page?
 

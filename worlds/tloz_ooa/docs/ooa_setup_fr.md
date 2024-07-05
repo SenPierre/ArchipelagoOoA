@@ -1,4 +1,4 @@
-# Guide d'installation de The Legend of Zelda : Oracle of Seasons
+# Guide d'installation de The Legend of Zelda : Oracle of Seasons # TODO ADAPT
 
 ## Logiciel requis
 

@@ -1,21 +1,32 @@
 import logging
 import os
 import yaml
+import settings
 
 from BaseClasses import Tutorial, Region, Location, LocationProgressType
 from Fill import fill_restrictive, FillError
 from Options import Accessibility
 from worlds.AutoWorld import WebWorld, World
+from typing import Any, Set, List, Dict, Optional, Tuple, ClassVar, TextIO, Union
 from .Data import *
 from worlds.tloz_ooa.data.Items import *
 from .Logic import create_connections, apply_self_locking_rules
 from .Options import *
-from .PatcherDataWriter import write_patcherdata_file
+from .PatchWriter import ooa_create_appp_patch
 from .data import LOCATIONS_DATA
 from .data.Constants import *
 from .data.Regions import REGIONS
 from .Client import OracleOfAgesClient  # Unused, but required to register with BizHawkClient
+from .patching.ProcedurePatch import ROM_HASH
 
+class OOASettings(settings.Group):
+    class OOARomFile(settings.UserFilePath):
+        """File path of the OOA US rom"""
+        description = "Oracle of Ages (USA) ROM File"
+        copy_to = "Legend of Zelda, The - Oracle of Ages (USA).gbc"
+        md5s = [ROM_HASH]
+
+    rom_file: OOARomFile = OOARomFile(OOARomFile.copy_to)
 
 class OracleOfAgesWeb(WebWorld):
     theme = "grass"
@@ -23,11 +34,10 @@ class OracleOfAgesWeb(WebWorld):
         "Multiworld Setup Guide",
         "A guide to setting up Oracle of Ages for Archipelago on your computer.",
         "English",
-        "oos_setup_en.md",
-        "oos_setup/en",
+        "ooa_setup_en.md",
+        "ooa_setup/en",
         ["Dinopony"]
     )]
-
 
 class OracleOfAgesWorld(World):
     """
@@ -50,6 +60,9 @@ class OracleOfAgesWorld(World):
     dungeon_items: List[Item]
     dungeon_entrances: Dict[str, str]
     shop_prices: Dict[str, int]
+
+    settings: ClassVar[OOASettings]
+    settings_key = "tloz_ooa_options"
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -410,7 +423,10 @@ class OracleOfAgesWorld(World):
         return self.random.choice(FILLER_ITEM_NAMES)
 
     def generate_output(self, output_directory: str):
-        write_patcherdata_file(self, output_directory)
+        patch = ooa_create_appp_patch(self)
+        rom_path = os.path.join(output_directory, f"{self.multiworld.get_out_file_name_base(self.player)}"
+                                                  f"{patch.patch_file_ending}")
+        patch.write(rom_path)
         return
 
     def write_spoiler(self, spoiler_handle):
