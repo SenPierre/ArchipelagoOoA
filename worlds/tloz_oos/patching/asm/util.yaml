@@ -42,6 +42,29 @@
     rst 10
     jr @loop
 
+# Look for an interaction of type treasure in the room, and return the address of the first one found
+# in HL. Carry flag is set if found.
+00//findTreasure: |
+    ld hl,$d041
+    @loop:
+    ld a,(hl)
+    cp INTERACID_TREASURE
+    jr nz,@next
+    scf
+    ret
+
+    @next:
+    ld a,h
+    cp $df
+    jr z,@endNotFound
+    inc h
+    jr @loop
+
+    @endNotFound:
+    scf
+    ccf
+    ret
+
 # increment hl until (hl) equals either register a or ff. returns z if
 # a match was found.
 00//searchValue: |

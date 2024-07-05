@@ -209,6 +209,14 @@ class OracleOfSeasonsGoldenOreSpotsShuffle(Choice):
     default = 0
 
 
+class OracleOfSeasonsEssenceSanity(Toggle):
+    """
+    If enabled, essences will be shuffled anywhere in the multiworld instead of being guranteed to be found
+    at the end their respective dungeons.
+    """
+    display_name = "Shuffle Essences"
+
+
 class OracleOfSeasonsMasterKeys(Choice):
     """
     - Disabled: All dungeon keys must be obtained individually, just like in vanilla
@@ -534,6 +542,7 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     shuffle_portals: OracleOfSeasonsPortalShuffle
     shuffle_old_men: OracleOfSeasonsOldMenShuffle
     shuffle_golden_ore_spots: OracleOfSeasonsGoldenOreSpotsShuffle
+    shuffle_essences: OracleOfSeasonsEssenceSanity
     master_keys: OracleOfSeasonsMasterKeys
     keysanity_small_keys: OracleOfSeasonsSmallKeyShuffle
     keysanity_boss_keys: OracleOfSeasonsBossKeyShuffle

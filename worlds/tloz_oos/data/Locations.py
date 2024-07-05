@@ -1920,49 +1920,57 @@ LOCATIONS_DATA = {
         "region_id": "d1 boss",
         "flag_byte": 0xc913,
         "vanilla_item": "Fertile Soil",
-        "randomized": False
+        "essence": True,
+        "symbolic_name": "essenceD1",
     },
     "Snake's Remains: Essence": {
         "region_id": "d2 boss",
         "flag_byte": 0xc92c,
         "vanilla_item": "Gift of Time",
-        "randomized": False
+        "essence": True,
+        "symbolic_name": "essenceD2",
     },
     "Poison Moth's Lair: Essence": {
         "region_id": "d3 boss",
         "flag_byte": 0xc940,
         "vanilla_item": "Bright Sun",
-        "randomized": False
+        "essence": True,
+        "symbolic_name": "essenceD3",
     },
     "Dancing Dragon Dungeon: Essence": {
         "region_id": "d4 boss",
         "flag_byte": 0xc960,
         "vanilla_item": "Soothing Rain",
-        "randomized": False
+        "essence": True,
+        "symbolic_name": "essenceD4",
     },
     "Unicorn's Cave: Essence": {
         "region_id": "d5 boss",
         "flag_byte": 0xc988,
         "vanilla_item": "Nurturing Warmth",
-        "randomized": False
+        "essence": True,
+        "symbolic_name": "essenceD5",
     },
     "Ancient Ruins: Essence": {
         "region_id": "d6 boss",
         "flag_byte": 0xc898,
         "vanilla_item": "Blowing Wind",
-        "randomized": False
+        "essence": True,
+        "symbolic_name": "essenceD6",
     },
     "Explorer's Crypt: Essence": {
         "region_id": "d7 boss",
         "flag_byte": 0xca4f,
         "vanilla_item": "Seed of Life",
-        "randomized": False
+        "essence": True,
+        "symbolic_name": "essenceD7",
     },
     "Sword & Shield Dungeon: Essence": {
         "region_id": "d8 boss",
         "flag_byte": 0xca5f,
         "vanilla_item": "Changing Seasons",
-        "randomized": False
+        "essence": True,
+        "symbolic_name": "essenceD8",
     },
     "Horon Village: Item Inside Maku Tree (3+ Essences)": {
         "region_id": "maku tree, 3 essences",

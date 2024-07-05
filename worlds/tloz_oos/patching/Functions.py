@@ -23,6 +23,8 @@ def get_asm_files(patch_data):
         asm_files.append("asm/conditional/remove_d2_alt_entrance.yaml")
     if patch_data["options"]["goal"] == OracleOfSeasonsGoal.option_beat_ganon:
         asm_files.append("asm/conditional/ganon_goal.yaml")
+    if patch_data["options"]["shuffle_essences"]:
+        asm_files.append("asm/conditional/essence_sanity.yaml")
     return asm_files
 
 
@@ -393,9 +395,6 @@ def process_item_name_for_shop_text(item: Dict) -> List[int]:
     else:
         item_name = item["item"]
 
-    if item_name == "Sagaz's Deluxe Spring Banana Very High Quality":
-        item_name = "Sagaz's House of Pain (E3M4) - Red Keycard"
-
     words = item_name.split(" ")
     current_line = 0
     lines = [""]
@@ -411,6 +410,7 @@ def process_item_name_for_shop_text(item: Dict) -> List[int]:
             lines.append(words[0])
         words = words[1:]
 
+    # If name is more than 2 lines long, discard excess lines and put an ellipsis to suggest content was truncated
     if len(lines) > 2:
         lines = lines[0:2]
         lines[1] = lines[1][0:14] + "..."

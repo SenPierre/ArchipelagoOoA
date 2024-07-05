@@ -24,6 +24,7 @@ def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
             "shuffle_golden_ore_spots", "shuffle_old_men", "sign_guy_requirement", "tarm_gate_required_jewels",
             "treehouse_old_man_requirement", "warp_to_start", "starting_maps_compasses",
             "keysanity_small_keys", "keysanity_boss_keys", "deterministic_gasha_locations",
+            "shuffle_essences"
         ]),
         "samasa_gate_sequence": ' '.join([str(x) for x in world.samasa_gate_code]),
         "lost_woods_item_sequence": ' '.join(world.lost_woods_item_sequence),

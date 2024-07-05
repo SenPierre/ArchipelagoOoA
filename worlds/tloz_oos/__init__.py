@@ -88,7 +88,7 @@ class OracleOfSeasonsWorld(World):
                    "duplicate_seed_tree", "default_seed", "master_keys",
                    "remove_d0_alt_entrance", "remove_d2_alt_entrance",
                    # Locations
-                   "shuffle_golden_ore_spots", "shuffle_old_men", "advance_shop",
+                   "shuffle_golden_ore_spots", "shuffle_old_men", "advance_shop", "shuffle_essences",
                    # Requirements
                    "required_essences", "tarm_gate_required_jewels", "treehouse_old_man_requirement",
                    "sign_guy_requirement", "golden_beasts_requirement",
@@ -415,7 +415,7 @@ class OracleOfSeasonsWorld(World):
         item_pool_dict = {}
         filler_item_count = 0
         for loc_name, loc_data in LOCATIONS_DATA.items():
-            if "randomized" in loc_data and loc_data["randomized"] is False:
+            if "essence" in loc_data and loc_data["essence"] is True and not self.options.shuffle_essences:
                 item = self.create_item(loc_data['vanilla_item'])
                 location = self.multiworld.get_location(loc_name, self.player)
                 location.place_locked_item(item)
