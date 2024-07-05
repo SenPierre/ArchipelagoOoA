@@ -1,3 +1,5 @@
+from typing import Dict
+
 from .Constants import *
 from ..data import ITEMS_DATA
 
@@ -9,13 +11,15 @@ def camel_case(text):
     return s[0] + ''.join(i.capitalize() for i in s[1:])
 
 
-def get_item_id_and_subid(item_name: str):
-    if item_name == "Archipelago Item":
+def get_item_id_and_subid(item: Dict):
+    # Remote item, use the generic "Archipelago Item"
+    if item["item"] == "Archipelago Item" or ("player" in item and not item["progression"]):
         return 0x41, 0x00
-    elif item_name == "Archipelago Progression Item":
+    if item["item"] == "Archipelago Progression Item" or ("player" in item and item["progression"]):
         return 0x41, 0x01
 
-    item_data = ITEMS_DATA[item_name]
+    # Local item, put the real item in there
+    item_data = ITEMS_DATA[item["item"]]
     item_id = item_data["id"]
     item_subid = item_data["subid"] if "subid" in item_data else 0x00
     return item_id, item_subid

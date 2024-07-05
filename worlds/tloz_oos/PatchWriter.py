@@ -37,16 +37,19 @@ def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
     }
 
     for loc in world.multiworld.get_locations(world.player):
+        # Skip event locations which are not real in-game locations that need to be patched
         if loc.address is None:
             continue
         if loc.item.player == loc.player:
-            item_name = loc.item.name
-        elif loc.item.classification in [ItemClassification.progression,
-                                         ItemClassification.progression_skip_balancing]:
-            item_name = "Archipelago Progression Item"
+            patch_data["locations"][loc.name] = {
+                "item": loc.item.name
+            }
         else:
-            item_name = "Archipelago Item"
-        patch_data["locations"][loc.name] = item_name
+            patch_data["locations"][loc.name] = {
+                "item": loc.item.name,
+                "player": world.multiworld.get_player_name(loc.item.player),
+                "progression": loc.item.classification in [ItemClassification.progression, ItemClassification.progression_skip_balancing]
+            }
 
     patch.write_file("patch.dat", yaml.dump(patch_data).encode('utf-8'))
     return patch

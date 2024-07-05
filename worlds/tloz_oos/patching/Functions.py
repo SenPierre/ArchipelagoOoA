@@ -38,8 +38,8 @@ def write_chest_contents(rom: RomData, patch_data):
         if not is_special_chest and ('collect' not in location_data or location_data['collect'] != COLLECT_CHEST):
             continue
         chest_addr = rom.get_chest_addr(location_data['room'])
-        item_name = patch_data["locations"][location_name]
-        item_id, item_subid = get_item_id_and_subid(item_name)
+        item = patch_data["locations"][location_name]
+        item_id, item_subid = get_item_id_and_subid(item)
         rom.write_byte(chest_addr, item_id)
         rom.write_byte(chest_addr + 1, item_subid)
 
@@ -102,12 +102,12 @@ def define_sign_guy_requirement_digits(assembler: Z80Assembler, requirement: int
 
 def define_compass_rooms_table(assembler: Z80Assembler, patch_data):
     table = []
-    for location_name, item_name in patch_data["locations"].items():
-        _, item_subid = get_item_id_and_subid(item_name)
+    for location_name, item in patch_data["locations"].items():
+        item_id, item_subid = get_item_id_and_subid(item)
         dungeon = 0xff
-        if item_name.startswith("Small Key") or item_name.startswith("Master Key"):
+        if item_id == 0x30:  # Small Key or Master Key
             dungeon = item_subid
-        elif item_name.startswith("Boss Key"):
+        elif item_id == 0x31:  # Boss Key
             dungeon = item_subid + 1
 
         if dungeon != 0xff:
@@ -130,14 +130,15 @@ def define_collect_properties_table(assembler: Z80Assembler, patch_data):
     a room flag when obtained.
     """
     table = []
-    for location_name, item_name in patch_data["locations"].items():
+    for location_name, item in patch_data["locations"].items():
         location_data = LOCATIONS_DATA[location_name]
         if "collect" not in location_data:
             continue
         mode = location_data["collect"]
 
         # Use no pickup animation for falling small keys
-        if mode == COLLECT_DROP and item_name.startswith("Small Key"):
+        item_id, _ = get_item_id_and_subid(item)
+        if mode == COLLECT_DROP and item_id == 0x30:
             mode &= 0xf8  # Set grab mode to TREASURE_GRAB_INSTANT
 
         rooms = location_data["room"]
@@ -164,11 +165,11 @@ def define_location_constants(assembler: Z80Assembler, patch_data):
         symbolic_name = location_data["symbolic_name"]
 
         if location_name in patch_data["locations"]:
-            item_name = patch_data["locations"][location_name]
+            item = patch_data["locations"][location_name]
         else:
-            item_name = location_data["vanilla_item"]
+            item = {"item": location_data["vanilla_item"]}
 
-        item_id, item_subid = get_item_id_and_subid(item_name)
+        item_id, item_subid = get_item_id_and_subid(item)
         assembler.define_byte(f"locations.{symbolic_name}.id", item_id)
         assembler.define_byte(f"locations.{symbolic_name}.subid", item_subid)
         assembler.define_word(f"locations.{symbolic_name}", (item_id << 8) + item_subid)
@@ -176,8 +177,8 @@ def define_location_constants(assembler: Z80Assembler, patch_data):
     # Process deterministic Gasha Nut locations to define a table
     deterministic_gasha_table = []
     for i in range(int(patch_data["options"]["deterministic_gasha_locations"])):
-        item_name = patch_data["locations"][f"Gasha Nut #{i+1}"]
-        item_id, item_subid = get_item_id_and_subid(item_name)
+        item = patch_data["locations"][f"Gasha Nut #{i+1}"]
+        item_id, item_subid = get_item_id_and_subid(item)
         deterministic_gasha_table.extend([item_id, item_subid])
     assembler.add_floating_chunk("deterministicGashaLootTable", deterministic_gasha_table)
 
@@ -272,7 +273,7 @@ def set_lost_woods_sequence(assembler: Z80Assembler, patch_data):
 
 
 def get_treasure_addr(rom: RomData, item_name: str):
-    item_id, item_subid = get_item_id_and_subid(item_name)
+    item_id, item_subid = get_item_id_and_subid({"item": item_name})
     addr = 0x55129 + (item_id * 4)
     if rom.read_byte(addr) & 0x80 != 0:
         addr = 0x50000 + rom.read_word(addr + 1)
@@ -386,7 +387,15 @@ def set_file_select_text(assembler: Z80Assembler, slot_name: str):
     assembler.add_floating_chunk("dma_FileSelectStringTiles", text_tiles)
 
 
-def process_item_name_for_shop_text(item_name: str) -> List[int]:
+def process_item_name_for_shop_text(item: Dict) -> List[int]:
+    if "player" in item:
+        item_name = f"{item['player']}'s {item['item']}"
+    else:
+        item_name = item["item"]
+
+    if item_name == "Sagaz's Deluxe Spring Banana Very High Quality":
+        item_name = "Sagaz's House of Pain (E3M4) - Red Keycard"
+
     words = item_name.split(" ")
     current_line = 0
     lines = [""]
@@ -401,6 +410,10 @@ def process_item_name_for_shop_text(item_name: str) -> List[int]:
             current_line += 1
             lines.append(words[0])
         words = words[1:]
+
+    if len(lines) > 2:
+        lines = lines[0:2]
+        lines[1] = lines[1][0:14] + "..."
 
     result = []
     for line in lines:
