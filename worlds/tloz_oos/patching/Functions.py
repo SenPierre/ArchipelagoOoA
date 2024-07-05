@@ -549,9 +549,10 @@ def set_dungeon_warps(rom: RomData, patch_data):
 
     # D0 Chest Warp (hardcoded warp using a specific format)
     d0_new_entrance = DUNGEON_ENTRANCES[entrance_map["d0"]]
-    rom.write_bytes(0x2bbe5, [
+    rom.write_bytes(0x2bbe4, [
+        d0_new_entrance["group"] | 0x80,
         d0_new_entrance["room"],
-        d0_new_entrance["group"],
+        0x00,
         d0_new_entrance["position"]
     ])
 
