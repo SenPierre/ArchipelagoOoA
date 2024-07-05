@@ -143,6 +143,7 @@ REGIONS = [
     "temple remains lower stump",
     "temple remains upper stump",
     "temple remains lower portal",
+    "temple remains lower portal access",
     "temple remains upper portal",
     "temple remains heart piece",
     "maku seed",
