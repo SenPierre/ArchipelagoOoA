@@ -20,14 +20,15 @@
 
 # Add custom palette variants for ore chunks to give more variety in values that
 # can be found as treasures, just like rupees.
-# Replace Gasha Seed unused subids by new Ore Chunk subids for more varied values
 # This block changes the fixed definition for Ore Chunks by a pointer to a group of subids.
-# We point to unused Gasha Seed subids 2,3,4 that will be overwritten in the following block.
-15/5205/: db $80,$45,$53,$00  ; pointer to subid 2 for Gasha Seeds
-15/5345/: |
+15//oreChunksSubidsBlock: |
     db $02,$0b,$6b,$2f  ; Ore Chunks x50 (orange sprite)
     db $02,$0a,$58,$4e  ; Ore Chunks x25 (blue sprite)
     db $02,$04,$4e,$4d  ; Ore Chunks x10 (red sprite)
+15/5205/: |
+    db $80
+    dw oreChunksSubidsBlock
+    db $00
 
 ############################################################
 #   INVENTORY DISPLAY DATA

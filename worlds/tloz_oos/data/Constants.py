@@ -74,7 +74,7 @@ DEFAULT_SEASONS = {
     "TEMPLE_REMAINS": "winter",
     "LOST_WOODS": "autumn",
     "TARM_RUINS": "spring",
-    "HORON_VILLAGE": "spring"
+    "HORON_VILLAGE": "chaotic"
 }
 
 DUNGEON_CONNECTIONS = {

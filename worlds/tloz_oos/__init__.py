@@ -104,8 +104,6 @@ class OracleOfSeasonsWorld(World):
         slot_data["default_seasons"] = {}
         for region_name, season in self.default_seasons.items():
             slot_data["default_seasons"][region_name] = season
-        if self.options.horon_village_season == "vanilla":
-            slot_data["default_seasons"]["HORON_VILLAGE"] = "chaotic"
 
         slot_data["dungeon_entrances"] = self.dungeon_entrances
         slot_data["portal_connections"] = self.portal_connections
@@ -151,14 +149,19 @@ class OracleOfSeasonsWorld(World):
 
     def randomize_default_seasons(self):
         if self.options.default_seasons == "randomized":
-            for region in self.default_seasons:
-                self.default_seasons[region] = self.random.choice(SEASONS)
+            seasons_pool = SEASONS
         elif self.options.default_seasons.current_key.endswith("singularity"):
             single_season = self.options.default_seasons.current_key.replace("_singularity", "")
             if single_season == "random":
                 single_season = self.random.choice(SEASONS)
-            for region in self.default_seasons:
-                self.default_seasons[region] = single_season
+            seasons_pool = [single_season]
+        else:
+            return
+
+        for region in self.default_seasons:
+            if region == "HORON_VILLAGE" and self.options.horon_village_season == "vanilla":
+                continue
+            self.default_seasons[region] = self.random.choice(seasons_pool)
 
     def shuffle_dungeons(self):
         shuffled_dungeons = list(self.dungeon_entrances.values())

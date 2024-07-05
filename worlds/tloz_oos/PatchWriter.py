@@ -36,9 +36,6 @@ def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
         "shop_prices": world.shop_prices
     }
 
-    if world.options.horon_village_season == "vanilla":
-        patch_data["default_seasons"]["HORON_VILLAGE"] = "chaotic"
-
     for loc in world.multiworld.get_locations(world.player):
         if loc.address is None:
             continue
