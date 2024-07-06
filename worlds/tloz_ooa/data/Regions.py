@@ -121,6 +121,7 @@ REGIONS = [
     "trade goron vase",
     #######
     "ridge base past west",
+    "ridge base bomb past",
     "ridge diamonds past",
     "d6 past entrance",
     #######

@@ -1,54 +1,55 @@
+from .Constants import *
 
 BASE_LOCATION_ID = 27022001000
 
 LOCATIONS_DATA = {
     ##########################################
     "Impa Gift": {
-        "patcher_name": "starting item",
         "region_id": "starting item",
         "vanilla_item": "Progressive Sword",
-        "flag_byte": 0xFFFF
+        "room": 0x0039,
     },
     "Nayru's House": {
         "patcher_name": "nayru's house",
         "region_id": "nayru's house",
         "vanilla_item": "Progressive Harp",
-        "flag_byte": 0xFFFF
+        "room": 0x03ae,
+        "map_tile": 0x3a
     },
     ##########################################
     "Lynna City Chest": {
         "patcher_name": "lynna city chest",
         "region_id": "lynna city chest",
         "vanilla_item": "Rupees (30)",
-        "flag_byte": 0xFFFF
+        "room": 0x0049,
     },
     # -----
     "Lynna Shop Item #1": {
         "patcher_name": "lynna shop 1",
         "region_id": "lynna shop",
         "vanilla_item": "Progressive Shield",
-        "flag_byte": 0xFFFF,
-        "bit_mask": 0xFFFF,
+        "room": 0x025e,
+        "map_tile": 0x68,
+        "bit_mask": 0x20,
         "scouting_byte": 0xFFFF,
-        "scouting_mask": 0xFFFF
     },
     "Lynna Shop Item #2": {
         "patcher_name": "lynna shop 2",
         "region_id": "lynna shop",
         "vanilla_item": "Bombs (10)",
-        "flag_byte": 0xFFFF,
-        "bit_mask": 0xFFFF,
+        "room": 0x025e,
+        "map_tile": 0x68,
+        "bit_mask": 0x40,
         "scouting_byte": 0xFFFF,
-        "scouting_mask": 0xFFFF
     },
     "Lynna Shop Item #3": {
         "patcher_name": "lynna shop 3",
         "region_id": "lynna shop",
         "vanilla_item": "Flute",
-        "flag_byte": 0xFFFF,
-        "bit_mask": 0xFFFF,
+        "room": 0x025e,
+        "map_tile": 0x68,
+        "bit_mask": 0x80,
         "scouting_byte": 0xFFFF,
-        "scouting_mask": 0xFFFF
     },
     # -----
     "Hidden Shop Item #1": {
@@ -83,7 +84,8 @@ LOCATIONS_DATA = {
         "patcher_name": "mayor plen's house",
         "region_id": "mayor plen's house",
         "vanilla_item": "Green Luck Ring",
-        "flag_byte": 0xFFFF
+        "room": 0x03f9,
+        "map_tile": 0x57,
     },
     "Vasu's Gift": {
         "patcher_name": "vasu's gift",
@@ -96,7 +98,8 @@ LOCATIONS_DATA = {
         "patcher_name": "black tower worker",
         "region_id": "black tower worker",
         "vanilla_item": "Shovel",
-        "flag_byte": 0xFFFF
+        "room": 0x04e1,
+        "map_tile": 0x176,
     },
     # -----
     "Advance Shop Item #1": {
@@ -131,20 +134,22 @@ LOCATIONS_DATA = {
         "patcher_name": "ambi's palace chest",
         "region_id": "ambi's palace chest",
         "vanilla_item": "Gold Luck Ring",
-        "flag_byte": 0xFFFF,
+        "room": 0x05cb,
+        "map_tile": 0x107,
     },
     "Rescue Nayru": {
         "patcher_name": "rescue nayru",
         "region_id": "rescue nayru",
         "vanilla_item": "Progressive Harp",
-        "flag_byte": 0xFFFF,
+        "room": 0x0038,
     },
     ##########################################
     "Maku Tree gift": {
         "patcher_name": "maku tree",
         "region_id": "maku tree",
         "vanilla_item": "Seed Satchel",
-        "flag_byte": 0xFFFF,
+        "room": 0x0038,
+        "map_tile": 0x38
     },
     # Maku seed is 0xC85D
     ##########################################
@@ -152,19 +157,19 @@ LOCATIONS_DATA = {
         "patcher_name": "south shore dirt",
         "region_id": "south shore dirt",
         "vanilla_item": "Ricky's Gloves",
-        "flag_byte": 0xFFFF,
+        "room": 0x0098,
     },
     "Tingle Present": {
         "patcher_name": "balloon guy's gift",
         "region_id": "balloon guy's gift",
         "vanilla_item": "Island Chart",
-        "flag_byte": 0xFFFF,
+        "room": 0x0079,
     },
     "Tingle Upgrade": {
         "patcher_name": "balloon guy's upgrade",
         "region_id": "balloon guy's upgrade",
         "vanilla_item": "Seed Satchel",
-        "flag_byte": 0xFFFF,
+        "room": 0x0079,
     },
     ##########################################
     
@@ -172,19 +177,22 @@ LOCATIONS_DATA = {
         "patcher_name": "cheval's test",
         "region_id": "cheval's test",
         "vanilla_item": "Progressive Flippers",
-        "flag_byte": 0xFFFF,
+        "room": 0x05bf,
+        "map_tile": 0x5b
     },
     "Cheval's Invention": {
         "patcher_name": "cheval's invention",
         "region_id": "cheval's invention",
         "vanilla_item": "Cheval Rope",
-        "flag_byte": 0xFFFF,
+        "room": 0x05b6,
+        "map_tile": 0x5b
     },
     "Grave Under The Tree": {
         "patcher_name": "grave under tree",
         "region_id": "grave under tree",
         "vanilla_item": "Graveyard Key",
-        "flag_byte": 0xFFFF,
+        "room": 0x05ed,
+        "map_tile": 0x8d
     },
     # -----
     "Syrup Shop Item #1": {
@@ -219,51 +227,57 @@ LOCATIONS_DATA = {
         "patcher_name": "fairies' woods chest",
         "region_id": "fairies' woods chest",
         "vanilla_item": "Rupees (20)",
-        "flag_byte": 0xFFFF,
+        "room": 0x0084,
     },
     ##########################################
     "Deku Forest Cave East": {
         "patcher_name": "deku forest cave east",
         "region_id": "deku forest cave east",
         "vanilla_item": "Gasha Seed",
-        "flag_byte": 0xFFFF,
+        "room": 0x05b3,
+        "map_tile": 0x172,
     },
     "Deku Forest Cave West": {
         "patcher_name": "deku forest cave west",
         "region_id": "deku forest cave west",
         "vanilla_item": "Rupees (30)",
-        "flag_byte": 0xFFFF,
+        "room": 0x05b5,
+        "map_tile": 0x171,
     },
     "Deku Forest Soldier": {
         "patcher_name": "deku forest soldier",
         "region_id": "deku forest soldier",
         "vanilla_item": "Bombs (10)",
-        "flag_byte": 0xFFFF,
+        "room": 0x0181,
     },
     ##########################################
     "Hidden Tokay Cave": {
         "patcher_name": "hidden tokay cave",
         "region_id": "hidden tokay cave",
         "vanilla_item": "Progressive Shield",
-        "flag_byte": 0xFFFF,
+        "room": 0x05e9,
+        "map_tile": 0x1d9,
     },
     "Tokay Crystal Cave": {
         "patcher_name": "tokay crystal cave",
         "region_id": "tokay crystal cave",
         "vanilla_item": "Gasha Seed",
-        "flag_byte": 0xFFFF,
+        "room": 0x05ca,
+        "map_tile": 0x1bb,
     },
     "Tokay Bomb Cave": {
         "patcher_name": "tokay bomb cave",
         "region_id": "tokay bomb cave",
         "vanilla_item": "Gasha Seed",
-        "flag_byte": 0xFFFF,
+        "room": 0x02ce,
+        "map_tile": 0x1cd,
     },
     "Wild Tokay Game": {
         "patcher_name": "wild tokay game",
         "region_id": "wild tokay game",
         "vanilla_item": "Scent Seedling",
-        "flag_byte": 0xFFFF,
+        "room": 0x02de,
+        "map_tile": 0x1bd,
     },
     "Tokay Market Item #1": {
         "patcher_name": "tokay market 1",
@@ -288,33 +302,38 @@ LOCATIONS_DATA = {
         "patcher_name": "under crescent island",
         "region_id": "under crescent island",
         "vanilla_item": "Piece of Heart",
-        "flag_byte": 0xFFFF,
+        "room": 0x03fd,
+        "map_tile": 0xba,
     },
     "Tokay Pot Cave": {
         "patcher_name": "tokay pot cave",
         "region_id": "tokay pot cave",
         "vanilla_item": "Power Ring L-2",
-        "flag_byte": 0xFFFF,
+        "room": 0x05f7,
+        "map_tile": 0x1dd,
     },
     ##########################################
     "Nuun Highlands Cave": {
         "patcher_name": "nuun highlands cave",
         "region_id": "nuun highlands cave",
         "vanilla_item": "Light Ring L-1",
-        "flag_byte": 0xFFFF,
+        "room": [0x02f4, 0x02ec, 0x05b8], # Moosh Rick & Dim respectively
+        "map_tile": 0x37, # TODO : May need a fix for one animal?
     },
     ##########################################
     "Symmetry City Brothers": {
         "patcher_name": "symmetry city brother",
         "region_id": "symmetry city brother",
         "vanilla_item": "Cracked Tuni Nut",
-        "flag_byte": 0xFFFF,
+        "room": [0x036e, 0x036f],
+        "map_tile": 0x104,
     },
     "Tokkey's Composition": {
         "patcher_name": "tokkey's composition",
         "region_id": "tokkey's composition",
         "vanilla_item": "Progressive Harp",
-        "flag_byte": 0xFFFF,
+        "room": 0x038f,
+        "map_tile": 0x101,
     },
     ##########################################
     "Bomb Fairy": {
@@ -327,7 +346,7 @@ LOCATIONS_DATA = {
         "patcher_name": "talus peaks chest",
         "region_id": "talus peaks chest",
         "vanilla_item": "Gasha Seed",
-        "flag_byte": 0xFFFF,
+        "room": 0x0063,
     },
     ##########################################
     "Patch Tuni Nut Ceremony": {
@@ -347,45 +366,51 @@ LOCATIONS_DATA = {
         "patcher_name": "goron elder",
         "region_id": "goron elder",
         "vanilla_item": "Crown Key",
-        "flag_byte": 0xFFFF,
+        "room": 0x05c3,
+        "map_tile": 0x128,
     },
     ##########################################
     "Ridge West Surface Stair": {
         "patcher_name": "ridge west cave",
         "region_id": "ridge west cave",
         "vanilla_item": "Rupees (30)",
-        "flag_byte": 0xFFFF,
+        "room": 0x05c0,
+        "map_tile": 0x18,
     },
     "Under Moblin Keep": {
         "patcher_name": "under moblin keep",
         "region_id": "under moblin keep",
         "vanilla_item": "Armor Ring L-1",
-        "flag_byte": 0xFFFF,
+        "room": 0x02be,
+        "map_tile": 0x09,
     },
     "Defeat Great Moblin": {
         "patcher_name": "defeat great moblin",
         "region_id": "defeat great moblin",
         "vanilla_item": "Bomb Flower",
-        "flag_byte": 0xFFFF,
+        "room": 0x0009,
     },
     "Goron's Hiding Place": {
         "patcher_name": "goron's hiding place",
         "region_id": "goron's hiding place",
         "vanilla_item": "Golden Joy Ring",
-        "flag_byte": 0xFFFF,
+        "room": 0x05bd,
+        "map_tile": 0x28,
     },
     "Ridge Chest West Base On Terrace": {
         "patcher_name": "ridge base chest",
         "region_id": "ridge base chest",
         "vanilla_item": "Rupees (50)",
-        "flag_byte": 0xFFFF,
+        "room": 0x05b9,
+        "map_tile": 0x28,
     },
     ##########################################
     "Bomb Goron Head": {
         "patcher_name": "bomb goron head",
         "region_id": "bomb goron head",
         "vanilla_item": "Rupees (100)",
-        "flag_byte": 0xFFFF,
+        "room": 0x02fc,
+        "map_tile": 0x10d,
     },
     "Treasure Hunting Goron": {
         "patcher_name": "treasure hunting goron",
@@ -404,163 +429,192 @@ LOCATIONS_DATA = {
         "patcher_name": "first goron dance",
         "region_id": "first goron dance",
         "vanilla_item": "Brother Emblem",
-        "flag_byte": 0xFFFF,
+        "room": [0x2ed, 0x2ef], # present & past
+        "map_tile": 0x13d,
     },
     "Goron Dance, With Letter": {
         "patcher_name": "goron dance, with letter",
         "region_id": "goron dance, with letter",
         "vanilla_item": "Mermaid Key",
-        "flag_byte": 0xFFFF,
+        "room": 0x2ef,
+        "map_tile": 0x13d,
     },
     "Trade Goron Vase": {
         "patcher_name": "trade goron vase",
         "region_id": "trade goron vase",
         "vanilla_item": "Goronade",
-        "flag_byte": 0xFFFF,
+        "room": 0x02ff,
+        "map_tile": 0x13d,
     },
     ##########################################
+    "Ridge Base Past Bomb": {
+        "patcher_name": "ridge base bomb past",
+        "region_id": "ridge base bomb past",
+        "vanilla_item": "Rupees (50)",
+        "room": 0x05e0,
+        "map_tile": 0x12b,
+    },
     "Ridge Diamonds Past": {
         "patcher_name": "ridge diamonds past",
         "region_id": "ridge diamonds past",
         "vanilla_item": "Rupees (50)",
-        "flag_byte": 0xFFFF,
+        "room": 0x05e1,
+        "map_tile": 0x12b,
     },
     ##########################################
     "Pool in d6 Entrance": {
         "patcher_name": "pool in d6 entrance",
         "region_id": "pool in d6 entrance",
         "vanilla_item": "Toss Ring",
-        "flag_byte": 0xFFFF,
+        "room": 0x030e,
+        "map_tile": 0x3c,
     },
     "Trade Rock Brisket": {
         "patcher_name": "trade rock brisket",
         "region_id": "trade rock brisket",
         "vanilla_item": "Goron Vase",
-        "flag_byte": 0xFFFF,
+        "room": 0x02fd,
+        "map_tile": 0x3d,
     },
     ##########################################
     "Goron shooting gallery Price": {
         "patcher_name": "goron shooting gallery price",
         "region_id": "goron shooting gallery price",
         "vanilla_item": "Lava Juice",
-        "flag_byte": 0xFFFF,
+        "room": 0x03e7,
+        "map_tile": 0x11d,
     },
     "Trade Lava Juice": {
         "patcher_name": "trade lava juice",
         "region_id": "trade lava juice",
         "vanilla_item": "Letter of Introduction",
-        "flag_byte": 0xFFFF,
+        "room": 0x031f,
+        "map_tile": 0x11c,
     },
     "Ridge Bush Cave": {
         "patcher_name": "ridge bush cave",
         "region_id": "ridge bush cave",
         "vanilla_item": "Rupees (100)",
-        "flag_byte": 0xFFFF,
+        "room": 0x031f,
+        "map_tile": 0x11c,
     },
     ##########################################
     "target carts 1": {
         "patcher_name": "target carts 1",
         "region_id": "target carts 1",
         "vanilla_item": "Rock Brisket",
-        "flag_byte": 0xFFFF,
+        "room": 0x05d8,
+        "map_tile": 0x1d,
     },
     "target carts 2": {
         "patcher_name": "target carts 2",
         "region_id": "target carts 2",
         "vanilla_item": "Boomerang",
-        "flag_byte": 0xFFFF,
+        "room": 0x05d8,
+        "map_tile": 0x1d,
     },
     "Big Bang Game": {
         "patcher_name": "big bang game",
         "region_id": "big bang game",
         "vanilla_item": "Old Mermaid Key",
-        "flag_byte": 0xFFFF,
+        "room": 0x033e,
+        "map_tile": 0x1c,
     },
     "Ridge NE Cave Present": {
         "patcher_name": "ridge NE cave present",
         "region_id": "ridge NE cave present",
         "vanilla_item": "Gasha Seed",
-        "flag_byte": 0xFFFF,
+        "room": 0x05ee,
+        "map_tile": 0x0d,
     },
     "Goron Diamond Cave": {
         "patcher_name": "goron diamond cave",
         "region_id": "goron diamond cave",
         "vanilla_item": "Bombs (10)",
-        "flag_byte": 0xFFFF,
+        "room": 0x05dd,
+        "map_tile": 0x1c,
     },
     ##########################################
     "Zora Village Present Chest": {
         "patcher_name": "zora village present",
         "region_id": "zora village present",
         "vanilla_item": "Gasha Seed",
-        "flag_byte": 0xFFFF,
+        "room": 0x02c0,
     },
     "Zora Palace Chest": {
         "patcher_name": "zora palace chest",
         "region_id": "zora palace chest",
         "vanilla_item": "Rupees (200)",
-        "flag_byte": 0xFFFF,
+        "room": 0x05ac,
+        "map_tile": 0xa1,
     },
     "Zora NW Cave": {
         "patcher_name": "zora NW cave",
         "region_id": "zora NW cave",
         "vanilla_item": "Blue Luck Ring",
-        "flag_byte": 0xFFFF,
+        "room": 0x05c7,
+        "map_tile": 0xa0,
     },
     "Fairies' Coast Chest": {
         "patcher_name": "fairies' coast chest",
         "region_id": "fairies' coast chest",
         "vanilla_item": "Green Holy Ring",
-        "flag_byte": 0xFFFF,
+        "room": 0x0091,
     },
     "Zora King Gift": {
         "patcher_name": "zora king gift",
         "region_id": "zora king gift",
         "vanilla_item": "Library Key",
-        "flag_byte": 0xFFFF,
+        "room": 0x05ab,
+        "map_tile": 0xa1,
     },
     "Library Present": {
         "patcher_name": "library present",
         "region_id": "library present",
         "vanilla_item": "Book of Seals",
-        "flag_byte": 0xFFFF,
+        "room": 0x05c8,
+        "map_tile": 0xa5,
     },
     "Library Past": {
         "patcher_name": "library past",
         "region_id": "library past",
         "vanilla_item": "Fairy Powder",
-        "flag_byte": 0xFFFF,
+        "room": 0x05e4,
+        "map_tile": 0x1a5,
     },
     "Zora Seas Chest": {
         "patcher_name": "zora seas chest",
         "region_id": "zora seas chest",
         "vanilla_item": "Whimsical Ring",
-        "flag_byte": 0xFFFF,
+        "room": 0x00d5,
     },
     "Fisher's Island Cave": {
         "patcher_name": "fisher's island cave",
         "region_id": "fisher's island cave",
         "vanilla_item": "Red Holy Ring",
-        "flag_byte": 0xFFFF,
+        "room": 0x024f,
+        "map_tile": 0x1c5,
     },
     "Zora's Reward": {
         "patcher_name": "zora's reward",
         "region_id": "zora's reward",
         "vanilla_item": "Zora Scale",
-        "flag_byte": 0xFFFF,
+        "room": 0x02a0,
     },
     ##########################################
     "Piratian Captain": {
         "patcher_name": "piratian captain",
         "region_id": "piratian captain",
         "vanilla_item": "Tokay Eyeball",
-        "flag_byte": 0xFFFF,
+        "room": 0x05f8,
+        "map_tile": 0x1d7,
     },
     "Sea of Storms Past": {
         "patcher_name": "sea of storms past",
         "region_id": "sea of storms past",
         "vanilla_item": "Pegasus Ring",
-        "flag_byte": 0xFFFF,
+        "room": 0x03ff,
+        "map_tile": 0x1c7,
     },
     #"Sea of Storms Present": {
     #    "patcher_name": "sea of storms present",
@@ -572,14 +626,14 @@ LOCATIONS_DATA = {
         "patcher_name": "sea of no return",
         "region_id": "sea of no return",
         "vanilla_item": "Blue Ring",
-        "flag_byte": 0xFFFF,
+        "room": 0x016d,
     },
     ##########################################
     "Yoll Graveyard: Graveyard Poe Trade": {
         "patcher_name": "graveyard poe trade",
         "region_id": "graveyard poe trade",
         "vanilla_item": "Poe Clock",
-        "flag_byte": 0xFFFF,
+        "room": 0x007c,
     },
     "Lynna Village: Postman Trade": {
         "patcher_name": "postman trade",

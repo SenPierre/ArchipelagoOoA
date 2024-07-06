@@ -41,9 +41,8 @@ class OoAPatchExtensions(APPatchExtension):
             assembler.define(key, value)
         #for symbolic_name, price in patch_data["shop_prices"].items():
         #    assembler.define_byte(f"shopPrices.{symbolic_name}", RUPEE_VALUES[price])
-        #define_location_constants(assembler, patch_data)
-        #define_option_constants(assembler, patch_data)
-        #define_season_constants(assembler, patch_data)
+        define_location_constants(assembler, patch_data)
+        define_option_constants(assembler, patch_data)
         #define_text_constants(assembler, patch_data)
 
         # Define dynamic data blocks

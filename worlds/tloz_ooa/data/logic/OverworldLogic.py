@@ -463,6 +463,7 @@ def make_overworld_logic(player: int):
                 ooa_can_switch_past_and_present(state, player)
             ])
         ])],
+        ["ridge base past west", "ridge base bomb past", False, lambda state: ooa_has_bombs(state, player)],
         ["ridge base past west", "ridge diamonds past", False, lambda state: ooa_has_switch_hook(state, player)],
         ["ridge base past west", "d6 past entrance", False, lambda state: all([
             ooa_can_swim(state, player, False),
