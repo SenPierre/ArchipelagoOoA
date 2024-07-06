@@ -130,3 +130,11 @@
     call loseTreasure
     ret
 0b/40c1/: dw scriptCmd_removeItem
+
+# Puts the current amount of essences possessed into a
+00//getEssenceCount: |
+    push bc
+    ld a,(wEssencesObtained)
+    call getNumSetBits
+    pop bc
+    ret

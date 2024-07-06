@@ -30,16 +30,8 @@
     ld hl,skipVolcanoCutscene
     jp callBank2
 
-# use a non-cutscene screen transition for exiting a dungeon via essence, so
-# that overworld music plays, and set maku tree state.
-09//essenceWarp: |
-    ld a,$81
-    ld (wWarpTransition2),a
-    ld a,(wEssencesObtained)
-    call getNumSetBits
-    ld ($c6df),a    ; some maku tree state var? oracles-disasm doesn't specify it
-    ret
-09/4b4f/: call essenceWarp
+# use a non-cutscene screen transition for exiting a dungeon via essence, so that overworld music plays.
+09/4b4d/: ld a,$81
 
 # end maku seed cutscene as soon as link gets the seed.
 0b/71ec/: |

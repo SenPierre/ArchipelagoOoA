@@ -127,8 +127,7 @@
 # Remove access to stairs behind Farore on 2 essences (this replaces the function that adds
 # a sign in front of Bipin & Blossom's house when the game is completed)
 04/6189/: |
-    ld a,(wEssencesObtained)
-    call getNumSetBits
+    call getEssenceCount
     cp $03
     ret nc
     jp removeFaroreStairs

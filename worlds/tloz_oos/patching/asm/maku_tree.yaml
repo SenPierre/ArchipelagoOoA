@@ -42,8 +42,7 @@
     jr @setStage    ; If Maku Seed was obtained, set stage 0xC
 
     @makuSeedNotObtained:
-    ld a,(wEssencesObtained)
-    call getNumSetBits
+    call getEssenceCount
     cp option.requiredEssences
     jr c,@notEnoughEssences
     ld a,$08        ; Enough essences are owned to get Maku Seed, set stage 0x8
@@ -62,4 +61,14 @@
     db $30 + option.requiredEssences
     db $20,$02,$35,$01,$05,$79,$05,$0f,$03,$94,$05,$59,$21
     db $00
-  
+
+# In applyWArpDest_b04, change the variable that is checked to know in which Maku Tree room the player must be warped
+04//determineMakuTreeRoomOffset: |
+    ; Room of Rites has been visited, use $09 as a fixed room offset 
+    ld a,($c6df)
+    cp $09
+    ; Otherwise, use essence count as room offset
+    jp c,getEssenceCount
+    ret
+04/45e8/: call determineMakuTreeRoomOffset
+
