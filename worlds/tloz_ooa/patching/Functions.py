@@ -46,7 +46,7 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
     options = patch_data["options"]
 
     assembler.define_byte("option.startingGroup", 0x00)
-    assembler.define_byte("option.startingRoom", 0xb6)
+    assembler.define_byte("option.startingRoom", 0x59)
     assembler.define_byte("option.startingPosY", 0x58)
     assembler.define_byte("option.startingPosX", 0x58)
     assembler.define_byte("option.startingPos", 0x55)
@@ -59,3 +59,13 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
 
     assembler.define_byte("option.requiredEssences", options["required_essences"])
     assembler.define_byte("option.required_slates", options["required_slates"])
+
+def define_text_constants(assembler: Z80Assembler, patch_data):
+    overworld_shops = [
+        "Lynna City: Shop",
+        "Lynna City: Secret's Shop",
+        "Poe Graveyard: Syrup Shop",
+        "Lynna Village: Advance Shop",
+    ]
+
+    # TODO THE REAL STUFF
