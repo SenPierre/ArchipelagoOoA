@@ -57,7 +57,6 @@ class OracleOfSeasonsWorld(World):
     location_name_groups = LOCATION_GROUPS
 
     pre_fill_items: List[Item]
-    dungeon_items: List[Item]
     default_seasons: Dict[str, str]
     dungeon_entrances: Dict[str, str]
     portal_connections: Dict[str, str]
@@ -70,7 +69,6 @@ class OracleOfSeasonsWorld(World):
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
         self.pre_fill_items = []
-        self.dungeon_items = []
         self.default_seasons = DEFAULT_SEASONS.copy()
         self.dungeon_entrances = DUNGEON_CONNECTIONS.copy()
         self.portal_connections = PORTAL_CONNECTIONS.copy()
@@ -421,6 +419,10 @@ class OracleOfSeasonsWorld(World):
         for loc_name, loc_data in LOCATIONS_DATA.items():
             if "essence" in loc_data and loc_data["essence"] is True and not self.options.shuffle_essences:
                 item = self.create_item(loc_data['vanilla_item'])
+                # If essence location is excluded but we are not in essence-sanity, consider that essence as a filler
+                # item so logic doesn't expect the player to enter that dungeon
+                if loc_name in self.options.exclude_locations.value:
+                    item.classification = ItemClassification.filler
                 location = self.multiworld.get_location(loc_name, self.player)
                 location.place_locked_item(item)
                 continue
@@ -491,16 +493,9 @@ class OracleOfSeasonsWorld(World):
         item_pool_dict = self.build_item_pool_dict()
         for item_name, quantity in item_pool_dict.items():
             for _ in range(quantity):
-                if ("Small Key" in item_name or "Master Key" in item_name) and not self.options.keysanity_small_keys:
-                    self.dungeon_items.append(self.create_item(item_name))
-                elif "Boss Key" in item_name and not self.options.keysanity_boss_keys:
-                    self.dungeon_items.append(self.create_item(item_name))
-                elif ("Compass" in item_name or "Dungeon Map" in item_name) and not self.options.keysanity_maps_compasses:
-                    self.dungeon_items.append(self.create_item(item_name))
-                elif item_name == "Random Ring":
-                    self.multiworld.itempool.append(self.create_item(self.get_random_ring_name()))
-                else:
-                    self.multiworld.itempool.append(self.create_item(item_name))
+                if item_name == "Random Ring":
+                    item_name = self.get_random_ring_name()
+                self.multiworld.itempool.append(self.create_item(item_name))
 
     def get_pre_fill_items(self):
         return self.pre_fill_items
@@ -526,10 +521,12 @@ class OracleOfSeasonsWorld(World):
 
             # Build a list of dungeon items that are "confined" (i.e. must be placed inside this dungeon)
             # See `create_items` to see how `self.dungeon_items` is populated depending on current options.
-            confined_dungeon_items = [item for item in self.dungeon_items if item.name.endswith(f"({DUNGEON_NAMES[i]})")]
+            confined_dungeon_items = [item for item in self.multiworld.itempool if item.player == self.player and
+                                      item.name.endswith(f"({DUNGEON_NAMES[i]})")]
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
             for item in confined_dungeon_items:
+                self.multiworld.itempool.remove(item)
                 collection_state.remove(item)
 
             # Perform a prefill to place confined items inside locations of this dungeon

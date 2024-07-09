@@ -222,7 +222,8 @@ LOCATION_GROUPS = {
         'Gnarled Root Dungeon: Chest in Left Stalfos Room',
         'Gnarled Root Dungeon: Hidden Chest Revealed by Button',
         'Gnarled Root Dungeon: Chest in Goriya Room',
-        'Gnarled Root Dungeon: Boss Reward'
+        'Gnarled Root Dungeon: Boss Reward',
+        'Gnarled Root Dungeon: Essence',
     ],
     'D2': [
         "Snake's Remains: Drop in Left Rope Room",
@@ -234,7 +235,8 @@ LOCATION_GROUPS = {
         "Snake's Remains: Chest in Moving Blades Room",
         "Snake's Remains: Chest in Bomb Spiral Maze Room",
         "Snake's Remains: Chest on Terrace",
-        "Snake's Remains: Boss Reward"
+        "Snake's Remains: Boss Reward",
+        "Snake's Remains: Essence",
     ],
     'D3': [
         "Poison Moth's Lair (B1F): Chest in Roller Room",
@@ -246,7 +248,8 @@ LOCATION_GROUPS = {
         "Poison Moth's Lair (1F): Chest Above West Trampoline & Owl",
         "Poison Moth's Lair (1F): Chest in Room Behind Hidden Cracked Wall",
         "Poison Moth's Lair (B1F): Chest in Moving Blade Room",
-        "Poison Moth's Lair (1F): Boss Reward"
+        "Poison Moth's Lair (1F): Boss Reward",
+        "Poison Moth's Lair: Essence",
     ],
     'D4': [
         'Dancing Dragon Dungeon (2F): Pots on Buttons Puzzle Drop',
@@ -259,7 +262,8 @@ LOCATION_GROUPS = {
         'Dancing Dragon Dungeon (1F): Chest Revealed by Minecart Torches',
         'Dancing Dragon Dungeon (1F): Crumbling Room Chest',
         'Dancing Dragon Dungeon (1F): Eye Diving Spot Item',
-        'Dancing Dragon Dungeon (B1F): Boss Reward'
+        'Dancing Dragon Dungeon (B1F): Boss Reward',
+        'Dancing Dragon Dungeon: Essence',
     ],
     'D5': [
         "Unicorn's Cave: Right Cart Chest",
@@ -272,7 +276,8 @@ LOCATION_GROUPS = {
         "Unicorn's Cave: Magnet Spinner Chest",
         "Unicorn's Cave: Chest in Right Half of Minecart Bay Room",
         "Unicorn's Cave: Treadmills Basement Item",
-        "Unicorn's Cave: Boss Reward"
+        "Unicorn's Cave: Boss Reward",
+        "Unicorn's Cave: Essence",
     ],
     'D6': [
         'Ancient Ruins (1F): Magnet Ball Puzzle Drop',
@@ -286,7 +291,8 @@ LOCATION_GROUPS = {
         'Ancient Ruins (1F): Chest on Terrace Left of Entrance',
         'Ancient Ruins (2F): Chest After Time Trial',
         'Ancient Ruins (2F): Chest on Red Terrace Before Vire',
-        'Ancient Ruins (5F): Boss Reward'
+        'Ancient Ruins (5F): Boss Reward',
+        'Ancient Ruins: Essence',
     ],
     'D7': [
         "Explorer's Crypt (1F): Chest in Wizzrobe Room",
@@ -300,13 +306,14 @@ LOCATION_GROUPS = {
         "Explorer's Crypt (1F): Chest Above Trampoline Near 2nd Poe",
         "Explorer's Crypt (B2F): Drop in Room North of Stair Maze",
         "Explorer's Crypt (B1F): Chest in Jumping Stalfos Room",
-        "Explorer's Crypt (B1F): Boss Reward"
+        "Explorer's Crypt (B1F): Boss Reward",
+        "Explorer's Crypt: Essence",
     ],
     'D8': [
         'Sword & Shield Dungeon (1F): Eye Drop Near Entrance',
         'Sword & Shield Dungeon (1F): Three Eyes Chest',
         'Sword & Shield Dungeon (1F): Drop in Hardhat & Magnet Ball Room',
-        'Sword & Shield Dungeon (1F): U-shaped Spiky Freezer Chest',
+        'Sword & Shield Dungeon (1F): U-Shaped Spiky Freezer Chest',
         'Sword & Shield Dungeon (B1F): Chest Right of Spinner',
         'Sword & Shield Dungeon (1F): Top Chest in Lava Bridge Room',
         'Sword & Shield Dungeon (1F): Bottom Chest in Lava Bridge Room',
@@ -316,7 +323,8 @@ LOCATION_GROUPS = {
         'Sword & Shield Dungeon (B1F): Southeast Lava Chest',
         'Sword & Shield Dungeon (B1F): Southwest Lava Chest',
         'Sword & Shield Dungeon (1F): Chest in Sparks & Pots Room',
-        'Sword & Shield Dungeon (B1F): Boss Reward'
+        'Sword & Shield Dungeon (B1F): Boss Reward',
+        'Sword & Shield Dungeon: Essence',
     ],
     'Trade Sequence': [
         'Horon Village: Dr. Left Reward',
