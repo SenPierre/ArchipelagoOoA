@@ -418,6 +418,7 @@ def oos_can_jump_5_wide_liquid(state: CollectionState, player: int):
 
 def oos_can_jump_6_wide_liquid(state: CollectionState, player: int):
     return all([
+        oos_option_medium_logic(state, player),
         oos_has_cape(state, player),
         oos_can_use_pegasus_seeds(state, player),
     ])

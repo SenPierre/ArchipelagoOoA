@@ -772,7 +772,15 @@ def make_holodrum_logic(player: int):
             oos_season_in_tarm_ruins(state, player, "spring"),
             oos_can_break_flowers(state, player, False)
         ])],
-        ["d6 entrance", "old man near d6", False, lambda state: oos_can_use_ember_seeds(state, player, False)],
+        ["d6 sector", "old man near d6", False, lambda state: all([
+            oos_season_in_tarm_ruins(state, player, "winter"),
+            oos_season_in_tarm_ruins(state, player, "spring"),
+            oos_can_break_flowers(state, player, False),
+            oos_can_use_ember_seeds(state, player, False)
+        ])],
+        # When coming from D6 entrance, the pillar needs to be broken during spring to be able to go backwards
+        ["d6 entrance", "d6 sector", False, lambda state:
+            oos_get_default_season(state, player, "TARM_RUINS") == "spring"],
 
         # SAMASA DESERT ######################################################################################
 

@@ -132,12 +132,12 @@ ITEMS_DATA = {
         'subid': 0x02
     },
     "Rupees (20)": {
-        'classification': ItemClassification.progression_skip_balancing,
+        'classification': ItemClassification.filler,
         'id': 0x28,
         'subid': 0x03
     },
     "Rupees (30)": {
-        'classification': ItemClassification.progression_skip_balancing,
+        'classification': ItemClassification.filler,
         'id': 0x28,
         'subid': 0x04
     },
@@ -156,20 +156,20 @@ ITEMS_DATA = {
         'id': 0x28,
         'subid': 0x08
     },
-    "Ore Chunks (50)": {
-        'classification': ItemClassification.progression_skip_balancing,
+    "Ore Chunks (10)": {
+        'classification': ItemClassification.filler,
         'id': 0x37,
-        'subid': 0x00
+        'subid': 0x02
     },
     "Ore Chunks (25)": {
         'classification': ItemClassification.progression_skip_balancing,
         'id': 0x37,
         'subid': 0x01
     },
-    "Ore Chunks (10)": {
+    "Ore Chunks (50)": {
         'classification': ItemClassification.progression_skip_balancing,
         'id': 0x37,
-        'subid': 0x02
+        'subid': 0x00
     },
     "Heart Container": {
         'classification': ItemClassification.useful,
