@@ -585,6 +585,19 @@ def set_portal_warps(rom: RomData, patch_data):
         values[portal_2] = rom.read_word(PORTAL_WARPS[portal_1]["addr"])
 
     # Apply warp matchings expressed in the patch
-    for from_name, to_name in warp_matchings.items():
-        rom.write_word(PORTAL_WARPS[from_name]["addr"], values[to_name])
-        rom.write_word(PORTAL_WARPS[to_name]["addr"], values[from_name])
+    for name_1, name_2 in warp_matchings.items():
+        portal_1 = PORTAL_WARPS[name_1]
+        portal_2 = PORTAL_WARPS[name_2]
+
+        # Set warp destinations for both portals
+        rom.write_word(portal_1["addr"], values[name_2])
+        rom.write_word(portal_2["addr"], values[name_1])
+
+        # Set portal text in map menu for both portals
+        portal_text_addr = 0xab19 if portal_1["in_subrosia"] else 0xaa19
+        portal_text_addr += portal_1["map_tile"]
+        rom.write_byte(portal_text_addr, 0x80 | (portal_2["text_index"] << 3))
+
+        portal_text_addr = 0xab19 if portal_2["in_subrosia"] else 0xaa19
+        portal_text_addr += portal_2["map_tile"]
+        rom.write_byte(portal_text_addr, 0x80 | (portal_1["text_index"] << 3))

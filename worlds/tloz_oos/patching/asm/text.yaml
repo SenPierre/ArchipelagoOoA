@@ -104,27 +104,75 @@
 # Replace TX_0602 (linked story text) by "Unknown Dungeon"
 1d/6735/TX_0602: db $55,$6e,$04,$98,$6e,$20,$44,$05,$8a,$00
 
-# overwrites rosa hide and seek preamble
-# 1f/4533/cliffWarningText: ''
-# 1f/4584/hssSkipWarningText: ''
-# 1c/6b52/: dw $9202   # pointer to above
-# 1f/459f/warningEndText: ''
-# 1c/6b54/: dw $921d   # pointer to above
+# ===================================================================
+#   CUSTOM TEXT SYSTEM
+# ===================================================================
 
-# override addresses for owl statue text.
-# 3f//owlText: ''
-# 3f//useOwlText: |
-#     ld (w7ActiveBank),a
-#     ld a,(wTextIndexH)
-#     cp a,3d
-#     ret nz
-#     ld hl,owlTextOffsets
-#     ld a,(wTextIndexL)
-#     rst 18
-#     ldi a,(hl)
-#     ld h,(hl)
-#     ld l,a
-#     ld a,BANK_OWL_TEXT
-#     ld (w7ActiveBank),a
-#     ret
-# 3f/4fd9/: call useOwlText
+# Add portal tooltips for the map
+3f//TX_5600: db $55,$6e,$04,$98,$6e,$20,$50,$6F,$72,$74,$61,$6C,$00     ; "Unknown Portal"
+3f//TX_5601: |
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $45,$61,$73,$74,$65,$72,$6E,$20,$53,$75,$62,$75,$72,$62,$73,$00  ; "Eastern Suburbs"
+3f//TX_5602: |
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $02,$21,$00                                                      ; "Spool Swamp"
+3f//TX_5603: |
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $4D,$74,$2E,$20,$43,$75,$63,$63,$6F,$00                          ; "Mt. Cucco"
+3f//TX_5604: | 
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $45,$04,$33,$20,$4C,$05,$E4,$00                                  ; "Eyeglass Lake"
+3f//TX_5605: | 
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $02,$14,$00                                                      ; "Horon Village"
+3f//TX_5606: |
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $54,$04,$7d,$20,$52,$04,$d7,$00                                  ; "Temple Remains"
+3f//TX_5607: |
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $74,$04,$7d,$20,$05,$92,$00                                      ; "temple summit"
+
+3f//TX_5608: |
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $02,$83,$20,$02,$b2,$00                                          ; "Subrosia Village"
+3f//TX_5609: |    
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $02,$19,$20,$4D,$61,$72,$6B,$65,$74,$00                          ; "Subrosian Market"
+3f//TX_560a: |  
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $02,$19,$20,$57,$69,$6C,$64,$73,$00                              ; "Subrosian Wilds"
+3f//TX_560b: |  
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $47,$04,$09,$20,$46,$04,$58,$00                                  ; "Great Furnace"
+3f//TX_560c: |  
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $48,$05,$f5,$03,$e3,$50,$69,$72,$61,$74,$65,$73,$00              ; "House of Pirates"
+3f//TX_560d: |    
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $02,$19,$20,$56,$05,$85,$00                                      ; "Subrosian Volcanoes"
+3f//TX_560e: |  
+    db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
+    db $02,$19,$20,$44,$05,$8a,$00                                      ; "Subrosian Dungeon"
+
+3f//customTextTable: |
+    dw TX_5600, TX_5601, TX_5602, TX_5603
+    dw TX_5604, TX_5605, TX_5606, TX_5607
+    dw TX_5608, TX_5609, TX_560a, TX_560b
+    dw TX_560c, TX_560d, TX_560e
+
+# Override getTextAddress to have a specific custom bank_id point to text somewhere else
+3f//checkCustomTextOverride: |
+    ld (w7ActiveBank),a
+    ld a,(wTextIndexH)
+    cp $5a      ; 0x56 is the custom text group, and there are 4 dictionaries before them
+    ret nz
+    ld hl,customTextTable
+    ld a,(wTextIndexL)
+    rst 18      ; rst_addDoubleIndex
+    ldi a,(hl)
+    ld h,(hl)
+    ld l,a
+    ld a,$3f    ; 0x3f is the ROM bank where custom text is located
+    ld (w7ActiveBank),a
+    ret
+3f/4fd9/: call checkCustomTextOverride

@@ -71,8 +71,8 @@
   ld ($c7e9),a   ; Sokra in town
   ld ($c7a7),a   ; Vanilla start room
 
-  ; Room flags 3 | 5 | 6 | 7
-  ld a,$e8
+  ; Room flags 5 | 6 | 7
+  ld a,$e0
   ld ($c79a),a  # Rosa portal
 
   ; Room flags 6 | 7

@@ -101,8 +101,11 @@ DEFINES = {
     "wActiveRing": "$c6c5",
     "wRingBoxLevel": "$c6c6",
     "wInsertedJewels": "$c6e1",
+    "wTextIndexL": "$cba2",
+    "wTextIndexH": "$cba3",
     "wTextNumberSubstitution": "$cba8",
     "wDungeonMapScroll": "$cbb4",
+    "wMapMenuMode": "$cbb3",
     "wMapMenuCursorIndex": "$cbb6",
     "wMenuLoadState": "$cbcc",
     "wMenuActiveState": "$cbcd",
@@ -134,6 +137,7 @@ DEFINES = {
     "wScreenOffsetY": "$cd08",
 
     "w1Link.yh": "$d00b",
+    "w7ActiveBank": "$d0d4",
 
     # High RAM offsets (FF00 + offset)
     "hRomBank": "$97",
@@ -160,6 +164,7 @@ DEFINES = {
     "showTextNonExitable": "$1847",
     "showText": "$184b",
     "getThisRoomFlags": "$1956",
+    "getRoomFlags": "$1963",
     "openMenu": "$1a76",
     "linkInteractWithAButtonSensitiveObjects": "$1b23",
     "lookupKey": "$1dc4",
@@ -472,59 +477,88 @@ DUNGEON_EXITS = {
 PORTAL_WARPS = {
     "eastern suburbs portal": {
         "addr": 0x134fd,
-        "map_tile": 0x9a
-    },
-    "volcanoes east portal": {
-        "addr": 0x136b5,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0x9a,
+        "in_subrosia": False,
+        "text_index": 0x0,
     },
     "spool swamp portal": {
         "addr": 0x13501,
-        "map_tile": 0xb0
-    },
-    "subrosia market portal": {
-        "addr": 0x136b9,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0xb0,
+        "in_subrosia": False,
+        "text_index": 0x1,
     },
     "mt. cucco portal": {
         "addr": 0x13601,
-        "map_tile": 0x1e
-    },
-    "strange brothers portal": {
-        "addr": 0x136bd,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0x1e,
+        "in_subrosia": False,
+        "text_index": 0x2,
     },
     "eyeglass lake portal": {
         "addr": 0x13509,
-        "map_tile": 0xb9
-    },
-    "great furnace portal": {
-        "addr": 0x136c1,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0xb9,
+        "in_subrosia": False,
+        "text_index": 0x3,
     },
     "horon village portal": {
         "addr": 0x13905,
-        "map_tile": 0xf7
-    },
-    "house of pirates portal": {
-        "addr": 0x13729,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0xf7,
+        "in_subrosia": False,
+        "text_index": 0x4,
     },
     "temple remains lower portal": {
         "addr": 0x1350d,
-        "map_tile": 0x25
-    },
-    "volcanoes west portal": {
-        "addr": 0x136c5,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0x25,
+        "in_subrosia": False,
+        "text_index": 0x5,
     },
     "temple remains upper portal": {
         "addr": 0x1388d,
-        "map_tile": 0x04
+        "map_tile": 0x04,
+        "in_subrosia": False,
+        "text_index": 0x6,
+    },
+
+    "volcanoes east portal": {
+        "addr": 0x136b5,
+        "map_tile": 0x05,
+        "in_subrosia": True,
+        "text_index": 0x7,
+    },
+    "subrosia market portal": {
+        "addr": 0x136b9,
+        "map_tile": 0x3e,
+        "in_subrosia": True,
+        "text_index": 0x8,
+    },
+    "strange brothers portal": {
+        "addr": 0x136bd,
+        "map_tile": 0x3a,
+        "in_subrosia": True,
+        "text_index": 0x9,
+    },
+    "great furnace portal": {
+        "addr": 0x136c1,
+        "map_tile": 0x36,
+        "in_subrosia": True,
+        "text_index": 0xa,
+    },
+    "house of pirates portal": {
+        "addr": 0x13729,
+        "map_tile": 0x4f,
+        "in_subrosia": True,
+        "text_index": 0xb,
+    },
+    "volcanoes west portal": {
+        "addr": 0x136c5,
+        "map_tile": 0x0f,
+        "in_subrosia": True,
+        "text_index": 0xc,
     },
     "d8 entrance portal": {
         "addr": 0x136c9,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0x16,
+        "in_subrosia": True,
+        "text_index": 0xd,
     }
 }
 

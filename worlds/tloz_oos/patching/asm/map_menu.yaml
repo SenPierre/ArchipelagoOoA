@@ -207,3 +207,70 @@
     jp $611a    ; @checkDungeonEntered
 # Replace the unique call to @checkDungeonEntered by a call to above extension
 02/60f3/: call extendedCheckForDungeonDisplay
+
+# ========== PORTAL TEXT HANDLING
+
+# Put a fixed "Maku Tree" text on its tile instead of being able to ask for remote advice by selecting its tile.
+# This way, we can reuse the "@specialCode0" to handle dynamic names for Subrosian Portals
+02/6ae2/: db $17
+
+# Stop calling func_6e06 to set portal bit when it is spawned
+15/6dfb/: |
+    nop
+    nop
+    nop
+
+# Make minimapPopupType_portalSpot always show the portal icon
+02/61e0/: |
+    ld a,e
+    ret
+
+# Generic function setting portal bit for the current room (or the matching overworld room, when in Horon basement or
+# in Temple Remains summit)
+05//playSoundAndSetPortalBit: |
+    call playSound  ; Function call which was overwritten
+    ; Call the function which was initially used to set the flag when spawning the portal
+    ld hl,$6e0b
+    ld e,$15
+    jp interBankCall
+# Set portal bit when entering a portal
+05/4c8d/: call playSoundAndSetPortalBit
+# Set portal bit when landing out of a portal
+05/4d32/: call playSoundAndSetPortalBit
+
+# Replace @specialCode0 (used in vanilla for Maku Tree text on map, which is
+# useless in rando) by dynamic portal text, showing the portal destination if
+# portal has already been visited, or "Unknown Portal" otherwise.
+# ---------------------------
+# in(c) = portal index
+# out(b) = text group
+# out(c) = text index
+02//getPortalText: |
+    ld a,(wMapMenuCursorIndex)
+    ld b,a
+    ld a,(wMapMenuMode)
+    
+    call getRoomFlags
+    bit 3,a
+    jr z,@unknownPortal
+
+    ; if "Portal visited" flag is set, show the full portal label
+    ld b,$56 ; textgroup
+    ld a,$01 ; base_textid
+    add a,c
+    ld c,a
+    ret
+
+    @unknownPortal:
+    ; otherwise, show a generic "Unknown Portal" text
+    ld bc,$5600
+    ret
+# Overwrite @specialCode0 to call above function
+02/60dd/: |
+    ld a,c
+    add a,a
+    swap a
+    and $0f
+    ld c,a
+
+    jp getPortalText
