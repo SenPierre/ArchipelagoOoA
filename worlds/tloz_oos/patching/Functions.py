@@ -349,7 +349,7 @@ def apply_miscellaneous_options(rom: RomData, patch_data):
         # Remove small key consumption on keydoor opened
         rom.write_byte(0x18357, 0x00)
         # Change obtention text
-        rom.write_bytes(0x7546f, [0x20, 0x02, 0xe5, 0x20])
+        rom.write_bytes(0x7546f, [0x02, 0xe5, 0x20, 0x4b, 0x65, 0x79, 0x05, 0xD8, 0x00])
     if patch_data["options"]["master_keys"] == OracleOfSeasonsMasterKeys.option_all_dungeon_keys:
         # Remove boss key consumption on boss keydoor opened
         rom.write_word(0x1834f, 0x0000)

@@ -65,6 +65,7 @@ class OracleOfSeasonsWorld(World):
     old_man_rupee_values: Dict[str, int]
     shop_prices: Dict[str, int]
     samasa_gate_code: List[int]
+    remaining_progressive_gasha_seeds: int
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -111,6 +112,8 @@ class OracleOfSeasonsWorld(World):
         return slot_data
 
     def generate_early(self):
+        self.remaining_progressive_gasha_seeds = self.options.deterministic_gasha_locations.value
+
         self.restrict_non_local_items()
         self.randomize_default_seasons()
         self.randomize_old_men()
@@ -405,8 +408,9 @@ class OracleOfSeasonsWorld(World):
         progression_items_in_hard_logic = ["Expert's Ring", "Fist Ring", "Swimmer's Ring"]
         if self.options.logic_difficulty == "hard" and name in progression_items_in_hard_logic:
             classification = ItemClassification.progression
-        # Gasha Seeds become progression if at least one nut is set as a location
-        if self.options.deterministic_gasha_locations > 0 and name == "Gasha Seed":
+        # As many Gasha Seeds become progression as the number of deterministic Gasha Nuts
+        if self.remaining_progressive_gasha_seeds > 0 and name == "Gasha Seed":
+            self.remaining_progressive_gasha_seeds -= 1
             classification = ItemClassification.progression
 
         return Item(name, classification, ap_code, self.player)

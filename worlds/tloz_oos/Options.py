@@ -371,7 +371,7 @@ class OracleOfSeasonsGashaLocations(Range):
     display_name = "Deterministic Gasha Locations"
 
     range_start = 0
-    range_end = 15
+    range_end = 16
     default = 0
 
 
