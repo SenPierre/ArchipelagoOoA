@@ -104,6 +104,48 @@
 # Replace TX_0602 (linked story text) by "Unknown Dungeon"
 1d/6735/TX_0602: db $55,$6e,$04,$98,$6e,$20,$44,$05,$8a,$00
 
+
+# ===================================================================
+#   TRADE ITEMS OBTENTION TEXT
+# ===================================================================
+
+# Vanilla trade items obtention text mention the fact that a trade item was exchanged with another, also adding
+# fancy icons and not so useful descriptions. These patches aim to provide simpler and straightforward text
+# for those items.
+1d/5b8d/: |
+    db $02,$1b,$01                                                      ; "You got a"
+    db $09,$01,$04,$32,$20,$45,$67,$67,$04,$ef,$00                      ; "Lon Lon Egg!"
+1d/5bc2/: |
+    db $02,$1b,$01                                                      ; "You got a"
+    db $09,$01,$47,$68,$05,$ad,$79,$20,$44,$6f,$6c,$6c,$04,$ef,$00      ; "Ghastly Doll!"
+1d/5bfb/: |
+    db $02,$1b,$6e,$01                                                  ; "You got an"
+    db $09,$01,$05,$83,$04,$ef,$00                                      ; "Iron Pot!"
+1d/5c26/: |
+    db $02,$1b,$01                                                      ; "You got a"
+    db $09,$01,$04,$0b,$04,$ef,$00                                      ; "Lava Soup!"
+1d/5c46/: |
+    db $02,$03                                                          ; "You got the"
+    db $09,$01,$03,$7b,$56,$61,$73,$65,$04,$ef,$00                      ; "Goron Vase!"
+1d/5c75/: |
+    db $02,$57,$20,$73,$6f,$6d,$65,$01                                  ; "You got some"
+    db $05,$91,$21,$00                                                  ; "Fish!"
+1d/5c9f/: |
+    db $02,$1b,$01                                                      ; "You got a"
+    db $09,$01,$03,$63,$04,$ef,$00                                      ; "Megaphone!"
+1d/5cc5/: |
+    db $02,$1b,$01                                                      ; "You got a"
+    db $09,$01,$4d,$03,$20,$04,$ef,$00                                  ; "Mushroom!"
+1d/5cee/: |
+    db $02,$1b,$01                                                      ; "You got a"
+    db $09,$01,$03,$77,$04,$ef,$00                                      ; "Wooden Bird!"
+1d/5d15/: |
+    db $02,$57,$20,$73,$6f,$6d,$65,$01                                  ; "You got some"
+    db $09,$01,$04,$29,$04,$ef,$00                                      ; "Engine Grease!"
+1d/5d31/: |
+    db $02,$1b,$01                                                      ; "You got a"
+    db $09,$01,$03,$c8,$04,$ef,$00                                      ; "Phonograph!" 
+
 # ===================================================================
 #   CUSTOM TEXT SYSTEM
 # ===================================================================
