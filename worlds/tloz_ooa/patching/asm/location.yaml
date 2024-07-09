@@ -1,0 +1,56 @@
+#00/10f7/: dw locations.impaGift # TODO
+0b/6827/: dw locations.nayruHouse
+#0b/6a6c/: dwbe locations.makuTreeGift # TODO
+10/750c/: dw locations.graveUnderTree
+0c/723b/: dwbe locations.chevalTest
+0c/7232/: dwbe locations.chevalInvention
+0c/7e20/: dwbe locations.tingleGift
+0c/7e7a/: dwbe locations.tingleUpgrade
+0c/757d/: dwbe locations.defeatGreatMoblin
+15/7386/: dwbe locations.goronElder
+#0c/6a6c/: dwbe locations.targetCart1 # TODO
+#0c/6a6c/: dwbe locations.targetCart2 # TODO
+0c/698c/: dwbe locations.goronDance1
+0c/699f/: dwbe locations.goronDance2
+15/6b2c/: dwbe locations.tradeRockBrisket
+15/6b23/: dwbe locations.tradeGoronVase
+#0c/6a6c/: dwbe locations.bigBangGame # TODO
+15/5285/: dwbe locations.goronShootingGallery
+0c/6ee9/: dwbe locations.tradeLavaJuice
+15/54f1/: dwbe locations.rescueNayru
+0c/7ae4/: dwbe locations.kingZora
+15/5db9/: dwbe locations.libraryPresent
+15/5dd8/: dwbe locations.libraryPast
+0c/7c48/: dwbe locations.zoraReward
+15/7969/: dwbe locations.piratianCaptain
+0c/65e3/: dwbe locations.towerWorker
+0c//: dwbe locations.dekuForestSoldier
+15/5bbb/: dwbe locations.wildTokayGame
+15/5b36/: dwbe locations.hiddenTokayCave
+15/7929/: dwbe locations.symmetryCityBrother
+15/76cf/: dwbe locations.tokkeyComposition
+
+# DungeonDrops
+0c/4bbb/: dwbe locations.d1Basement
+0c/4c0f/: dwbe locations.d2ThwompShelf
+0c/4c0a/: dwbe locations.d2ThwompTunnel
+0a/6077/: dwbe locations.d8Stalfos
+
+# Shop
+09/4511/: dwbe locations.shop1
+#0b/6a6c/: dwbe locations.shop2
+#0b/6a6c/: dwbe locations.shop3
+#0b/6a6c/: dwbe locations.hiddenShop1
+#0b/6a6c/: dwbe locations.hiddenShop2
+#0b/6a6c/: dwbe locations.hiddenShop3
+#0b/6a6c/: dwbe locations.advanceShop1
+#0b/6a6c/: dwbe locations.advanceShop2
+#0b/6a6c/: dwbe locations.advanceShop3
+#0b/6a6c/: dwbe locations.tokayMarket1
+#0b/6a6c/: dwbe locations.tokayMarket2
+
+# Dig
+0a/5e3c/: dwbe locations.southShoreDirt
+
+# TradeItem
+15/6188/: dwbe locations.graveyardPoe

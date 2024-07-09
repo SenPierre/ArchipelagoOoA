@@ -358,4 +358,7 @@ ASM_FILES = [
     "asm/triggers.yaml",
     "asm/cutscenes.yaml",
     "asm/layouts.yaml",
+    "asm/collect.yaml",
+    "asm/location.yaml",
+    "asm/progressives.yaml",
 ]

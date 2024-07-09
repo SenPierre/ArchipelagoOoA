@@ -9,6 +9,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Progressive Sword",
         "room": 0x0039,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "impaGift",
     },
     "Nayru's House": {
         "region_id": "nayru's house",
@@ -16,6 +17,7 @@ LOCATIONS_DATA = {
         "room": 0x03ae,
         "map_tile": 0x3a,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "nayruHouse",
     },
     ##########################################
     "Lynna City Chest": {
@@ -33,6 +35,7 @@ LOCATIONS_DATA = {
         "bit_mask": 0x20,
         "scouting_byte": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "shop1",
     },
     "Lynna Shop Item #2": {
         "region_id": "lynna shop",
@@ -42,6 +45,7 @@ LOCATIONS_DATA = {
         "bit_mask": 0x40,
         "scouting_byte": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "shop2",
     },
     "Lynna Shop Item #3": {
         "region_id": "lynna shop",
@@ -51,6 +55,7 @@ LOCATIONS_DATA = {
         "bit_mask": 0x80,
         "scouting_byte": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "shop3",
     },
     # -----
     "Hidden Shop Item #1": {
@@ -61,6 +66,7 @@ LOCATIONS_DATA = {
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "hiddenShop1",
     },
     "Hidden Shop Item #2": {
         "region_id": "hidden shop",
@@ -70,6 +76,7 @@ LOCATIONS_DATA = {
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "hiddenShop2",
     },
     "Hidden Shop Item #3": {
         "region_id": "hidden shop",
@@ -79,6 +86,7 @@ LOCATIONS_DATA = {
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "hiddenShop3",
     },
     # -----
     "Mayor Plen's House": {
@@ -101,6 +109,7 @@ LOCATIONS_DATA = {
         "room": 0x04e1,
         "map_tile": 0x176,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "towerWorker",
     },
     # -----
     "Advance Shop Item #1": {
@@ -111,24 +120,27 @@ LOCATIONS_DATA = {
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "advanceShop1",
     },
     "Advance Shop Item #2": {
         "region_id": "advance shop",
-        "vanilla_item": "Advance Ring",
+        "vanilla_item": "GBA Time Ring",
         "flag_byte": 0xFFFF,
         "bit_mask": 0xFFFF,
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "advanceShop2",
     },
     "Advance Shop Item #3": {
         "region_id": "advance shop",
-        "vanilla_item": "Heart Ring",
+        "vanilla_item": "Heart Ring L-1",
         "flag_byte": 0xFFFF,
         "bit_mask": 0xFFFF,
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "advanceShop3",
     },
     # -----
     "Ambi's Palace Chest": {
@@ -143,6 +155,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Progressive Harp",
         "room": 0x0038,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "rescueNayru",
     },
     ##########################################
     "Maku Tree gift": {
@@ -151,6 +164,7 @@ LOCATIONS_DATA = {
         "room": 0x0038,
         "map_tile": 0x38,
         "collect": COLLECT_MAKU_TREE,
+        "symbolic_name": "makuTreeGift",
     },
     # Maku seed is 0xC85D
     ##########################################
@@ -159,18 +173,21 @@ LOCATIONS_DATA = {
         "vanilla_item": "Ricky's Gloves",
         "room": 0x0098,
         "collect": COLLECT_DIG,
+        "symbolic_name": "southShoreDirt",
     },
     "Tingle Present": {
         "region_id": "balloon guy's gift",
         "vanilla_item": "Island Chart",
         "room": 0x0079,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "tingleGift",
     },
     "Tingle Upgrade": {
         "region_id": "balloon guy's upgrade",
         "vanilla_item": "Seed Satchel",
         "room": 0x0079,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "tingleUpgrade",
     },
     ##########################################
     
@@ -180,6 +197,7 @@ LOCATIONS_DATA = {
         "room": 0x05bf,
         "map_tile": 0x5b,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "chevalTest",
     },
     "Cheval's Invention": {
         "region_id": "cheval's invention",
@@ -187,6 +205,7 @@ LOCATIONS_DATA = {
         "room": 0x05b6,
         "map_tile": 0x5b,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "chevalInvention",
     },
     "Grave Under The Tree": {
         "region_id": "grave under tree",
@@ -194,6 +213,7 @@ LOCATIONS_DATA = {
         "room": 0x05ed,
         "map_tile": 0x8d,
         "collect": COLLECT_DROP,
+        "symbolic_name": "graveUnderTree",
     },
     # -----
     "Syrup Shop Item #1": {
@@ -250,6 +270,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Bombs (10)",
         "room": 0x0181,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "dekuForestSoldier",
     },
     ##########################################
     "Hidden Tokay Cave": {
@@ -258,6 +279,7 @@ LOCATIONS_DATA = {
         "room": 0x05e9,
         "map_tile": 0x1d9,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "hiddenTokayCave",
     },
     "Tokay Crystal Cave": {
         "region_id": "tokay crystal cave",
@@ -279,6 +301,7 @@ LOCATIONS_DATA = {
         "room": 0x02de,
         "map_tile": 0x1bd,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "wildTokayGame",
     },
     "Tokay Market Item #1": {
         "region_id": "tokay market 1",
@@ -328,6 +351,7 @@ LOCATIONS_DATA = {
         "room": [0x036e, 0x036f],
         "map_tile": 0x104,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "symmetryCityBrother",
     },
     "Tokkey's Composition": {
         "region_id": "tokkey's composition",
@@ -335,6 +359,7 @@ LOCATIONS_DATA = {
         "room": 0x038f,
         "map_tile": 0x101,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "tokkeyComposition",
     },
     ##########################################
     "Bomb Fairy": {
@@ -369,6 +394,7 @@ LOCATIONS_DATA = {
         "room": 0x05c3,
         "map_tile": 0x128,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "goronElder",
     },
     ##########################################
     "Ridge West Surface Stair": {
@@ -390,6 +416,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Bomb Flower",
         "room": 0x0009,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "defeatGreatMoblin",
     },
     "Goron's Hiding Place": {
         "region_id": "goron's hiding place",
@@ -431,6 +458,7 @@ LOCATIONS_DATA = {
         "room": [0x2ed, 0x2ef], # present & past
         "map_tile": 0x13d,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "goronDance1",
     },
     "Goron Dance, With Letter": {
         "region_id": "goron dance, with letter",
@@ -438,6 +466,7 @@ LOCATIONS_DATA = {
         "room": 0x2ef,
         "map_tile": 0x13d,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "goronDance2",
     },
     "Trade Goron Vase": {
         "region_id": "trade goron vase",
@@ -445,6 +474,7 @@ LOCATIONS_DATA = {
         "room": 0x02ff,
         "map_tile": 0x13d,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "tradeGoronVase",
     },
     ##########################################
     "Ridge Base Past Bomb": {
@@ -475,6 +505,7 @@ LOCATIONS_DATA = {
         "room": 0x02fd,
         "map_tile": 0x3d,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "tradeRockBrisket",
     },
     ##########################################
     "Goron shooting gallery Price": {
@@ -483,6 +514,7 @@ LOCATIONS_DATA = {
         "room": 0x03e7,
         "map_tile": 0x11d,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "goronShootingGallery",
     },
     "Trade Lava Juice": {
         "region_id": "trade lava juice",
@@ -490,6 +522,7 @@ LOCATIONS_DATA = {
         "room": 0x031f,
         "map_tile": 0x11c,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "tradeLavaJuice",
     },
     "Ridge Bush Cave": {
         "region_id": "ridge bush cave",
@@ -505,6 +538,7 @@ LOCATIONS_DATA = {
         "room": 0x05d8,
         "map_tile": 0x1d,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "targetCart1",
     },
     "target carts 2": {
         "region_id": "target carts 2",
@@ -512,6 +546,7 @@ LOCATIONS_DATA = {
         "room": 0x05d8,
         "map_tile": 0x1d,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "targetCart2",
     },
     "Big Bang Game": {
         "region_id": "big bang game",
@@ -519,6 +554,7 @@ LOCATIONS_DATA = {
         "room": 0x033e,
         "map_tile": 0x1c,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "bigBangGame",
     },
     "Ridge NE Cave Present": {
         "region_id": "ridge NE cave present",
@@ -567,6 +603,7 @@ LOCATIONS_DATA = {
         "room": 0x05ab,
         "map_tile": 0xa1,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "kingZora",
     },
     "Library Present": {
         "region_id": "library present",
@@ -574,6 +611,7 @@ LOCATIONS_DATA = {
         "room": 0x05c8,
         "map_tile": 0xa5,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "libraryPresent",
     },
     "Library Past": {
         "region_id": "library past",
@@ -581,6 +619,7 @@ LOCATIONS_DATA = {
         "room": 0x05e4,
         "map_tile": 0x1a5,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "libraryPast",
     },
     "Zora Seas Chest": {
         "region_id": "zora seas chest",
@@ -600,6 +639,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Zora Scale",
         "room": 0x02a0,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "zoraReward",
     },
     ##########################################
     "Piratian Captain": {
@@ -608,6 +648,7 @@ LOCATIONS_DATA = {
         "room": 0x05f8,
         "map_tile": 0x1d7,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "piratianCaptain",
     },
     "Sea of Storms Past": {
         "region_id": "sea of storms past",
@@ -633,6 +674,7 @@ LOCATIONS_DATA = {
         "vanilla_item": "Poe Clock",
         "room": 0x007c,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "graveyardPoe",
     },
     "Lynna Village: Postman Trade": {
         "region_id": "postman trade",
@@ -836,6 +878,7 @@ LOCATIONS_DATA = {
     	"dungeon" : 1,
         "room": 0x0610,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "d1Basement",
     },
     "Spirit's Grave: Boss": {
     	"region_id": "d1 boss",
@@ -900,6 +943,7 @@ LOCATIONS_DATA = {
     	"dungeon" : 2,
         "room": 0x0627,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d2ThwompShelf",
     },
     "Wing Dungeon (B1F): Thwomp Tunnel": {
     	"region_id": "d2 thwomp tunnel",
@@ -907,6 +951,7 @@ LOCATIONS_DATA = {
     	"dungeon" : 2,
         "room": 0x0628,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d2ThwompTunnel",
     },
     "Wing Dungeon (B1F): Basement Chest": {
     	"region_id": "d2 basement chest",
@@ -1488,6 +1533,7 @@ LOCATIONS_DATA = {
     	"dungeon" : 8,
         "room": 0x0598,
         "collect": COLLECT_POOF,
+        "symbolic_name": "d8Stalfos",
     },
     'Ancient Tomb (B3F): Single Chest': {
     	"region_id": "d8 b3f single chest",

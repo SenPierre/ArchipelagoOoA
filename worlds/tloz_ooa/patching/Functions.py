@@ -36,6 +36,9 @@ def define_location_constants(assembler: Z80Assembler, patch_data):
         else:
             item_name = location_data["vanilla_item"]
 
+        if item_name == "Flute":
+            item_name = COMPANIONS[patch_data["options"]["animal_companion"]] + "'s Flute"
+
         item_id, item_subid = get_item_id_and_subid(item_name)
         assembler.define_byte(f"locations.{symbolic_name}.id", item_id)
         assembler.define_byte(f"locations.{symbolic_name}.subid", item_subid)
@@ -68,4 +71,48 @@ def define_text_constants(assembler: Z80Assembler, patch_data):
         "Lynna Village: Advance Shop",
     ]
 
-    # TODO THE REAL STUFF
+
+def write_chest_contents(rom: RomData, patch_data):
+    """
+    Chest locations are packed inside several big tables in the ROM, unlike other more specific locations.
+    This puts the item described in the patch data inside each chest in the game.
+    """
+    for location_name, location_data in LOCATIONS_DATA.items():
+        if 'collect' not in location_data or 'room' not in location_data or location_data['collect'] != COLLECT_CHEST:
+            continue
+        print(location_data['region_id'])
+        chest_addr = rom.get_chest_addr(location_data['room'])
+        item_name = patch_data["locations"][location_name]
+        item_id, item_subid = get_item_id_and_subid(item_name)
+        rom.write_byte(chest_addr, item_id)
+        rom.write_byte(chest_addr + 1, item_subid)
+
+        
+
+def define_collect_properties_table(assembler: Z80Assembler, patch_data):
+    """
+    Defines a table of (group, room, collect mode) entries for randomized items
+    to determine how they spawn, how they are grabbed and whether they set
+    a room flag when obtained.
+    """
+    table = []
+    for location_name, item_name in patch_data["locations"].items():
+        location_data = LOCATIONS_DATA[location_name]
+        if "collect" not in location_data or "room" not in location_data:
+            continue
+        mode = location_data["collect"]
+
+        # Use no pickup animation for falling small keys
+        if mode == COLLECT_DROP and item_name.startswith("Small Key"):
+            mode &= 0xf8  # Set grab mode to TREASURE_GRAB_INSTANT
+
+        rooms = location_data["room"]
+        if not isinstance(rooms, list):
+            rooms = [rooms]
+        for room in rooms:
+            room_id = room & 0xff
+            group_id = room >> 8
+            table.extend([group_id, room_id, mode])
+
+    table.append(0xff)
+    assembler.add_floating_chunk("collectPropertiesTable", table)
