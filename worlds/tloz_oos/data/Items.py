@@ -176,12 +176,12 @@ ITEMS_DATA = {
         'id': 0x2a
     },
     "Piece of Heart": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.filler,
         'id': 0x2b,
         'subid': 0x01
     },
     "Rare Peach Stone": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.filler,
         'id': 0x2b,
         'subid': 0x02
     },
