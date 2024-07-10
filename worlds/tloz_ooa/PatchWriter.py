@@ -45,16 +45,10 @@ def ooa_create_appp_patch(world: "OracleOfAgesWorld") -> OoAProcedurePatch:
             item_name = "Archipelago Progression Item"
         else:
             item_name = "Archipelago Item"
-        loc_patcher_name = find_patcher_name_for_location(loc.name)
+        loc_patcher_name = loc.name
         if loc_patcher_name != "":
             patch_data["locations"][loc_patcher_name] = item_name
+        print(f"{loc_patcher_name} : {item_name}")
 
     patch.write_file("patch.dat", yaml.dump(patch_data).encode('utf-8'))
     return patch
-
-
-def find_patcher_name_for_location(pretty_name: str):
-    for loc_name, data in LOCATIONS_DATA.items():
-        if loc_name == pretty_name:
-            return data["patcher_name"] if "patcher_name" in data else ""
-    raise Exception("Could not find patcher name for unknown location '" + pretty_name + "'")

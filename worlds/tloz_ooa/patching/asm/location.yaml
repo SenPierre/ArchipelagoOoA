@@ -1,5 +1,8 @@
+
+
+################################
+# Generic cases
 #00/10f7/: dw locations.impaGift # TODO
-0b/6827/: dw locations.nayruHouse
 #0b/6a6c/: dwbe locations.makuTreeGift # TODO
 10/750c/: dw locations.graveUnderTree
 0c/723b/: dwbe locations.chevalTest
@@ -30,12 +33,25 @@
 15/7929/: dwbe locations.symmetryCityBrother
 15/76cf/: dwbe locations.tokkeyComposition
 
+################################
 # DungeonDrops
 0c/4bbb/: dwbe locations.d1Basement
 0c/4c0f/: dwbe locations.d2ThwompShelf
 0c/4c0a/: dwbe locations.d2ThwompTunnel
 0a/6077/: dwbe locations.d8Stalfos
 
+################################
+# Nayru's house spawner doesn't usually spawn
+0b//setNayruHouseItem: |
+    inc l
+    ld (hl),locations.nayruHouse.id
+    inc l
+    ld (hl),locations.nayruHouse.subid
+    ret
+
+0b/682b/: call setNayruHouseItem
+
+################################
 # Shop
 09/4511/: dwbe locations.shop1
 #0b/6a6c/: dwbe locations.shop2
@@ -49,8 +65,10 @@
 #0b/6a6c/: dwbe locations.tokayMarket1
 #0b/6a6c/: dwbe locations.tokayMarket2
 
+################################
 # Dig
 0a/5e3c/: dwbe locations.southShoreDirt
 
+################################
 # TradeItem
 15/6188/: dwbe locations.graveyardPoe

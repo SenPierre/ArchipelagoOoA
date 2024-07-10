@@ -27,7 +27,8 @@ ITEMS_DATA = {
     },
     "Progressive Harp": {
         'classification': ItemClassification.progression,
-        'id': 0x07,
+        'id': 0x25,
+        'subid': 0x00                                                                                                           
     },
     "Progressive Hook": {
         'classification': ItemClassification.progression,

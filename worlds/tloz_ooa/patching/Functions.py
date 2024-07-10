@@ -80,8 +80,10 @@ def write_chest_contents(rom: RomData, patch_data):
     for location_name, location_data in LOCATIONS_DATA.items():
         if 'collect' not in location_data or 'room' not in location_data or location_data['collect'] != COLLECT_CHEST:
             continue
-        print(location_data['region_id'])
-        chest_addr = rom.get_chest_addr(location_data['room'])
+        if location_name == "Nuun Highlands Cave":
+            chest_addr = rom.get_chest_addr(location_data['room'][patch_data["options"]["animal_companion"]])
+        else:
+            chest_addr = rom.get_chest_addr(location_data['room'])
         item_name = patch_data["locations"][location_name]
         item_id, item_subid = get_item_id_and_subid(item_name)
         rom.write_byte(chest_addr, item_id)
@@ -112,6 +114,7 @@ def define_collect_properties_table(assembler: Z80Assembler, patch_data):
         for room in rooms:
             room_id = room & 0xff
             group_id = room >> 8
+            print(f"{location_name} - {room} => {mode}")
             table.extend([group_id, room_id, mode])
 
     table.append(0xff)

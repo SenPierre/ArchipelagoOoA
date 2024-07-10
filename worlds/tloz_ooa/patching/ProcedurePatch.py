@@ -54,7 +54,6 @@ class OoAPatchExtensions(APPatchExtension):
         # Parse assembler files, compile them and write the result in the ROM
         print(f"Compiling ASM files...")
         for file_path in get_asm_files(patch_data):
-            print(file_path + "...")
             data_loaded = yaml.safe_load(pkgutil.get_data(__name__, file_path))
             for metalabel, contents in data_loaded.items():
                 assembler.add_block(Z80Block(metalabel, contents))
@@ -65,7 +64,7 @@ class OoAPatchExtensions(APPatchExtension):
         # Perform direct edits on the ROM
         # TODO
         #alter_treasures(rom_data)
-        #write_chest_contents(rom_data, patch_data)
+        write_chest_contents(rom_data, patch_data)
         #set_old_men_rupee_values(rom_data, patch_data)
         #set_dungeon_warps(rom_data, patch_data)
         #set_portal_warps(rom_data, patch_data)
@@ -101,7 +100,6 @@ class OoAProcedurePatch(APProcedurePatch, APTokenMixin):
 
             basemd5 = hashlib.md5()
             basemd5.update(base_rom_bytes)
-            print(basemd5.hexdigest())
             if ROM_HASH != basemd5.hexdigest():
                 raise Exception("Supplied ROM does not match known MD5 for Oracle of Seasons US version."
                                 "Get the correct game and version, then dump it.")
