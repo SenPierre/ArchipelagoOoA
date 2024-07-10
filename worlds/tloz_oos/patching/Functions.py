@@ -213,7 +213,7 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
     assembler.define_byte("option.deterministicGashaLootCount", options["deterministic_gasha_locations"])
 
     reveal_ore = options["shuffle_golden_ore_spots"] == OracleOfSeasonsGoldenOreSpotsShuffle.option_shuffled_visible
-    assembler.define_byte("option.revealGoldenOreTiles", 1 if reveal_ore else 0)
+    assembler.define_byte("option.revealGoldenOreTiles", 1 if reveal_ore else 0xfe)
 
     fools_ore_damage = 3 if options["fools_ore"] == OracleOfSeasonsFoolsOre.option_balanced else 12
     assembler.define_byte("option.foolsOreDamage", (-1 * fools_ore_damage + 0x100))
