@@ -467,10 +467,10 @@ class OracleOfSeasonsWorld(World):
         # Perform adjustments on the item pool
         item_pool_adjustements = [
             ["Flute", self.options.animal_companion.current_key.title() + "'s Flute"],  # Put a specific flute
-            ["Ricky's Gloves", "Progressive Sword"],    # Ricky's gloves are useless in current logic
-            ["Treasure Map", "Ore Chunks (50)"],        # Treasure Map would be non-functional in most cases, just remove it
-            ["Gasha Seed", "Seed Satchel"],             # Add a 3rd satchel that is usually obtained in linked games (99 seeds)
-            ["Gasha Seed", "Rupees (200)"],             # Too many Gasha Seeds in vanilla pool, add more rupees and ore instead
+            ["Ricky's Gloves", "Progressive Sword"],  # Ricky's gloves are useless in current logic
+            ["Treasure Map", "Ore Chunks (50)"],  # Treasure Map would be non-functional in most cases, just remove it
+            ["Gasha Seed", "Seed Satchel"],  # Add a 3rd satchel that is usually obtained in linked games (99 seeds)
+            ["Gasha Seed", "Rupees (200)"],  # Too many Gasha Seeds in vanilla pool, add more rupees and ore instead
         ]
         for _ in range(4):
             # Replace a few Gasha Seeds by random filler items
@@ -487,14 +487,19 @@ class OracleOfSeasonsWorld(World):
             item_pool_dict[original_name] -= 1
             item_pool_dict[replacement_name] = item_pool_dict.get(replacement_name, 0) + 1
 
+        if "Random Ring" in item_pool_dict:
+            quantity = item_pool_dict["Random Ring"]
+            for _ in range(quantity):
+                ring_name = self.get_random_ring_name()
+                item_pool_dict[ring_name] = item_pool_dict.get(ring_name, 0) + 1
+            del item_pool_dict["Random Ring"]
+
         return item_pool_dict
 
     def create_items(self):
         item_pool_dict = self.build_item_pool_dict()
         for item_name, quantity in item_pool_dict.items():
             for _ in range(quantity):
-                if item_name == "Random Ring":
-                    item_name = self.get_random_ring_name()
                 self.multiworld.itempool.append(self.create_item(item_name))
 
     def get_pre_fill_items(self):
