@@ -42,6 +42,69 @@
     db $02,$07,$15,$67
 15/522a/: dw essencesTreasureData
 
+# Add dungeon items variants to support keysanity
+15//smallKeyObjectsTable: |
+    db $00,$00,$8f,option.smallKeySprite    ; D0 (Hero's Cave)
+    db $00,$01,$90,option.smallKeySprite    ; D1
+    db $00,$02,$91,option.smallKeySprite    ; D2
+    db $00,$03,$92,option.smallKeySprite    ; D3
+    db $00,$04,$93,option.smallKeySprite    ; D4
+    db $00,$05,$94,option.smallKeySprite    ; D5
+    db $00,$06,$95,option.smallKeySprite    ; D6
+    db $00,$07,$96,option.smallKeySprite    ; D7
+    db $00,$08,$97,option.smallKeySprite    ; D8
+15/51ea/: dw smallKeyObjectsTable
+
+15//bossKeyObjectsTable: |
+    db $00,$01,$98,$43    ; D1
+    db $00,$02,$99,$43    ; D2
+    db $00,$03,$9a,$43    ; D3
+    db $00,$04,$9b,$43    ; D4
+    db $00,$05,$9c,$43    ; D5
+    db $00,$06,$9d,$43    ; D6
+    db $00,$07,$9e,$43    ; D7
+    db $00,$08,$9f,$43    ; D8
+15/51ee/: dw bossKeyObjectsTable
+
+15//dungeonMapObjectsTable: |
+    db $00,$00,$18,$40    ; D0 (Hero's Cave)
+    db $00,$01,$a0,$40    ; D1
+    db $00,$02,$a1,$40    ; D2
+    db $00,$03,$a2,$40    ; D3
+    db $00,$04,$a3,$40    ; D4
+    db $00,$05,$a4,$40    ; D5
+    db $00,$06,$a5,$40    ; D6
+    db $00,$07,$a6,$40    ; D7
+    db $00,$08,$a7,$40    ; D8
+15/51f6/: dw dungeonMapObjectsTable
+
+15//compassObjectsTable: |
+    db $00,$00,$19,$41    ; D0 (Hero's Cave)
+    db $00,$01,$a8,$41    ; D1
+    db $00,$02,$a9,$41    ; D2
+    db $00,$03,$aa,$41    ; D3
+    db $00,$04,$ab,$41    ; D4
+    db $00,$05,$ac,$41    ; D5
+    db $00,$06,$ad,$41    ; D6
+    db $00,$07,$ae,$41    ; D7
+    db $00,$08,$af,$41    ; D8
+15/51f2/: dw compassObjectsTable
+
+# Change @mode6 (compasses, maps & boss keys) to make it set the bit related
+# to their subid instead of the dungeon we're currently in
+3f/4584/: |
+    nop
+    nop
+    nop
+    nop
+
+# Change @mode7 (small keys) to make it increment the counter related to their
+# subid instead of the dungeon we're currently in
+3f/459d/: |
+    ld a,c
+    nop
+    nop
+
 ############################################################
 #   INVENTORY DISPLAY DATA
 ############################################################

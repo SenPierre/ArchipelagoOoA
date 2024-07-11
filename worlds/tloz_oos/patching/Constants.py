@@ -339,7 +339,6 @@ ASM_FILES = [
     "asm/gfx.yaml",
     "asm/impa_refill.yaml",
     "asm/item_events.yaml",
-    "asm/keysanity.yaml",
     "asm/layouts.yaml",
     "asm/locations.yaml",
     "asm/map_menu.yaml",

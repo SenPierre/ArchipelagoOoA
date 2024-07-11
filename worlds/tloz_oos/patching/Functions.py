@@ -221,6 +221,9 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
     keysanity = patch_data["options"]["keysanity_small_keys"] or patch_data["options"]["keysanity_boss_keys"]
     assembler.define_byte("option.customCompassChimes", 1 if keysanity else 0)
 
+    master_keys_as_boss_keys = patch_data["options"]["master_keys"] == OracleOfSeasonsMasterKeys.option_all_dungeon_keys
+    assembler.define_byte("option.smallKeySprite", 0x43 if master_keys_as_boss_keys else 0x42)
+
 
 def define_season_constants(assembler: Z80Assembler, patch_data):
     for region_name, season_name in patch_data["default_seasons"].items():
@@ -601,3 +604,64 @@ def set_portal_warps(rom: RomData, patch_data):
         portal_text_addr = 0xab19 if portal_2["in_subrosia"] else 0xaa19
         portal_text_addr += portal_2["map_tile"]
         rom.write_byte(portal_text_addr, 0x80 | (portal_1["text_index"] << 3))
+
+
+def define_dungeon_items_text_constants(assembler: Z80Assembler, patch_data):
+    for i in range(9):
+        if i == 0:
+            # "\nfor Hero's Cave"
+            dungeon_precision = [0x01, 0x04, 0x91, 0x03, 0x78]
+        else:
+            # "\nfor Dungeon X"
+            dungeon_precision = [0x01, 0x04, 0x91, 0x44, 0x05, 0x8a, 0x20, (0x30 + i)]
+
+        # ###### Small keys ##############################################
+        # "You found a\n"
+        small_key_text = [0x05, 0x9d, 0x02, 0x78, 0x61, 0x01]
+        if patch_data["options"]["master_keys"]:
+            # "Master Key"
+            small_key_text.extend([0x09, 0x01, 0x02, 0xe5, 0x20, 0x4b, 0x65, 0x79, 0x09, 0x00])
+        else:
+            # "Small Key"
+            small_key_text.extend([0x09, 0x01, 0x53, 0x6d, 0x04, 0x07, 0x4b, 0x65, 0x79, 0x09, 0x00])
+        if patch_data["options"]["keysanity_small_keys"]:
+            small_key_text.extend(dungeon_precision)
+        small_key_text.extend([0x21, 0x00])  # "!(end)"
+        assembler.add_floating_chunk(f"text.smallKeyD{i}", small_key_text)
+
+        # Hero's Cave only has Small Keys, so skip other texts
+        if i == 0:
+            continue
+
+        # ###### Boss keys ##############################################
+        # "You found the\nBoss Key"
+        boss_key_text = [
+            0x05, 0x9d, 0x02, 0x78, 0x04, 0xa7,
+            0x09, 0x01, 0x42, 0x6f, 0x73, 0x73, 0x20, 0x4b, 0x65, 0x79, 0x09, 0x00
+        ]
+        if patch_data["options"]["keysanity_boss_keys"]:
+            boss_key_text.extend(dungeon_precision)
+        boss_key_text.extend([0x21, 0x00])  # "!(end)"
+        assembler.add_floating_chunk(f"text.bossKeyD{i}", boss_key_text)
+
+        # ###### Dungeon maps ##############################################
+        # "You found the\nDungeon Map"
+        dungeon_map_text = [
+            0x05, 0x9d, 0x02, 0x78, 0x04, 0xa7,
+            0x09, 0x01, 0x44, 0x05, 0x8a, 0x20, 0x4d, 0x61, 0x70, 0x09, 0x00
+        ]
+        if patch_data["options"]["keysanity_maps_compasses"]:
+            dungeon_map_text.extend(dungeon_precision)
+        dungeon_map_text.extend([0x21, 0x00])  # "!(end)"
+        assembler.add_floating_chunk(f"text.dungeonMapD{i}", dungeon_map_text)
+
+        # ###### Compasses ##############################################
+        # "You found the\nCompass"
+        compasses_text = [
+            0x05, 0x9d, 0x02, 0x78, 0x04, 0xa7,
+            0x09, 0x01, 0x43, 0x6f, 0x6d, 0x05, 0x11, 0x09, 0x00
+        ]
+        if patch_data["options"]["keysanity_maps_compasses"]:
+            compasses_text.extend(dungeon_precision)
+        compasses_text.extend([0x21, 0x00])  # "!(end)"
+        assembler.add_floating_chunk(f"text.compassD{i}", compasses_text)
