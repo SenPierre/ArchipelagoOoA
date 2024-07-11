@@ -131,7 +131,7 @@
     dec hl
     ld a,(hl)     ; treasure ID -> a
     ld hl,hardcodedPositions
-    ld e,$01
+    ld e,$02
     call searchKey
     jr nc,@regularItem  ; match was found, return hardcoded position
     
