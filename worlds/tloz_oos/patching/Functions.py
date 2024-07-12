@@ -161,6 +161,15 @@ def define_collect_properties_table(assembler: Z80Assembler, patch_data):
 
 
 def define_location_constants(assembler: Z80Assembler, patch_data):
+    # If "Enforce potion in shop" is enabled, put a Potion in a specific location in Horon Shop that was
+    # disabled at generation time to prevent trackers from tracking it
+    if patch_data["options"]["enforce_potion_in_shop"]:
+        patch_data["locations"]["Horon Village: Shop #3"] = "Potion"
+
+    # Define shop prices as constants
+    for symbolic_name, price in patch_data["shop_prices"].items():
+        assembler.define_byte(f"shopPrices.{symbolic_name}", RUPEE_VALUES[price])
+
     for location_name, location_data in LOCATIONS_DATA.items():
         if "symbolic_name" not in location_data:
             continue
@@ -299,7 +308,7 @@ def set_treasure_data(rom: RomData,
         rom.write_byte(addr + 0x01, param_value)
 
 
-def alter_treasures(rom: RomData):
+def alter_treasure_types(rom: RomData):
     # Some treasures don't exist as interactions in base game, we need to add
     # text & sprite references for them to work properly in a randomized context
     set_treasure_data(rom, "Fool's Ore", 0x36, 0x4a)

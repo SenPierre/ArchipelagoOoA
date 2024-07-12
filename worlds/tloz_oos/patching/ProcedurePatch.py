@@ -27,24 +27,13 @@ class OoSPatchExtensions(APPatchExtension):
             raise Exception(f"Invalid version: this seed was generated on v{patch_data['version']}, "
                             f"you are currently using v{VERSION}")
 
-        if patch_data["options"]["enforce_potion_in_shop"]:
-            patch_data["locations"]["Horon Village: Shop #3"] = "Potion"
+        assembler = Z80Assembler(EOB_ADDR, DEFINES)
 
-        assembler = Z80Assembler()
-
-        # Define static values & data blocks
-        for i, offset in enumerate(EOB_ADDR):
-            assembler.end_of_banks[i] = offset
-        for key, value in DEFINES.items():
-            assembler.define(key, value)
-        for symbolic_name, price in patch_data["shop_prices"].items():
-            assembler.define_byte(f"shopPrices.{symbolic_name}", RUPEE_VALUES[price])
+        # Define assembly constants & floating chunks
         define_location_constants(assembler, patch_data)
         define_option_constants(assembler, patch_data)
         define_season_constants(assembler, patch_data)
         define_text_constants(assembler, patch_data)
-
-        # Define dynamic data blocks
         define_compass_rooms_table(assembler, patch_data)
         define_collect_properties_table(assembler, patch_data)
         define_samasa_combination(assembler, patch_data)
@@ -63,7 +52,7 @@ class OoSPatchExtensions(APPatchExtension):
             rom_data.write_bytes(block.addr.address_in_rom(), block.byte_array)
 
         # Perform direct edits on the ROM
-        alter_treasures(rom_data)
+        alter_treasure_types(rom_data)
         write_chest_contents(rom_data, patch_data)
         set_old_men_rupee_values(rom_data, patch_data)
         set_dungeon_warps(rom_data, patch_data)
@@ -71,6 +60,7 @@ class OoSPatchExtensions(APPatchExtension):
         apply_miscellaneous_options(rom_data, patch_data)
         set_fixed_subrosia_seaside_location(rom_data, patch_data)
 
+        # Apply cosmetic settings
         set_heart_beep_interval_from_settings(rom_data)
         set_character_sprite_from_settings(rom_data)
         inject_slot_name(rom_data, caller.player_name)

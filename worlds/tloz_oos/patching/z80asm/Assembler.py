@@ -55,13 +55,16 @@ class Z80Block:
 
 
 class Z80Assembler:
-    def __init__(self):
+    def __init__(self, end_of_banks: List[int], defines: Dict[str, str]):
         self.defines = {}
+        for key, value in defines.items():
+            self.define(key, value)
+
+        self.end_of_banks = copy(end_of_banks)
+
         self.floating_chunks = {}
         self.global_labels = {}
         self.blocks = []
-        self.end_of_banks = [0x4000]
-        self.end_of_banks.extend([0x8000] * 0x3f)
 
     def define(self, key: str, replacement_string: str):
         if key in self.defines:
