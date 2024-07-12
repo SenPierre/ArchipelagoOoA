@@ -218,6 +218,7 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
     fools_ore_damage = 3 if options["fools_ore"] == OracleOfSeasonsFoolsOre.option_balanced else 12
     assembler.define_byte("option.foolsOreDamage", (-1 * fools_ore_damage + 0x100))
 
+    assembler.define_byte("option.keysanity_small_keys", patch_data["options"]["keysanity_small_keys"])
     keysanity = patch_data["options"]["keysanity_small_keys"] or patch_data["options"]["keysanity_boss_keys"]
     assembler.define_byte("option.customCompassChimes", 1 if keysanity else 0)
 
