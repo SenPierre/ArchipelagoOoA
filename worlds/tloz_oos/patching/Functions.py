@@ -621,24 +621,24 @@ def set_portal_warps(rom: RomData, patch_data):
 def define_dungeon_items_text_constants(assembler: Z80Assembler, patch_data):
     for i in range(9):
         if i == 0:
-            # "\nfor Hero's Cave"
-            dungeon_precision = [0x01, 0x04, 0x91, 0x03, 0x78]
+            # " for\nHero's Cave"
+            dungeon_precision = [0x02, 0xe2, 0x03, 0x78]
         else:
-            # "\nfor Dungeon X"
-            dungeon_precision = [0x01, 0x04, 0x91, 0x44, 0x05, 0x8a, 0x20, (0x30 + i)]
+            # " for\nDungeon X"
+            dungeon_precision = [0x02, 0xe2, 0x44, 0x05, 0x8a, 0x20, (0x30 + i)]
 
         # ###### Small keys ##############################################
-        # "You found a\n"
-        small_key_text = [0x05, 0x9d, 0x02, 0x78, 0x61, 0x01]
+        # "You found a\n\color(RED)"
+        small_key_text = [0x05, 0x9d, 0x02, 0x78, 0x61, 0x01, 0x09, 0x01]
         if patch_data["options"]["master_keys"]:
             # "Master Key"
-            small_key_text.extend([0x09, 0x01, 0x02, 0xe5, 0x20, 0x4b, 0x65, 0x79, 0x09, 0x00])
+            small_key_text.extend([0x02, 0xe5, 0x20, 0x4b, 0x65, 0x79])
         else:
             # "Small Key"
-            small_key_text.extend([0x09, 0x01, 0x53, 0x6d, 0x04, 0x07, 0x4b, 0x65, 0x79, 0x09, 0x00])
+            small_key_text.extend([0x53, 0x6d, 0x04, 0x07, 0x4b, 0x65, 0x79])
         if patch_data["options"]["keysanity_small_keys"]:
             small_key_text.extend(dungeon_precision)
-        small_key_text.extend([0x21, 0x00])  # "!(end)"
+        small_key_text.extend([0x05, 0xd8, 0x00])  # "\color(WHITE)!(end)"
         assembler.add_floating_chunk(f"text.smallKeyD{i}", small_key_text)
 
         # Hero's Cave only has Small Keys, so skip other texts
@@ -646,34 +646,34 @@ def define_dungeon_items_text_constants(assembler: Z80Assembler, patch_data):
             continue
 
         # ###### Boss keys ##############################################
-        # "You found the\nBoss Key"
+        # "You found the\n\color(RED)Boss Key"
         boss_key_text = [
             0x05, 0x9d, 0x02, 0x78, 0x04, 0xa7,
-            0x09, 0x01, 0x42, 0x6f, 0x73, 0x73, 0x20, 0x4b, 0x65, 0x79, 0x09, 0x00
+            0x09, 0x01, 0x42, 0x6f, 0x73, 0x73, 0x20, 0x4b, 0x65, 0x79
         ]
         if patch_data["options"]["keysanity_boss_keys"]:
             boss_key_text.extend(dungeon_precision)
-        boss_key_text.extend([0x21, 0x00])  # "!(end)"
+        boss_key_text.extend([0x05, 0xd8, 0x00])  # "\color(WHITE)!(end)"
         assembler.add_floating_chunk(f"text.bossKeyD{i}", boss_key_text)
 
         # ###### Dungeon maps ##############################################
-        # "You found the\nDungeon Map"
-        dungeon_map_text = [
-            0x05, 0x9d, 0x02, 0x78, 0x04, 0xa7,
-            0x09, 0x01, 0x44, 0x05, 0x8a, 0x20, 0x4d, 0x61, 0x70, 0x09, 0x00
-        ]
+        # "You found the\n\color(RED)"
+        dungeon_map_text = [0x05, 0x9d, 0x02, 0x78, 0x04, 0xa7, 0x09, 0x01]
         if patch_data["options"]["keysanity_maps_compasses"]:
+            dungeon_map_text.extend([0x4d, 0x61, 0x70])  # "Map"
             dungeon_map_text.extend(dungeon_precision)
-        dungeon_map_text.extend([0x21, 0x00])  # "!(end)"
+        else:
+            dungeon_map_text.extend([0x44, 0x05, 0x8a, 0x20, 0x4d, 0x61, 0x70])  # "Dungeon Map"
+        dungeon_map_text.extend([0x05, 0xd8, 0x00])  # "\color(WHITE)!(end)"
         assembler.add_floating_chunk(f"text.dungeonMapD{i}", dungeon_map_text)
 
         # ###### Compasses ##############################################
-        # "You found the\nCompass"
+        # "You found the\n\color(RED)Compass"
         compasses_text = [
             0x05, 0x9d, 0x02, 0x78, 0x04, 0xa7,
-            0x09, 0x01, 0x43, 0x6f, 0x6d, 0x05, 0x11, 0x09, 0x00
+            0x09, 0x01, 0x43, 0x6f, 0x6d, 0x05, 0x11
         ]
         if patch_data["options"]["keysanity_maps_compasses"]:
             compasses_text.extend(dungeon_precision)
-        compasses_text.extend([0x21, 0x00])  # "!(end)"
+        compasses_text.extend([0x05, 0xd8, 0x00])  # "\color(WHITE)!(end)"
         assembler.add_floating_chunk(f"text.compassD{i}", compasses_text)
