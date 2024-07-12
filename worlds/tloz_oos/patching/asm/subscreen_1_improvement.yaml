@@ -3,7 +3,7 @@
 
 # Overwrite subscreen1TreasureData into a plain list of items that are allowed to be displayed
 # inside subscreen 1.
-02/5d70/subscreen1TreasureDataNew: |
+02/1d70/subscreen1TreasureDataNew: |
     db TREASURE_ROUND_JEWEL
     db TREASURE_PYRAMID_JEWEL
     db TREASURE_SQUARE_JEWEL
@@ -69,7 +69,7 @@
     xor a
     ld (wSubscreen1CurrentSlotIndex),a
     ret
-02/5b2b/: call inventorySubscreen1_drawTreasures_setup
+02/1b2b/: call inventorySubscreen1_drawTreasures_setup
 
 # Instead of reading position where to draw sprites from the input table, we are sequentially
 # drawing sprites in empty slot from left to right, top to bottom.
@@ -115,7 +115,7 @@
     pop de
     jp $5b58    ; undrawRingBox
 # Replace "ldh (<hFF8B),a" by the call to our function
-02/5b39/: call inventorySubscreen1_drawTreasures_computeAddr
+02/1b39/: call inventorySubscreen1_drawTreasures_computeAddr
 
 # This extension procedure is only there to put the current slot ID in register A (two first instructions are from the base function)
 02//inventorySubscreen1_drawTreasures_setCurrentSlotForText: |
@@ -146,12 +146,12 @@
     dec a
     pop hl
     ret
-02/5b49/: call inventorySubscreen1_drawTreasures_setCurrentSlotForText
+02/1b49/: call inventorySubscreen1_drawTreasures_setCurrentSlotForText
 
 # Remove the two "inc" instructions at the end of the function
-02/5b54/: |
+02/1b54/: |
     nop
     nop
 
 # Remove Maku Seed from the subscreen
-02/5d26/: ret
+02/1d26/: ret

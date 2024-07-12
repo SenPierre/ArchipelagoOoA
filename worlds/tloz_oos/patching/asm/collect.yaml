@@ -80,7 +80,7 @@
     ld e,$75            ; var35, containing text id
     ld a,(de)
     ret
-09/42ef/: call bypassKeydropsTextbox
+09/02ef/: call bypassKeydropsTextbox
 
 # collect modes starting at 80 index this jump table to determine the actual
 # mode.

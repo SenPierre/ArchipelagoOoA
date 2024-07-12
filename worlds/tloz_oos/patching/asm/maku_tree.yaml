@@ -1,5 +1,5 @@
 09//makuTreeRooms: db $0b,$0c,$7b,$2b,$2c,$2d,$5b,$5c,$5d,$5e,$ff
-09/7dc0/checkMakuItemObtained: |
+09/3dc0/checkMakuItemObtained: |
     push de
     push hl
     ld de,makuTreeRooms
@@ -8,7 +8,7 @@
     pop hl
     pop de
     ret
-09/7dfc/: |
+09/3dfc/: |
     nop
     nop
     call checkMakuItemObtained
@@ -21,7 +21,7 @@
 # - Item obtained, enough essences collected (give Maku Seed)
 # - Maku Seed obtained
 # - Game completed
-09/7d8b/: |
+09/3d8b/: |
     call checkMakuItemObtained
     jr nz,@gnarledObtained
     xor a
@@ -56,7 +56,7 @@
     ret
 
 # Change the sign text to tell how many essences are required to get the Maku seed
-1f/502a/makuSignText: |
+1f/102a/makuSignText: |
     db $05,$b0,$20
     db $30 + option.requiredEssences
     db $20,$02,$35,$01,$05,$79,$05,$0f,$03,$94,$05,$59,$21
@@ -70,5 +70,5 @@
     ; Otherwise, use essence count as room offset
     jp c,getEssenceCount
     ret
-04/45e8/: call determineMakuTreeRoomOffset
+04/05e8/: call determineMakuTreeRoomOffset
 

@@ -25,7 +25,7 @@ def get_item_id_and_subid(item: Dict):
     return item_id, item_subid
 
 
-def hex_str(value, size=1):
+def hex_str(value, size=1, min_length=0):
     if value < 0:
         if size == 1:
             value += 0x100
@@ -33,4 +33,6 @@ def hex_str(value, size=1):
             value += 0x10000
         else:
             raise Exception("Invalid size (should be 1 or 2)")
-    return hex(value)[2:]
+    if min_length == 0:
+        min_length = size * 2
+    return hex(value)[2:].rjust(min_length, "0")

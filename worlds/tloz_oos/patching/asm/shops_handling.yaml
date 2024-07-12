@@ -1,5 +1,5 @@
 # Change shopItemReplacementTable so that each item can only be bought once
-08/4cf6/shopItemReplacementTable: |
+08/0cf6/shopItemReplacementTable: |
     db $3f,$01,$ff,$00   ; Member shop 1
     db $40,$80,$ff,$00   ; Horon shop 3
     db $3f,$02,$ff,$00   ; Member shop 2
@@ -22,32 +22,32 @@
     db $00,$00,$00,$00
 
 # Remove the bits that are altered on-the-fly inside wBoughtShopItems2 when inside a shop
-08/4af1/: |
+08/0af1/: |
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 
 # remove generic text from shopItemTextTable so that replacement text can be displayed.
-08/4d46/: db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+08/0d46/: db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 
 # Remove all "you are already full" checks for shop slots that usually carry hearts, bombs or a shield
-08/4a66/: |
+08/0a66/: |
     ld a,$01
     or a
     ret nz
 
 # Neutralize all vanilla "wBoughtItems1" flag set
-0b/47e7/: db $00
-0b/4803/: db $00
-0b/480d/: db $00
-0b/4819/: db $00
-0b/4857/: db $00
-0b/48c1/: db $00
+0b/07e7/: db $00
+0b/0803/: db $00
+0b/080d/: db $00
+0b/0819/: db $00
+0b/0857/: db $00
+0b/08c1/: db $00
 # Neutralize all vanilla "wBoughtItems2" flag set
-0b/482d/: db $00
-0b/4837/: db $00
-0b/4841/: db $00
+0b/082d/: db $00
+0b/0837/: db $00
+0b/0841/: db $00
 
 # Call giveTreasureCustom instead of giveTreasure for shop slots, and also
 # set the flag related to that shop item so it can't be bought again
@@ -80,7 +80,7 @@
     call saveFile
     pop de
     ret
-08/4bfb/: call shopGiveTreasure
+08/0bfb/: call shopGiveTreasure
 
 
 ### HORON SHOP #####################################################################
@@ -89,24 +89,24 @@
 # stop the flute appearing because of animal flags.
 
 # sword check
-08/48d7/: |
+08/08d7/: |
     nop
     nop
 # sword check
-08/4adf/: |
+08/0adf/: |
     nop
     nop
     nop
 
 # Don't set a ricky flag when buying 150-rupee shop item.
 # This has become useless since we randomize the cheap item instead of the special Flute replacement
-# 0b/4823/: db ormemory; dw wRickyState; db 00
+# 0b/0823/: db ormemory; dw wRickyState; db 00
 
 
 ### MEMBER'S SHOP ##################################################################
 
 # don't refill seeds when getting the first member's shop item.
-08/4c02/: |
+08/0c02/: |
     nop
     nop
     nop
@@ -116,20 +116,20 @@
 
 # If "open_advance_shop" setting is set, make advance shop always open.
 # Otherwise, make it always closed, even on GBA
-04/6195/advanceShopDoor: |
+04/2195/advanceShopDoor: |
     ld a,option.openAdvanceShop
     or a
     ret z
 
 # Change the initial text the game uses for Advance Shop 1 because... it uses a generic one
 # instead of the specific one that exists for it inside textbanks?!
-0b/4829/: db $22
+0b/0829/: db $22
 
 
 ### SYRUP'S SHOP ###################################################################
 
 # Remove Syrup quantity checks, and set price textbox substitution instead to allow for variable prices
-08/6d82/: |
+08/2d82/: |
     ld hl,wTextNumberSubstitution
     ld (hl),c
     inc l
@@ -174,7 +174,7 @@
     pop de
 
     ret
-09/788a/: |
+09/388a/: |
     call marketGiveTreasure
     jr $12
 
@@ -193,49 +193,49 @@
     ldi a,(hl)
     ld c,(hl)
     ret
-09/7887/: call tradeStarOre
+09/3887/: call tradeStarOre
 
 # Remove conditions on market slots (remove 2nd if owning shield, and remove Member's Card if under a
 # specific essence requirement)
-09/7744/: |
+09/3744/: |
     jr $2a
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 # In Subrosian Market, remove item if it was already bought instead of putting the next one in the list
-09/776d/: jp nz,interactionDelete
-09/777a/: jr nz,$f1
+09/376d/: jp nz,interactionDelete
+09/377a/: jr nz,$f1
 
 # Change the tested flags that make the items disappear
-09/77c6/: db $04 # Item 3
-09/77ce/: db $08 # Item 4
-09/77d2/: db $10 # Item 5
+09/37c6/: db $04 # Item 3
+09/37ce/: db $08 # Item 4
+09/37d2/: db $10 # Item 5
 
 # Remove ember seeds from prices
-09/77af/: db $00,$00 # Item 2
-09/77c7/: db $00,$00 # Item 3
+09/37af/: db $00,$00 # Item 2
+09/37c7/: db $00,$00 # Item 3
 
 
 ### PRICES #######################################################################
 
-08/4c97/: db shopPrices.horonShop1
-08/4c96/: db shopPrices.horonShop2
-08/4c94/: db shopPrices.horonShop3
+08/0c97/: db shopPrices.horonShop1
+08/0c96/: db shopPrices.horonShop2
+08/0c94/: db shopPrices.horonShop3
 
-08/4c93/: db shopPrices.memberShop1
-08/4c95/: db shopPrices.memberShop2
-08/4c98/: db shopPrices.memberShop3
+08/0c93/: db shopPrices.memberShop1
+08/0c95/: db shopPrices.memberShop2
+08/0c98/: db shopPrices.memberShop3
 
-08/4c9c/: db shopPrices.syrupShop1
-08/4c9d/: db shopPrices.syrupShop2
-08/4c9e/: db shopPrices.syrupShop3
+08/0c9c/: db shopPrices.syrupShop1
+08/0c9d/: db shopPrices.syrupShop2
+08/0c9e/: db shopPrices.syrupShop3
 
-08/4ca1/: db shopPrices.advanceShop1
-08/4ca2/: db shopPrices.advanceShop2
-08/4ca3/: db shopPrices.advanceShop3
+08/0ca1/: db shopPrices.advanceShop1
+08/0ca2/: db shopPrices.advanceShop2
+08/0ca3/: db shopPrices.advanceShop3
 
-09/77b1/: db shopPrices.subrosianMarket2
-09/77c9/: db shopPrices.subrosianMarket3
-09/77d1/: db shopPrices.subrosianMarket4
-09/77d5/: db shopPrices.subrosianMarket5
+09/37b1/: db shopPrices.subrosianMarket2
+09/37c9/: db shopPrices.subrosianMarket3
+09/37d1/: db shopPrices.subrosianMarket4
+09/37d5/: db shopPrices.subrosianMarket5
   

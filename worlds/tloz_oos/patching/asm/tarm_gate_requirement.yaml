@@ -5,7 +5,7 @@
   jp getNumSetBits
 # ...then call it before comparing with the required amount to open the
 # gates
-0a/5092/: |
+0a/1092/: |
   call getInsertedJewelsCount
   cp option.tarmGateRequiredJewels
 
@@ -14,7 +14,7 @@
 # items for the    #
 # door to open.    #
 ####################
-1f/5169/tarmRequirementText: |
+1f/1169/tarmRequirementText: |
   db $42,$03,$3e                              ; "Bring "
   db $09,$01                                  ; color start
   db $30 + option.tarmGateRequiredJewels      ; required jewel count digit

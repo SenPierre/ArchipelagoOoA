@@ -2,17 +2,17 @@
 # Northern Peak doesn't matter (it might become spring after you beat the game).
 # Note that these names don't correspond 1:1 with the names used on the overworld map,
 # which aren't delineated based on season boundaries.
-01/7e50/: db defaultSeason.HORON_VILLAGE
-01/7e60/: db defaultSeason.EYEGLASS_LAKE    # eyeglass lake / d1 sector
-01/7e61/: db defaultSeason.EASTERN_SUBURBS
-01/7e62/: db defaultSeason.WOODS_OF_WINTER  # from d2 to holly's house
-01/7e63/: db defaultSeason.SPOOL_SWAMP
-01/7e64/: db defaultSeason.HOLODRUM_PLAIN   # from blaino to mrs. ruul
-01/7e65/: db defaultSeason.SUNKEN_CITY      # also mt. cucco
-01/7e67/: db defaultSeason.LOST_WOODS       # from jewel gate to lost woods
-01/7e68/: db defaultSeason.TARM_RUINS       # d6 sector
-01/7e6b/: db defaultSeason.WESTERN_COAST
-01/7e6c/: db defaultSeason.TEMPLE_REMAINS
+01/3e50/: db defaultSeason.HORON_VILLAGE
+01/3e60/: db defaultSeason.EYEGLASS_LAKE    # eyeglass lake / d1 sector
+01/3e61/: db defaultSeason.EASTERN_SUBURBS
+01/3e62/: db defaultSeason.WOODS_OF_WINTER  # from d2 to holly's house
+01/3e63/: db defaultSeason.SPOOL_SWAMP
+01/3e64/: db defaultSeason.HOLODRUM_PLAIN   # from blaino to mrs. ruul
+01/3e65/: db defaultSeason.SUNKEN_CITY      # also mt. cucco
+01/3e67/: db defaultSeason.LOST_WOODS       # from jewel gate to lost woods
+01/3e68/: db defaultSeason.TARM_RUINS       # d6 sector
+01/3e6b/: db defaultSeason.WESTERN_COAST
+01/3e6c/: db defaultSeason.TEMPLE_REMAINS
 
 # [Warp Group, Warp Dest, Arrival Position, Season to apply]
 # An arrival pos of "00" means it isn't checked
@@ -59,10 +59,10 @@
     pop hl
     pop bc
     jp loadScreenMusicAndSetRoomPack
-04/465f/: jp checkSpecificWarps
+04/065f/: jp checkSpecificWarps
 
 # Change setHoronVillageSeason to remove the random component if fixedHoronSeason != 0xff
-01/7e2c/: |
+01/3e2c/: |
     ld a,defaultSeason.HORON_VILLAGE
     cp $ff
     nop
@@ -70,7 +70,7 @@
 
 # Rewrite checkRoomPackAfterWarp_body to process "chaotic" state which is
 # now represented by 0xFF value.
-01/7e6e/: |
+01/3e6e/: |
     ld a,(wActiveRoomPack)
     cp $f0
     jp nc,$7e09  ; determineCompanionRegionSeason
@@ -146,4 +146,4 @@
     ld a,b
     ret
 # Inject this in place of "ld a,(wRoomStateModifier)" inside interactionCode15 (INTERACID_USED_ROD_OF_SEASONS)
-08/514f/: call smartSeasonSwitch
+08/114f/: call smartSeasonSwitch

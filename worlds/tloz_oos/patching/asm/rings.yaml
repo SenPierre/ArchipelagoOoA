@@ -52,15 +52,15 @@
 # ring into the dev ring. don't do that.
 00/2376/: ld (hl),$ff
 
-02/5035/: call ringListGfxFix
-02/56a1/: call openRingList
-02/6f4a/: call autoEquipRing
-3f/461a/: |
+02/1035/: call ringListGfxFix
+02/16a1/: call openRingList
+02/2f4a/: call autoEquipRing
+3f/061a/: |
     nop
     jp autoAppraiseRing
 
 # use expert's or fist ring with only one button unequipped.
-06/490e/: nop
+06/090e/: nop
 
 # remove regular text box when getting a ring from a gasha nut so that the
 # auto-appraisal text can display instead.
@@ -70,13 +70,13 @@
     jp nz,showText
     pop hl
     ret
-0a/4863/: jp removeGashaNutRingText
+0a/0863/: jp removeGashaNutRingText
 
 # skip forced ring appraisal and ring list with vasu (prevents softlock).
-0b/4a2b/: dw $394a
+0b/0a2b/: dw $394a
 
 # replace ring appraisal text with "you got the {ring}".
-1f/5d99/: db $02,$03,$0f,$fd,$21,$00
+1f/1d99/: db $02,$03,$0f,$fd,$21,$00
 
 # inject a new ring object data providing one subid per ring type to TREASURE_RING
 15//ringsObjectData: |
@@ -148,4 +148,4 @@
     db $38,$3d,$ff,$0e
     db $38,$3e,$ff,$0e
     db $38,$3f,$ff,$0e
-15/51de/: dw ringsObjectData
+15/11de/: dw ringsObjectData

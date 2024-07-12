@@ -44,4 +44,4 @@
 # Replace the first check of INTERACID_GASHA_SPOT @state5 to check for
 # deterministic Gasha Nut loot instead of regular logic if the matching option
 # is enabled
-0a/47bb/: jp checkDeterministicGashaLoot
+0a/07bb/: jp checkDeterministicGashaLoot

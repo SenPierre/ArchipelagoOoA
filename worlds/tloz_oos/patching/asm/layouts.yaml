@@ -47,11 +47,11 @@
 
 # bank 21 = spring, 22 = summer, 23 = autumn, 24 = winter
 # Remove most snow in Woods of Winter middle room
-24/6c68/: db $04
-24/6c70/: db $04
-24/6c7e/: db $04
-24/6c71/: db $9e,$8b
-24/6c74/: db $c0,$04,$80,$81,$99,$9b,$70,$71
+24/2c68/: db $04
+24/2c70/: db $04
+24/2c7e/: db $04
+24/2c71/: db $9e,$8b
+24/2c74/: db $c0,$04,$80,$81,$99,$9b,$70,$71
 
 # data for applyAllTileSubstitutions: group,room,flags,yx,tile
 04//tileSubTable: |
@@ -100,10 +100,10 @@
 
 # Change temple remains door upper-left tree tile per-layout because the generic tile replacement
 # was causing a glitched palette in winter
-21/534e/: db $70    # Spring
-22/502a/: db $70    # Summer
-23/4e08/: db $70    # Autumn
-24/4b22/: db $65    # Winter
+21/134e/: db $70    # Spring
+22/102a/: db $70    # Summer
+23/0e08/: db $70    # Autumn
+24/0b22/: db $65    # Winter
 
 # unset a room flag when the flower outside D6 is broken. see tileSubTable.
 06//checkBreakD6Flower: |
@@ -123,37 +123,37 @@
     @done:
     pop af
     jp setTile
-06/4774/: call checkBreakD6Flower
+06/0774/: call checkBreakD6Flower
 
 # change water tiles outside d4 from deep to shallow, to prevent softlock
 # from entering without flippers or default summer.
-21/54a9/: db $fa,$6b,$6b,$53,$fa,$3f,$fa
-22/5197/: db $fa,$6b,$6b,$53,$fa,$3f,$fa
-23/4f6c/: db $fa,$6b,$6b,$53,$fa,$3f,$fa
-24/4cec/: db $dc,$00,$fc,$06,$dc,$dc,$dc,$dc
+21/14a9/: db $fa,$6b,$6b,$53,$fa,$3f,$fa
+22/1197/: db $fa,$6b,$6b,$53,$fa,$3f,$fa
+23/0f6c/: db $fa,$6b,$6b,$53,$fa,$3f,$fa
+24/0cec/: db $dc,$00,$fc,$06,$dc,$dc,$dc,$dc
 
 # replace some currents in spool swamp in spring so that the player isn't
 # trapped by them.
-21/7ab1/: db $d3,$d3
-21/7ab6/: db $d4,$d4,$d4
-21/7abe/: db $d1
+21/3ab1/: db $d3,$d3
+21/3ab6/: db $d4,$d4,$d4
+21/3abe/: db $d1
 
 # replace the stairs outside the portal in eyeglass lake summer with a
 # railing, since if the player jumps off they fall into lost woods.
-22/791b/: db $40,$40,$40
+22/391b/: db $40,$40,$40
 # instead add a ledge to the left side of the platform, so that entering the
 # portal without feather and resetting the season to summer isn't a softlock.
-22/78fd/: db $37
-22/7905/: db $25
-22/7910/: db $47
+22/38fd/: db $37
+22/3905/: db $25
+22/3910/: db $47
 
 # remove snow pile outside d6 to prevent softlock in default winter if statue
 # is pushed to the left.
-24/45d2/: db $04
+24/05d2/: db $04
 
 # remove the snow piles in front of holly's house so that shovel isn't
 # required to leave.
-24/646f/: db $04
+24/246f/: db $04
 # remove some snow outside d7 for the same reason - but off the right ledge,
 # not in front of the stairs.
-24/7910/: db $2b,$a0,$b9,$2b
+24/3910/: db $2b,$a0,$b9,$2b

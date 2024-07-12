@@ -68,17 +68,17 @@
 ### FREESTANDING ITEMS ###########################################
 
 # staticHeartPiece (0x26381)
-09/6381/: call staticItemsReplacementsLookup
+09/2381/: call staticItemsReplacementsLookup
 # staticGashaSeed (0x26608)
-09/6608/: call staticItemsReplacementsLookup
+09/2608/: call staticItemsReplacementsLookup
 # sidescrollingStaticGashaSeed (0x266aa)
-09/66aa/: call staticItemsReplacementsLookup
+09/26aa/: call staticItemsReplacementsLookup
 
 
 ### DIGGABLE ITEMS ###########################################
 
 # Replace oreChunkDigSpot with generic behavior for randomized digging spot stuff
-09/6345/handleRandomizedDigSpot: |
+09/2345/handleRandomizedDigSpot: |
     call getThisRoomFlags
     and $20
     jp nz,interactionDelete
@@ -96,7 +96,7 @@
     jp interactionDelete
 
 # randomRingDigSpot (0x265F5)
-09/65f5/: jp handleRandomizedDigSpot
+09/25f5/: jp handleRandomizedDigSpot
 
 
 ### SPAWNED ITEMS (Drops, etc...) ###########################################
@@ -107,10 +107,10 @@
     jp staticItemsReplacementsLookup
 
 # Call our custom handler in scriptCmd_spawnItem
-0b/4416/: call handleRandomizedSpawnedItem
+0b/0416/: call handleRandomizedSpawnedItem
 
 # stop d4 pool item from incrementing subindex when it hits the water.
-09/40fb/: |
+09/00fb/: |
     nop
     nop
     nop
@@ -118,15 +118,15 @@
     nop
 
 # for the item dropped in the room *above* the trampoline.
-15/55d8/aboveD7ZolButtonId: db locations.d7ZolButton.id
-15/55db/aboveD7ZolButtonSubid: db locations.d7ZolButton.subid
+15/15d8/aboveD7ZolButtonId: db locations.d7ZolButton.id
+15/15db/aboveD7ZolButtonSubid: db locations.d7ZolButton.subid
 
 
 ### MAKU TREE MISSABLE GASHA SEEDS ###########################################
 
 # Remove access to stairs behind Farore on 2 essences (this replaces the function that adds
 # a sign in front of Bipin & Blossom's house when the game is completed)
-04/6189/: |
+04/2189/: |
     call getEssenceCount
     cp $03
     ret nc
@@ -137,7 +137,7 @@
     ret
 
 # Remove the original reference to the function above on the exterior of Bipin & Blossom house map
-04/614e/: db $00
+04/214e/: db $00
 # Attach the modified function above to Farore's room by extending the group4 tile changer table
 04//roomTileChangerCodeGroup4DataExt: |
     db $61,$2e
@@ -148,42 +148,42 @@
     db $bb,$07
     db $e8,$08
     db $00
-04/611c/: dw roomTileChangerCodeGroup4DataExt
+04/211c/: dw roomTileChangerCodeGroup4DataExt
 
 # Remove access to first refill room on 4 essences
-25/49d8/: db $80,$80,$80
-25/49df/: db $64
-25/49f6/: db $64
-25/4a02/: db $40
+25/09d8/: db $80,$80,$80
+25/09df/: db $64
+25/09f6/: db $64
+25/0a02/: db $40
 
 # Remove access to second refill room on 6 essences
-25/560a/: db $63
+25/160a/: db $63
 
 # Remove 3 essence original item
-11/6373/: db $4c,$02,$38,$10,$ff
+11/2373/: db $4c,$02,$38,$10,$ff
 # Add an item inside the hallway (accessible at 3+ essences) that replaces the item removed above
 11//hallwayMapObjects: |
     db $f2
     db $6b,$19,$58,$c8
     db $ff
-11/611d/: dw hallwayMapObjects
+11/211d/: dw hallwayMapObjects
 
 # Remove 5 essences original item
-11/63ad/: db $4c,$02,$68,$10,$ff
+11/23ad/: db $4c,$02,$68,$10,$ff
 # Add an item inside the first refill pool (accessible at 5+ essences) that replaces the item removed above
 11//refillPool1Objects: |
     db $f2
     db $6b,$19,$80,$78
     db $f3,$76,$40      ; spawn usual items
     db $ff
-11/611f/: dw refillPool1Objects
+11/211f/: dw refillPool1Objects
 
 # Remove 7 essences original item
-11/6387/: db $4c,$02,$28,$10,$4c,$03,$18,$90,$ff
+11/2387/: db $4c,$02,$28,$10,$4c,$03,$18,$90,$ff
 # Add an item inside the second refill pool (accessible at 7+ essences) that replaces the item removed above
 11//refillPool2Objects: |
     db $f2
     db $6b,$19,$80,$78
     db $f3,$60,$40      ; spawn usual items
     db $ff
-11/6127/: dw refillPool2Objects
+11/2127/: dw refillPool2Objects

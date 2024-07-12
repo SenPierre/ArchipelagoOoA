@@ -16,13 +16,13 @@
     ret
 
 # enable exit from volcano room after skipping cutscene.
-08/7cf5/: |
+08/3cf5/: |
     nop
     nop
     nop
 
 # set up for and call skipVolcanoCutscene.
-08/7d07/: |
+08/3d07/: |
     ld a,($d244)
     cp $01
     ret nz
@@ -31,32 +31,32 @@
     jp callBank2
 
 # use a non-cutscene screen transition for exiting a dungeon via essence, so that overworld music plays.
-09/4b4d/: ld a,$81
+09/0b4d/: ld a,$81
 
 # end maku seed cutscene as soon as link gets the seed.
-0b/71ec/: |
+0b/31ec/: |
     db setglobalflag,$19
     db enableinput
     db scriptend
 
 # end northen peak cutscene as soon as the barrier is broken.
-0b/79f1/: |
+0b/39f1/: |
     db setglobalflag,$1d
     db enableinput
     db scriptend
 
 # skip linked cutscene when entering d8. cutscene warp will ignore dungeon
 # shuffle if not removed.
-0b/7a2a/: |
+0b/3a2a/: |
     db writememory
     dw wDisableWarpTiles
     db $00
-0b/7a32/: |
+0b/3a32/: |
     db setglobalflag,$1e
     db scriptend
 
 # skip the great furnace dance. for some reason jumpalways doesn't work here.
-14/4b15/: |
+14/0b15/: |
     db jumpifc6xxset,$92,$ff
     dw $c33f
 
@@ -81,24 +81,24 @@
     ld a,TREASURE_PIRATES_BELL
     call loseTreasure
     ret
-15/5a0e/: call setPirateCutsceneFlags
+15/1a0e/: call setPirateCutsceneFlags
 
 # change destination of initial transition in pirate cutscene.
-15/5a1c/: db $80,$e2,$00,$66   ; wWarpDestVariables, in order?
+15/1a1c/: db $80,$e2,$00,$66   ; wWarpDestVariables, in order?
 
 # Remove the pirate captain from western coast map because it triggers an odd cutscene when coming
 # from the left in cases where D7 is replaced by D0 or D2 and alt entrances are enabled
-11/6b5a/: db $b1,$10,$18,$18,$ff
+11/2b5a/: db $b1,$10,$18,$18,$ff
 
 # Remove floodgate's keeper behavior where he notices the key when it's owned while inside his
 # house (which could trigger right as you hit the lever in a randomized context)
-09/6289/: ret
+09/2289/: ret
 
 # skip "you got all four seasons" text from season spirts.
-15/57c2/: cp $05
+15/17c2/: cp $05
 
 # remove D8 falling crystal cutscenes (INTERACID_D8_GRABBABLE_ICE @state3)
-09/5894/: |
+09/1894/: |
   ; Set a flag for this room
   call getThisRoomFlags
   set 6,(hl)

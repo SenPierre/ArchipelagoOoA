@@ -60,7 +60,7 @@ class OoSPatchExtensions(APPatchExtension):
                 assembler.add_block(Z80Block(metalabel, contents))
         assembler.compile_all()
         for block in assembler.blocks:
-            rom_data.write_bytes(block.addr.full_address(), block.byte_array)
+            rom_data.write_bytes(block.addr.address_in_rom(), block.byte_array)
 
         # Perform direct edits on the ROM
         alter_treasures(rom_data)

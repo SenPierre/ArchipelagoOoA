@@ -39,11 +39,11 @@
     pop bc
     ld a,(wWarpDestRoom)
     ret
-04/461e/: call checkSetAnimalSavePoint
+04/061e/: call checkSetAnimalSavePoint
 
 # vanilla game doesn't save non-natzu animal positions when it thinks you
 # won't need them anymore. stop that.
-05/45c9/: jr $28
+05/05c9/: jr $28
 
 # do this so that animals don't immediately stop walking onscreen when called
 # on a bridge, namely the one to/from d1.
@@ -55,10 +55,10 @@
     ret z
     cp $1b
     ret
-05/493b/: |
+05/093b/: |
     call animalEntryIgnoreBridges
     nop
-05/71ea/: |
+05/31ea/: |
     call animalEntryIgnoreBridges
     nop
 
@@ -67,8 +67,8 @@
 05//checkFlute: |
     ld a,TREASURE_FLUTE
     jp checkTreasureObtained
-05/776b/: call checkFlute
-05/7a65/: call checkFlute
+05/376b/: call checkFlute
+05/3a65/: call checkFlute
 
 # animals called by flute normally veto any nonzero collision value for the
 # purposes of entering a screen, but this allows double-wide bridges (1a and
@@ -103,61 +103,61 @@
     call convertShortToLongPosition
     xor a
     ret
-09/4d9a/: call checkFluteCollisions
-09/4dad/: call checkFluteCollisions
+09/0d9a/: call checkFluteCollisions
+09/0dad/: call checkFluteCollisions
 
 # some of the ricky code here doesn't matter since ricky's flute isn't
 # currently randomized (6cefde1), but it can stay in case things change.
 
 # check flute icon instead of animal region for dimitri events:
 # spawning dimitri + kids in sunken
-09/4e4b/: |
+09/0e4b/: |
     ld a,($c6af)
     cp $02
-09/6f07/: |
+09/2f07/: |
     ld a,($c6af)
     cp $02
-09/737d/: |
+09/337d/: |
     ld a,($c6af)
     cp $02
 # trying to leave sunken w/ dimitri
-09/6f34/: |
+09/2f34/: |
     ld a,($c6af)
     cp $02
 
 # check flute icon instead of animal region for ricky events:
 # spawn ricky in pen
-09/4e76/: |
+09/0e76/: |
     ld a,(wFluteIcon)
     cp $01
 # say goodbye when reaching spool
-09/6ccc/: |
+09/2ccc/: |
     ld a,(wFluteIcon)
     cp $01
 
 # prevent subrosian dancing from giving dimitri's flute.
-09/5e37/: or $20
+09/1e37/: or $20
 
 # stop ricky from giving his flute.
-09/6e6c/: ret
-0b/6b77/: |
+09/2e6c/: ret
+0b/2b77/: |
     db jumpifmemoryeq
     dw wAnimalRegion
     db $7f
 
 # prevent holodrum plain from changing the animal region when entered.
-09/6f79/: jr $08
+09/2f79/: jr $08
 
 # remove the moosh and dimitri events in spool swamp.
-11/6572/: db $ff
-11/68d4/: db $ff
+11/2572/: db $ff
+11/28d4/: db $ff
 
 # add proper treasure entries for each flute, like ages has.
 15//fluteTreasureData: |
     db $0a,$0b,$38,$3c
     db $0a,$0c,$39,$3d
     db $0a,$0d,$3a,$3e
-15/5161/: |
+15/1161/: |
     db $80
     dw fluteTreasureData
     db $00

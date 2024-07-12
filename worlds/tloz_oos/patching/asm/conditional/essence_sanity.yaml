@@ -1,6 +1,6 @@
 # Edit interaction7f_subid00 state0 to spawn a treasure interaction instead of giving
 # essence graphics to the INTERACID_ESSENCE interaction.
-09/4a13/: |
+09/0a13/: |
     ld hl,@essenceLocationsTable
     rst 18  ; rst_addDoubleIndex
     ld b,(hl)
@@ -41,13 +41,13 @@
     ld (hl),$c0     ; Highest priority to be drawn in front of the glow effect
     pop hl
     ret
-09/4a56/: call applyFloatingEffect
+09/0a56/: call applyFloatingEffect
 
 # Lower the speed at which the item travels to the player (from SPEED_80 to SPEED_20)
-09/4a8c/: db $05
+09/0a8c/: db $05
 # Make the position of the treasure follow the position of the INTERACID_ESSENCE invisible object, and skip a few
 # states once the treasure is collected
-09/4ab6/: |
+09/0ab6/: |
     ld c,$04
     call $1f04  ;  objectUpdateSpeedZ_paramC
     call findTreasure
@@ -80,7 +80,7 @@
     xor a
     ld l,$40
     ret
-09/4bc1/: call stopFlickerOnTreasureCollection
+09/0bc1/: call stopFlickerOnTreasureCollection
 
 # Replace the sound when getting an essence from "MUS_GET_ESSENCE" to "SND_GETITEM"
-3f/6ced/: db $4c ; SND_GETITEM
+3f/2ced/: db $4c ; SND_GETITEM

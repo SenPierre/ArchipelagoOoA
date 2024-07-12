@@ -4,4 +4,4 @@
     ld (de),a
     ld hl,$468d    ; @ringDamageModifierTable
     jp $4683       ; @writeDamageToApply
-06/464d/: call alterDamageReceived
+06/064d/: call alterDamageReceived

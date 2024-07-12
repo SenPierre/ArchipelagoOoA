@@ -101,37 +101,37 @@
 # data to describe those new sounds.
 
 # Injected in place of "sndd6"-"snddd", unused sound descriptors
-39/515d/sndCompassD1Ptr: |
+39/115d/sndCompassD1Ptr: |
     db $b2
     dw sndCompassD1
     db $ff
-39/5161/sndCompassD2Ptr: |
+39/1161/sndCompassD2Ptr: |
     db $b2
     dw sndCompassD2
     db $ff
-39/5165/sndCompassD3Ptr: |
+39/1165/sndCompassD3Ptr: |
     db $b2
     dw sndCompassD3
     db $ff
 # Injected in place of "mus41", unused music descriptor
-39/545c/sndCompassD4Ptr: |
+39/145c/sndCompassD4Ptr: |
     db $b2
     dw sndCompassD4
     db $ff
-39/5460/sndCompassD5Ptr: |
+39/1460/sndCompassD5Ptr: |
     db $b2
     dw sndCompassD5
     db $ff
-39/5464/sndCompassD6Ptr: |
+39/1464/sndCompassD6Ptr: |
     db $b2
     dw sndCompassD6
     db $ff
 # Injected in place of unused data at the end of "soundPointers.s"
-39/5a79/sndCompassD7Ptr: |
+39/1a79/sndCompassD7Ptr: |
     db $b2
     dw sndCompassD7
     db $ff
-39/5a7d/sndCompassD8Ptr: |
+39/1a7d/sndCompassD8Ptr: |
     db $b2
     dw sndCompassD8
     db $ff
@@ -142,28 +142,28 @@
 # The first byte corresponds to the bank where the actual sound data is (NOT the bank
 # where the second word points!), to which 0x39 is subtracted. This leads to weird
 # bank numbers, but don't worry, it works.
-39/5a4b/: |  # sound id D4
+39/1a4b/: |  # sound id D4
     db $c9  ; bank 2
     dw sndCompassD1Ptr
-39/5a4e/: |  # sound id D5
+39/1a4e/: |  # sound id D5
     db $c9  ; bank 2
     dw sndCompassD2Ptr
-39/5a51/: |  # sound id D6
+39/1a51/: |  # sound id D6
     db $c9  ; bank 2
     dw sndCompassD3Ptr
-39/5a54/: |  # sound id D7
+39/1a54/: |  # sound id D7
     db $c9  ; bank 2
     dw sndCompassD4Ptr
-39/5a57/: |  # sound id D8
+39/1a57/: |  # sound id D8
     db $c9  ; bank 2
     dw sndCompassD5Ptr
-39/5a5a/: |  # sound id D9
+39/1a5a/: |  # sound id D9
     db $c9  ; bank 2
     dw sndCompassD6Ptr
-39/5a5d/: |  # sound id DA
+39/1a5d/: |  # sound id DA
     db $c9  ; bank 2
     dw sndCompassD7Ptr
-39/5a60/: |  # sound id DB
+39/1a60/: |  # sound id DB
     db $c9  ; bank 2
     dw sndCompassD8Ptr
 
@@ -171,7 +171,7 @@
 # - use an alternate table capable of ringing compasses in any room in the game
 # - play the appropriate compass sound to indicate which dungeon it belongs to
 01//compassRoomsTable: /include compassRoomsTable
-01/49e5/: |
+01/09e5/: |
     call getThisRoomFlags
     bit 5,(hl)
     ret nz
@@ -212,7 +212,7 @@
 # Up to 49e5-4A1B (included)
 
 # Address the issue with @skipWeirdCall described in the disasm
-39/4bfe/: | 
+39/0bfe/: | 
     nop
     nop
     nop

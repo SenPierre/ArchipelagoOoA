@@ -1,6 +1,6 @@
 # 2 frames before the end, reactivate enemies so that Pols Voice have time to
 # witness the flute playing and die accordingly. This is a hacky fix, but it works.
-06/4ccf/: |
+06/0ccf/: |
     cp $02
     jr z,@frameReactivateEnemies
     or a

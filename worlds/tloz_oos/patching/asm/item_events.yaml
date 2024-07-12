@@ -51,7 +51,7 @@
     pop af
     call $454e   ; applyParameter
     ret
-3f/452b/: call activateFlute
+3f/052b/: call activateFlute
 
 # Set room flag 0x20 when knocking off tree seeds (mostly for tracking purpose)
 10//extendedKnockOffTree: |
@@ -62,10 +62,10 @@
     pop hl
     ld bc,$fec0   ; original instruction replaced by injected call
     ret
-10/4b29/: call extendedKnockOffTree
+10/0b29/: call extendedKnockOffTree
 
 # remove interactions from jewel caves so that they act as normal chests,
 # meaning no linked changes. this also removes the vire event.
-11/6ca2/: db $ff  # swamp
-11/6ca8/: db $ff  # lake
-11/6d0f/: db $ff  # woods
+11/2ca2/: db $ff  # swamp
+11/2ca8/: db $ff  # lake
+11/2d0f/: db $ff  # woods

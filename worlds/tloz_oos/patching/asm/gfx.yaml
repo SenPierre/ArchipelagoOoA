@@ -72,7 +72,7 @@
     call lookupItemSprite_body
     pop af
     ret
-3f/4356/: call checkLoadCustomSprite
+3f/0356/: call checkLoadCustomSprite
 
 
 # Make the rod of seasons interaction behave like a regular item, graphically.
@@ -94,39 +94,39 @@
 
 # give the noble sword (lost woods pedestal) object OAM pointers compatible
 # with normal treasure graphics.
-14/53d7/: dw 5719
-14/55a7/: dw 684f
+14/13d7/: dw 5719
+14/15a7/: dw 684f
 
 
 # give items that don't normally appear as treasure interactions entries in
 # the treasure graphics table.
-3f/6790/: db 5f,16,33  # Ricky's flute (GFX #3c)
-3f/6793/: db 5f,16,23  # Dimitri's flute (GFX #3d)
-3f/6796/: db 5f,16,13  # Moosh's flute (GFX #3e)
-3f/6799/: db 5d,10,26  # Rare Peach Stone (GFX #3f)
+3f/2790/: db 5f,16,33  # Ricky's flute (GFX #3c)
+3f/2793/: db 5f,16,23  # Dimitri's flute (GFX #3d)
+3f/2796/: db 5f,16,13  # Moosh's flute (GFX #3e)
+3f/2799/: db 5d,10,26  # Rare Peach Stone (GFX #3f)
 
-3f/67b4/: db 5d,0c,13  # Member's Card (GFX #48)
-3f/67b7/: db 65,14,33  # Treasure Map (GFX #49)
-3f/67ba/: db 60,14,00  # Fool's Ore (GFX #4a)
-3f/67bd/: db 5d,00,23  # Potion (GFX #4b)
-3f/67c0/: db 65,0c,23  # Ribbon (GFX #4c)
-3f/67c3/: db 5c,0c,20  # Ore Chunks x10 (GFX #4d)
-3f/67c6/: db 5c,0c,10  # Ore Chunks x25 (GFX #4e)
+3f/27b4/: db 5d,0c,13  # Member's Card (GFX #48)
+3f/27b7/: db 65,14,33  # Treasure Map (GFX #49)
+3f/27ba/: db 60,14,00  # Fool's Ore (GFX #4a)
+3f/27bd/: db 5d,00,23  # Potion (GFX #4b)
+3f/27c0/: db 65,0c,23  # Ribbon (GFX #4c)
+3f/27c3/: db 5c,0c,20  # Ore Chunks x10 (GFX #4d)
+3f/27c6/: db 5c,0c,10  # Ore Chunks x25 (GFX #4e)
 
 # Add custom palette variants for rod of seasons to be able to know which
 # season it gives at first sight
-3f/67c9/: |
+3f/27c9/: |
     db $60,$10,$00  ; GFX #4f (rod of spring)
     db $60,$10,$30  ; GFX #50 (rod of autumn)
     db $60,$10,$10  ; GFX #51 (rod of winter)
 
 # Use that custom sprite with a red palette inside GFX#52 (will be used for progression remote items)
-3f/67d2/: db $61,$06,$53
+3f/27d2/: db $61,$06,$53
 # Use that custom sprite with a blue palette inside GFX#53 (will be used for regular remote items)
-3f/67d5/: db $61,$06,$43
+3f/27d5/: db $61,$06,$43
 
 # Inject the "Archipelago Item" sprite in an unused sector of last items spritesheet
-1b/7a80/: |
+1b/3a80/: |
     db $03,$03,$07,$04,$0F,$08,$3F,$3C,$7E,$43,$F9,$87,$FD,$BF,$FA,$C6
     db $FB,$87,$F7,$8C,$EF,$98,$8F,$F8,$4F,$78,$38,$3F,$04,$07,$03,$03
     db $C0,$C0,$E0,$20,$90,$70,$3C,$FC,$7E,$C2,$F9,$87,$FD,$BF,$7F,$43
