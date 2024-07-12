@@ -69,6 +69,7 @@ class OoSPatchExtensions(APPatchExtension):
         set_dungeon_warps(rom_data, patch_data)
         set_portal_warps(rom_data, patch_data)
         apply_miscellaneous_options(rom_data, patch_data)
+        set_fixed_subrosia_seaside_location(rom_data, patch_data)
 
         set_heart_beep_interval_from_settings(rom_data)
         set_character_sprite_from_settings(rom_data)

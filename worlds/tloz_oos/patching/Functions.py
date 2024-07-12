@@ -358,6 +358,17 @@ def apply_miscellaneous_options(rom: RomData, patch_data):
         rom.write_word(0x1834f, 0x0000)
 
 
+def set_fixed_subrosia_seaside_location(rom: RomData, patch_data):
+    """
+    Make the location for Subrosia Seaside fixed among the 4 possible locations from the vanilla game.
+    This is done to compensate for the poor in-game randomness and potential unfairness in races.
+    """
+    spots_data = [rom.read_word(addr) for addr in range(0x222D3, 0x222DB, 0x02)]
+    spot = spots_data[patch_data["subrosia_seaside_location"]]
+    for addr in range(0x222D3, 0x222DB, 0x02):
+        rom.write_word(addr, spot)
+
+
 def set_file_select_text(assembler: Z80Assembler, slot_name: str):
     def char_to_tile(c: str) -> int:
         if '0' <= c <= '9':

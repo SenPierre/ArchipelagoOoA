@@ -34,7 +34,8 @@ def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
                               for a, b in world.dungeon_entrances.items()},
         "locations": {},
         "subrosia_portals": world.portal_connections,
-        "shop_prices": world.shop_prices
+        "shop_prices": world.shop_prices,
+        "subrosia_seaside_location": world.random.randint(0, 3)
     }
 
     for loc in world.multiworld.get_locations(world.player):
