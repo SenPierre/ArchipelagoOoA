@@ -134,12 +134,17 @@ class OracleOfAgesClient(BizHawkClient):
             pass
 
     async def process_checked_locations(self, ctx: "BizHawkClientContext", flag_bytes):
+        
         local_checked_locations = set(ctx.locations_checked)
         for name, location in LOCATIONS_DATA.items():
             if "flag_byte" not in location:
                 continue
 
             bytes_to_test = location["flag_byte"]
+
+            if bytes_to_test == 0xFFFF:
+                continue
+
             if not hasattr(bytes_to_test, "__len__"):
                 bytes_to_test = [bytes_to_test]
 
@@ -154,6 +159,7 @@ class OracleOfAgesClient(BizHawkClient):
 
         # Send locations
         if self.local_checked_locations != local_checked_locations:
+            print(self.local_checked_locations)
             self.local_checked_locations = local_checked_locations
             await ctx.send_msgs([{
                 "cmd": "LocationChecks",
@@ -161,6 +167,8 @@ class OracleOfAgesClient(BizHawkClient):
             }])
 
     async def process_scouted_locations(self, ctx: "BizHawkClientContext", flag_bytes):
+        return
+        
         local_scouted_locations = set(ctx.locations_scouted)
         for name, location in LOCATIONS_DATA.items():
             if "scouting_byte" not in location:
@@ -194,6 +202,7 @@ class OracleOfAgesClient(BizHawkClient):
             ], "System Bus")])
 
     async def process_game_completion(self, ctx: "BizHawkClientContext", flag_bytes, current_room: int):
+        return
         game_clear = False
         if ctx.slot_data is not None:
             if ctx.slot_data["goal"] == OracleOfAgesGoal.option_beat_onox:
@@ -212,6 +221,7 @@ class OracleOfAgesClient(BizHawkClient):
             }])
 
     async def process_deathlink(self, ctx: "BizHawkClientContext", is_dead):
+        return
         if ctx.last_death_link > self.last_deathlink and not is_dead:
             # A death was received from another player, make our player die as well
             await bizhawk.write(ctx.bizhawk_ctx, [(RAM_ADDRS["received_item"][0], [0xFF], "System Bus")])

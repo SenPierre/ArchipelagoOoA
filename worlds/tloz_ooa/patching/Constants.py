@@ -277,7 +277,8 @@ DEFINES = {
     "wDungeonBossKeys":"$c682",
     "wInventoryB":"$c688",
     "wObtainedTreasureFlags":"$c69a",
-    "wNetCountIn":"$c6a9",
+    "wNetCountInL":"$c6a9",
+    "wNetCountInH":"$c6aa",
     "wSeedSatchelLevel":"$c6b4",
     "wFluteIcon":"$c6b5",
     "wEssencesObtained":"$c6bf",
@@ -365,4 +366,5 @@ ASM_FILES = [
     "asm/progressives.yaml",
     "asm/animals.yaml",
     "asm/static_items.yaml",
+    "asm/multi.yaml",
 ]

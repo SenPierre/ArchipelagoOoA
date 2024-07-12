@@ -1,13 +1,13 @@
 from .Constants import *
 
-BASE_LOCATION_ID = 27022001000
+BASE_LOCATION_ID = 27022002000
 
 LOCATIONS_DATA = {
     ##########################################
     "Impa Gift": {
         "region_id": "starting item",
         "vanilla_item": "Progressive Sword",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc739,
         "room": 0x0039,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "impaGift",

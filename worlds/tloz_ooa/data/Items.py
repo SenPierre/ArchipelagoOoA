@@ -1,6 +1,6 @@
 from BaseClasses import ItemClassification
 
-BASE_ITEM_ID = 27022001000
+BASE_ITEM_ID = 27022002000
 
 ITEMS_DATA = {
     #   "No Item": {
