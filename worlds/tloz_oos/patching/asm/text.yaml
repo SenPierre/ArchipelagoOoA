@@ -1,5 +1,13 @@
-1d/5b01/TX_0057: /include text.getArchipelagoItem  # Ring Box L1 in vanilla
-1d/5b1e/TX_0058: /include text.getOreChunks25      # Ring Box L2 in vanilla
+# "Got Archipelago Item" text, replacing Ring Box L1 vanilla string
+1d/5b01/TX_0057: |
+    db $03,$e8,$04,$42,$05,$ea                          ; You found an
+    db $69,$74,$65,$6d,$20,$04,$91,$61,$6e,$03,$0f,$01  ; item for another
+    db $03,$75,$21,$00                                  ; world!
+
+# "Got Ore Chunks (x25)" text, replacing Ring Box L2 vanilla string
+1d/5b1e/TX_0058: |
+    db $02,$12,$32,$35,$01  ; You got 25
+    db $02,$09,$21,$00      ; Ore Chunks!
 
 # ???
 0a/7b9e/: |
@@ -8,7 +16,12 @@
     nop
 
 # Handle default seed text which doesn't exist in vanilla game
-1e/6265/TX_1704: /include text.getEmberSeeds # 1704, cutscene after d1
+1e/6265/TX_1704: |  # 1704, cutscene after d1
+    db $02,$12,$04,$79,$01          ; You got Ember
+    db $02,$53,$21,$20,$05,$a9,$01  ; Seeds! Open
+    db $79,$02,$65                  ; your Seed
+    db $02,$6e,$05,$da,$04,$aa,$01  ; Satchel to use
+    db $74,$68,$65,$6d,$2e,$00      ; them.
 10//useEmberSeedText: |
     cp $e5
     jr nz,@done
@@ -39,7 +52,9 @@
 
 # Replace cutscene after d4 is d5 < d4 by a copy of the end text inside textbank 17, which
 # will be used by text injections performed in that textbank
-1e/67ba/TX_172b: /include text.subrosianMarketEnd
+1e/67ba/TX_172b: |
+    db $04,$fc,$02,$8b,$04,$b7  ; How about it?
+    db $02,$fe,$03,$bf,$00      ; Sure / No
 
 1e/6699/TX_1726: |  # (cutscene after d4 if d4 < d5)
     /include text.subrosianMarket1 
@@ -265,7 +280,7 @@
 # entries without rebuilding the whole textbanks. We inject this small function
 # to check for text IDs > 0x80, in which case we unset the 7th bit and redirect
 # to our custom textbank.
-09//checkCustomGetTextId: |
+09//checkCustomTreasureTextId: |
     bit 7,a
     jr nz,@customText
     
@@ -280,4 +295,4 @@
     ld c,a
     ld b,$56  ; CUSTOM_TEXT_GROUP_ID
     ret
-09/42f6/: call checkCustomGetTextId
+09/42f6/: call checkCustomTreasureTextId
