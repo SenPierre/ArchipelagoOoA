@@ -134,14 +134,14 @@
 05/68e0/: db TREASURE_LON_LON_EGG        # Lon Lon Egg (#56)
 0b/504a/: db $df,TREASURE_GHASTLY_DOLL   # Ghastly Doll (#57)
 0b/6552/: db $df,TREASURE_IRON_POT       # Iron Pot (#35)
-0c/2192/: db $df,TREASURE_LAVA_SOUP      # Lava Soup (#38)
-0c/2332/: db $df,TREASURE_GORON_VASE     # Goron Vase (#39)
-0c/1230/: db $df,TREASURE_FISH           # Fish (#3A)
-0c/2087/: db $df,TREASURE_MEGAPHONE      # Megaphone (#3B)
-0c/1f26/: db $df,TREASURE_MUSHROOM       # Mushroom (#3C)
-0c/11fd/: db $df,TREASURE_WOODEN_BIRD    # Wooden Bird (#3D)
-0c/23b9/: db $df,TREASURE_ENGINE_GREASE  # Engine Grease (#3E)
-0c/2519/: db $df,TREASURE_PHONOGRAPH     # Phonograph (#3F)
+0b/6192/: db $df,TREASURE_LAVA_SOUP      # Lava Soup (#38)
+0b/6332/: db $df,TREASURE_GORON_VASE     # Goron Vase (#39)
+0b/5230/: db $df,TREASURE_FISH           # Fish (#3A)
+0b/6087/: db $df,TREASURE_MEGAPHONE      # Megaphone (#3B)
+0b/5f26/: db $df,TREASURE_MUSHROOM       # Mushroom (#3C)
+0b/51fd/: db $df,TREASURE_WOODEN_BIRD    # Wooden Bird (#3D)
+0b/63b9/: db $df,TREASURE_ENGINE_GREASE  # Engine Grease (#3E)
+0b/6519/: db $df,TREASURE_PHONOGRAPH     # Phonograph (#3F)
 
 # Pirate's Bell / Rusty Bell check by Piratian Captain
 08/6c3c/: |

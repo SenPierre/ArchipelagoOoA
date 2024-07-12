@@ -104,7 +104,7 @@
 
 # Remove the "Accept our quest, hero!" cutscene when launching the game
 # for the first time
-02/1874/: |
+01/5874/: |
   nop
   nop
   xor a

@@ -1,6 +1,6 @@
 # In "oldManScript_giveRupees", replace "wait 8; checkrupeedisplayupdated" by
 # two useless "disableinput" instructions
-0c/347e/: db $bd,$bd
+0b/747e/: db $bd,$bd
 
 # Replace most of "oldMan_takeRupees" by a table of location contents for
 # each Old Man (in the same order as vanilla table)

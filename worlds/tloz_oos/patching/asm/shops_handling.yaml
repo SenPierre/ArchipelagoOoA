@@ -116,7 +116,7 @@
 
 # If "open_advance_shop" setting is set, make advance shop always open.
 # Otherwise, make it always closed, even on GBA
-05/2195/advanceShopDoor: |
+04/6195/advanceShopDoor: |
     ld a,option.openAdvanceShop
     or a
     ret z

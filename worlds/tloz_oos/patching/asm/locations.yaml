@@ -138,9 +138,9 @@
 # Change the "jr z" into a "jr nc" to allow having more beasts killed than needed
 15/6ad2/: db $30
 # Change not yet completed text value
-1f/3247/goldenBeastsText: db $30+option.goldenBeastsRequirement,$20,$05,$8e,$20
+1e/7247/goldenBeastsText: db $30+option.goldenBeastsRequirement,$20,$05,$8e,$20
 # Change completion text value
-1f/3295/goldenBeastsRewardText: db $30+option.goldenBeastsRequirement,$20,$05,$8e,$20
+1e/7295/goldenBeastsRewardText: db $30+option.goldenBeastsRequirement,$20,$05,$8e,$20
 
 
 ##### TREEHOUSE OLD MAN ############################################
@@ -281,9 +281,9 @@
 ##### LONELY GORON'S GIFT ###################################################
 
 # Instructions to remove most of the Goron's ring box upgrade script
-0c/1bff/: db $eb
-0c/1c00/: db $eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb
-0c/1c10/: db $eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb
+0b/5bff/: db $eb
+0b/5c00/: db $eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb
+0b/5c10/: db $eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb,$eb
 
 
 ##### SUBROSIAN SIGN-LOVING GUY ########################################

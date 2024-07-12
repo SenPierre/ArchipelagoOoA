@@ -62,7 +62,7 @@
 04/465f/: jp checkSpecificWarps
 
 # Change setHoronVillageSeason to remove the random component if fixedHoronSeason != 0xff
-02/3e2c/: |
+01/7e2c/: |
     ld a,defaultSeason.HORON_VILLAGE
     cp $ff
     nop
