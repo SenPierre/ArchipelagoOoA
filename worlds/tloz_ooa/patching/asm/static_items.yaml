@@ -1,0 +1,9 @@
+  09/6d3d/: | # Hijacking red bear code. We don't need the bear. He is dead now. Now it's the Impa gift.
+    call getThisRoomFlags
+    bit 5,(hl)
+    jp nz,interactionDelete
+
+    ld bc, locations.impaGift ; Set the item as impa gift
+    call createTreasure       ; spawn it
+    call objectCopyPosition   ; move it
+    jp interactionDelete

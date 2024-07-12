@@ -100,13 +100,3 @@
       pop hl
       ret
   03/6e97/: jp setInitialFlags
-
-  09/6d3d/: | # Hijacking red bear code. We don't need the bear. He is dead now.
-    call getThisRoomFlags
-    bit 5,(hl)
-    jp nz,interactionDelete
-
-    ld bc, locations.impaGift ; Set the item as impa gift
-    call createTreasure       ; spawn it
-    call objectCopyPosition   ; move it
-    jp interactionDelete
