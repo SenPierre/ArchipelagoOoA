@@ -30,7 +30,12 @@ class Z80Block:
             raise Exception(f"Invalid metalabel '{metalabel}'")
         if split_metalabel[1] == "":
             split_metalabel[1] = "ffff"  # <-- means that it needs to be injected in some code cave
-        self.addr = GameboyAddress(int(split_metalabel[0], 16), int(split_metalabel[1], 16))
+
+        offset = int(split_metalabel[1], 16)
+        if offset >= 0x4000 and offset != 0xffff:
+            raise InvalidAddressError(offset)
+        self.addr = GameboyAddress(int(split_metalabel[0], 16), offset)
+
         self.label = split_metalabel[2]
 
         stripped_lines = [strip_line(line) for line in contents.split("\n")]

@@ -112,3 +112,7 @@
 15/0f62/: db $38
 
 3f/060d/: ld hl,seedCapacityTable
+
+# Remove whole Bipin & Blossom child mechanic
+08/2392/: jp interactionDelete
+# 08/2395/ up to 08/26fd/ (included) => FREE SPACE
