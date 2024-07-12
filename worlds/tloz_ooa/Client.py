@@ -17,7 +17,7 @@ ROOM_BLAINOS_GYM = 0x03B4
 ROOM_ZELDA_ENDING = 0x059A
 
 ROM_ADDRS = {
-    "game_identifier": (0x0134, 9, "ROM"),
+    "game_identifier": (0x0134, 11, "ROM"),
     "slot_name": (0xFFFC0, 64, "ROM"),
 }
 
@@ -36,7 +36,7 @@ RAM_ADDRS = {
 class OracleOfAgesClient(BizHawkClient):
     game = "The Legend of Zelda - Oracle of Ages"
     system = "GBC"
-    patch_suffix = ".apseasons"
+    patch_suffix = ".apooa"
     local_checked_locations: Set[int]
     local_scouted_locations: Set[int]
     item_id_to_name: Dict[int, str]
@@ -59,13 +59,14 @@ class OracleOfAgesClient(BizHawkClient):
             # Check ROM name/patch version
             rom_name_bytes = (await bizhawk.read(ctx.bizhawk_ctx, [ROM_ADDRS["game_identifier"]]))[0]
             rom_name = bytes([byte for byte in rom_name_bytes if byte != 0]).decode("ascii")
-            if rom_name != "ZELDA DIN":
+            if rom_name != "ZELDA NAYRU":
                 return False
         except UnicodeDecodeError:
             return False
         except bizhawk.RequestFailedError:
             return False
 
+        print("SUCCESS")
         ctx.game = self.game
         ctx.items_handling = 0b101  # Remote items + starting inventory
         ctx.want_slot_data = True

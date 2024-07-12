@@ -21,14 +21,14 @@
     ld a,b
     ret nc
     
-    ; cp TREASURE_TUNE_OF_ECHOES
-    ; jr nz,@harpDone
-    ; ld a,TREASURE_TUNE_OF_CURRENTS
-    ; ld e,a
-    ; call checkTreasureObtained
-    ; jr nc,@harpDone
-    ; ld b,e
-    ; @harpDone:
+    cp TREASURE_TUNE_OF_ECHOES
+    jr nz,@harpDone
+    ld a,TREASURE_TUNE_OF_CURRENTS
+    ld e,a
+    call checkTreasureObtained
+    jr nc,@harpDone
+    ld b,e
+    @harpDone:
     
     push hl
     ld hl,progressiveUpgrades

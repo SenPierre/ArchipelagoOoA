@@ -59,15 +59,26 @@
 04/6a35/: nop        # open "new" rolling ridge present tunnel
 09/5815/: jr z,$00    # dimitri
 0a/4bb2/: jr z,$00    # ^
-09/51f8/: xor a; ret # open palace
+09/51f8/: |
+    xor a
+    ret # open palace
 09/6567/: nop        # move impa out of the way to nayru's house
 0a/4d7a/: jr $01      # rafton
 15/6261/: jr c,$00    # comedian (TODO : Check this if comedian doesn't work properly)
 
 # moosh (and ghinis) should appear in the graveyard without:
-05/78b8/: xor a; xor a; xor a # not having cheval rope
-0a/4b92/: xor a; xor a; xor a # ^
-0a/4ba3/: xor a; xor a; xor a # ^
+05/78b8/: |
+    xor a
+    xor a
+    xor a # not having cheval rope
+0a/4b92/: |
+    xor a
+    xor a
+    xor a # ^
+0a/4ba3/: |
+    xor a
+    xor a
+    xor a # ^
 0a/4b85/: or $01 # essences
 0a/5943/: or $01 # ^
 0a/5dd5/: or $01 # ^
@@ -77,7 +88,9 @@
 
 # sell 150 rupee item from lynna city shop from the start
 # TODO : Shop !
-09/4333/: nop; nop 
+09/4333/: |
+    nop
+    nop 
 
 # saving nayru without having saved the maku tree leads to weirdness, so just
 # save the maku tree along with nayru.
@@ -108,9 +121,18 @@
 0a/5541/: call saveMakuTreeWithNayru
 
 # skip essence checks for goron elder event.
-0c/6b1d/: db jumpifmemoryset; dw $cddb; db $00
-0c/6b83/: db jumpifmemoryset; dw $cddb; db $00
-15/735d/: db jumpifmemoryset; dw $cddb; db $00
+0c/6b1d/: |
+    db jumpifmemoryset
+    dw $cddb
+    db $00
+0c/6b83/: |
+    db jumpifmemoryset
+    dw $cddb
+    db $00
+15/735d/: |
+    db jumpifmemoryset
+    dw $cddb
+    db $00
 
 # keep black tower in initial state until the player gets the item from the
 # worker.
@@ -124,7 +146,10 @@
 
 # change conditions for rafton 2's script based on whether the player has the
 # magic oar, not on essences. doesn't matter since trade quest is gone now.
-15/6b42/: db jumpifmemoryeq; dw wTradeItem; db $09
+15/6b42/: |
+    db jumpifmemoryeq
+    dw wTradeItem
+    db $09
 
 # change symmetry city wives' state based on brother's item obtained, not
 # global flag (fool's ore is used as a "dummy" item id set by the brothers.

@@ -74,7 +74,7 @@
     ld e,$75            ; var35, containing text id
     ld a,(de)
     ret
-09/42ef/: call bypassKeydropsTextbox
+09/4c5d/: call bypassKeydropsTextbox
 
 # collect modes starting at 80 index this jump table to determine the actual
 # mode.
@@ -96,7 +96,7 @@
 # target carts prizes are displayed with a poof.
 06//collectTargetCarts: |
     ld e,$4d
-    ld a,($de) # object x position
+    ld a,(de) # object x position
     cp $78
     ld e,COLLECT_POOF
     ret z
@@ -106,7 +106,7 @@
 # big bang game prizes are displayed with a poof.
 06//collectBigBangGame: |
     ld e,$4b
-    ld a,($de) # object y position
+    ld a,(de) # object y position
     cp $38
     ld e,COLLECT_POOF
     ret z
@@ -116,7 +116,7 @@
 # lava juice goron and chest both give items in this room.
 06//collectLavaJuiceRoom: |
     ld e,$4d
-    ld a,($de) # object x position
+    ld a,(de) # object x position
     cp $68
     ld e,COLLECT_PICKUP_NOFLAG
     ret c
