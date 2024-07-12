@@ -364,4 +364,5 @@ ASM_FILES = [
     "asm/location.yaml",
     "asm/progressives.yaml",
     "asm/animals.yaml",
+    "asm/static_items.yaml",
 ]
