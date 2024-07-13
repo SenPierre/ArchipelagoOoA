@@ -437,10 +437,12 @@ def process_item_name_for_shop_text(item: Dict) -> List[int]:
     # If name is more than 2 lines long, discard excess lines and put an ellipsis to suggest content was truncated
     if len(lines) > 2:
         lines = lines[0:2]
-        lines[1] = lines[1][0:14] + "..."
+        lines[1] = lines[1][0:15] + "."
 
     result = []
     for line in lines:
+        if len(line) > 16:
+            line = line[0:15] + "."
         if len(result) > 0:
             result.append(0x01)  # Newline
         result.extend(line.encode())
