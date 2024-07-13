@@ -549,7 +549,7 @@ PORTAL_WARPS = {
     },
     "volcanoes west portal": {
         "addr": 0x136c5,
-        "map_tile": 0x0f,
+        "map_tile": 0x0e,
         "in_subrosia": True,
         "text_index": 0xc,
     },
