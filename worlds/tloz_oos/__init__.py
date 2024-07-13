@@ -509,6 +509,24 @@ class OracleOfSeasonsWorld(World):
         self.pre_fill_seeds()
         self.pre_fill_dungeon_items()
 
+    def filter_confined_dungeon_items_from_pool(self):
+        my_items = [item for item in self.multiworld.itempool if item.player == self.player]
+        confined_dungeon_items = []
+        # Put Small Keys / Master Keys unless keysanity is enabled for those
+        if not self.options.keysanity_small_keys:
+            small_keys_name = "Small Key"
+            if self.options.master_keys != OracleOfSeasonsMasterKeys.option_disabled:
+                small_keys_name = "Master Key"
+            confined_dungeon_items.extend([item for item in my_items if item.name.startswith(small_keys_name)])
+        # Put Boss Keys unless keysanity is enabled for those
+        if not self.options.keysanity_boss_keys:
+            confined_dungeon_items.extend([item for item in my_items if item.name.startswith("Boss Key")])
+        # Put Maps & Compasses unless keysanity is enabled for those
+        if not self.options.keysanity_maps_compasses:
+            confined_dungeon_items.extend([item for item in my_items if item.name.startswith("Dungeon Map")
+                                           or item.name.startswith("Compass")])
+        return confined_dungeon_items
+
     def pre_fill_dungeon_items(self):
         # If keysanity is off, dungeon items can only be put inside local dungeon locations, and there are not so many
         # of those which makes them pretty crowded.
@@ -516,7 +534,8 @@ class OracleOfSeasonsWorld(World):
         # To circumvent this, we perform a restricted pre-fill here, placing only those dungeon items
         # before anything else.
         collection_state = self.multiworld.get_all_state(False)
-
+        # Build a list of all dungeon items that will need to be placed in their own dungeon.
+        all_confined_dungeon_items = self.filter_confined_dungeon_items_from_pool()
         for i in range(0, 9):
             # Build a list of locations in this dungeon
             dungeon_location_names = [name for name, loc in LOCATIONS_DATA.items()
@@ -524,10 +543,10 @@ class OracleOfSeasonsWorld(World):
             dungeon_locations = [loc for loc in self.multiworld.get_locations(self.player)
                                  if loc.name in dungeon_location_names]
 
-            # Build a list of dungeon items that are "confined" (i.e. must be placed inside this dungeon)
-            # See `create_items` to see how `self.dungeon_items` is populated depending on current options.
-            confined_dungeon_items = [item for item in self.multiworld.itempool if item.player == self.player and
-                                      item.name.endswith(f"({DUNGEON_NAMES[i]})")]
+            # From the list of all dungeon items that needs to be placed restrictively, only filter the ones for the
+            # dungeon we are currently processing.
+            confined_dungeon_items = [item for item in all_confined_dungeon_items
+                                      if item.name.endswith(f"({DUNGEON_NAMES[i]})")]
             if len(confined_dungeon_items) == 0:
                 continue  # This list might be empty with some keysanity options
             for item in confined_dungeon_items:
@@ -552,7 +571,7 @@ class OracleOfSeasonsWorld(World):
         #   - it needs to place a random seed on the "duplicate tree" (can be Horon's tree)
         #   - it needs to place one of each seed on the 5 remaining trees
         # This has a few implications:
-        #   - if Horon is the duplicate tree, this is the simplest case: we just place a random seed in Horon's tree
+        #   - if Horon is the duplicate tree, this is the simplest case: we just place a starting seed in Horon's tree
         #     and scatter the 5 seed types on the 5 other trees
         #   - if Horon is NOT the duplicate tree, we need to remove Horon's seed from the pool of 5 seeds to scatter
         #     and put a random seed inside the duplicate tree. Then, we place the 4 remaining seeds on the 4 remaining
@@ -592,9 +611,9 @@ class OracleOfSeasonsWorld(World):
 
     def get_filler_item_name(self) -> str:
         FILLER_ITEM_NAMES = [
-            "Rupees (1)", "Rupees (1)", "Rupees (5)", "Rupees (5)", "Rupees (10)", "Rupees (10)",
+            "Rupees (1)", "Rupees (5)", "Rupees (5)", "Rupees (10)", "Rupees (10)",
             "Rupees (20)", "Rupees (30)",
-            "Ore Chunks (50)", "Ore Chunks (25)", "Ore Chunks (25)", "Ore Chunks (10)", "Ore Chunks (10)",
+            "Ore Chunks (50)", "Ore Chunks (25)", "Ore Chunks (10)", "Ore Chunks (10)",
             "Random Ring", "Random Ring",
             "Gasha Seed", "Gasha Seed", "Gasha Seed",
             "Potion"
