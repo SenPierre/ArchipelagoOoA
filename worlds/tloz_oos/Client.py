@@ -144,6 +144,7 @@ class OracleOfSeasonsClient(BizHawkClient):
             for byte_addr in bytes_to_test:
                 byte_offset = byte_addr - RAM_ADDRS["location_flags"][0]
                 bit_mask = location["bit_mask"] if "bit_mask" in location else 0x20
+                print(f"{name} : " + flag_bytes[byte_offset])
                 if flag_bytes[byte_offset] & bit_mask == bit_mask:
                     location_id = self.location_name_to_id[name]
                     local_checked_locations.add(location_id)

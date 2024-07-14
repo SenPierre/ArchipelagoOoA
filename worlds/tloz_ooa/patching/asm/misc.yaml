@@ -1,0 +1,18 @@
+
+# remove the entire crescent island storm / tokay theft sequence.
+09/5731/: jp $582a             # tokays stealing items
+09/5756/: jp $582a             # ^
+09/57a5/: |                    # ^
+  inc a
+  inc a         
+0a/4fe1/: jp interactionDelete # ^
+0a/623a/: |                    # tokay trader stolen items
+  or a 
+  or a
+  or a     
+0a/62d7/: |                    # ^
+  or a 
+  or a
+  or a     
+0b/52e3/: jp interactionDelete # storm
+12/638f/: db $f3,$57,$41,$ff   # item in chicken hut

@@ -35,6 +35,7 @@ def make_overworld_logic(player: int):
         #######################################
         ["lynna city", "lynna village", True, None],
         ["forest of time", "lynna village", False, lambda state: ooa_can_open_portal(state, player)],
+        ["lynna village", "gasha farmer", False, None],
         ["lynna village", "black tower worker", False, None],
         ["lynna village", "black tower heartpiece", False, lambda state: ooa_can_remove_dirt(state, player, False)],
         ["lynna village", "advance shop", False, lambda state: ooa_has_rupees(state, player, 400)],

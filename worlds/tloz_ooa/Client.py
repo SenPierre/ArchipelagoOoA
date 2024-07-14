@@ -159,7 +159,6 @@ class OracleOfAgesClient(BizHawkClient):
 
         # Send locations
         if self.local_checked_locations != local_checked_locations:
-            print(self.local_checked_locations)
             self.local_checked_locations = local_checked_locations
             await ctx.send_msgs([{
                 "cmd": "LocationChecks",

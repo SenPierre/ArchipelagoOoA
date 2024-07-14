@@ -14,6 +14,7 @@ REGIONS = [
     "vasu's gift",
     #######
     "lynna village",
+    "gasha farmer",
     "black tower worker",
     "advance shop",
     "ambi's palace tree",

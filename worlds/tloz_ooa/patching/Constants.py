@@ -1,12 +1,12 @@
 EOB_ADDR = [
-    0x3ec9,  # 00
-    0x7FC4,  # 01
+    0x3ef9,  # 00
+    0x7fc5,  # 01
     0x7e96,  # 02
     0x7ebe,  # 03
     0x7ee3,  # 04
     0x7d9d,  # 05
     0x7a32,  # 06 - 128 bytes reserved for sprite expansion w/ web patcher (Piapiou : True there too ?)
-    0x7dd7,  # 07
+    0x7de0,  # 07
     0x7f5c,  # 08
     0x7def,  # 09
     0x7e08,  # 0a
@@ -14,20 +14,20 @@ EOB_ADDR = [
     0x7f94,  # 0c
     0x7eaa,  # 0d
     0x7f88,  # 0e
-    0x7ef9,  # 0f
-    0x7F91,  # 10
-    0x7ef5,  # 11
-    0x7f74,  # 12
-    0x7e90,  # 13
-    0x7ef0,  # 14
-    0x7abe,  # 15 - A bit of space here
-    0x7bfc,  # 16
-    0x7e03,  # 17
-    0x7f2b,  # 18
-    0x7e6d,  # 19
-    0x7fd0,  # 1a
-    0x7ec1,  # 1b
-    0x7ee1,  # 1c
+    0x7F91,  # 09
+    0x7ef5,  # 10
+    0x7f74,  # 11
+    0x7e90,  # 12
+    0x7ef0,  # 13
+    0x7abe,  # 14 - A bit of space here
+    0x7bfc,  # 15
+    0x7e03,  # 16
+    0x7f2b,  # 17
+    0x7e6d,  # 18
+    0x7fd0,  # 19
+    0x7ec1,  # 1a
+    0x7ee1,  # 1b
+    0x8000,  # 1c
     0x8000,  # 1d
     0x8000,  # 1e
     0x8000,  # 1f
@@ -62,7 +62,7 @@ EOB_ADDR = [
     0x7d5a,  # 3c
     0x7fa3,  # 3d
     0x8000,  # 3e
-    0x7d0b   # 3f - also here
+    0x7d0b   # 3f 
 ]
 
 DEFINES = {
@@ -367,4 +367,6 @@ ASM_FILES = [
     "asm/animals.yaml",
     "asm/static_items.yaml",
     "asm/multi.yaml",
+    "asm/rings.yaml",
+    "asm/misc.yaml",
 ]

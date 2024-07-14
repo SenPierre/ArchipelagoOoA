@@ -26,12 +26,27 @@
 15/5dd8/: dwbe locations.libraryPast
 0c/7c48/: dwbe locations.zoraReward
 15/7969/: dwbe locations.piratianCaptain
+15/4fd3/: dwbe locations.gashaFarmer
 0c/65e3/: dwbe locations.towerWorker
 0c//: dwbe locations.dekuForestSoldier
 15/5bbb/: dwbe locations.wildTokayGame
 15/5b36/: dwbe locations.hiddenTokayCave
 15/7929/: dwbe locations.symmetryCityBrother
 15/76cf/: dwbe locations.tokkeyComposition
+
+################################
+# Seed trees (ID only as they can only receive seed items)
+# TODO : THIS MAY NOT BE THE BEST WAY TO DO IT. Old patcher seems to do it differently for ages
+12/5ca4/: db locations.lynnaTree.id - $20
+12/5e62/: db locations.lynnaTree.id - $20
+12/5e5b/: db locations.palaceTree.id - $20
+12/6101/: db locations.forestTree.id - $20
+12/59b8/: db locations.crescentTree.id - $20
+12/59a1/: db locations.symmetryTree.id - $20
+12/5e4d/: db locations.ridgeWestTree.id - $20
+12/5f46/: db locations.ridgeEastTree.id - $20
+12/59bf/: db locations.zoraTree.id - $20
+12/5e6f/: db locations.zoraTree.id - $20
 
 ################################
 # DungeonDrops
@@ -72,3 +87,10 @@
 ################################
 # TradeItem
 15/6188/: dwbe locations.graveyardPoe
+
+##### VASU'S GIFT ###################################################
+
+# Vasu usually gives a ring, we need him to give a treasure instead
+15/42ed/: | 
+    ld bc,locations.vasuGift
+    jp spawnTreasureOnLink

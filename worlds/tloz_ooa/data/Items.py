@@ -63,7 +63,7 @@ ITEMS_DATA = {
     },
     "Seed Shooter": {
         'classification': ItemClassification.progression,
-        'id': 0x13
+        'id': 0x0f
     },
     "Shovel": {
         'classification': ItemClassification.progression,
@@ -451,60 +451,59 @@ ITEMS_DATA = {
     },
     "Book of Seals": {
         'classification': ItemClassification.progression,
-        'id': 0x42
+        'id': 0x55
     },
     "Brother Emblem": {
         'classification': ItemClassification.progression,
-        'id': 0x43
+        'id': 0x5b
     },
     "Cheval Rope": {
         'classification': ItemClassification.progression,
-        'id': 0x44
+        'id': 0x52
     },
     "Crown Key": {
         'classification': ItemClassification.progression,
-        'id': 0x45
+        'id': 0x43
     },
     "Fairy Powder": {
         'classification': ItemClassification.progression,
-        'id': 0x46
+        'id': 0x51
     },
     "Goron Vase": {
         'classification': ItemClassification.progression,
-        'id': 0x47
+        'id': 0x5c
     },
     "Goronade": {
         'classification': ItemClassification.progression,
-        'id': 0x4a
+        'id': 0x5d
     },
     "Graveyard Key": {
         'classification': ItemClassification.progression,
-        'id': 0x4a,
-        'subid': 0x02
+        'id': 0x42,
     },
     "Island Chart": {
         'classification': ItemClassification.useful,
-        'id': 0x4b
+        'id': 0x54
     },
     "Lava Juice": {
         'classification': ItemClassification.progression,
-        'id': 0x4c
+        'id': 0x5a
     },
     "Letter of Introduction": {
         'classification': ItemClassification.progression,
-        'id': 0x4d
+        'id': 0x59
     },
     "Library Key": {
         'classification': ItemClassification.progression,
-        'id': 0x4e
+        'id': 0x46
     },
     "Mermaid Key": {
         'classification': ItemClassification.progression,
-        'id': 0x4f
+        'id': 0x44
     },
     "Old Mermaid Key": {
         'classification': ItemClassification.progression,
-        'id': 0x50
+        'id': 0x45
     },
     "Ricky's Gloves": {
         'classification': ItemClassification.progression,
@@ -512,31 +511,33 @@ ITEMS_DATA = {
     },
     "Rock Brisket": {
         'classification': ItemClassification.progression,
-        'id': 0x51
+        'id': 0x5e
     },
     "Scent Seedling": {
         'classification': ItemClassification.progression,
-        'id': 0x52
+        'id': 0x4d
     },
     "Slate": {
         'classification': ItemClassification.progression,
-        'id': 0x53
+        'id': 0x4b
     },
     "Tokay Eyeball": {
         'classification': ItemClassification.progression,
-        'id': 0x54
+        'id': 0x4f
     },
     "Cracked Tuni Nut": {
         'classification': ItemClassification.progression,
-        'id': 0x54
+        'id': 0x4c,
+        'subid': 0x00
     },
     "Tuni Nut": {
         'classification': ItemClassification.progression,
-        'id': 0x54
+        'id': 0x4c,
+        'subid': 0x02
     },
     "Zora Scale": {
         'classification': ItemClassification.progression,
-        'id': 0x54
+        'id': 0x4e
     },
     #   "Bomb Upgrade": {
     #   'classification': ItemClassification.progression,
