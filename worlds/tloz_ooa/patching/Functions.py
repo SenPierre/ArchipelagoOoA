@@ -133,5 +133,4 @@ def write_seed_tree_content(rom: RomData, patch_data):
         item_name = patch_data["locations"][tree_data["location"]]
         item_id, _ = get_item_id_and_subid(item_name)
         newdata = (original_data & 0x0f) | (item_id - 0x20) << 4
-        print(item_name)
         rom.write_bytes(tree_data["codeAdress"], [newdata])

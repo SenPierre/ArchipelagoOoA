@@ -1,4 +1,5 @@
 from BaseClasses import ItemClassification
+from ..patching.Constants import DEFINES
 
 BASE_ITEM_ID = 27022002000
 
@@ -398,51 +399,51 @@ ITEMS_DATA = {
 
     "Poe Clock": {
         'classification': ItemClassification.progression,
-        'id': 0x55
+        'id': 0x10
     },
-    "Stationery": {
+    "Stationary": {
         'classification': ItemClassification.progression,
-        'id': 0x56
+        'id': 0x12
     },
     "Stink Bag": {
         'classification': ItemClassification.progression,
-        'id': 0x57
+        'id': 0x14
     },
     "Tasty Meat": {
         'classification': ItemClassification.progression,
-        'id': 0x35
+        'id': 0x18
     },
     "Doggie Mask": {
         'classification': ItemClassification.progression,
-        'id': 0x38
+        'id': 0x1a
     },
     "Dumbbell": {
         'classification': ItemClassification.progression,
-        'id': 0x39
+        'id': 0x1b
     },
     "Cheesy Mustache": {
         'classification': ItemClassification.progression,
-        'id': 0x3a
+        'id': 0x1c
     },
     "Funny Joke": {
         'classification': ItemClassification.progression,
-        'id': 0x3b
+        'id': 0x1f
     },
     "Touching Book": {
         'classification': ItemClassification.progression,
-        'id': 0x3c
+        'id': 0x35
     },
     "Magic Oar": {
         'classification': ItemClassification.progression,
-        'id': 0x3d
+        'id': 0x38
     },
     "Sea Ukulele": {
         'classification': ItemClassification.progression,
-        'id': 0x3e
+        'id': 0x39
     },
     "Broken Sword": {
          'classification': ItemClassification.progression,
-         'id': 0x3f
+         'id': 0x3a
     },
 
     "Bomb Flower": {

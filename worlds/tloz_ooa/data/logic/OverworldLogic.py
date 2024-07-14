@@ -61,7 +61,7 @@ def make_overworld_logic(player: int):
             ])
         ])],
         ["lynna village", "postman trade", False, lambda state: state.has("Poe Clock", player)],
-        ["lynna village", "toilet hand trade", False, lambda state: state.has("Stationery", player)],
+        ["lynna village", "toilet hand trade", False, lambda state: state.has("Stationary", player)],
         ["lynna village", "sad boi trade", False, lambda state: state.has("Funny Joke", player)],
         ["lynna village", "rafton's raft", False, lambda state: all([
             state.has("Cheval Rope", player),
