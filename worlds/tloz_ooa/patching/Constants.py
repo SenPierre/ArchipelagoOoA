@@ -370,3 +370,46 @@ ASM_FILES = [
     "asm/rings.yaml",
     "asm/misc.yaml",
 ]
+
+SEED_TREE_DATA = {
+    "Lynna Present" : {
+        "location" : "Lynna City: Seed Tree",
+        "codeAdress" : 0x49ca4,
+    },
+    "Lynna Past" : {
+        "location" : "Lynna City: Seed Tree",
+        "codeAdress" : 0x49e62,
+    },
+    "Ambi's Palace" : {
+        "location" : "Ambi's Palace: Seed Tree",
+        "codeAdress" : 0x49e5b,
+    },
+    "Deku Forest" : {
+        "location" : "Deku Forest: Seed Tree",
+        "codeAdress" : 0x50101,
+    },
+    "Crescent Island" : {
+        "location" : "Crescent Island: Seed Tree",
+        "codeAdress" : 0x499b8,
+    },
+    "Symmetry city" : {
+        "location" : "Symmetry city: Seed Tree",
+        "codeAdress" : 0x499a1,
+    },
+    "Rolling Ridge West" : {
+        "location" : "Rolling Ridge West: Seed Tree",
+        "codeAdress" : 0x49e4d,
+    },
+    "Rolling Ridge East" : {
+        "location" : "Rolling Ridge East: Seed Tree",
+        "codeAdress" : 0x9f46,
+    },
+    "Zora Present" : {
+        "location" : "Zora Village: Seed Tree",
+        "codeAdress" : 0x499bf,
+    },
+    "Zora Past" : {
+        "location" : "Zora Village: Seed Tree",
+        "codeAdress" : 0x49e6f,
+    },
+}

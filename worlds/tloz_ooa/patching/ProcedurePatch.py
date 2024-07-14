@@ -65,6 +65,7 @@ class OoAPatchExtensions(APPatchExtension):
         # TODO
         #alter_treasures(rom_data)
         write_chest_contents(rom_data, patch_data)
+        write_seed_tree_content(rom_data, patch_data)
         #set_old_men_rupee_values(rom_data, patch_data)
         #set_dungeon_warps(rom_data, patch_data)
         #set_portal_warps(rom_data, patch_data)

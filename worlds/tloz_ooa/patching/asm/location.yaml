@@ -35,18 +35,17 @@
 15/76cf/: dwbe locations.tokkeyComposition
 
 ################################
-# Seed trees (ID only as they can only receive seed items)
-# TODO : THIS MAY NOT BE THE BEST WAY TO DO IT. Old patcher seems to do it differently for ages
-12/5ca4/: db locations.lynnaTree.id - $20
-12/5e62/: db locations.lynnaTree.id - $20
-12/5e5b/: db locations.palaceTree.id - $20
-12/6101/: db locations.forestTree.id - $20
-12/59b8/: db locations.crescentTree.id - $20
-12/59a1/: db locations.symmetryTree.id - $20
-12/5e4d/: db locations.ridgeWestTree.id - $20
-12/5f46/: db locations.ridgeEastTree.id - $20
-12/59bf/: db locations.zoraTree.id - $20
-12/5e6f/: db locations.zoraTree.id - $20
+# Seed tree types (differentl from in seasons)
+12/59a1/symmetryCityTreeSubId: db 35
+12/59b8/crescentIslandTreeSubId: db 17
+12/59bf/zoraVillagePresentTreeSubId: db 38
+12/5ca4/southLynnaPresentTreeSubId: db 06
+12/5e4d/rollingRidgeWestTreeSubId: db 29
+12/5e5b/ambisPalaceTreeSubId: db 1a
+12/5e62/southLynnaPastTreeSubId: db 0c
+12/5e6f/zoraVillagePastTreeSubId: db 3e
+12/5f46/rollingRidgeEastTreeSubId: db 5b
+12/6101/dekuForestTreeSubId: db 4d
 
 ################################
 # DungeonDrops

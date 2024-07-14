@@ -125,3 +125,13 @@ def inject_slot_name(rom: RomData, slot_name: str):
     slot_name_as_bytes = list(str.encode(slot_name))
     slot_name_as_bytes += [0x00] * (0x40 - len(slot_name_as_bytes))
     rom.write_bytes(0xfffc0, slot_name_as_bytes)
+
+    
+def write_seed_tree_content(rom: RomData, patch_data):
+    for _, tree_data in SEED_TREE_DATA.items():
+        original_data = rom.read_byte(tree_data["codeAdress"])
+        item_name = patch_data["locations"][tree_data["location"]]
+        item_id, _ = get_item_id_and_subid(item_name)
+        newdata = (original_data & 0x0f) | (item_id - 0x20) << 4
+        print(item_name)
+        rom.write_bytes(tree_data["codeAdress"], [newdata])
