@@ -2,6 +2,11 @@
 09/3dc0/checkMakuItemObtained: |
     push de
     push hl
+    ; Force smallest Maku Tree room "visited flag" to be set, because map menu only checks for that specific room
+    ; variant to decide if the tile should be revealed or not.
+    ld hl,$c80b
+    set 4,(hl)
+    ; Scan all room flags for all Maku Tree map variants to check if the item was obtained in at least one of them
     ld de,makuTreeRooms
     ld h,$c8
     call scanItemGetFlagsForMaps
