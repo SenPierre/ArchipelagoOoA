@@ -11,8 +11,9 @@
     call interactionSetScript
     ld a,$15
     call setGlobalFlag
+    ; Unset a room flag which changed the layout to ensure exiting Temple Remains cave didn't lead to a softlock 
     ld hl,$c716
-    set 0,(hl)    ; affects tileSubTable
+    res 0,(hl)
     ret
 
 # enable exit from volcano room after skipping cutscene.

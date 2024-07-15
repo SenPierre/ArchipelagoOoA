@@ -1,72 +1,19 @@
-# look up tiles in custom replacement table after loading a room. the format
-# is (group, room, bitmask, YX, tile ID), with ff ending the table. if the
-# bitmask AND the current room flags is nonzero, the replacement is not made.
-04//applyExtraTileSubstitutions: |
-    push bc
-    push de
-    call getThisRoomFlags
-    ld e,a
-    ld hl,tileSubTable
-    ld a,(wActiveGroup)
-    ld b,a
-    ld a,(wActiveRoom)
-    ld c,a
-    @loop:
-    ldi a,(hl)
-    cp $ff
-    jr z,@done
-    cp b
-    jr nz,@groupMismatch
-    ldi a,(hl)
-    cp c
-    jr nz,@roomMismatch
-    ldi a,(hl)
-    and e
-    jr nz,@flagMismatch
-    push de
-    ld d,$cf
-    ldi a,(hl)
-    ld e,a
-    ldi a,(hl)
-    ld (de),a
-    pop de
-    jr @loop
-    @groupMismatch:
-    inc hl
-    @roomMismatch:
-    inc hl
-    @flagMismatch:
-    inc hl
-    inc hl
-    jr @loop
-    @done:
-    pop de
-    pop bc
-    call $5d94    ; applyAllTileSubstitutions
-    ret
-
-# bank 21 = spring, 22 = summer, 23 = autumn, 24 = winter
-# Remove most snow in Woods of Winter middle room
-24/2c68/: db $04
-24/2c70/: db $04
-24/2c7e/: db $04
-24/2c71/: db $9e,$8b
-24/2c74/: db $c0,$04,$80,$81,$99,$9b,$70,$71
-
-# data for applyAllTileSubstitutions: group,room,flags,yx,tile
-04//tileSubTable: |
-    ; Permanently remove flower outside D6 when cut
-    db $00,$01,$01,$52,$04 
+# Data for applyAllTileSubstitutions:
+# - room group
+# - room ID
+# - room flag mask required for the layout change to occur (00 means "always")
+# - tile position as "yx"
+# - tile to put in place of the original one
+04//tileReplacementsTable: |
+    db $00,$01,$01,$52,$04  ; Permanently remove flower outside D6 when cut
+    db $00,$9a,$00,$14,$12  ; Remove rock across pit blocking exit from D5
+    db $00,$8a,$00,$66,$64  ; Add rock at bottom of cliff to block ricky   
+    db $00,$9a,$00,$34,$04  ; Remove bush next to rosa portal  
 
     ; Add ledge down from temple remains lower portal
     db $00,$25,$00,$32,$3a 
     db $00,$25,$00,$33,$cf
     db $00,$25,$00,$34,$4b
-
-    db $00,$9a,$00,$14,$12  ; Remove rock across pit blocking exit from D5
-    db $00,$8a,$00,$66,$64  ; Add rock at bottom of cliff to block ricky
-    
-    db $00,$9a,$00,$34,$04  ; Remove bush next to rosa portal
 
     ; Replace summer vines near d2 by stairs
     db $00,$8e,$00,$35,$d0
@@ -96,7 +43,64 @@
 
     db $ff
 
+# look up tiles in custom replacement table after loading a room. the format
+# is (group, room, bitmask, YX, tile ID), with ff ending the table. if the
+# bitmask AND the current room flags is nonzero, the replacement is not made.
+04//applyExtraTileSubstitutions: |
+    push bc
+    push de
+    call getThisRoomFlags
+    ld e,a
+    ld hl,tileReplacementsTable
+    ld a,(wActiveGroup)
+    ld b,a
+    ld a,(wActiveRoom)
+    ld c,a
+    @loop:
+    ldi a,(hl)
+    cp $ff
+    jr z,@done
+    cp b
+    jr nz,@groupMismatch
+    ldi a,(hl)
+    cp c
+    jr nz,@roomMismatch
+    ldi a,(hl)
+    or a
+    jr z,@alwaysOn
+    and e
+    jr z,@flagMismatch
+    @alwaysOn:
+    push de
+    ld d,$cf
+    ldi a,(hl)
+    ld e,a
+    ldi a,(hl)
+    ld (de),a
+    pop de
+    jr @loop
+    @groupMismatch:
+    inc hl
+    @roomMismatch:
+    inc hl
+    @flagMismatch:
+    inc hl
+    inc hl
+    jr @loop
+    @done:
+    pop de
+    pop bc
+    call $5d94    ; applyAllTileSubstitutions
+    ret
 00/3854/: call applyExtraTileSubstitutions
+
+# bank 21 = spring, 22 = summer, 23 = autumn, 24 = winter
+# Remove most snow in Woods of Winter middle room
+24/2c68/: db $04
+24/2c70/: db $04
+24/2c7e/: db $04
+24/2c71/: db $9e,$8b
+24/2c74/: db $c0,$04,$80,$81,$99,$9b,$70,$71
 
 # Change temple remains door upper-left tree tile per-layout because the generic tile replacement
 # was causing a glitched palette in winter
@@ -105,7 +109,7 @@
 23/0e08/: db $70    # Autumn
 24/0b22/: db $65    # Winter
 
-# unset a room flag when the flower outside D6 is broken. see tileSubTable.
+# set a room flag when the flower outside D6 is broken to make the pillar go away forever
 06//checkBreakD6Flower: |
     push af
     push bc
@@ -118,7 +122,7 @@
     jr nz,@done
     push hl
     ld hl,$c701
-    res 0,(hl)
+    set 0,(hl)
     pop hl
     @done:
     pop af

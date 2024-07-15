@@ -82,7 +82,7 @@
 
   ; Room flag 0
   ld a,$01
-  ld ($c701),a  # Flower/rock tile exists near D6
+  ld ($c716),a  ; Enable a tile replacement in Temple Remains to prevent softlock when exiting cave
 
   ; Give L-3 ring box
   ld a,$10
