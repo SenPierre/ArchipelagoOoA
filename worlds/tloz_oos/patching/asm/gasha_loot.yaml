@@ -30,7 +30,10 @@
     ld c,(hl)
     call spawnTreasureOnLink
     pop bc
-  
+    jr nz,@done
+    ld l,$71  ; Set forced collect mode in var31
+    ld (hl),COLLECT_PICKUP  ; Make the item set the room flag when collected
+    
     ; Increment count, then rotate back to its initial state and store it
     ld a,b
     inc a
@@ -39,6 +42,8 @@
     ld (wGashaSpotFlags),a
     ; Increase nut state to make the tree wither
     call interactionIncState
+    
+    @done:
     ret
 
 # Replace the first check of INTERACID_GASHA_SPOT @state5 to check for

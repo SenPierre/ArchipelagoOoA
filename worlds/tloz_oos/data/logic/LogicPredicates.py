@@ -1,6 +1,6 @@
 from BaseClasses import CollectionState
 from Options import Accessibility
-from worlds.tloz_oos.data.Constants import DUNGEON_NAMES, SEASON_ITEMS, ESSENCES, JEWELS
+from worlds.tloz_oos.data.Constants import DUNGEON_NAMES, SEASON_ITEMS, ESSENCES, JEWELS, GASHA_SPOT_REGIONS
 
 
 # Items predicates ############################################################
@@ -669,10 +669,14 @@ def oos_can_harvest_tree(state: CollectionState, player: int, can_use_companion:
     ])
 
 
-def oos_can_harvest_gasha(state: CollectionState, player: int):
-    if not oos_can_kill_normal_enemy(state, player):
-        return False  # No kill = plant cannot grow
-    return oos_has_sword(state, player) or oos_has_fools_ore(state, player)
+def oos_can_harvest_gasha(state: CollectionState, player: int, count: int):
+    reachable_soils = [state.has(f"_reached_{region_name}", player) for region_name in GASHA_SPOT_REGIONS]
+    return all([
+        reachable_soils.count(True) >= count,  # Enough soils are reachable
+        state.has("Gasha Seed", player, count),  # Enough seeds to plant
+        oos_can_kill_normal_enemy(state, player),  # Can increase kill count to make the tree grow
+        oos_has_sword(state, player) or oos_has_fools_ore(state, player)  # Can actually harvest the nut
+    ])
 
 
 def oos_can_push_enemy(state: CollectionState, player: int):

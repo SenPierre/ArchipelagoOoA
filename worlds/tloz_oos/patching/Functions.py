@@ -160,6 +160,48 @@ def define_collect_properties_table(assembler: Z80Assembler, patch_data):
     assembler.add_floating_chunk("collectPropertiesTable", table)
 
 
+def define_additional_tile_replacements(assembler: Z80Assembler, patch_data):
+    """
+    Define a list of entries following the format of `tileReplacementsTable` (see ASM for more info) which end up
+    being tile replacements on various rooms in the game.
+    """
+    table = []
+    # Reveal hidden subrosia digging spots if required
+    if patch_data["options"]["shuffle_golden_ore_spots"] == OracleOfSeasonsGoldenOreSpotsShuffle.option_shuffled_visible:
+        table.extend([
+            0x01, 0x06, 0x00, 0x18, 0x2f,  # Bath digging spot
+            0x01, 0x57, 0x00, 0x38, 0x2f,  # Market portal digging spot
+            0x01, 0x47, 0x00, 0x33, 0x2f,  # Hard-working Subrosian digging spot
+            0x01, 0x3a, 0x00, 0x46, 0x2f,  # Temple of Seasons digging spot
+            0x01, 0x07, 0x00, 0x13, 0x2f,  # Northern volcanoes digging spot
+            0x01, 0x20, 0x00, 0x68, 0x2f,  # D8 portal digging spot
+            0x01, 0x42, 0x00, 0x14, 0x2f   # Western volcanoes digging spot
+        ])
+    # If D0 alternate entrance is removed, put stairs inside D0 to make chest reachable without the alternate entrance
+    if patch_data["options"]["remove_d0_alt_entrance"] > 0:
+        table.extend([0x04, 0x05, 0x00, 0x5a, 0x53])
+    # Remove Gasha spots when harvested once if deterministic Gasha locations are enabled
+    if patch_data["options"]["deterministic_gasha_locations"] > 0:
+        table.extend([
+            0x00, 0xa6, 0x20, 0x54, 0x04,  # North Horon: Gasha Spot Above Impa
+            0x00, 0xc8, 0x20, 0x67, 0x04,  # Horon Village: Gasha Spot Near Mayor's House
+            0x00, 0xac, 0x20, 0x27, 0x04,  # Eastern Suburbs: Gasha Spot
+            0x00, 0x95, 0x20, 0x32, 0x04,  # Holodrum Plain: Gasha Spot Near Mrs. Ruul's House
+            0x00, 0x75, 0x20, 0x34, 0x04,  # Holodrum Plain: Gasha Spot on Island Above D1
+            0x00, 0x80, 0x20, 0x53, 0x04,  # Spool Swamp: Gasha Spot Near Floodgate Keyhole
+            0x00, 0xc0, 0x20, 0x61, 0x04,  # Spool Swamp: Gasha Spot Near Portal
+            0x00, 0x3f, 0x20, 0x44, 0x04,  # Sunken City: Gasha Spot
+            0x00, 0x1f, 0x20, 0x21, 0x12,  # Mt. Cucco: Gasha Spot
+            0x00, 0x38, 0x20, 0x25, 0x04,  # Goron Mountain: Gasha Spot Left of Entrance
+            0x00, 0x3b, 0x20, 0x53, 0x12,  # Goron Mountain: Gasha Spot Right of Entrance
+            0x00, 0x89, 0x20, 0x24, 0x04,  # Eyeglass Lake: Gasha Spot Near D5
+            0x00, 0x22, 0x20, 0x45, 0x04,  # Tarm Ruins: Gasha Spot
+            0x00, 0xf0, 0x20, 0x22, 0x12,  # Western Coast: Gasha Spot South of Graveyard
+            0x00, 0xef, 0x20, 0x66, 0xaf,  # Samasa Desert: Gasha Spot
+            0x00, 0x44, 0x20, 0x44, 0x04,  # Path to Onox Castle: Gasha Spot
+        ])
+    assembler.add_floating_chunk("additionalTileReplacements", table)
+
 def define_location_constants(assembler: Z80Assembler, patch_data):
     # If "Enforce potion in shop" is enabled, put a Potion in a specific location in Horon Shop that was
     # disabled at generation time to prevent trackers from tracking it
@@ -220,9 +262,6 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
 
     assembler.define_byte("option.removeD0AltEntrance", options["remove_d0_alt_entrance"])
     assembler.define_byte("option.deterministicGashaLootCount", options["deterministic_gasha_locations"])
-
-    reveal_ore = options["shuffle_golden_ore_spots"] == OracleOfSeasonsGoldenOreSpotsShuffle.option_shuffled_visible
-    assembler.define_byte("option.revealGoldenOreTiles", 1 if reveal_ore else 0xfe)
 
     fools_ore_damage = 3 if options["fools_ore"] == OracleOfSeasonsFoolsOre.option_balanced else 12
     assembler.define_byte("option.foolsOreDamage", (-1 * fools_ore_damage + 0x100))

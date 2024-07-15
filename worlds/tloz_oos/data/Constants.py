@@ -346,6 +346,25 @@ LOCATION_GROUPS = {
     ]
 }
 
+GASHA_SPOT_REGIONS = [
+    "impa gasha spot",
+    "horon gasha spot",
+    "suburbs gasha spot",
+    "holodrum plain gasha spot",
+    "holodrum plain island gasha spot",
+    "spool swamp north gasha spot",
+    "spool swamp south gasha spot",
+    "sunken city gasha spot",
+    "mt cucco gasha spot",
+    "goron mountain left gasha spot",
+    "goron mountain right gasha spot",
+    "eyeglass lake gasha spot",
+    "tarm ruins gasha spot",
+    "western coast gasha spot",
+    "samasa desert gasha spot",
+    "onox gasha spot",
+]
+
 TREASURE_SPAWN_INSTANT = 0x00
 TREASURE_SPAWN_POOF = 0x10
 TREASURE_SPAWN_DROP = 0x20

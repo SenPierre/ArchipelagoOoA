@@ -2169,4 +2169,10 @@ LOCATIONS_DATA = {
         "conditional": True,
         "room": [],
     },
+    "Gasha Nut #16": {
+        "region_id": "gasha tree 16",
+        "vanilla_item": "Filler Item",
+        "conditional": True,
+        "room": [],
+    },
 }

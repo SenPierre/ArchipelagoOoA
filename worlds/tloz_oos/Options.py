@@ -363,10 +363,11 @@ class OracleOfSeasonsSamasaGateCodeLength(Range):
 
 class OracleOfSeasonsGashaLocations(Range):
     """
-    The amount of successive Gasha Nuts that will have pre-generated items inside which are taken into account
-    regarding logic. This means the first X Gasha Nuts you will open will contain deterministic items which might
-    be required to complete the seed, and any nut after this will contain random items following the same logic as
-    the vanilla game.
+    When set to a non-zero value, planting a Gasha tree on a unique soil gives a deterministic item which is taken
+    into account by logic. Once an item has been obtained this way, the soil disappears forever to avoid any chance
+    of softlocking by wasting several Gasha Seeds on the same soil.
+    The value of this option is the number of items that can be obtained that way, the maximum value expecting you
+    to plant a tree on each one of the 16 Gasha spots in the game.
     """
     display_name = "Deterministic Gasha Locations"
 

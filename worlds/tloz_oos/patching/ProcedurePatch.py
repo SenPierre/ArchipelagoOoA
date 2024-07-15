@@ -36,6 +36,7 @@ class OoSPatchExtensions(APPatchExtension):
         define_text_constants(assembler, patch_data)
         define_compass_rooms_table(assembler, patch_data)
         define_collect_properties_table(assembler, patch_data)
+        define_additional_tile_replacements(assembler, patch_data)
         define_samasa_combination(assembler, patch_data)
         define_dungeon_items_text_constants(assembler, patch_data)
         set_lost_woods_sequence(assembler, patch_data)

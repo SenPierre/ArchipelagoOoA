@@ -367,6 +367,10 @@ class OracleOfSeasonsWorld(World):
         self.create_event("d7 entrance wild embers", "_wild_ember_seeds")
         self.create_event("frypolar room wild mystery", "_wild_mystery_seeds")
 
+        # Create events for reaching Gasha spots, used
+        for region_name in GASHA_SPOT_REGIONS:
+            self.create_event(region_name, f"_reached_{region_name}")
+
         # Create event items to represent rupees obtained from Old Men, unless they are turned into locations
         if self.options.shuffle_old_men != OracleOfSeasonsOldMenShuffle.option_turn_into_locations:
             for region_name in self.old_man_rupee_values:
