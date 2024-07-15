@@ -75,7 +75,7 @@ def apply_self_locking_rules(multiworld: MultiWorld, player: int):
     OTHER_SELF_LOCKING_ITEMS = {
         # TODO Trade Sequence OOA
         'Yoll Graveyard: Graveyard Poe':"Poe Clock",
-        'Lynna Village: Postman':"Stationery",
+        'Lynna Village: Postman':"Stationary",
         'Lynna Village: Toilet Hand':"Stink Bag",
         'Crescent Island: Tokay Chef':"Tasty Meat",
         'Nuun: Happy Mask Salesman':"Doggie Mask",
