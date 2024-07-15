@@ -1,9 +1,54 @@
-  09/6d3d/: | # Hijacking red bear code. We don't need the bear. He is dead now. Now it's the Impa gift.
-    call getThisRoomFlags
-    bit 5,(hl)
-    jp nz,interactionDelete
+# Format is group,room,treasure_id,treasure_subid
+0a//staticItemsReplacementsTable: |
+  # ------- Freestanding items -------
+  dwbe $0186, locations.blackTowerHP
+  dwbe $04a6, locations.makuPathHP
+  dwbe $008b, locations.yollGraveyardHP
+  dwbe $05b1, locations.dekuForestHP
+  dwbe $03af, locations.restorationWallHP
+  dwbe $0011, locations.symmetryCityHP
+  dwbe $05c0, locations.ridgeWestHP
+  dwbe $000d, locations.ridgeUpperHP
+  # ------- Digging spots -------
 
-    ld bc, locations.impaGift ; Set the item as impa gift
-    call createTreasure       ; spawn it
-    call objectCopyPosition   ; move it
-    jp interactionDelete
+  # ------- Drops / spawned items -------
+
+
+0a//staticItemsReplacementsLookup_body: |
+  push bc
+  ld a,(wActiveGroup)
+  ld b,a
+  ld a,(wActiveRoom)
+  ld c,a
+  ld e,$02
+  ld hl,staticItemsReplacementsTable
+  call searchDoubleKey
+  pop bc
+  ret nc
+  ld b,(hl) # item id
+  inc hl
+  ld c,(hl) # item subid
+  ret
+00//staticItemsReplacementsLookup: |
+  push de
+  push hl
+  ld e,$0a
+  ld hl,staticItemsReplacementsLookup_body
+  call interBankCall
+  pop hl
+  pop de
+  ret
+
+# staticHeartPiece (0x26381)
+10/74bd/: call staticItemsReplacementsLookup
+
+###################################################################################################################
+09/6d3d/: | # Hijacking red bear code. We don't need the bear. He is dead now. Now it's the Impa gift.
+  call getThisRoomFlags
+  bit 5,(hl)
+  jp nz,interactionDelete
+
+  ld bc, locations.impaGift ; Set the item as impa gift
+  call createTreasure       ; spawn it
+  call objectCopyPosition   ; move it
+  jp interactionDelete

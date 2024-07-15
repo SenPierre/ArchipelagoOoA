@@ -325,7 +325,7 @@ LOCATIONS_DATA = {
     "Tokay Bomb Cave": {
         "region_id": "tokay bomb cave",
         "vanilla_item": "Gasha Seed",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7ce,
         "room": 0x02ce,
         "map_tile": 0x1cd,
         "collect": COLLECT_CHEST,
@@ -333,7 +333,7 @@ LOCATIONS_DATA = {
     "Wild Tokay Game": {
         "region_id": "wild tokay game",
         "vanilla_item": "Scent Seedling",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7de,
         "room": 0x02de,
         "map_tile": 0x1bd,
         "collect": COLLECT_TOUCH,
@@ -452,7 +452,7 @@ LOCATIONS_DATA = {
     "Under Moblin Keep": {
         "region_id": "under moblin keep",
         "vanilla_item": "Armor Ring L-1",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7be,
         "room": 0x02be,
         "map_tile": 0x09,
         "collect": COLLECT_CHEST,
@@ -485,7 +485,7 @@ LOCATIONS_DATA = {
     "Bomb Goron Head": {
         "region_id": "bomb goron head",
         "vanilla_item": "Rupees (100)",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7fc,
         "room": 0x02fc,
         "map_tile": 0x10d,
         "collect": COLLECT_CHEST,
@@ -523,6 +523,7 @@ LOCATIONS_DATA = {
     "Trade Goron Vase": {
         "region_id": "trade goron vase",
         "vanilla_item": "Goronade",
+        "flag_byte": 0xc7ff,
         "room": 0x02ff,
         "map_tile": 0x13d,
         "collect": COLLECT_TOUCH,
@@ -557,7 +558,7 @@ LOCATIONS_DATA = {
     "Trade Rock Brisket": {
         "region_id": "trade rock brisket",
         "vanilla_item": "Goron Vase",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7fd,
         "room": 0x02fd,
         "map_tile": 0x3d,
         "collect": COLLECT_TOUCH,
@@ -638,7 +639,7 @@ LOCATIONS_DATA = {
     "Zora Village Present Chest": {
         "region_id": "zora village present",
         "vanilla_item": "Gasha Seed",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7c0,
         "room": 0x02c0,
         "collect": COLLECT_CHEST,
     },
@@ -702,7 +703,7 @@ LOCATIONS_DATA = {
     "Fisher's Island Cave": {
         "region_id": "fisher's island cave",
         "vanilla_item": "Red Holy Ring",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc74f,
         "room": 0x024f,
         "map_tile": 0x1c5,
         "collect": COLLECT_CHEST,
@@ -710,7 +711,7 @@ LOCATIONS_DATA = {
     "Zora's Reward": {
         "region_id": "zora's reward",
         "vanilla_item": "Zora Scale",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7a0,
         "room": 0x02a0,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "zoraReward",
@@ -741,7 +742,7 @@ LOCATIONS_DATA = {
     "Sea of No Return": {
         "region_id": "sea of no return",
         "vanilla_item": "Blue Ring",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc86d,
         "room": 0x016d,
         "collect": COLLECT_CHEST,
     },
@@ -757,7 +758,7 @@ LOCATIONS_DATA = {
     "Lynna Village: Postman Trade": {
         "region_id": "postman trade",
         "vanilla_item": "Stationary",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7f5,
         "room": 0x02f5, # May be wrong, todo check
         "collect": COLLECT_TOUCH,
         "symbolic_name": "postman",
@@ -765,7 +766,7 @@ LOCATIONS_DATA = {
     "Lynna Village: The Toilet Hand Trade": {
         "region_id": "toilet hand trade",
         "vanilla_item": "Stink Bag",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc73e,
         "room": 0x023e,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "toiletHand",
@@ -773,7 +774,7 @@ LOCATIONS_DATA = {
     "Crescent Island (Present): Tokay Chef Trade": {
         "region_id": "tokay chef trade",
         "vanilla_item": "Tasty Meat",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc73f,
         "room": 0x023f,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "tokayChef",
@@ -781,7 +782,7 @@ LOCATIONS_DATA = {
     "Nuun Highland: Happy Mask Salesman Trade": {
         "region_id": "happy mask salesman trade",
         "vanilla_item": "Doggie Mask",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7e6,
         "room": 0x02e6,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "maskSaleman",
@@ -789,7 +790,7 @@ LOCATIONS_DATA = {
     "Lynna City: Mamamu Yan Trade": {
         "region_id": "mamamu yan trade",
         "vanilla_item": "Dumbbell",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7e7,
         "room": 0x02e7,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "mamamuYan",
@@ -797,7 +798,7 @@ LOCATIONS_DATA = {
     "Symmetry City: Middle Man Trade": {
         "region_id": "symmetry middle man trade",
         "vanilla_item": "Cheesy Mustache",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7e8,
         "room": 0x02e8,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "middleMan",
@@ -813,7 +814,7 @@ LOCATIONS_DATA = {
     "Lynna Village: Sad Boi Trade": {
         "region_id": "sad boi trade",
         "vanilla_item": "Touching Book",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7f3,
         "room": 0x02f3,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "sadBoi",
@@ -828,7 +829,7 @@ LOCATIONS_DATA = {
     "Lynna Village: Rafton Trade": {
         "region_id": "rafton trade",
         "vanilla_item": "Sea Ukulele",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc71f,
         "room": 0x021f,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "rafton",
@@ -845,50 +846,66 @@ LOCATIONS_DATA = {
     "Black Tower Heart Piece": {
         "region_id": "black tower heartpiece",
         "vanilla_item": "Piece of Heart",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc886,
+        "room": 0x0186,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "blackTowerHP",
     },
     "Maku Path Heart Piece": {
         "region_id": "maku path heartpiece",
         "vanilla_item": "Piece of Heart",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc906,
+        "room": 0x0406,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "makuPathHP",
     },
     "Yoll Graveyard Heart Piece": {
         "region_id": "yoll graveyard heartpiece",
         "vanilla_item": "Piece of Heart",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc78b,
+        "room": 0x008b,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "yollGraveyardHP",
     },
     "Deku Forest Heart Piece": {
         "region_id": "deku forest heartpiece",
         "vanilla_item": "Piece of Heart",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xcab1,
+        "room": 0x05b1,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "dekuForestHP",
     },
     "Restoration Wall Heart Piece": {
         "region_id": "restoration wall heartpiece",
         "vanilla_item": "Piece of Heart",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc8af,
+        "room": 0x03af,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "restorationWallHP",
     },
     "Symmetry City Heart Piece": {
         "region_id": "symmetry city heartpiece",
         "vanilla_item": "Piece of Heart",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc711,
+        "room": 0x0011,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "symmetryCityHP",
     },
     "Ridge West Heart Piece": {
         "region_id": "ridge west heartpiece",
         "vanilla_item": "Piece of Heart",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xcac1,
+        "room": 0x05c1,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "ridgeWestHP",
     },
     "Ridge Upper Heart Piece": {
         "region_id": "ridge upper heartpiece",
         "vanilla_item": "Piece of Heart",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc70d,
+        "room": 0x000d,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "ridgeUpperHP",
     },
     ##########################################
     "Maku Path: Key Chest": {
