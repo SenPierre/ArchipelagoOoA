@@ -40,13 +40,17 @@ class OracleOfSeasonsSettings(settings.Group):
         A factor applied to the infamous heart beep sound interval.
         Valid values are: "vanilla", "half", "quarter", "disabled"
         """
+    class OoSRemoveMusic(str):
+        """
+        If true, no music will be played in the game while sound effects remain untouched
+        """
 
     rom_file: RomFile = RomFile(RomFile.copy_to)
     rom_start: bool = True
     character_sprite: typing.Union[OoSCharacterSprite, str] = "link"
     character_palette: typing.Union[OoSCharacterPalette, str] = "green"
     heart_beep_interval: typing.Union[OoSHeartBeepInterval, str] = "vanilla"
-
+    remove_music: typing.Union[OoSRemoveMusic, bool] = False
 
 class OracleOfSeasonsWeb(WebWorld):
     theme = "grass"

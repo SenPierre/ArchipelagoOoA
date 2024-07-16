@@ -26,6 +26,8 @@ def get_asm_files(patch_data):
         asm_files.append("asm/conditional/ganon_goal.yaml")
     if patch_data["options"]["shuffle_essences"]:
         asm_files.append("asm/conditional/essence_sanity.yaml")
+    if get_settings()["tloz_oos_options"]["remove_music"]:
+        asm_files.append("asm/conditional/mute_music.yaml")
     return asm_files
 
 
