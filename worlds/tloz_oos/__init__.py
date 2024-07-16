@@ -27,13 +27,14 @@ class OracleOfSeasonsSettings(settings.Group):
 
     class OoSCharacterSprite(str):
         """
-        The name of the sprite file to use (from 'data/sprites/oos_ooa/).
+        The name of the sprite file to use (from "data/sprites/oos_ooa/").
         Putting "link" as a value uses the default game sprite.
+        Putting "random" as a value randomly picks a sprite from your sprites directory for each generated ROM.
         """
     class OoSCharacterPalette(str):
         """
         The color palette used for character sprite throughout the game.
-        Valid values are: "green", "red", "blue", "orange"
+        Valid values are: "green", "red", "blue", "orange", and "random"
         """
     class OoSHeartBeepInterval(str):
         """
@@ -51,6 +52,7 @@ class OracleOfSeasonsSettings(settings.Group):
     character_palette: typing.Union[OoSCharacterPalette, str] = "green"
     heart_beep_interval: typing.Union[OoSHeartBeepInterval, str] = "vanilla"
     remove_music: typing.Union[OoSRemoveMusic, bool] = False
+
 
 class OracleOfSeasonsWeb(WebWorld):
     theme = "grass"

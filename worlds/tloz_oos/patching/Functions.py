@@ -1,4 +1,5 @@
 import os
+import random
 from typing import List
 import Utils
 from settings import get_settings
@@ -541,16 +542,23 @@ def set_heart_beep_interval_from_settings(rom: RomData):
 
 def set_character_sprite_from_settings(rom: RomData):
     sprite = get_settings()["tloz_oos_options"]["character_sprite"]
-    if sprite != "link":
-        if not sprite.endswith(".bin"):
-            sprite += ".bin"
-        sprite_path = Path(Utils.local_path(os.path.join('data', 'sprites', 'oos_ooa', sprite)))
+    sprite_dir = Path(Utils.local_path(os.path.join('data', 'sprites', 'oos_ooa')))
+    if sprite == "random":
+        sprite_filenames = [f for f in os.listdir(sprite_dir) if sprite_dir.joinpath(f).is_file() and f.endswith(".bin")]
+        sprite = sprite_filenames[random.randint(0, len(sprite_filenames) - 1)]
+    elif not sprite.endswith(".bin"):
+        sprite += ".bin"
+    if sprite != "link.bin":
+        sprite_path = sprite_dir.joinpath(sprite)
         if not (sprite_path.exists() and sprite_path.is_file()):
             raise ValueError(f"Path '{sprite_path}' doesn't exist")
         sprite_bytes = list(Path(sprite_path).read_bytes())
         rom.write_bytes(0x68000, sprite_bytes)
 
     palette = get_settings()["tloz_oos_options"]["character_palette"]
+    if palette == "random":
+        colors = list(PALETTE_BYTES.keys())
+        palette = colors[random.randint(0, len(colors) - 1)]
     if palette == "green":
         return  # Nothing to change
     if palette not in PALETTE_BYTES:
