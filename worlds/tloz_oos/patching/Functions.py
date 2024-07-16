@@ -1,5 +1,6 @@
+import os
 from typing import List
-
+import Utils
 from settings import get_settings
 from . import RomData
 from .Util import *
@@ -527,7 +528,7 @@ def define_text_constants(assembler: Z80Assembler, patch_data):
 
 
 def set_heart_beep_interval_from_settings(rom: RomData):
-    heart_beep_interval = get_settings().tloz_oos_options["heart_beep_interval"]
+    heart_beep_interval = get_settings()["tloz_oos_options"]["heart_beep_interval"]
     if heart_beep_interval == "half":
         rom.write_byte(0x9116, 0x3f * 2)
     elif heart_beep_interval == "quarter":
@@ -537,34 +538,36 @@ def set_heart_beep_interval_from_settings(rom: RomData):
 
 
 def set_character_sprite_from_settings(rom: RomData):
-    sprite = get_settings().tloz_oos_options["character_sprite"]
+    sprite = get_settings()["tloz_oos_options"]["character_sprite"]
     if sprite != "link":
-        sprite_bytes = list(Path(f"./data/sprites/oos_ooa/{sprite}.bin").read_bytes())
+        if not sprite.endswith(".bin"):
+            sprite += ".bin"
+        sprite_path = Path(Utils.local_path(os.path.join('data', 'sprites', 'oos_ooa', sprite)))
+        if not (sprite_path.exists() and sprite_path.is_file()):
+            raise ValueError(f"Path '{sprite_path}' doesn't exist")
+        sprite_bytes = list(Path(sprite_path).read_bytes())
         rom.write_bytes(0x68000, sprite_bytes)
 
-    PALETTE_BYTES = {
-        "green": 0x00,
-        "blue": 0x01,
-        "red": 0x02,
-        "orange": 0x03,
-    }
+    palette = get_settings()["tloz_oos_options"]["character_palette"]
+    if palette == "green":
+        return  # Nothing to change
+    if palette not in PALETTE_BYTES:
+        raise ValueError(f"Palette color '{palette}' doesn't exist (must be 'green', 'blue', 'red' or 'orange')")
+    palette_byte = PALETTE_BYTES[palette]
 
-    palette = sprite = get_settings().tloz_oos_options["character_palette"]
-    if palette != "green" and palette in PALETTE_BYTES:
-        palette_byte = PALETTE_BYTES[palette]
-        # Link in-game
-        for addr in range(0x141cc, 0x141df, 2):
-            rom.write_byte(addr, 0x08 | palette_byte)
-        # Link palette restored after Medusa Head / Ganon stun attacks
-        rom.write_byte(0x1516d, 0x08 | palette_byte)
-        # Link standing still in file select (fileSelectDrawLink:@sprites0)
-        rom.write_byte(0x8d46, palette_byte)
-        rom.write_byte(0x8d4a, palette_byte)
-        # Link animated in file select (@sprites1 & @sprites2)
-        rom.write_byte(0x8d4f, palette_byte)
-        rom.write_byte(0x8d53, palette_byte)
-        rom.write_byte(0x8d58, 0x20 | palette_byte)
-        rom.write_byte(0x8d5c, 0x20 | palette_byte)
+    # Link in-game
+    for addr in range(0x141cc, 0x141df, 2):
+        rom.write_byte(addr, 0x08 | palette_byte)
+    # Link palette restored after Medusa Head / Ganon stun attacks
+    rom.write_byte(0x1516d, 0x08 | palette_byte)
+    # Link standing still in file select (fileSelectDrawLink:@sprites0)
+    rom.write_byte(0x8d46, palette_byte)
+    rom.write_byte(0x8d4a, palette_byte)
+    # Link animated in file select (@sprites1 & @sprites2)
+    rom.write_byte(0x8d4f, palette_byte)
+    rom.write_byte(0x8d53, palette_byte)
+    rom.write_byte(0x8d58, 0x20 | palette_byte)
+    rom.write_byte(0x8d5c, 0x20 | palette_byte)
 
 
 def inject_slot_name(rom: RomData, slot_name: str):

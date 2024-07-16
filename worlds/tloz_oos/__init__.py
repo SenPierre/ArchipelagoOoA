@@ -1,6 +1,8 @@
 import os
 import logging
+import typing
 
+import settings
 from BaseClasses import Tutorial, Region, Location, LocationProgressType
 from Fill import fill_restrictive, FillError
 from Options import Accessibility
@@ -14,7 +16,36 @@ from .data import LOCATIONS_DATA
 from .data.Constants import *
 from .data.Regions import REGIONS
 from .Client import OracleOfSeasonsClient  # Unused, but required to register with BizHawkClient
-# from patching.ProcedurePatch import OoSProcedurePatch  # Unused, but required to register
+
+
+class OracleOfSeasonsSettings(settings.Group):
+    class RomFile(settings.UserFilePath):
+        """File name of the Oracle of Seasons US ROM"""
+        copy_to = "Legend of Zelda, The - Oracle of Seasons (USA).gbc"
+        description = "OoS ROM File"
+        md5s = [ROM_HASH]
+
+    class OoSCharacterSprite(str):
+        """
+        The name of the sprite file to use (from 'data/sprites/oos_ooa/).
+        Putting "link" as a value uses the default game sprite.
+        """
+    class OoSCharacterPalette(str):
+        """
+        The color palette used for character sprite throughout the game.
+        Valid values are: "green", "red", "blue", "orange"
+        """
+    class OoSHeartBeepInterval(str):
+        """
+        A factor applied to the infamous heart beep sound interval.
+        Valid values are: "vanilla", "half", "quarter", "disabled"
+        """
+
+    rom_file: RomFile = RomFile(RomFile.copy_to)
+    rom_start: bool = True
+    character_sprite: typing.Union[OoSCharacterSprite, str] = "link"
+    character_palette: typing.Union[OoSCharacterPalette, str] = "green"
+    heart_beep_interval: typing.Union[OoSHeartBeepInterval, str] = "vanilla"
 
 
 class OracleOfSeasonsWeb(WebWorld):
@@ -50,6 +81,9 @@ class OracleOfSeasonsWorld(World):
     options: OracleOfSeasonsOptions
     required_client_version = (0, 4, 4)
     web = OracleOfSeasonsWeb()
+
+    settings: typing.ClassVar[OracleOfSeasonsSettings]
+    settings_key = "tloz_oos_options"
 
     location_name_to_id = build_location_name_to_id_dict()
     item_name_to_id = build_item_name_to_id_dict()

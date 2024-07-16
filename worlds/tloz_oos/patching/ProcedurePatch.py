@@ -1,18 +1,13 @@
 import hashlib
-import os
 import pkgutil
 
 import yaml
-
-import Utils
 from worlds.Files import APProcedurePatch, APTokenMixin, APPatchExtension
 
 from .Functions import *
 from .Constants import *
 from .RomData import RomData
 from .z80asm.Assembler import Z80Assembler, Z80Block
-
-ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
 
 
 class OoSPatchExtensions(APPatchExtension):

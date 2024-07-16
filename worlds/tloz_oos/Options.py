@@ -480,52 +480,6 @@ class OracleOfSeasonsStartingMapsCompasses(Toggle):
     display_name = "Start with Dungeon Maps & Compasses"
 
 
-class OracleOfSeasonsHeartBeepInterval(Choice):
-    """
-    - Default: play the beeping sound at the usual frequency when low on health
-    - Half: play the beeping sound two times less when low on health
-    - Quarter: play the beeping sound four times less when low on health
-    - Disabled: never play the beeping sound when low on health
-    """
-    display_name = "Heart Beep Frequency"
-
-    option_default = 0
-    option_half = 1
-    option_quarter = 2
-    option_disabled = 3
-
-    default = 0
-
-
-class OracleOfSeasonsCharacterSprite(Choice):
-    """
-    The sprite to use as a character during this seed.
-    (Sprites extracted from ardnaxelarak's rando)
-    """
-    display_name = "Character Sprite"
-
-    option_link = 0
-    option_subrosian = 1
-    option_goron = 2
-    option_piratian = 3
-
-    default = 0
-
-
-class OracleOfSeasonsCharacterPalette(Choice):
-    """
-    The color tint to apply to the character sprite during this seed
-    """
-    display_name = "Character Tint"
-
-    option_green = 0
-    option_blue = 1
-    option_red = 2
-    option_orange = 3
-
-    default = 0
-
-
 @dataclass
 class OracleOfSeasonsOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool

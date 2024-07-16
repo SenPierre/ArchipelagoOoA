@@ -561,6 +561,13 @@ PORTAL_WARPS = {
     }
 }
 
+PALETTE_BYTES = {
+    "green": 0x00,
+    "blue": 0x01,
+    "red": 0x02,
+    "orange": 0x03,
+}
+
 # Scripting constants
 DELAY_6 = 0xf6
 CALL_SCRIPT = 0xc0
