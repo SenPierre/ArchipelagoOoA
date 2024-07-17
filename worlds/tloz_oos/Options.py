@@ -337,6 +337,21 @@ class OracleOfSeasonsLostWoodsItemSequence(Choice):
     default = 1
 
 
+class OracleOfSeasonsLostWoodsMainSequence(Choice):
+    """
+    This option defines how the "secret sequence" (both directions and seasons) leading to Tarm Ruins is handled
+    by the randomizer.
+    - Vanilla: the sequence is the same as in the original game
+    - Randomized: the sequence is randomized, and you need to use a shield against the Deku Scrub to learn the sequence
+    """
+    display_name = "Lost Woods Main Sequence"
+
+    option_vanilla = 0
+    option_randomized = 1
+
+    default = 0
+
+
 class OracleOfSeasonsSamasaGateCode(Choice):
     """
     This option defines if the secret combination which opens the gate to Samasa Desert should be randomized.
@@ -507,6 +522,7 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     golden_beasts_requirement: OraclesOfSeasonsGoldenBeastsRequirement
     sign_guy_requirement: OracleOfSeasonsSignGuyRequirement
     lost_woods_item_sequence: OracleOfSeasonsLostWoodsItemSequence
+    lost_woods_main_sequence: OracleOfSeasonsLostWoodsMainSequence
     samasa_gate_code: OracleOfSeasonsSamasaGateCode
     samasa_gate_code_length: OracleOfSeasonsSamasaGateCodeLength
     deterministic_gasha_locations: OracleOfSeasonsGashaLocations

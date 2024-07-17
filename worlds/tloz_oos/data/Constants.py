@@ -1,25 +1,34 @@
 VERSION = "7.0"
 ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
 
-SEASONS = [
-    "spring",
-    "summer",
-    "autumn",
-    "winter"
+DIRECTION_UP = 0
+DIRECTION_RIGHT = 1
+DIRECTION_DOWN = 2
+DIRECTION_LEFT = 3
+DIRECTIONS = [
+    DIRECTION_UP,
+    DIRECTION_RIGHT,
+    DIRECTION_DOWN,
+    DIRECTION_LEFT
 ]
 
-DIRECTIONS = [
-    "up",
-    "right",
-    "down",
-    "left"
+SEASON_SPRING = 0x00
+SEASON_SUMMER = 0x01
+SEASON_AUTUMN = 0x02
+SEASON_WINTER = 0x03
+SEASON_CHAOTIC = 0xFF
+SEASONS = [
+    SEASON_SPRING,
+    SEASON_SUMMER,
+    SEASON_AUTUMN,
+    SEASON_WINTER
 ]
 
 SEASON_ITEMS = {
-    "winter": "Rod of Seasons (Winter)",
-    "summer": "Rod of Seasons (Summer)",
-    "spring": "Rod of Seasons (Spring)",
-    "autumn": "Rod of Seasons (Autumn)",
+    SEASON_WINTER: "Rod of Seasons (Winter)",
+    SEASON_SUMMER: "Rod of Seasons (Summer)",
+    SEASON_SPRING: "Rod of Seasons (Spring)",
+    SEASON_AUTUMN: "Rod of Seasons (Autumn)",
 }
 
 SEED_ITEMS = [
@@ -65,17 +74,17 @@ VALID_RUPEE_VALUES = [
 ]
 
 DEFAULT_SEASONS = {
-    "EYEGLASS_LAKE": "winter",
-    "HOLODRUM_PLAIN": "spring",
-    "EASTERN_SUBURBS": "autumn",
-    "WOODS_OF_WINTER": "summer",
-    "SUNKEN_CITY": "summer",
-    "WESTERN_COAST": "winter",
-    "SPOOL_SWAMP": "autumn",
-    "TEMPLE_REMAINS": "winter",
-    "LOST_WOODS": "autumn",
-    "TARM_RUINS": "spring",
-    "HORON_VILLAGE": "chaotic"
+    "EYEGLASS_LAKE": SEASON_WINTER,
+    "HOLODRUM_PLAIN": SEASON_SPRING,
+    "EASTERN_SUBURBS": SEASON_AUTUMN,
+    "WOODS_OF_WINTER": SEASON_SUMMER,
+    "SUNKEN_CITY": SEASON_SUMMER,
+    "WESTERN_COAST": SEASON_WINTER,
+    "SPOOL_SWAMP": SEASON_AUTUMN,
+    "TEMPLE_REMAINS": SEASON_WINTER,
+    "LOST_WOODS": SEASON_AUTUMN,
+    "TARM_RUINS": SEASON_SPRING,
+    "HORON_VILLAGE": SEASON_CHAOTIC
 }
 
 DUNGEON_CONNECTIONS = {
@@ -101,10 +110,17 @@ PORTAL_CONNECTIONS = {
 }
 
 LOST_WOODS_ITEM_SEQUENCE = [
-    "winter", "left",
-    "autumn", "left",
-    "spring", "left",
-    "summer", "left"
+    [DIRECTION_LEFT, SEASON_WINTER],
+    [DIRECTION_LEFT, SEASON_AUTUMN],
+    [DIRECTION_LEFT, SEASON_SPRING],
+    [DIRECTION_LEFT, SEASON_SUMMER],
+]
+
+LOST_WOODS_MAIN_SEQUENCE = [
+    [DIRECTION_LEFT, SEASON_WINTER],
+    [DIRECTION_DOWN, SEASON_AUTUMN],
+    [DIRECTION_RIGHT, SEASON_SPRING],
+    [DIRECTION_UP, SEASON_SUMMER],
 ]
 
 # The order of keys in this dictionary matters, since it's the same as the one used inside the ROM

@@ -239,6 +239,101 @@
 0b/241a/: db retscript
 0b/2421/: db retscript
 
+# This function is written in place of @checkTransition and does all the work
+# in handling Lost Woods transitions, deciding in which room should the player
+# be warped and whether related counter should be incremented.
+# ----------------
+# in(C): room index to warp to if sequence is complete
+# in(DE): address to the transition counter
+# in(HL): address to expected transitions table
+# out(A): counter value
+# out(Z): set if transition is complete
+01/1e01/checkSpecialLostWoodsTransitions: |
+    ld a,(de)
+    rst 18      ; rst_addDoubleIndex
+    
+    ; Test the transition direction
+    ld b,(hl)   ; b <- expected direction
+    ld a,(wScreenTransitionDirection)
+    cp b
+    jr nz,@wrongTransition
+    
+    ; Test the transition season
+    inc hl
+    ld b,(hl)   ; b <- expected season
+    ld a,(wRoomStateModifier)
+    cp b
+    jr nz,@wrongTransition
+    
+    ; Successful transition, increment counter
+    ld a,(de)
+    cp $03
+    jr z,@complete
+      
+    ; On progress (not completion), increase counter and loop back to same room
+    inc a
+    ld (de),a               ; Update transition counter
+    ld (wCustomBuffer),a    ; Set some nonzero value in custom buffer to schedule the loopback
+    xor a                   ; Clear C flag to ensure we are testing the other sequence
+    ret
+    
+    ; On completion, warp to room in C and reset counter
+    @complete:
+    xor a
+    ld (de),a  ; Update transition counter
+    ld a,c
+    ld (wActiveRoom),a
+    scf  ; Set carry flag to indicate calling function we are overriding the destination
+    ret
+    	
+    ; Reset counter on wrong transition
+    @wrongTransition:
+    xor a
+    ld (de),a
+    ret
+
+# This function is written in the middle of @checkSwordUpgradeTransitions letting
+# some space before and after for safety
+01/1e48/checkNorthTransitions: |
+    ; Clear the custom buffer used to store whether we need to loopback to the same map for complex cases
+    ; (e.g. we are making progress in the sequence but transitioning to the right)
+    xor a
+    ld (wCustomBuffer),a
+    
+    ld de,wLostWoodsTransitionCounter1
+    ld hl,@northTransitions
+    ld c,$30
+    jp checkSpecialLostWoodsTransitions
+ 
+    @northTransitions:
+    /include lostWoodsMainSequence
+01/1dd3/: call checkNorthTransitions
+
+# This function is written in place of @checkSwordUpgradeTransitions
+01/1e31/checkPedestalTransitions: |
+    ld de,wLostWoodsTransitionCounter2
+    ld hl,@pedestalTransitions
+    ld c,$c9
+    call checkSpecialLostWoodsTransitions
+    ret c
+    ; Since this is the second function being called, check if something was store inside the custom buffer
+    ; to know if we need to force loopback before going back to vanilla code
+    jp enforceLoopbackOnProgress
+    
+    @pedestalTransitions:
+    /include lostWoodsPedestalSequence
+01/1dd7/: call checkPedestalTransitions
+
+# This function reads the custom buffer to enforce a loopback to the same room if some progress was made on one of the
+# sequences
+01//enforceLoopbackOnProgress: |
+    ld a,(wCustomBuffer)
+    or a
+    ret z
+    ld a,$40
+    ld (wActiveRoom),a
+    scf
+    ret
 
 ##### HERO'S CAVE CHEST ############################################
 

@@ -113,6 +113,7 @@ class OracleOfSeasonsWorld(World):
         self.dungeon_entrances = DUNGEON_CONNECTIONS.copy()
         self.portal_connections = PORTAL_CONNECTIONS.copy()
         self.lost_woods_item_sequence = LOST_WOODS_ITEM_SEQUENCE.copy()
+        self.lost_woods_main_sequence = LOST_WOODS_MAIN_SEQUENCE.copy()
         self.old_man_rupee_values = OLD_MAN_RUPEE_VALUES.copy()
         self.samasa_gate_code = SAMASA_GATE_CODE.copy()
         self.shop_prices = SHOP_PRICES_DIVIDERS.copy()
@@ -123,7 +124,7 @@ class OracleOfSeasonsWorld(World):
         options = ["goal", "death_link",
                    # Logic-impacting options
                    "logic_difficulty", "horon_village_season", "warp_to_start",
-                   "shuffle_dungeons", "shuffle_portals", "lost_woods_item_sequence",
+                   "shuffle_dungeons", "shuffle_portals", "lost_woods_item_sequence", "lost_woods_main_sequence",
                    "duplicate_seed_tree", "default_seed", "master_keys",
                    "remove_d0_alt_entrance", "remove_d2_alt_entrance",
                    # Locations
@@ -162,12 +163,22 @@ class OracleOfSeasonsWorld(World):
             self.shuffle_portals()
 
         if self.options.lost_woods_item_sequence == "randomized":
-            # Pick 4 random seasons & directions (no direction can be "right", and last one has to be "left")
-            authorized_directions = [direction for direction in DIRECTIONS if direction != "right"]
+            # Pick 4 random seasons & directions (last one has to be "left")
             self.lost_woods_item_sequence = []
             for i in range(4):
-                self.lost_woods_item_sequence.append(self.random.choice(SEASONS))
-                self.lost_woods_item_sequence.append(self.random.choice(authorized_directions) if i < 3 else "left")
+                self.lost_woods_item_sequence.append([
+                    self.random.choice(DIRECTIONS) if i < 3 else DIRECTION_LEFT,
+                    self.random.choice(SEASONS)
+                ])
+
+        if self.options.lost_woods_main_sequence == "randomized":
+            # Pick 4 random seasons & directions (last one has to be "up")
+            self.lost_woods_main_sequence = []
+            for i in range(4):
+                self.lost_woods_main_sequence.append([
+                    self.random.choice(DIRECTIONS) if i < 3 else DIRECTION_UP,
+                    self.random.choice(SEASONS)
+                ])
 
         if self.options.samasa_gate_code == "randomized":
             self.samasa_gate_code = []

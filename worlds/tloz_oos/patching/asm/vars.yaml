@@ -1,15 +1,11 @@
 # locations of sparkles on treasure map
-02/2663/jewelCoordsRound: db $b5
-02/2664/jewelCoordsPyramid: db $1d
-02/2665/jewelCoordsSquare: db $c2
-02/2666/jewelCoordsXShaped: db $f4
-
-
+# 02/2663/jewelCoordsRound: db $b5
+# 02/2664/jewelCoordsPyramid: db $1d
+# 02/2665/jewelCoordsSquare: db $c2
+# 02/2666/jewelCoordsXShaped: db $f4
 
 # set initial season correctly in the init variables.
 07/0188/initialSeason: db $2d,defaultSeason.EYEGLASS_LAKE
-
-
 
 # Edit @extraItemsToAddTable to set seed type given with the Seed Satchel
 3f/053b/: db option.defaultSeedType
@@ -46,10 +42,3 @@
     dw $7488  ; Ghastly stump
 
 07/23cb/foolsOreDamage: db option.foolsOreDamage
-02/1116/heartBeepInterval: db $3f
-
-01/1e3e/lostWoodsItemSequence1: db lostWoodsItemSequence.0.season, lostWoodsItemSequence.0.direction
-01/1e46/lostWoodsItemSequence2: db lostWoodsItemSequence.1.season, lostWoodsItemSequence.1.direction
-01/1e4e/lostWoodsItemSequence3: db lostWoodsItemSequence.2.season, lostWoodsItemSequence.2.direction
-01/1e56/lostWoodsItemSequence4: db lostWoodsItemSequence.3.season, lostWoodsItemSequence.3.direction
-1e/056d/lostWoodsPhonographText: /include lostWoodsPhonographText

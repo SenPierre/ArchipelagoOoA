@@ -1,3 +1,5 @@
+from ..data.Constants import *
+
 EOB_ADDR = [
     0x3ec8,  # 00
     0x3e89,  # 01
@@ -74,6 +76,7 @@ DEFINES = {
     "wKeysPressed": "$c481",
     "wKeysJustPressed": "$c482",
     "wPaletteThread_mode": "$c4ab",
+    "wCustomBuffer": "$c4bf",  # Custom address
     "wAnimalRegion": "$c610",
     "wRingsObtained": "$c616",
     "wTotalSignsDestroyed": "$c626",
@@ -124,6 +127,8 @@ DEFINES = {
     "wActiveRoom": "$cc4c",
     "wActiveRoomPack": "$cc4d",
     "wRoomStateModifier": "$cc4e",
+    "wLostWoodsTransitionCounter1": "$cc53",
+    "wLostWoodsTransitionCounter2": "$cc54",
     "wDungeonIndex": "$cc55",
     "wDungeonFloor": "$cc57",
     "wWarpDestGroup": "$cc63",
@@ -134,6 +139,7 @@ DEFINES = {
     "wLinkGrabState": "$cc75",
     "wDisabledObjects": "$cca4",
     "wDisableWarpTiles": "$ccaa",
+    "wScreenTransitionDirection": "$cd02",
     "wScreenOffsetY": "$cd08",
 
     "w1Link.yh": "$d00b",
@@ -387,14 +393,6 @@ RUPEE_VALUES = {
     999: 0x14,
 }
 
-SEASON_VALUES = {
-    "spring": 0x00,
-    "summer": 0x01,
-    "autumn": 0x02,
-    "winter": 0x03,
-    "chaotic": 0xff
-}
-
 DUNGEON_ENTRANCES = {
     "d0": {
         "addr": 0x13651,
@@ -579,12 +577,16 @@ WRITE_OBJECT_BYTE = 0x8e
 SHOW_TEXT_LOW_INDEX = 0x98
 ENABLE_ALL_OBJECTS = 0xb9
 
-DIRECTION_UP = 0
-DIRECTION_RIGHT = 1
-DIRECTION_DOWN = 2
-DIRECTION_LEFT = 3
+DIRECTION_STRINGS = {
+    DIRECTION_UP: [0x15, 0x20],
+    DIRECTION_DOWN: [0x16, 0x20],
+    DIRECTION_LEFT: [0x17, 0x20],
+    DIRECTION_RIGHT: [0x18, 0x20],
+}
 
-SEASON_SPRING = 0
-SEASON_SUMMER = 1
-SEASON_AUTUMN = 2
-SEASON_WINTER = 3
+SEASON_STRINGS = {
+    SEASON_SPRING: [0x02, 0xde],
+    SEASON_SUMMER: ['S'.encode()[0], 0x04, 0xbc],
+    SEASON_AUTUMN: ['A'.encode()[0], 0x05, 0x25],
+    SEASON_WINTER: [0x03, 0x7e]
+}

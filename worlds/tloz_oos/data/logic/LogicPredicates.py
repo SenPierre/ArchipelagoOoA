@@ -1,6 +1,6 @@
 from BaseClasses import CollectionState
 from Options import Accessibility
-from worlds.tloz_oos.data.Constants import DUNGEON_NAMES, SEASON_ITEMS, ESSENCES, JEWELS, GASHA_SPOT_REGIONS
+from ..Constants import *
 
 
 # Items predicates ############################################################
@@ -69,19 +69,19 @@ def oos_has_season(state: CollectionState, player: int, season: str):
 
 
 def oos_has_summer(state: CollectionState, player: int):
-    return state.has(SEASON_ITEMS["summer"], player)
+    return state.has(SEASON_ITEMS[SEASON_SUMMER], player)
 
 
 def oos_has_spring(state: CollectionState, player: int):
-    return state.has(SEASON_ITEMS["spring"], player)
+    return state.has(SEASON_ITEMS[SEASON_SPRING], player)
 
 
 def oos_has_winter(state: CollectionState, player: int):
-    return state.has(SEASON_ITEMS["winter"], player)
+    return state.has(SEASON_ITEMS[SEASON_WINTER], player)
 
 
 def oos_has_autumn(state: CollectionState, player: int):
-    return state.has(SEASON_ITEMS["autumn"], player)
+    return state.has(SEASON_ITEMS[SEASON_AUTUMN], player)
 
 
 def oos_has_magnet_gloves(state: CollectionState, player: int):
@@ -201,17 +201,24 @@ def oos_has_required_jewels(state: CollectionState, player: int):
 def oos_can_reach_lost_woods_pedestal(state: CollectionState, player: int):
     world = state.multiworld.worlds[player]
     return all([
-        any([
-            world.options.lost_woods_item_sequence == "vanilla",
-            all([
-                oos_can_use_ember_seeds(state, player, False),
-                state.has("Phonograph", player)
-            ])
-        ]),
-        "winter" not in world.lost_woods_item_sequence or oos_has_winter(state, player),
-        "spring" not in world.lost_woods_item_sequence or oos_has_spring(state, player),
-        "summer" not in world.lost_woods_item_sequence or oos_has_summer(state, player),
-        "autumn" not in world.lost_woods_item_sequence or oos_has_autumn(state, player)
+        oos_can_use_ember_seeds(state, player, False),
+        state.has("Phonograph", player),
+        SEASON_WINTER not in world.lost_woods_item_sequence or oos_has_winter(state, player),
+        SEASON_SPRING not in world.lost_woods_item_sequence or oos_has_spring(state, player),
+        SEASON_SUMMER not in world.lost_woods_item_sequence or oos_has_summer(state, player),
+        SEASON_AUTUMN not in world.lost_woods_item_sequence or oos_has_autumn(state, player)
+    ])
+
+
+def oos_can_complete_lost_woods_main_sequence(state: CollectionState, player: int):
+    world = state.multiworld.worlds[player]
+    return all([
+        oos_can_break_mushroom(state, player, False),
+        oos_has_shield(state, player),
+        SEASON_WINTER not in world.lost_woods_main_sequence or oos_has_winter(state, player),
+        SEASON_SPRING not in world.lost_woods_main_sequence or oos_has_spring(state, player),
+        SEASON_SUMMER not in world.lost_woods_main_sequence or oos_has_summer(state, player),
+        SEASON_AUTUMN not in world.lost_woods_main_sequence or oos_has_autumn(state, player)
     ])
 
 

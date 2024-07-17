@@ -50,6 +50,16 @@
 1e/23e0/TX_1709: /include text.memberShop2 # (cutscene after d3)
 1e/13a0/TX_0e1e: /include text.memberShop3 # (vanilla text)
 
+# Hint for the sequence going to pedestal
+1e/056d/TX_0b50: /include text.lostWoodsPedestalSequence
+# Hint for the sequence going to D6
+20/1fff/TX_4500: |
+    db $04,$59,$03,$b3,$3a,$01  ; Replace "travel west," by "follow this: "
+    /include text.lostWoodsMainSequence
+1f/33f6/TX_3604: |  # This one looks similar to the previous one, but I don't know where it's used. Linked games maybe?
+    db $04,$59,$03,$b3,$3a,$01  ; Replace "travel west," by "follow this: "
+    /include text.lostWoodsMainSequence
+
 # Replace cutscene after d4 is d5 < d4 by a copy of the end text inside textbank 17, which
 # will be used by text injections performed in that textbank
 1e/27ba/TX_172b: |

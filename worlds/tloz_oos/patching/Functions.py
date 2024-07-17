@@ -248,7 +248,7 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
     assembler.define_byte("option.startingPosY", 0x58)
     assembler.define_byte("option.startingPosX", 0x58)
     assembler.define_byte("option.startingPos", 0x55)
-    assembler.define_byte("option.startingSeason", SEASON_VALUES[patch_data["default_seasons"]["EYEGLASS_LAKE"]])
+    assembler.define_byte("option.startingSeason", patch_data["default_seasons"]["EYEGLASS_LAKE"])
     assembler.define_byte("option.startingMapsCompasses", patch_data["options"]["starting_maps_compasses"])
 
     assembler.define_byte("option.animalCompanion", 0x0b + patch_data["options"]["animal_companion"])
@@ -279,55 +279,40 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
 
 
 def define_season_constants(assembler: Z80Assembler, patch_data):
-    for region_name, season_name in patch_data["default_seasons"].items():
-        assembler.define_byte(f"defaultSeason.{region_name}", SEASON_VALUES[season_name])
+    for region_name, season_byte in patch_data["default_seasons"].items():
+        assembler.define_byte(f"defaultSeason.{region_name}", season_byte)
 
 
-def set_lost_woods_sequence(assembler: Z80Assembler, patch_data):
+def define_lost_woods_sequences(assembler: Z80Assembler, patch_data):
+    pedestal_sequence = patch_data["lost_woods_item_sequence"]
+    pedestal_bytes, pedestal_text = process_lost_woods_sequence(pedestal_sequence)
+    assembler.add_floating_chunk("lostWoodsPedestalSequence", pedestal_bytes)
+    assembler.add_floating_chunk("text.lostWoodsPedestalSequence", pedestal_text)
+
+    main_sequence = patch_data["lost_woods_main_sequence"]
+    main_bytes, main_text = process_lost_woods_sequence(main_sequence)
+    assembler.add_floating_chunk("lostWoodsMainSequence", main_bytes)
+    assembler.add_floating_chunk("text.lostWoodsMainSequence", main_text)
+
+
+def process_lost_woods_sequence(sequence):
     """
-    Sets the sequence of seasons + directions required to reach the pedestal in
-    the Lost Woods.
+    Process a sequence of directions + seasons, and outputs two byte arrays:
+    - one to use as a technical data array to check the sequence being done
+    - one to use as text hint
     """
-    TEXT_MATCHINGS = {
-        "winter": SEASON_WINTER,
-        "summer": SEASON_SUMMER,
-        "spring": SEASON_SPRING,
-        "autumn": SEASON_AUTUMN,
-        "up": DIRECTION_UP,
-        "left": DIRECTION_LEFT,
-        "right": DIRECTION_RIGHT,
-        "down": DIRECTION_DOWN
-    }
-    SEASON_STRINGS = {
-        SEASON_SPRING: [0x02, 0xde],
-        SEASON_SUMMER: ['S'.encode()[0], 0x04, 0xbc],
-        SEASON_AUTUMN: ['A'.encode()[0], 0x05, 0x25],
-        SEASON_WINTER: [0x03, 0x7e]
-    }
-    DIRECTION_STRINGS = {
-        DIRECTION_UP: [0x03, 0x01],
-        DIRECTION_RIGHT: [0x20, 0x04, 0x31],
-        DIRECTION_DOWN: " south".encode(),
-        DIRECTION_LEFT: [0x20, 0x05, 0x1e]
-    }
-
-    sequence_as_text = patch_data["lost_woods_item_sequence"].split(" ")
-    sequence = [TEXT_MATCHINGS[word] for word in sequence_as_text]
-
-    string_bytes = []
+    sequence_bytes = []
+    text_bytes = []
     for i in range(4):
-        season_byte = sequence[i * 2]
-        direction_byte = sequence[i * 2 + 1]
-        string_bytes.extend(SEASON_STRINGS[season_byte])
-        string_bytes.extend(DIRECTION_STRINGS[direction_byte])
+        direction = sequence[i][0]
+        season = sequence[i][1]
+        sequence_bytes.extend(sequence[i])
+        text_bytes.extend(DIRECTION_STRINGS[direction])
+        text_bytes.extend(SEASON_STRINGS[season])
         if i != 3:
-            string_bytes.append(0x01)
-
-        assembler.define_byte(f"lostWoodsItemSequence.{i}.season", season_byte)
-        assembler.define_byte(f"lostWoodsItemSequence.{i}.direction", direction_byte)
-
-    string_bytes.append(0x00)
-    assembler.add_floating_chunk("lostWoodsPhonographText", string_bytes)
+            text_bytes.extend([0x05, 0x56])  # wait for input + newline
+    text_bytes.append(0x00)
+    return sequence_bytes, text_bytes
 
 
 def get_treasure_addr(rom: RomData, item_name: str):

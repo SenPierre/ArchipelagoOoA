@@ -27,7 +27,8 @@ def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
             "deterministic_gasha_locations", "shuffle_essences"
         ]),
         "samasa_gate_sequence": ' '.join([str(x) for x in world.samasa_gate_code]),
-        "lost_woods_item_sequence": ' '.join(world.lost_woods_item_sequence),
+        "lost_woods_item_sequence": world.lost_woods_item_sequence,
+        "lost_woods_main_sequence": world.lost_woods_main_sequence,
         "default_seasons": world.default_seasons,
         "old_man_rupee_values": world.old_man_rupee_values,
         "dungeon_entrances": {a.replace(" entrance", ""): b.replace("enter ", "")
