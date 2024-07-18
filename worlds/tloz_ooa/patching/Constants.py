@@ -302,6 +302,7 @@ DEFINES = {
     "wDisableTransitions":"$cc91",
     "wDisabledObjects":"$cc8a",
     "wPlayingInstrument1":"$cc8d",
+    "wRoomLayout":"$cf00",
 
     # rom 00
     "getRandomNumber":"$043e",
@@ -370,6 +371,7 @@ ASM_FILES = [
     "asm/rings.yaml",
     "asm/misc.yaml",
     "asm/new_treasures.yaml",
+    "asm/itemevents.yaml",
     #"asm/remove_item_on_use.yaml",
 ]
 

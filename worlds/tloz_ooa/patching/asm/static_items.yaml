@@ -9,7 +9,6 @@
   dwbe $0011, locations.symmetryCityHP
   dwbe $05c0, locations.ridgeWestHP
   dwbe $000d, locations.ridgeUpperHP
-  # ------- Digging spots -------
 
   # ------- Drops / spawned items -------
 
@@ -39,11 +38,17 @@
   pop de
   ret
 
-# staticHeartPiece (0x26381)
+# staticHeartPiece
 10/74bd/: call staticItemsReplacementsLookup
+# ShoreDigspot
+
 
 ###################################################################################################################
 09/6d3d/: | # Hijacking red bear code. We don't need the bear. He is dead now. Now it's the Impa gift.
+  ld a,(wActiveRoom)
+  cp $39
+  jp nz,interactionDelete
+  
   call getThisRoomFlags
   bit 5,(hl)
   jp nz,interactionDelete
@@ -51,4 +56,28 @@
   ld bc, locations.impaGift ; Set the item as impa gift
   call createTreasure       ; spawn it
   call objectCopyPosition   ; move it
+  jp interactionDelete
+
+  
+###################################################################################################################
+# dig up item on south shore regardless of ricky state
+# Dirt monticule
+04/6b71/: | 
+  call getThisRoomFlags
+  bit 5,(hl)
+  jr z,@end
+  ld a,$3a
+  ld (wRoomLayout+$24),a
+  @end:
+  ret
+# Interaction
+0a/5e29/: | 
+  call getThisRoomFlags
+  bit 5,(hl)
+  jr nz,@delete
+  ld bc, locations.southShoreDirt
+  call createTreasure
+  ret nz
+  call objectCopyPosition
+  @delete:
   jp interactionDelete
