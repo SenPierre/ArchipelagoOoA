@@ -35,7 +35,7 @@ SEED_ITEMS = [
     "Ember Seeds",
     "Scent Seeds",
     "Pegasus Seeds",
-    "Gale Seeds"
+    "Gale Seeds",
     "Mystery Seeds",
 ]
 
