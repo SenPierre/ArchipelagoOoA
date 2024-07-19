@@ -146,6 +146,16 @@ RUPEE_OLD_MAN_LOCATIONS = [
     "Tarm Ruins: Old Man Near D6"
 ]
 
+SUBROSIA_HIDDEN_DIGGING_SPOTS_LOCATIONS = [
+    "Subrosia: Hot Bath Digging Spot",
+    "Subrosia: Market Portal Digging Spot",
+    "Subrosia: Hard-Working Subrosian Digging Spot",
+    "Subrosia: Temple of Seasons Digging Spot",
+    "Subrosia: Northern Volcanoes Digging Spot",
+    "Subrosia: D8 Portal Digging Spot",
+    "Subrosia: Western Volcanoes Digging Spot"
+]
+
 SAMASA_GATE_CODE = [2, 2, 1, 0, 0, 3, 3, 3]
 
 SHOP_PRICES_DIVIDERS = {

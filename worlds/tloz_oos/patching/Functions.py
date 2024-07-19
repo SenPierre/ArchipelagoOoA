@@ -206,11 +206,17 @@ def define_additional_tile_replacements(assembler: Z80Assembler, patch_data):
         ])
     assembler.add_floating_chunk("additionalTileReplacements", table)
 
+
 def define_location_constants(assembler: Z80Assembler, patch_data):
     # If "Enforce potion in shop" is enabled, put a Potion in a specific location in Horon Shop that was
     # disabled at generation time to prevent trackers from tracking it
     if patch_data["options"]["enforce_potion_in_shop"]:
         patch_data["locations"]["Horon Village: Shop #3"] = "Potion"
+    # If golden ore spots are not shuffled, they are still reachable nonetheless, so we need to enforce their
+    # vanilla item for systems to work
+    if not patch_data["options"]["shuffle_golden_ore_spots"]:
+        for location_name in SUBROSIA_HIDDEN_DIGGING_SPOTS_LOCATIONS:
+            patch_data["locations"][location_name] = {"item": "Ore Chunks (50)"}
 
     # Define shop prices as constants
     for symbolic_name, price in patch_data["shop_prices"].items():
@@ -219,12 +225,13 @@ def define_location_constants(assembler: Z80Assembler, patch_data):
     for location_name, location_data in LOCATIONS_DATA.items():
         if "symbolic_name" not in location_data:
             continue
-        symbolic_name = location_data["symbolic_name"]
 
+        symbolic_name = location_data["symbolic_name"]
         if location_name in patch_data["locations"]:
             item = patch_data["locations"][location_name]
         else:
-            item = {"item": location_data["vanilla_item"]}
+            # Put a fake item for disabled locations, since they are unreachable anwyway
+            item = {"item": "Friendship Ring"}
 
         item_id, item_subid = get_item_id_and_subid(item)
         assembler.define_byte(f"locations.{symbolic_name}.id", item_id)
@@ -490,9 +497,9 @@ def define_text_constants(assembler: Z80Assembler, patch_data):
         for i in range(1, 4):
             location_name = f"{shop_name} #{i}"
             symbolic_name = LOCATIONS_DATA[location_name]["symbolic_name"]
-            if location_name not in patch_data["locations"]:
-                continue
-            item_name_bytes = process_item_name_for_shop_text(patch_data["locations"][location_name])
+            item_name_bytes = []
+            if location_name in patch_data["locations"]:
+                item_name_bytes = process_item_name_for_shop_text(patch_data["locations"][location_name])
 
             text_bytes = [0x09, 0x01] + item_name_bytes + [0x03, 0xe2]  # Item name
             text_bytes.extend([0x20, 0x0c, 0x08, 0x02, 0x8f, 0x01])  # Price

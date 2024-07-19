@@ -334,7 +334,7 @@ class OracleOfSeasonsWorld(World):
         region_id = location_data["region_id"]
         if region_id == "advance shop":
             return self.options.advance_shop.value
-        if region_id.startswith("subrosia") and region_id.endswith("digging spot"):
+        if location_name in SUBROSIA_HIDDEN_DIGGING_SPOTS_LOCATIONS:
             return self.options.shuffle_golden_ore_spots
         if location_name in RUPEE_OLD_MAN_LOCATIONS:
             return self.options.shuffle_old_men == OracleOfSeasonsOldMenShuffle.option_turn_into_locations
