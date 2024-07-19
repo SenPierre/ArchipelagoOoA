@@ -29,7 +29,7 @@
     db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 
 # remove generic text from shopItemTextTable so that replacement text can be displayed.
-08/0d46/: db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+08/0d46/: db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
 
 # Remove all "you are already full" checks for shop slots that usually carry hearts, bombs or a shield
 08/0a66/: |

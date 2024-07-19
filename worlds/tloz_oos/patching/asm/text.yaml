@@ -290,7 +290,7 @@
 # entries without rebuilding the whole textbanks. We inject this small function
 # to check for text IDs > 0x80, in which case we unset the 7th bit and redirect
 # to our custom textbank.
-09//checkCustomTreasureTextId: |
+00//checkCustomTreasureTextId: |
     bit 7,a
     jr nz,@customText
     
