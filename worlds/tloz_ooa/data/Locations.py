@@ -193,7 +193,7 @@ LOCATIONS_DATA = {
     "Shore Dirt Spot": {
         "region_id": "south shore dirt",
         "vanilla_item": "Ricky's Gloves",
-        "flag_byte": 0xc646,
+        "flag_byte": 0xc798,
         "room": 0x0098,
         "collect": COLLECT_DIG,
         "symbolic_name": "southShoreDirt",
