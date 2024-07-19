@@ -1,0 +1,79 @@
+09//makuTreeRooms: db $0b,$0c,$7b,$2b,$2c,$2d,$5b,$5c,$5d,$5e,$ff
+09/3dc0/checkMakuItemObtained: |
+    push de
+    push hl
+    ; Force smallest Maku Tree room "visited flag" to be set, because map menu only checks for that specific room
+    ; variant to decide if the tile should be revealed or not.
+    ld hl,$c80b
+    set 4,(hl)
+    ; Scan all room flags for all Maku Tree map variants to check if the item was obtained in at least one of them
+    ld de,makuTreeRooms
+    ld h,$c8
+    call scanItemGetFlagsForMaps
+    pop hl
+    pop de
+    ret
+09/3dfc/: |
+    nop
+    nop
+    call checkMakuItemObtained
+    ret z
+
+# Rework makuTree_setAppropriateStage to map a small amount of stages to all
+# possible situations in rando:
+# - Item not yet obtained
+# - Item obtained, not enough essences
+# - Item obtained, enough essences collected (give Maku Seed)
+# - Maku Seed obtained
+# - Game completed
+09/3d8b/: |
+    call checkMakuItemObtained
+    jr nz,@gnarledObtained
+    xor a
+    jr @setStage    ; If Maku Tree item was not obtained, set stage 0x0 
+
+    @gnarledObtained:
+    ld a,$28        ; GLOBALFLAG_FINISHEDGAME
+    call checkGlobalFlag
+    jr z,@gameNotFinished
+    ld a,$0e
+    jr @setStage    ; If game is finished, set stage 0xE
+    
+    @gameNotFinished:
+    ld a,TREASURE_MAKU_SEED
+    call checkTreasureObtained
+    jr nc,@makuSeedNotObtained
+    ld a,$0c
+    jr @setStage    ; If Maku Seed was obtained, set stage 0xC
+
+    @makuSeedNotObtained:
+    call getEssenceCount
+    cp option.requiredEssences
+    jr c,@notEnoughEssences
+    ld a,$08        ; Enough essences are owned to get Maku Seed, set stage 0x8
+    jr @setStage
+    
+    @notEnoughEssences:
+    ld a,$01        ; Not enough essences in inventory, set stage 0x1
+
+    @setStage:
+    ld ($cc39),a
+    ret
+
+# Change the sign text to tell how many essences are required to get the Maku seed
+1f/102a/makuSignText: |
+    db $05,$b0,$20
+    db $30 + option.requiredEssences
+    db $20,$02,$35,$01,$05,$79,$05,$0f,$03,$94,$05,$59,$21
+    db $00
+
+# In applyWArpDest_b04, change the variable that is checked to know in which Maku Tree room the player must be warped
+04//determineMakuTreeRoomOffset: |
+    ; Room of Rites has been visited, use $09 as a fixed room offset 
+    ld a,($c6df)
+    cp $09
+    ; Otherwise, use essence count as room offset
+    jp c,getEssenceCount
+    ret
+04/05e8/: call determineMakuTreeRoomOffset
+

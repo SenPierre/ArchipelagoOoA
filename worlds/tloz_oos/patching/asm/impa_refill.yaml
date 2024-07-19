@@ -1,0 +1,85 @@
+15//impaRefill: |
+    push de
+    push hl
+    
+    ld b,TREASURE_EMBER_SEEDS
+    ld hl,wNumEmberSeeds
+    
+    @refillSeedsLoop:
+    ld a,b
+    call checkTreasureObtained
+    jr nc,@nextSeed
+    ld a,(hl)           ; currently owned seeds
+    cp $20
+    jr nc,@nextSeed
+    ld (hl),$20
+    
+    @nextSeed:
+    ld a,b
+    cp TREASURE_MYSTERY_SEEDS
+    jr z,@refillBombs
+    inc hl
+    inc b
+    jr @refillSeedsLoop
+    
+    @refillBombs:
+    ld a,TREASURE_BOMBS
+    call checkTreasureObtained
+    jr nc,@refillShield
+    ld hl,wMaxBombs
+    ldd a,(hl)
+    ld (hl),a
+    
+    @refillShield:
+    ld a,TREASURE_SHIELD
+    call checkTreasureObtained
+    jr nc,@refillHealth
+    ld a,TREASURE_SHIELD
+    ldh ($8b),a     ; put item ID in FF8B
+    ld e,$3f
+    ld hl,$46bc     ; addTreasureToInventory in bank 3F
+    call interBankCall
+    
+    @refillHealth:
+    ld hl,wLinkMaxHealth
+    ldd a,(hl)
+    ld (hl),a
+    
+    ; Play a sound and update status bar to give feedback
+    ld a,SND_GETSEED
+    call playSound
+    ld a,$03
+    ld (wStatusBarNeedsRefresh),a
+    
+    pop hl
+    pop de
+    ret
+
+0b/34ef/: |
+    db checkabutton
+    db disableinput
+    db showtext,$25,$03
+    
+    db asm15
+    dw impaRefill
+    
+    db enableinput
+    db $74,$ef  ; jump back to the beginning of the script
+
+# Change Impa text to explain that she is providing a refill
+1f/0247/: |
+    db $04,$b6,$04,$06,$05,$a0,$05,$07,$03,$d2,$03,$bd,$61,$01,$72,$65,$66,$69,$6c,$6c,$2e,$00
+
+# Make Like-Like only remove the shield without unsetting the treasure flag
+0c//loseShieldWithoutLosingFlag: |
+    call loseTreasure
+    ld hl,wObtainedTreasureFlags
+    set 1,(hl)
+    ret
+0c/1dd2/: call loseShieldWithoutLosingFlag
+
+# Make Impa always stand in front of her house
+0a/1d57/: |
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
+    db $00,$00,$00

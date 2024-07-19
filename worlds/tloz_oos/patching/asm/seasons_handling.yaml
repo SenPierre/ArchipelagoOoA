@@ -1,0 +1,149 @@
+# Natzu and Samasa Desert are summer only, and goron mountain is winter only.
+# Northern Peak doesn't matter (it might become spring after you beat the game).
+# Note that these names don't correspond 1:1 with the names used on the overworld map,
+# which aren't delineated based on season boundaries.
+01/3e50/: db defaultSeason.HORON_VILLAGE
+01/3e60/: db defaultSeason.EYEGLASS_LAKE    # eyeglass lake / d1 sector
+01/3e61/: db defaultSeason.EASTERN_SUBURBS
+01/3e62/: db defaultSeason.WOODS_OF_WINTER  # from d2 to holly's house
+01/3e63/: db defaultSeason.SPOOL_SWAMP
+01/3e64/: db defaultSeason.HOLODRUM_PLAIN   # from blaino to mrs. ruul
+01/3e65/: db defaultSeason.SUNKEN_CITY      # also mt. cucco
+01/3e67/: db defaultSeason.LOST_WOODS       # from jewel gate to lost woods
+01/3e68/: db defaultSeason.TARM_RUINS       # d6 sector
+01/3e6b/: db defaultSeason.WESTERN_COAST
+01/3e6c/: db defaultSeason.TEMPLE_REMAINS
+
+# [Warp Group, Warp Dest, Arrival Position, Season to apply]
+# An arrival pos of "00" means it isn't checked
+# A season of "FF" means nothing changes
+04//specificWarpSeasons: |
+    db 03,ab,44,defaultSeason.HORON_VILLAGE     ; subrosia to horon
+    db 03,a8,14,defaultSeason.TEMPLE_REMAINS    ; subrosia to temple remains
+    db 85,12,00,defaultSeason.WOODS_OF_WINTER   ; sunken city to woods of winter
+    db 80,a7,00,defaultSeason.EYEGLASS_LAKE     ; warp to start (holodrum)
+    db ff
+
+# This function aims to fix season handling for Subrosia -> interior map warps
+# There are two occurences of this in the game
+# 1) Subrosia -> Horon warp (mainly for Fixed Horon Season setting)
+# 2) Subrosia -> Upper Temple Remains warp (to put back default Temple Remains season when coming from that portal)
+04//checkSpecificWarps: |
+    push bc
+    push hl
+
+    ld a,(wWarpDestGroup)
+    ld b,a
+    ld a,(wWarpDestRoom)
+    ld c,a
+    ld e,$02
+    ld hl,specificWarpSeasons
+    call searchDoubleKey
+    jr nc,@done
+
+    ldi a,(hl)
+    or a
+    jr z,@noPosCheck
+    ld b,a
+    ld a,(wWarpDestPos)
+    cp b
+    jr nz,@done
+
+    @noPosCheck:
+    ld a,(hl)
+    cp $04    ; if season is >= 4, it's an invalid placeholder season -> don't change anything
+    jr nc,@done
+    ld (wRoomStateModifier),a
+
+    @done:
+    pop hl
+    pop bc
+    jp loadScreenMusicAndSetRoomPack
+04/065f/: jp checkSpecificWarps
+
+# Change setHoronVillageSeason to remove the random component if fixedHoronSeason != 0xff
+01/3e2c/: |
+    ld a,defaultSeason.HORON_VILLAGE
+    cp $ff
+    nop
+    nop
+
+# Rewrite checkRoomPackAfterWarp_body to process "chaotic" state which is
+# now represented by 0xFF value.
+01/3e6e/: |
+    ld a,(wActiveRoomPack)
+    cp $f0
+    jp nc,$7e09  ; determineCompanionRegionSeason
+
+    ld hl,$7e50  ; roomPackSeasonTable
+    rst 10       ; addAToHL
+    ld a,(hl)
+
+    ; If season is 0xff, pick a random season instead
+    cp $ff
+    jr nz,@setSeason
+    call getRandomNumber
+    and $03
+    
+    @setSeason:
+    ld (wRoomStateModifier),a
+    ret
+
+
+# Allow for a "quick-switch" to a specific season if the player is holding a specific
+# diagonal during the season transition. This diagonal matches the season icon layout
+# displayed next to the Rod of Seasons in the game top bar.
+14//smartSeasonSwitch_body: |
+    ld a,(wKeysPressed)
+    ld b,a
+    
+    ; NW => summer
+    ld a,BTN_UP | BTN_LEFT
+    and b
+    cp BTN_UP | BTN_LEFT
+    jr nz,@testNE
+    ld b,SEASON_SPRING  ; Make it as if current season was spring to try switching to summer
+    ret
+    
+    ; NE => autumn
+    @testNE:
+    ld a,BTN_UP | BTN_RIGHT
+    and b
+    cp BTN_UP | BTN_RIGHT
+    jr nz,@testSE
+    ld b,SEASON_SUMMER  ; Make it as if current season was summer to try switching to autumn
+    ret
+    
+    ; SE => winter
+    @testSE:
+    ld a,BTN_DOWN | BTN_RIGHT
+    and b
+    cp BTN_DOWN | BTN_RIGHT
+    jr nz,@testSW
+    ld b,SEASON_AUTUMN  ; Make it as if current season was autumn to try switching to winter
+    ret
+    
+    ; SW => spring
+    @testSW:
+    ld a,BTN_DOWN | BTN_RIGHT
+    and b
+    cp BTN_DOWN | BTN_RIGHT
+    jr nz,@vanillaCycle
+    ld b,SEASON_WINTER  ; Make it as if current season was winter to try switching to spring
+    ret
+    
+    ; No special input, use the real current season to deduce next season
+    @vanillaCycle:
+    ld a,(wRoomStateModifier)
+    ld b,a
+    ret
+08//smartSeasonSwitch: |
+    push hl
+    ld e,$14
+    ld hl,smartSeasonSwitch_body
+    call interBankCall
+    pop hl
+    ld a,b
+    ret
+# Inject this in place of "ld a,(wRoomStateModifier)" inside interactionCode15 (INTERACID_USED_ROD_OF_SEASONS)
+08/114f/: call smartSeasonSwitch

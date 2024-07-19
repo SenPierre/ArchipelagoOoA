@@ -1,6 +1,6 @@
 from BaseClasses import CollectionState
 from Options import Accessibility
-from worlds.tloz_oos.data.Constants import DUNGEON_NAMES, SEASON_ITEMS, ESSENCES, JEWELS
+from ..Constants import *
 
 
 # Items predicates ############################################################
@@ -69,19 +69,19 @@ def oos_has_season(state: CollectionState, player: int, season: str):
 
 
 def oos_has_summer(state: CollectionState, player: int):
-    return state.has(SEASON_ITEMS["summer"], player)
+    return state.has(SEASON_ITEMS[SEASON_SUMMER], player)
 
 
 def oos_has_spring(state: CollectionState, player: int):
-    return state.has(SEASON_ITEMS["spring"], player)
+    return state.has(SEASON_ITEMS[SEASON_SPRING], player)
 
 
 def oos_has_winter(state: CollectionState, player: int):
-    return state.has(SEASON_ITEMS["winter"], player)
+    return state.has(SEASON_ITEMS[SEASON_WINTER], player)
 
 
 def oos_has_autumn(state: CollectionState, player: int):
-    return state.has(SEASON_ITEMS["autumn"], player)
+    return state.has(SEASON_ITEMS[SEASON_AUTUMN], player)
 
 
 def oos_has_magnet_gloves(state: CollectionState, player: int):
@@ -142,7 +142,7 @@ def oos_option_hard_logic(state: CollectionState, player: int):
 
 
 def oos_option_shuffled_dungeons(state: CollectionState, player: int):
-    return state.multiworld.worlds[player].options.shuffle_dungeons != "vanilla"
+    return state.multiworld.worlds[player].options.shuffle_dungeons
 
 
 def oos_option_allow_warp_to_start(state: CollectionState, player: int):
@@ -201,17 +201,24 @@ def oos_has_required_jewels(state: CollectionState, player: int):
 def oos_can_reach_lost_woods_pedestal(state: CollectionState, player: int):
     world = state.multiworld.worlds[player]
     return all([
-        any([
-            world.options.lost_woods_item_sequence == "vanilla",
-            all([
-                oos_can_use_ember_seeds(state, player, False),
-                state.has("Phonograph", player)
-            ])
-        ]),
-        "winter" not in world.lost_woods_item_sequence or oos_has_winter(state, player),
-        "spring" not in world.lost_woods_item_sequence or oos_has_spring(state, player),
-        "summer" not in world.lost_woods_item_sequence or oos_has_summer(state, player),
-        "autumn" not in world.lost_woods_item_sequence or oos_has_autumn(state, player)
+        oos_can_use_ember_seeds(state, player, False),
+        state.has("Phonograph", player),
+        SEASON_WINTER not in world.lost_woods_item_sequence or oos_has_winter(state, player),
+        SEASON_SPRING not in world.lost_woods_item_sequence or oos_has_spring(state, player),
+        SEASON_SUMMER not in world.lost_woods_item_sequence or oos_has_summer(state, player),
+        SEASON_AUTUMN not in world.lost_woods_item_sequence or oos_has_autumn(state, player)
+    ])
+
+
+def oos_can_complete_lost_woods_main_sequence(state: CollectionState, player: int):
+    world = state.multiworld.worlds[player]
+    return all([
+        oos_can_break_mushroom(state, player, False),
+        oos_has_shield(state, player),
+        SEASON_WINTER not in world.lost_woods_main_sequence or oos_has_winter(state, player),
+        SEASON_SPRING not in world.lost_woods_main_sequence or oos_has_spring(state, player),
+        SEASON_SUMMER not in world.lost_woods_main_sequence or oos_has_summer(state, player),
+        SEASON_AUTUMN not in world.lost_woods_main_sequence or oos_has_autumn(state, player)
     ])
 
 
@@ -261,10 +268,16 @@ def oos_can_farm_rupees(state: CollectionState, player: int):
 
 
 def oos_has_ore_chunks(state: CollectionState, player: int, amount: int):
+    world = state.multiworld.worlds[player]
+    if not world.options.shuffle_golden_ore_spots:
+        return oos_can_farm_ore_chunks(state, player)
+
     if not oos_can_farm_ore_chunks(state, player):
         return False
 
     ore_chunks = 0
+    ore_chunks += state.count("Ore Chunks (10)", player) * 10
+    ore_chunks += state.count("Ore Chunks (25)", player) * 25
     ore_chunks += state.count("Ore Chunks (50)", player) * 50
     return ore_chunks >= amount
 
@@ -274,8 +287,11 @@ def oos_can_farm_ore_chunks(state: CollectionState, player: int):
         oos_has_shovel(state, player),
         all([
             oos_option_medium_logic(state, player),
-            oos_has_magic_boomerang(state, player),
-            oos_has_sword(state, player)
+            any([
+                oos_has_magic_boomerang(state, player),
+                oos_has_sword(state, player),
+                oos_has_bracelet(state, player)
+            ])
         ]),
         all([
             oos_option_hard_logic(state, player),
@@ -409,6 +425,7 @@ def oos_can_jump_5_wide_liquid(state: CollectionState, player: int):
 
 def oos_can_jump_6_wide_liquid(state: CollectionState, player: int):
     return all([
+        oos_option_medium_logic(state, player),
         oos_has_cape(state, player),
         oos_can_use_pegasus_seeds(state, player),
     ])
@@ -656,6 +673,16 @@ def oos_can_harvest_tree(state: CollectionState, player: int, can_use_companion:
                 oos_can_summon_dimitri(state, player)
             ])
         ])
+    ])
+
+
+def oos_can_harvest_gasha(state: CollectionState, player: int, count: int):
+    reachable_soils = [state.has(f"_reached_{region_name}", player) for region_name in GASHA_SPOT_REGIONS]
+    return all([
+        reachable_soils.count(True) >= count,  # Enough soils are reachable
+        state.has("Gasha Seed", player, count),  # Enough seeds to plant
+        oos_can_kill_normal_enemy(state, player),  # Can increase kill count to make the tree grow
+        oos_has_sword(state, player) or oos_has_fools_ore(state, player)  # Can actually harvest the nut
     ])
 
 
@@ -909,8 +936,8 @@ def oos_season_in_temple_remains(state: CollectionState, player: int, season: st
     return oos_has_season(state, player, season) and state.has("_reached_remains_stump", player)
 
 
-def oos_season_in_north_horon(state: CollectionState, player: int, season: str):
-    if oos_get_default_season(state, player, "NORTH_HORON") == season:
+def oos_season_in_holodrum_plain(state: CollectionState, player: int, season: str):
+    if oos_get_default_season(state, player, "HOLODRUM_PLAIN") == season:
         return True
     return oos_has_season(state, player, season) and state.has("_reached_ghastly_stump", player)
 
@@ -962,7 +989,7 @@ def oos_season_in_tarm_ruins(state: CollectionState, player: int, season: str):
 
 def oos_season_in_horon_village(state: CollectionState, player: int, season: str):
     # With vanilla behavior, you can randomly have any season inside Horon, making any season virtually accessible
-    if state.multiworld.worlds[player].options.horon_village_season == "vanilla":
+    if not state.multiworld.worlds[player].options.normalize_horon_village_season:
         return True
     if oos_get_default_season(state, player, "HORON_VILLAGE") == season:
         return True

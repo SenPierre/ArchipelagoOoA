@@ -5,7 +5,7 @@ from NetUtils import ClientStatus
 import worlds._bizhawk as bizhawk
 from worlds._bizhawk.client import BizHawkClient
 from worlds.tloz_oos import LOCATIONS_DATA, ITEMS_DATA, OracleOfSeasonsGoal
-from .Data import build_item_id_to_name_dict, build_location_name_to_id_dict
+from .Util import build_item_id_to_name_dict, build_location_name_to_id_dict
 
 if TYPE_CHECKING:
     from worlds._bizhawk.context import BizHawkClientContext
@@ -34,7 +34,7 @@ RAM_ADDRS = {
 class OracleOfSeasonsClient(BizHawkClient):
     game = "The Legend of Zelda - Oracle of Seasons"
     system = "GBC"
-    patch_suffix = ".apseasons"
+    patch_suffix = ".apoos"
     local_checked_locations: Set[int]
     local_scouted_locations: Set[int]
     item_id_to_name: Dict[int, str]
@@ -148,6 +148,14 @@ class OracleOfSeasonsClient(BizHawkClient):
                     location_id = self.location_name_to_id[name]
                     local_checked_locations.add(location_id)
                     break
+
+        # Check how many deterministic Gasha Nuts have been opened, and mark their matching locations as checked
+        byte_offset = 0xC649 - RAM_ADDRS["location_flags"][0]
+        gasha_counter = flag_bytes[byte_offset] >> 2
+        for i in range(gasha_counter):
+            name = f"Gasha Nut #{i + 1}"
+            location_id = self.location_name_to_id[name]
+            local_checked_locations.add(location_id)
 
         # Send locations
         if self.local_checked_locations != local_checked_locations:

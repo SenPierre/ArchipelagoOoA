@@ -66,23 +66,16 @@ class OracleOfSeasonsDefaultSeasons(Choice):
     default = 1
 
 
-class OracleOfSeasonsHoronSeason(Choice):
+class OracleOfSeasonsHoronSeason(DefaultOnToggle):
     """
     In the vanilla game, Horon Village default season is chaotic: every time you enter it, it sets a random season.
     This nullifies every condition where a season is required inside Horon Village, since you can leave and re-enter
     again and again until you get the season that suits you.
-    - Vanilla: season changes randomly everytime you enter Horon Village. This makes logic less interesting
-      and sometimes expects from you to leave and re-enter town a dozen times until you get the right season
-    - Normalized: Horon Village behaves like any other region in the game (it has a default season that can be changed
-      using Rod of Seasons)
-    Setting this option to "Normalized" makes it follow the global behavior defined in "Default Seasons" option
+    Enabling this option disables that behavior and makes Horon Village behave like any other region in the game.
+    This means it will have a default season picked at generation time that follows the global behavior defined
+    in the "Default Seasons" option.
     """
-    display_name = "Horon Village Default Season"
-
-    option_vanilla = 0
-    option_normalized = 1
-
-    default = 1
+    display_name = "Normalize Horon Village Season"
 
 
 class OracleOfSeasonsAnimalCompanion(Choice):
@@ -113,8 +106,8 @@ class OracleOfSeasonsDefaultSeedType(Choice):
     option_ember = 0
     option_scent = 1
     option_pegasus = 2
-    option_mystery = 3
-    option_gale = 4
+    option_gale = 3
+    option_mystery = 4
 
     default = 0
 
@@ -139,28 +132,26 @@ class OracleOfSeasonsDuplicateSeedTree(Choice):
     default = 5
 
 
-class OracleOfSeasonsDungeonShuffle(Choice):
+class OracleOfSeasonsDungeonShuffle(Toggle):
     """
-    - Vanilla: each dungeon entrance leads to its intended dungeon
-    - Shuffle: each dungeon entrance leads to a random dungeon picked at generation time
+    If enabled, each dungeon entrance will lead to a random dungeon picked at generation time.
+    Otherwise, all dungeon entrances lead to their dungeon as intended.
     """
     display_name = "Shuffle Dungeons"
-
-    option_vanilla = 0
-    option_shuffle = 1
-
-    default = 0
 
 
 class OracleOfSeasonsPortalShuffle(Choice):
     """
     - Vanilla: pairs of portals are the same as in the original game
-    - Shuffle: each portal in Holodrum is connected to a random portal in Subrosia picked at generation time
+    - Shuffle Outwards: each portal is connected to a random portal in the opposite dimension picked at generation time
+    - Shuffle: each portal is connected to a random portal, which might be in the same dimension (with the guarantee of
+      having at least one portal going across dimensions)
     """
     display_name = "Shuffle Subrosia Portals"
 
     option_vanilla = 0
-    option_shuffle = 1
+    option_shuffle_outwards = 1
+    option_shuffle = 2
 
     default = 0
 
@@ -187,23 +178,20 @@ class OracleOfSeasonsOldMenShuffle(Choice):
     default = 3
 
 
-class OracleOfSeasonsGoldenOreSpotsShuffle(Choice):
+class OracleOfSeasonsGoldenOreSpotsShuffle(Toggle):
     """
-    Subrosia contains 7 hidden digging spots containing 50 Ore Chunks, this option enables adding them to the pool
-    of locations and randomizing them like any other location (giving opportunity to find Ore Chunks randomized
-    somewhere else).
-    - Vanilla: Spots contain their golden ore chunk just like in the base game
-    - Shuffled Visible: Spots are randomized, and their tile is replaced with a recognizable "digging spot" tile (like
-    the one at the end of the hide-and-seek minigame). Pretty handy if that's your first time shuffling those.
-    - Shuffled Hidden: Spots are randomized but remain hidden as in the original game
+    This option adds the 7 hidden digging spots in Subrosia (containing 50 Ore Chunks each) to the pool
+    of randomized locations.
     """
     display_name = "Shuffle Golden Ore Spots"
 
-    option_vanilla = 0
-    option_shuffled_visible = 1
-    option_shuffled_hidden = 2
 
-    default = 0
+class OracleOfSeasonsEssenceSanity(Toggle):
+    """
+    If enabled, essences will be shuffled anywhere in the multiworld instead of being guranteed to be found
+    at the end their respective dungeons.
+    """
+    display_name = "Shuffle Essences"
 
 
 class OracleOfSeasonsMasterKeys(Choice):
@@ -311,31 +299,32 @@ class OracleOfSeasonsSignGuyRequirement(Range):
     default = 10
 
 
-class OracleOfSeasonsLostWoodsItemSequence(Choice):
+class OracleOfSeasonsLostWoodsItemSequence(DefaultOnToggle):
     """
-    This option defines how the "secret sequence" (both directions and seasons) leading to the Noble Sword pedestal
-    is handled by the randomizer.
-    - Vanilla: the sequence is the same as in the original game
-    - Randomized: the sequence is randomized, and you need to use the Phonograph on the Deku Scrub to learn the sequence
+    If enabled, the secret sequence leading to the Noble Sword pedestal will be randomized (both directions to
+    take and seasons to use).
+    To know the randomized combination, you will need to bring the Phonograph to the Deku Scrub near the stump, just
+    like in the vanilla game.
     """
-    display_name = "Lost Woods Item Sequence"
-
-    option_vanilla = 0
-    option_randomized = 1
-
-    default = 1
+    display_name = "Randomize Lost Woods Item Sequence"
 
 
-class OracleOfSeasonsSamasaGateCode(Choice):
+class OracleOfSeasonsLostWoodsMainSequence(Toggle):
+    """
+    If enabled, the secret sequence leading to D6 sector will be randomized (both directions to take and
+    seasons to use).
+    To know the randomized combination, you will need to stun the Deku Scrub near the jewel gate using a shield, just
+    like in the vanilla game.
+    """
+    display_name = "Randomize Lost Woods Main Sequence"
+
+
+class OracleOfSeasonsSamasaGateCode(Toggle):
     """
     This option defines if the secret combination which opens the gate to Samasa Desert should be randomized.
     You can then configure the length of the sequence with the next option.
     """
-    display_name = "Samasa Desert Gate Code"
-
-    option_vanilla = 0
-    option_randomized = 1
-    default = 1
+    display_name = "Randomize Samasa Desert Gate Code"
 
 
 class OracleOfSeasonsSamasaGateCodeLength(Range):
@@ -350,18 +339,27 @@ class OracleOfSeasonsSamasaGateCodeLength(Range):
     default = 8
 
 
-class OracleOfSeasonsRingQuality(Choice):
+class OracleOfSeasonsGashaLocations(Range):
     """
-    Defines the quality of the rings that will be shuffled in your seed:
-    - Any: any ring can potentially be shuffled (including literally useless ones)
-    - Only Useful: only useful rings will be shuffled
+    When set to a non-zero value, planting a Gasha tree on a unique soil gives a deterministic item which is taken
+    into account by logic. Once an item has been obtained this way, the soil disappears forever to avoid any chance
+    of softlocking by wasting several Gasha Seeds on the same soil.
+    The value of this option is the number of items that can be obtained that way, the maximum value expecting you
+    to plant a tree on each one of the 16 Gasha spots in the game.
     """
-    display_name = "Rings Quality"
+    display_name = "Deterministic Gasha Locations"
 
-    option_any = 0
-    option_only_useful = 1
+    range_start = 0
+    range_end = 16
+    default = 0
 
-    default = 1
+
+class OracleOfSeasonsRingQuality(DefaultOnToggle):
+    """
+    If enabled, this option prevents useless rings from being shuffled in the item pool.
+    Both rings with no effect and rings providing maluses are considered useless.
+    """
+    display_name = "Remove Useless Rings"
 
 
 class OracleOfSeasonsPricesFactor(Range):
@@ -429,13 +427,13 @@ class OracleOfSeasonsCombatDifficulty(Choice):
     """
     display_name = "Combat Difficulty"
 
-    option_peaceful = 0
-    option_easier = 1
-    option_vanilla = 2
-    option_harder = 3
+    option_peaceful = -4
+    option_easier = -2
+    option_vanilla = 0
+    option_harder = 2
     option_insane = 4
 
-    default = 2
+    default = 0
 
 
 class OracleOfSeasonsQuickFlute(DefaultOnToggle):
@@ -445,50 +443,13 @@ class OracleOfSeasonsQuickFlute(DefaultOnToggle):
     display_name = "Quick Flute"
 
 
-class OracleOfSeasonsHeartBeepInterval(Choice):
+class OracleOfSeasonsStartingMapsCompasses(Toggle):
     """
-    - Default: play the beeping sound at the usual frequency when low on health
-    - Half: play the beeping sound two times less when low on health
-    - Quarter: play the beeping sound four times less when low on health
-    - Disabled: never play the beeping sound when low on health
+    When enabled, you will start the game with maps and compasses for every dungeon in the game.
+    This makes navigation easier and removes those items for the pool, which are replaced with random filler items.
+    Unlike 'start_inventory_from_pool', this is performed instanatly and silently when starting the game.
     """
-    display_name = "Heart Beep Frequency"
-
-    option_default = 0
-    option_half = 1
-    option_quarter = 2
-    option_disabled = 3
-
-    default = 0
-
-
-class OracleOfSeasonsCharacterSprite(Choice):
-    """
-    The sprite to use as a character during this seed.
-    (Sprites extracted from ardnaxelarak's rando)
-    """
-    display_name = "Character Sprite"
-
-    option_link = 0
-    option_subrosian = 1
-    option_goron = 2
-    option_piratian = 3
-
-    default = 0
-
-
-class OracleOfSeasonsCharacterPalette(Choice):
-    """
-    The color tint to apply to the character sprite during this seed
-    """
-    display_name = "Character Tint"
-
-    option_green = 0
-    option_blue = 1
-    option_red = 2
-    option_orange = 3
-
-    default = 0
+    display_name = "Start with Dungeon Maps & Compasses"
 
 
 @dataclass
@@ -498,7 +459,7 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     logic_difficulty: OracleOfSeasonsLogicDifficulty
     required_essences: OracleOfSeasonsRequiredEssences
     default_seasons: OracleOfSeasonsDefaultSeasons
-    horon_village_season: OracleOfSeasonsHoronSeason
+    normalize_horon_village_season: OracleOfSeasonsHoronSeason
     animal_companion: OracleOfSeasonsAnimalCompanion
     default_seed: OracleOfSeasonsDefaultSeedType
     duplicate_seed_tree: OracleOfSeasonsDuplicateSeedTree
@@ -508,6 +469,7 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     shuffle_portals: OracleOfSeasonsPortalShuffle
     shuffle_old_men: OracleOfSeasonsOldMenShuffle
     shuffle_golden_ore_spots: OracleOfSeasonsGoldenOreSpotsShuffle
+    shuffle_essences: OracleOfSeasonsEssenceSanity
     master_keys: OracleOfSeasonsMasterKeys
     keysanity_small_keys: OracleOfSeasonsSmallKeyShuffle
     keysanity_boss_keys: OracleOfSeasonsBossKeyShuffle
@@ -516,10 +478,12 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     tarm_gate_required_jewels: OraclesOfSeasonsTarmGateRequirement
     golden_beasts_requirement: OraclesOfSeasonsGoldenBeastsRequirement
     sign_guy_requirement: OracleOfSeasonsSignGuyRequirement
-    lost_woods_item_sequence: OracleOfSeasonsLostWoodsItemSequence
-    samasa_gate_code: OracleOfSeasonsSamasaGateCode
+    randomize_lost_woods_item_sequence: OracleOfSeasonsLostWoodsItemSequence
+    randomize_lost_woods_main_sequence: OracleOfSeasonsLostWoodsMainSequence
+    randomize_samasa_gate_code: OracleOfSeasonsSamasaGateCode
     samasa_gate_code_length: OracleOfSeasonsSamasaGateCodeLength
-    ring_quality: OracleOfSeasonsRingQuality
+    deterministic_gasha_locations: OracleOfSeasonsGashaLocations
+    remove_useless_rings: OracleOfSeasonsRingQuality
     shop_prices_factor: OracleOfSeasonsPricesFactor
     advance_shop: OracleOfSeasonsAdvanceShop
     fools_ore: OracleOfSeasonsFoolsOre
@@ -527,7 +491,5 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     enforce_potion_in_shop: OracleOfSeasonsEnforcePotionInShop
     combat_difficulty: OracleOfSeasonsCombatDifficulty
     quick_flute: OracleOfSeasonsQuickFlute
-    heart_beep_interval: OracleOfSeasonsHeartBeepInterval
-    character_sprite: OracleOfSeasonsCharacterSprite
-    character_palette: OracleOfSeasonsCharacterPalette
+    starting_maps_compasses: OracleOfSeasonsStartingMapsCompasses
     death_link: DeathLink
