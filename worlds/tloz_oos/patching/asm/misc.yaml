@@ -116,3 +116,6 @@
 # Remove whole Bipin & Blossom child mechanic
 08/2392/: jp interactionDelete
 # 08/2395/ up to 08/26fd/ (included) => FREE SPACE
+
+# Remove Moblin King text when he sees Link to the right of his fort (near Sunken City)
+0b/3705/: db $00
