@@ -1,20 +1,21 @@
 import os
 import logging
-import typing
-
+from typing import List, Union, ClassVar
 import settings
-from BaseClasses import Tutorial, Region, Location, LocationProgressType
+from BaseClasses import Tutorial, Region, Location, LocationProgressType, Item, ItemClassification
 from Fill import fill_restrictive, FillError
 from Options import Accessibility
 from worlds.AutoWorld import WebWorld, World
-from .Data import *
-from worlds.tloz_oos.data.Items import *
-from .Logic import create_connections, apply_self_locking_rules
+
+from .Util import *
 from .Options import *
-from .PatchWriter import oos_create_appp_patch
+from .Logic import create_connections, apply_self_locking_rules
+from .PatchWriter import oos_create_ap_procedure_patch
 from .data import LOCATIONS_DATA
 from .data.Constants import *
+from .data.Items import ITEMS_DATA
 from .data.Regions import REGIONS
+
 from .Client import OracleOfSeasonsClient  # Unused, but required to register with BizHawkClient
 
 
@@ -36,6 +37,10 @@ class OracleOfSeasonsSettings(settings.Group):
         The color palette used for character sprite throughout the game.
         Valid values are: "green", "red", "blue", "orange", and "random"
         """
+    class OoSRevealDiggingSpots(str):
+        """
+        If enabled, hidden digging spots in Subrosia are revealed as diggable tiles.
+        """
     class OoSHeartBeepInterval(str):
         """
         A factor applied to the infamous heart beep sound interval.
@@ -48,10 +53,11 @@ class OracleOfSeasonsSettings(settings.Group):
 
     rom_file: RomFile = RomFile(RomFile.copy_to)
     rom_start: bool = True
-    character_sprite: typing.Union[OoSCharacterSprite, str] = "link"
-    character_palette: typing.Union[OoSCharacterPalette, str] = "green"
-    heart_beep_interval: typing.Union[OoSHeartBeepInterval, str] = "vanilla"
-    remove_music: typing.Union[OoSRemoveMusic, bool] = False
+    character_sprite: Union[OoSCharacterSprite, str] = "link"
+    character_palette: Union[OoSCharacterPalette, str] = "green"
+    reveal_hidden_subrosia_digging_spots: Union[OoSRevealDiggingSpots, bool] = True
+    heart_beep_interval: Union[OoSHeartBeepInterval, str] = "vanilla"
+    remove_music: Union[OoSRemoveMusic, bool] = False
 
 
 class OracleOfSeasonsWeb(WebWorld):
@@ -88,7 +94,7 @@ class OracleOfSeasonsWorld(World):
     required_client_version = (0, 4, 4)
     web = OracleOfSeasonsWeb()
 
-    settings: typing.ClassVar[OracleOfSeasonsSettings]
+    settings: ClassVar[OracleOfSeasonsSettings]
     settings_key = "tloz_oos_options"
 
     location_name_to_id = build_location_name_to_id_dict()
@@ -96,35 +102,28 @@ class OracleOfSeasonsWorld(World):
     item_name_groups = ITEM_GROUPS
     location_name_groups = LOCATION_GROUPS
 
-    pre_fill_items: List[Item]
-    default_seasons: Dict[str, str]
-    dungeon_entrances: Dict[str, str]
-    portal_connections: Dict[str, str]
-    lost_woods_item_sequence: List[str]
-    old_man_rupee_values: Dict[str, int]
-    shop_prices: Dict[str, int]
-    samasa_gate_code: List[int]
-    remaining_progressive_gasha_seeds: int
-
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
-        self.pre_fill_items = []
-        self.default_seasons = DEFAULT_SEASONS.copy()
-        self.dungeon_entrances = DUNGEON_CONNECTIONS.copy()
-        self.portal_connections = PORTAL_CONNECTIONS.copy()
-        self.lost_woods_item_sequence = LOST_WOODS_ITEM_SEQUENCE.copy()
-        self.lost_woods_main_sequence = LOST_WOODS_MAIN_SEQUENCE.copy()
-        self.old_man_rupee_values = OLD_MAN_RUPEE_VALUES.copy()
-        self.samasa_gate_code = SAMASA_GATE_CODE.copy()
-        self.shop_prices = SHOP_PRICES_DIVIDERS.copy()
-        self.random_rings_pool = []
+
+        self.pre_fill_items: List[Item] = []
+        self.default_seasons: Dict[str, str] = DEFAULT_SEASONS.copy()
+        self.dungeon_entrances: Dict[str, str] = DUNGEON_CONNECTIONS.copy()
+        self.portal_connections: Dict[str, str] = PORTAL_CONNECTIONS.copy()
+        self.lost_woods_item_sequence: List[List] = LOST_WOODS_ITEM_SEQUENCE.copy()
+        self.lost_woods_main_sequence: List[List] = LOST_WOODS_MAIN_SEQUENCE.copy()
+        self.old_man_rupee_values: Dict[str, int] = OLD_MAN_RUPEE_VALUES.copy()
+        self.samasa_gate_code: List[int] = SAMASA_GATE_CODE.copy()
+        self.shop_prices: Dict[str, int] = SHOP_PRICES_DIVIDERS.copy()
+        self.random_rings_pool: List[str] = []
+        self.remaining_progressive_gasha_seeds = 0
 
     def fill_slot_data(self) -> dict:
         # Put options that are useful to the tracker inside slot data
         options = ["goal", "death_link",
                    # Logic-impacting options
-                   "logic_difficulty", "horon_village_season", "warp_to_start",
-                   "shuffle_dungeons", "shuffle_portals", "lost_woods_item_sequence", "lost_woods_main_sequence",
+                   "logic_difficulty", "normalize_horon_village_season", "warp_to_start",
+                   "shuffle_dungeons", "shuffle_portals",
+                   "randomize_lost_woods_item_sequence", "randomize_lost_woods_main_sequence",
                    "duplicate_seed_tree", "default_seed", "master_keys",
                    "remove_d0_alt_entrance", "remove_d2_alt_entrance",
                    # Locations
@@ -157,12 +156,12 @@ class OracleOfSeasonsWorld(World):
         self.randomize_default_seasons()
         self.randomize_old_men()
 
-        if self.options.shuffle_dungeons == "shuffle":
+        if self.options.shuffle_dungeons:
             self.shuffle_dungeons()
         if self.options.shuffle_portals != "vanilla":
             self.shuffle_portals()
 
-        if self.options.lost_woods_item_sequence == "randomized":
+        if self.options.randomize_lost_woods_item_sequence:
             # Pick 4 random seasons & directions (last one has to be "left")
             self.lost_woods_item_sequence = []
             for i in range(4):
@@ -171,7 +170,7 @@ class OracleOfSeasonsWorld(World):
                     self.random.choice(SEASONS)
                 ])
 
-        if self.options.lost_woods_main_sequence == "randomized":
+        if self.options.randomize_lost_woods_main_sequence:
             # Pick 4 random seasons & directions (last one has to be "up")
             self.lost_woods_main_sequence = []
             for i in range(4):
@@ -180,7 +179,7 @@ class OracleOfSeasonsWorld(World):
                     self.random.choice(SEASONS)
                 ])
 
-        if self.options.samasa_gate_code == "randomized":
+        if self.options.randomize_samasa_gate_code:
             self.samasa_gate_code = []
             for i in range(self.options.samasa_gate_code_length.value):
                 self.samasa_gate_code.append(self.random.randint(0, 3))
@@ -211,7 +210,7 @@ class OracleOfSeasonsWorld(World):
             return
 
         for region in self.default_seasons:
-            if region == "HORON_VILLAGE" and self.options.horon_village_season == "vanilla":
+            if region == "HORON_VILLAGE" and not self.options.normalize_horon_village_season:
                 continue
             self.default_seasons[region] = self.random.choice(seasons_pool)
 
@@ -321,7 +320,7 @@ class OracleOfSeasonsWorld(World):
     def create_random_rings_pool(self):
         # Get a subset of as many rings as needed, with a potential filter on quality depending on chosen options
         ring_names = [name for name, idata in ITEMS_DATA.items() if "ring" in idata and idata["ring"] is True]
-        if self.options.ring_quality == "only_useful":
+        if self.options.remove_useless_rings:
             forbidden_classes = [ItemClassification.filler, ItemClassification.trap]
             ring_names = [name for name in ring_names if ITEMS_DATA[name]["classification"] not in forbidden_classes]
 
@@ -336,7 +335,7 @@ class OracleOfSeasonsWorld(World):
         if region_id == "advance shop":
             return self.options.advance_shop.value
         if region_id.startswith("subrosia") and region_id.endswith("digging spot"):
-            return self.options.shuffle_golden_ore_spots != "vanilla"
+            return self.options.shuffle_golden_ore_spots
         if location_name in RUPEE_OLD_MAN_LOCATIONS:
             return self.options.shuffle_old_men == OracleOfSeasonsOldMenShuffle.option_turn_into_locations
         if location_name == "Horon Village: Shop #3":
@@ -685,7 +684,7 @@ class OracleOfSeasonsWorld(World):
         return "Rupees (1)"
 
     def generate_output(self, output_directory: str):
-        patch = oos_create_appp_patch(self)
+        patch = oos_create_ap_procedure_patch(self)
         rom_path = os.path.join(output_directory, f"{self.multiworld.get_out_file_name_base(self.player)}"
                                                   f"{patch.patch_file_ending}")
         patch.write(rom_path)
@@ -695,7 +694,7 @@ class OracleOfSeasonsWorld(World):
         for region_name, season in self.default_seasons.items():
             spoiler_handle.write(f"\t- {region_name} --> {season}\n")
 
-        if self.options.shuffle_dungeons != "vanilla":
+        if self.options.shuffle_dungeons:
             spoiler_handle.write(f"\nDungeon Entrances ({self.multiworld.player_name[self.player]}):\n")
             for entrance, dungeon in self.dungeon_entrances.items():
                 spoiler_handle.write(f"\t- {entrance} --> {dungeon.replace('enter ', '')}\n")

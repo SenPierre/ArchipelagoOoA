@@ -66,23 +66,16 @@ class OracleOfSeasonsDefaultSeasons(Choice):
     default = 1
 
 
-class OracleOfSeasonsHoronSeason(Choice):
+class OracleOfSeasonsHoronSeason(DefaultOnToggle):
     """
     In the vanilla game, Horon Village default season is chaotic: every time you enter it, it sets a random season.
     This nullifies every condition where a season is required inside Horon Village, since you can leave and re-enter
     again and again until you get the season that suits you.
-    - Vanilla: season changes randomly everytime you enter Horon Village. This makes logic less interesting
-      and sometimes expects from you to leave and re-enter town a dozen times until you get the right season
-    - Normalized: Horon Village behaves like any other region in the game (it has a default season that can be changed
-      using Rod of Seasons)
-    Setting this option to "Normalized" makes it follow the global behavior defined in "Default Seasons" option
+    Enabling this option disables that behavior and makes Horon Village behave like any other region in the game.
+    This means it will have a default season picked at generation time that follows the global behavior defined
+    in the "Default Seasons" option.
     """
-    display_name = "Horon Village Default Season"
-
-    option_vanilla = 0
-    option_normalized = 1
-
-    default = 1
+    display_name = "Normalize Horon Village Season"
 
 
 class OracleOfSeasonsAnimalCompanion(Choice):
@@ -139,17 +132,12 @@ class OracleOfSeasonsDuplicateSeedTree(Choice):
     default = 5
 
 
-class OracleOfSeasonsDungeonShuffle(Choice):
+class OracleOfSeasonsDungeonShuffle(Toggle):
     """
-    - Vanilla: each dungeon entrance leads to its intended dungeon
-    - Shuffle: each dungeon entrance leads to a random dungeon picked at generation time
+    If enabled, each dungeon entrance will lead to a random dungeon picked at generation time.
+    Otherwise, all dungeon entrances lead to their dungeon as intended.
     """
     display_name = "Shuffle Dungeons"
-
-    option_vanilla = 0
-    option_shuffle = 1
-
-    default = 0
 
 
 class OracleOfSeasonsPortalShuffle(Choice):
@@ -190,23 +178,12 @@ class OracleOfSeasonsOldMenShuffle(Choice):
     default = 3
 
 
-class OracleOfSeasonsGoldenOreSpotsShuffle(Choice):
+class OracleOfSeasonsGoldenOreSpotsShuffle(Toggle):
     """
-    Subrosia contains 7 hidden digging spots containing 50 Ore Chunks, this option enables adding them to the pool
-    of locations and randomizing them like any other location (giving opportunity to find Ore Chunks randomized
-    somewhere else).
-    - Vanilla: Spots contain their golden ore chunk just like in the base game
-    - Shuffled Visible: Spots are randomized, and their tile is replaced with a recognizable "digging spot" tile (like
-    the one at the end of the hide-and-seek minigame). Pretty handy if that's your first time shuffling those.
-    - Shuffled Hidden: Spots are randomized but remain hidden as in the original game
+    This option adds the 7 hidden digging spots in Subrosia (containing 50 Ore Chunks each) to the pool
+    of randomized locations.
     """
     display_name = "Shuffle Golden Ore Spots"
-
-    option_vanilla = 0
-    option_shuffled_visible = 1
-    option_shuffled_hidden = 2
-
-    default = 0
 
 
 class OracleOfSeasonsEssenceSanity(Toggle):
@@ -322,46 +299,32 @@ class OracleOfSeasonsSignGuyRequirement(Range):
     default = 10
 
 
-class OracleOfSeasonsLostWoodsItemSequence(Choice):
+class OracleOfSeasonsLostWoodsItemSequence(DefaultOnToggle):
     """
-    This option defines how the "secret sequence" (both directions and seasons) leading to the Noble Sword pedestal
-    is handled by the randomizer.
-    - Vanilla: the sequence is the same as in the original game
-    - Randomized: the sequence is randomized, and you need to use the Phonograph on the Deku Scrub to learn the sequence
+    If enabled, the secret sequence leading to the Noble Sword pedestal will be randomized (both directions to
+    take and seasons to use).
+    To know the randomized combination, you will need to bring the Phonograph to the Deku Scrub near the stump, just
+    like in the vanilla game.
     """
-    display_name = "Lost Woods Item Sequence"
-
-    option_vanilla = 0
-    option_randomized = 1
-
-    default = 1
+    display_name = "Randomize Lost Woods Item Sequence"
 
 
-class OracleOfSeasonsLostWoodsMainSequence(Choice):
+class OracleOfSeasonsLostWoodsMainSequence(Toggle):
     """
-    This option defines how the "secret sequence" (both directions and seasons) leading to Tarm Ruins is handled
-    by the randomizer.
-    - Vanilla: the sequence is the same as in the original game
-    - Randomized: the sequence is randomized, and you need to use a shield against the Deku Scrub to learn the sequence
+    If enabled, the secret sequence leading to D6 sector will be randomized (both directions to take and
+    seasons to use).
+    To know the randomized combination, you will need to stun the Deku Scrub near the jewel gate using a shield, just
+    like in the vanilla game.
     """
-    display_name = "Lost Woods Main Sequence"
-
-    option_vanilla = 0
-    option_randomized = 1
-
-    default = 0
+    display_name = "Randomize Lost Woods Main Sequence"
 
 
-class OracleOfSeasonsSamasaGateCode(Choice):
+class OracleOfSeasonsSamasaGateCode(Toggle):
     """
     This option defines if the secret combination which opens the gate to Samasa Desert should be randomized.
     You can then configure the length of the sequence with the next option.
     """
-    display_name = "Samasa Desert Gate Code"
-
-    option_vanilla = 0
-    option_randomized = 1
-    default = 1
+    display_name = "Randomize Samasa Desert Gate Code"
 
 
 class OracleOfSeasonsSamasaGateCodeLength(Range):
@@ -391,18 +354,12 @@ class OracleOfSeasonsGashaLocations(Range):
     default = 0
 
 
-class OracleOfSeasonsRingQuality(Choice):
+class OracleOfSeasonsRingQuality(DefaultOnToggle):
     """
-    Defines the quality of the rings that will be shuffled in your seed:
-    - Any: any ring can potentially be shuffled (including literally useless ones)
-    - Only Useful: only useful rings will be shuffled
+    If enabled, this option prevents useless rings from being shuffled in the item pool.
+    Both rings with no effect and rings providing maluses are considered useless.
     """
-    display_name = "Rings Quality"
-
-    option_any = 0
-    option_only_useful = 1
-
-    default = 1
+    display_name = "Remove Useless Rings"
 
 
 class OracleOfSeasonsPricesFactor(Range):
@@ -502,7 +459,7 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     logic_difficulty: OracleOfSeasonsLogicDifficulty
     required_essences: OracleOfSeasonsRequiredEssences
     default_seasons: OracleOfSeasonsDefaultSeasons
-    horon_village_season: OracleOfSeasonsHoronSeason
+    normalize_horon_village_season: OracleOfSeasonsHoronSeason
     animal_companion: OracleOfSeasonsAnimalCompanion
     default_seed: OracleOfSeasonsDefaultSeedType
     duplicate_seed_tree: OracleOfSeasonsDuplicateSeedTree
@@ -521,12 +478,12 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     tarm_gate_required_jewels: OraclesOfSeasonsTarmGateRequirement
     golden_beasts_requirement: OraclesOfSeasonsGoldenBeastsRequirement
     sign_guy_requirement: OracleOfSeasonsSignGuyRequirement
-    lost_woods_item_sequence: OracleOfSeasonsLostWoodsItemSequence
-    lost_woods_main_sequence: OracleOfSeasonsLostWoodsMainSequence
-    samasa_gate_code: OracleOfSeasonsSamasaGateCode
+    randomize_lost_woods_item_sequence: OracleOfSeasonsLostWoodsItemSequence
+    randomize_lost_woods_main_sequence: OracleOfSeasonsLostWoodsMainSequence
+    randomize_samasa_gate_code: OracleOfSeasonsSamasaGateCode
     samasa_gate_code_length: OracleOfSeasonsSamasaGateCodeLength
     deterministic_gasha_locations: OracleOfSeasonsGashaLocations
-    ring_quality: OracleOfSeasonsRingQuality
+    remove_useless_rings: OracleOfSeasonsRingQuality
     shop_prices_factor: OracleOfSeasonsPricesFactor
     advance_shop: OracleOfSeasonsAdvanceShop
     fools_ore: OracleOfSeasonsFoolsOre

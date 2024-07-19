@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from . import OracleOfSeasonsWorld
 
 
-def oos_create_appp_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
+def oos_create_ap_procedure_patch(world: "OracleOfSeasonsWorld") -> OoSProcedurePatch:
     patch = OoSProcedurePatch()
 
     patch.player = world.player

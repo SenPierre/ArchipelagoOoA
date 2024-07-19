@@ -1,5 +1,4 @@
-from typing import Dict, List
-from BaseClasses import Item
+from typing import Dict
 from .data import BASE_LOCATION_ID, LOCATIONS_DATA, BASE_ITEM_ID, ITEMS_DATA
 
 

@@ -142,7 +142,7 @@ def oos_option_hard_logic(state: CollectionState, player: int):
 
 
 def oos_option_shuffled_dungeons(state: CollectionState, player: int):
-    return state.multiworld.worlds[player].options.shuffle_dungeons != "vanilla"
+    return state.multiworld.worlds[player].options.shuffle_dungeons
 
 
 def oos_option_allow_warp_to_start(state: CollectionState, player: int):
@@ -269,7 +269,7 @@ def oos_can_farm_rupees(state: CollectionState, player: int):
 
 def oos_has_ore_chunks(state: CollectionState, player: int, amount: int):
     world = state.multiworld.worlds[player]
-    if world.options.shuffle_golden_ore_spots == "vanilla":
+    if not world.options.shuffle_golden_ore_spots:
         return oos_can_farm_ore_chunks(state, player)
 
     if not oos_can_farm_ore_chunks(state, player):
@@ -989,7 +989,7 @@ def oos_season_in_tarm_ruins(state: CollectionState, player: int, season: str):
 
 def oos_season_in_horon_village(state: CollectionState, player: int, season: str):
     # With vanilla behavior, you can randomly have any season inside Horon, making any season virtually accessible
-    if state.multiworld.worlds[player].options.horon_village_season == "vanilla":
+    if not state.multiworld.worlds[player].options.normalize_horon_village_season:
         return True
     if oos_get_default_season(state, player, "HORON_VILLAGE") == season:
         return True

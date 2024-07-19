@@ -171,7 +171,7 @@ def define_additional_tile_replacements(assembler: Z80Assembler, patch_data):
     """
     table = []
     # Reveal hidden subrosia digging spots if required
-    if patch_data["options"]["shuffle_golden_ore_spots"] == OracleOfSeasonsGoldenOreSpotsShuffle.option_shuffled_visible:
+    if get_settings()["tloz_oos_options"]["reveal_hidden_subrosia_digging_spots"]:
         table.extend([
             0x01, 0x06, 0x00, 0x18, 0x2f,  # Bath digging spot
             0x01, 0x57, 0x00, 0x38, 0x2f,  # Market portal digging spot
