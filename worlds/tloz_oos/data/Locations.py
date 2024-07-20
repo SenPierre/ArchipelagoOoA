@@ -257,8 +257,8 @@ LOCATIONS_DATA = {
     },
     "Sunken City: Syrup Shop #1": {
         "region_id": "syrup shop",
-        "vanilla_item": "Potion",
-        "flag_byte": 0xc63f,
+        "vanilla_item": "Flute",  # Potion should be there, but it was moved to Horon Shop for practical reasons
+        "flag_byte": 0xc63f,      # when enabling "Enforce Potion in Horon Shop".
         "bit_mask": 0x80,
         "scouting_byte": 0xc89c,
         "scouting_mask": 0x40,
@@ -381,8 +381,8 @@ LOCATIONS_DATA = {
     },
     "Horon Village: Shop #3": {
         "region_id": "horon shop",
-        "vanilla_item": "Flute",
-        "flag_byte": 0xc640,
+        "vanilla_item": "Potion",  # Flute should be there, but it was moved to Syrup Shop for practical reasons
+        "flag_byte": 0xc640,       # when enabling "Enforce Potion in Horon Shop".
         "bit_mask": 0x80,
         "conditional": True,
         "scouting_byte": 0xc8a6,
