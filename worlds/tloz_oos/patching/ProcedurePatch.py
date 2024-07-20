@@ -79,7 +79,7 @@ class OoSProcedurePatch(APProcedurePatch, APTokenMixin):
     def get_source_data(cls) -> bytes:
         base_rom_bytes = getattr(cls, "base_rom_bytes", None)
         if not base_rom_bytes:
-            file_name = get_settings().tloz_oos_options["rom_file"]
+            file_name = get_settings()["tloz_oos_options"]["rom_file"]
             if not os.path.exists(file_name):
                 file_name = Utils.user_path(file_name)
 

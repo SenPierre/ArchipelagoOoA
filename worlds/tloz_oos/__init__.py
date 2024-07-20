@@ -375,13 +375,7 @@ class OracleOfSeasonsWorld(World):
         location.place_locked_item(Item(event_item_name, ItemClassification.progression, None, self.player))
 
     def create_events(self):
-        self.create_event("maku seed", "Maku Seed")
-
-        if self.options.goal == OracleOfSeasonsGoal.option_beat_onox:
-            self.create_event("onox beaten", "_beaten_game")
-        elif self.options.goal == OracleOfSeasonsGoal.option_beat_ganon:
-            self.create_event("ganon beaten", "_beaten_game")
-
+        # Events to indicate a given tree stump is reachable
         self.create_event("spool stump", "_reached_spool_stump")
         self.create_event("temple remains lower stump", "_reached_remains_stump")
         self.create_event("temple remains upper stump", "_reached_remains_stump")
@@ -391,6 +385,17 @@ class OracleOfSeasonsWorld(World):
         self.create_event("sunken city dimitri", "_saved_dimitri_in_sunken_city")
         self.create_event("ghastly stump", "_reached_ghastly_stump")
         self.create_event("coast stump", "_reached_coast_stump")
+        # Events for beating golden beasts
+        self.create_event("golden darknut", "_beat_golden_darknut")
+        self.create_event("golden lynel", "_beat_golden_lynel")
+        self.create_event("golden octorok", "_beat_golden_octorok")
+        self.create_event("golden moblin", "_beat_golden_moblin")
+        # Events for "wild" seeds that can be found inside respawnable bushes in dungeons
+        self.create_event("d4 miniboss room wild embers", "_wild_ember_seeds")
+        self.create_event("d5 armos chest", "_wild_ember_seeds")
+        self.create_event("d7 entrance wild embers", "_wild_ember_seeds")
+        self.create_event("frypolar room wild mystery", "_wild_mystery_seeds")
+        # Various events to help with logic
         self.create_event("subrosia market sector", "_reached_rosa")
         self.create_event("subrosian dance hall", "_reached_subrosian_dance_hall")
         self.create_event("subrosia pirates sector", "_met_pirates")
@@ -401,23 +406,19 @@ class OracleOfSeasonsWorld(World):
         self.create_event("d8 NE crystal", "_dropped_d8_NE_crystal")
         self.create_event("d2 rupee room", "_reached_d2_rupee_room")
         self.create_event("d6 rupee room", "_reached_d6_rupee_room")
+        self.create_event("maku seed", "Maku Seed")
+
+        if self.options.goal == OracleOfSeasonsGoal.option_beat_onox:
+            self.create_event("onox beaten", "_beaten_game")
+        elif self.options.goal == OracleOfSeasonsGoal.option_beat_ganon:
+            self.create_event("ganon beaten", "_beaten_game")
 
         # Don't create an event for the triggerable volcano in Subrosia if portals layout make it unreachable, since
         # events are technically progression and generator doesn't like locked progression. At all.
         if self.is_volcanoes_west_portal_reachable():
             self.create_event("bomb temple remains", "_triggered_volcano")
 
-        self.create_event("golden darknut", "_beat_golden_darknut")
-        self.create_event("golden lynel", "_beat_golden_lynel")
-        self.create_event("golden octorok", "_beat_golden_octorok")
-        self.create_event("golden moblin", "_beat_golden_moblin")
-
-        self.create_event("d4 miniboss room wild embers", "_wild_ember_seeds")
-        self.create_event("d5 armos chest", "_wild_ember_seeds")
-        self.create_event("d7 entrance wild embers", "_wild_ember_seeds")
-        self.create_event("frypolar room wild mystery", "_wild_mystery_seeds")
-
-        # Create events for reaching Gasha spots, used
+        # Create events for reaching Gasha spots, used when Gasha-sanity is on
         for region_name in GASHA_SPOT_REGIONS:
             self.create_event(region_name, f"_reached_{region_name}")
 
