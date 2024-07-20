@@ -371,7 +371,7 @@ ASM_FILES = [
     "asm/rings.yaml",
     "asm/misc.yaml",
     "asm/new_treasures.yaml",
-    "asm/itemevents.yaml",
+    "asm/item_events.yaml",
     #"asm/remove_item_on_use.yaml",
 ]
 
