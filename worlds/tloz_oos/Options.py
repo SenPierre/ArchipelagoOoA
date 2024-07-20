@@ -330,7 +330,7 @@ class OracleOfSeasonsSamasaGateCode(Toggle):
 class OracleOfSeasonsSamasaGateCodeLength(Range):
     """
     The length of the randomized combination for Samasa Desert gate.
-    This option has no effect if "Vanilla" is selected on previous option.
+    This option has no effect if "Randomize Samasa Desert Gate Code" is disabled.
     """
     display_name = "Samasa Desert Gate Code Length"
 
