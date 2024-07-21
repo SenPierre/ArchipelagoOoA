@@ -17,6 +17,7 @@ def oos_create_ap_procedure_patch(world: "OracleOfSeasonsWorld") -> OoSProcedure
 
     patch_data = {
         "version": VERSION,
+        "seed": world.multiworld.seed,
         "options": world.options.as_dict(*[
             "advance_shop", "animal_companion", "combat_difficulty", "default_seed",
             "enforce_potion_in_shop", "fools_ore", "goal", "golden_beasts_requirement", "master_keys",
