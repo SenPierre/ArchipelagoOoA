@@ -211,7 +211,7 @@ def define_location_constants(assembler: Z80Assembler, patch_data):
     # If "Enforce potion in shop" is enabled, put a Potion in a specific location in Horon Shop that was
     # disabled at generation time to prevent trackers from tracking it
     if patch_data["options"]["enforce_potion_in_shop"]:
-        patch_data["locations"]["Horon Village: Shop #3"] = "Potion"
+        patch_data["locations"]["Horon Village: Shop #3"] = {"item": "Potion"}
     # If golden ore spots are not shuffled, they are still reachable nonetheless, so we need to enforce their
     # vanilla item for systems to work
     if not patch_data["options"]["shuffle_golden_ore_spots"]:
