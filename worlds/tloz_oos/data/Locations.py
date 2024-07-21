@@ -518,7 +518,7 @@ LOCATIONS_DATA = {
         "region_id": "subrosia seaside",
         "vanilla_item": "Star Ore",
         "flag_byte": [0xc865, 0xc866, 0xc875, 0xc876],
-        "room": [0x0166, 0x0176, 0x0175, 0x0165],
+        "room": [0x0165, 0x0166, 0x0175, 0x0176],
         "collect": COLLECT_DIG,
         "map_tile": 0xb0,
         "symbolic_name": "subrosiaSeaside",
@@ -663,8 +663,8 @@ LOCATIONS_DATA = {
         "vanilla_item": "Progressive Sword",
         "dungeon": 0,
         "flag_byte": 0xc906,
-        "room": 0x0404,
-        "collect": COLLECT_TOUCH,  # not a real chest!
+        "room": 0x0406,
+        # Not a real chest, so we don't apply the usual COLLECT_CHEST
         "map_tile": 0xd4,
         "symbolic_name": "d0SwordChest",
     },
