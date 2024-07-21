@@ -469,6 +469,7 @@ class OracleOfSeasonsWorld(World):
         return Item(name, classification, ap_code, self.player)
 
     def build_item_pool_dict(self):
+        removed_item_quantities = self.options.remove_items_from_pool.value.copy()
         item_pool_dict = {}
         filler_item_count = 0
         for loc_name, loc_data in LOCATIONS_DATA.items():
@@ -489,7 +490,11 @@ class OracleOfSeasonsWorld(World):
             item_name = loc_data['vanilla_item']
             if "Ring" in item_name:
                 item_name = "Random Ring"
-
+            if item_name in removed_item_quantities:
+                # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
+                removed_item_quantities[item_name] -= 1
+                filler_item_count += 1
+                continue
             if item_name == "Filler Item":
                 filler_item_count += 1
                 continue

@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
-from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool
+from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Range, Toggle, StartInventoryPool, \
+    ItemDict
 
 
 class OracleOfSeasonsGoal(Choice):
@@ -452,6 +453,16 @@ class OracleOfSeasonsStartingMapsCompasses(Toggle):
     display_name = "Start with Dungeon Maps & Compasses"
 
 
+class OracleOfSeasonsRemoveItemsFromPool(ItemDict):
+    """
+    Removes specified amount of given items from the item pool, replacing them with random filler items.
+    This option has significant chances to break generation if used carelessly, so test your preset several times
+    before using it on long generations. Use at your own risk!
+    """
+    display_name = "Remove Items from Pool"
+    verify_item_name = False
+
+
 @dataclass
 class OracleOfSeasonsOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
@@ -492,4 +503,5 @@ class OracleOfSeasonsOptions(PerGameCommonOptions):
     combat_difficulty: OracleOfSeasonsCombatDifficulty
     quick_flute: OracleOfSeasonsQuickFlute
     starting_maps_compasses: OracleOfSeasonsStartingMapsCompasses
+    remove_items_from_pool: OracleOfSeasonsRemoveItemsFromPool
     death_link: DeathLink
