@@ -19,7 +19,7 @@ class OoSPatchExtensions(APPatchExtension):
         patch_data = yaml.load(caller.get_file(patch_file).decode("utf-8"), yaml.Loader)
 
         if patch_data["version"] != VERSION:
-            raise Exception(f"Invalid version: this seed was generated on v{patch_data['version']}, "
+            raise Exception(f"Invalid version: this patch was generated on v{patch_data['version']}, "
                             f"you are currently using v{VERSION}")
 
         assembler = Z80Assembler(EOB_ADDR, DEFINES)
