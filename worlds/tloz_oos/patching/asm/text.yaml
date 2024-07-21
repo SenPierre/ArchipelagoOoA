@@ -216,10 +216,10 @@
     db $48,$05,$f5,$03,$e3,$50,$69,$72,$61,$74,$65,$73,$00              ; "House of Pirates"
 3f//TX_560d: |    
     db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
-    db $02,$19,$20,$56,$05,$85,$00                                      ; "Subrosian Volcanoes"
+    db $02,$19,$01,$56,$05,$85,$00                                      ; "Subrosian Volcanoes"
 3f//TX_560e: |  
     db $50,$6F,$72,$74,$61,$6C,$03,$b2                                  ; "Portal to"
-    db $02,$19,$20,$44,$05,$8a,$00                                      ; "Subrosian Dungeon"
+    db $02,$19,$01,$44,$05,$8a,$00                                      ; "Subrosian Dungeon"
 
 3f//TX_560f: /include text.smallKeyD0
 3f//TX_5610: /include text.smallKeyD1
