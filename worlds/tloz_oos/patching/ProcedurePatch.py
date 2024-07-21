@@ -56,9 +56,9 @@ class OoSPatchExtensions(APPatchExtension):
         apply_miscellaneous_options(rom_data, patch_data)
         set_fixed_subrosia_seaside_location(rom_data, patch_data)
 
-        # Initialize random seed with the one used for generation, so that cosmetic stuff set to "random" always
-        # generate the same for successive patchings
-        random.seed(patch_data["seed"])
+        # Initialize random seed with the one used for generation + the player ID, so that cosmetic stuff set
+        # to "random" always generate the same for successive patchings for a given slot
+        random.seed(patch_data["seed"] + caller.player)
         # Apply cosmetic settings
         set_heart_beep_interval_from_settings(rom_data)
         set_character_sprite_from_settings(rom_data)
