@@ -39,7 +39,7 @@
     ld a,(wDungeonIndex)
     inc a
     cp $09
-    jr z,@invalidDungeon
+    jr nc,@invalidDungeon
     
     ld (wDungeonIndex),a
     jr @openDungeon
