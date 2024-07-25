@@ -32,12 +32,11 @@
     ld l,$71  ; Set forced collect mode in var31
     ld (hl),COLLECT_PICKUP_NOFLAG
     
-    ld hl,wNetCountInL
+    ld hl,wNetCountIn
     inc (hl)
-    ld a,(hl)
+    ldi a,(hl)
     or a
     jr nz,@noOverflow
-    ld hl,wNetCountInH
     inc (hl)
     
     @noOverflow:
