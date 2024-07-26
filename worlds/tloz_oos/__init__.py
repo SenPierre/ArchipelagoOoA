@@ -205,6 +205,8 @@ class OracleOfSeasonsWorld(World):
             single_season = self.options.default_seasons.current_key.replace("_singularity", "")
             if single_season == "random":
                 single_season = self.random.choice(SEASONS)
+            else:
+                single_season = next(byte for byte, name in SEASON_NAMES.items() if name == single_season)
             seasons_pool = [single_season]
         else:
             return
@@ -698,7 +700,7 @@ class OracleOfSeasonsWorld(World):
     def write_spoiler(self, spoiler_handle):
         spoiler_handle.write(f"\n\nDefault Seasons ({self.multiworld.player_name[self.player]}):\n")
         for region_name, season in self.default_seasons.items():
-            spoiler_handle.write(f"\t- {region_name} --> {season}\n")
+            spoiler_handle.write(f"\t- {region_name} --> {SEASON_NAMES[season]}\n")
 
         if self.options.shuffle_dungeons:
             spoiler_handle.write(f"\nDungeon Entrances ({self.multiworld.player_name[self.player]}):\n")

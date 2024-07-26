@@ -24,6 +24,14 @@ SEASONS = [
     SEASON_WINTER
 ]
 
+SEASON_NAMES = {
+    SEASON_SPRING: "spring",
+    SEASON_SUMMER: "summer",
+    SEASON_AUTUMN: "autumn",
+    SEASON_WINTER: "winter",
+    SEASON_CHAOTIC: "chaotic"
+}
+
 SEASON_ITEMS = {
     SEASON_WINTER: "Rod of Seasons (Winter)",
     SEASON_SUMMER: "Rod of Seasons (Summer)",
