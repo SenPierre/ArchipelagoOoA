@@ -167,22 +167,22 @@ SUBROSIA_HIDDEN_DIGGING_SPOTS_LOCATIONS = [
 SAMASA_GATE_CODE = [2, 2, 1, 0, 0, 3, 3, 3]
 
 SHOP_PRICES_DIVIDERS = {
-    "horonShop1": 1,
-    "horonShop2": 1,
-    "horonShop3": 1,
+    "horonShop1": 1.5,
+    "horonShop2": 1.5,
+    "horonShop3": 1.5,
     "memberShop1": 1,
     "memberShop2": 1,
     "memberShop3": 1,
-    "advanceShop1": 1,
-    "advanceShop2": 1,
-    "advanceShop3": 1,
+    "advanceShop1": 1.25,
+    "advanceShop2": 1.25,
+    "advanceShop3": 1.25,
     "syrupShop1": 1,
     "syrupShop2": 1,
     "syrupShop3": 1,
-    "subrosianMarket2": 2,
-    "subrosianMarket3": 2,
-    "subrosianMarket4": 2,
-    "subrosianMarket5": 2,
+    "subrosianMarket2": 1.5,
+    "subrosianMarket3": 1.5,
+    "subrosianMarket4": 1.5,
+    "subrosianMarket5": 1.5,
 }
 
 ITEM_GROUPS = {

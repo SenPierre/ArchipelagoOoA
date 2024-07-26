@@ -316,7 +316,7 @@ class OracleOfSeasonsWorld(World):
                 floating_price = prices_pool.pop() * global_prices_factor / divider
             for i, value in enumerate(VALID_RUPEE_VALUES):
                 if value > floating_price:
-                    self.shop_prices[key] = VALID_RUPEE_VALUES[i-1]
+                    self.shop_prices[key] = VALID_RUPEE_VALUES[i]
                     break
 
     def create_random_rings_pool(self):
