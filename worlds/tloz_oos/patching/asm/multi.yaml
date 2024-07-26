@@ -2,16 +2,30 @@
 # var INTERAC_MULTI_BYTE is used to signal the destination player number, and
 # var 71 is set to override normal collect/player properties lookup.
 05//checkNetItemBuffer: |
+    call $5e3d  ; checkLinkPushingAgainstBed 
     push bc
     push de
     push hl
     
+    ; Don't spawn the item if menu is disabled (cutscenes, etc...)
     ld a,(wMenuDisabled)
-    and a
+    or a
     jr nz,@done
+    ; Don't spawn the item if Link is grabbing something
     ld a,(wLinkGrabState)
-    and a
+    or a
     jr nz,@done
+    ; Don't spawn the item if Link is immobilized for some reason (falling down a pit, etc...)
+    ld a,(wLinkImmobilized)
+    or a
+    jr nz,@done
+    ; Don't spawn the item if Link is drowning
+    ld a,(wLinkSwimmingState)
+    cp $01
+    jr z,@done
+    cp $02
+    jr z,@done
+    ; All lights are green, spawn the item
     ld hl,wNetTreasureIn
     ldi a,(hl)
     or a
@@ -21,7 +35,7 @@
     
     ; If item in buffer is 0xFF, it's a deathlink signal so make Link die
     ld a,$fe
-    ld ($cc34),a
+    ld (wLinkDeathTrigger),a
     jr @done
     
     @notDeathlink:
@@ -49,9 +63,9 @@
     pop hl
     pop de
     pop bc
-    call linkInteractWithAButtonSensitiveObjects
     ret
-05/14ca/: call checkNetItemBuffer
+# Replace the call to checkLinkPushingAgainstBed by a call to this function
+05/1513/: call checkNetItemBuffer
 
 # run treasure state 1 code immediately following treasure state 0 code, so
 # that link can pick up items on the same frame they're spawned. this avoids
