@@ -532,6 +532,32 @@ def set_heart_beep_interval_from_settings(rom: RomData):
         rom.write_bytes(0x9116, [0x00, 0xc9])  # Put a return to avoid beeping entirely
 
 
+def get_available_random_colors_from_sprite_name(sprite_filename: str):
+    """
+    Parse the sprite filename to detect a potential "accepted colors suffix" which uses the following format:
+    mysrite_<COLORS>.bin, where COLORS is a set of letters representing which colors can be rolled as random colors
+    for that sprite.
+    This was built for people who play with both random sprite & random color, but who want a subset of colors for
+    each sprite (e.g. if they play a Tokay, they only want it orange or red).
+    """
+    CHARACTER_COLORS = {
+        "r": "red",
+        "g": "green",
+        "b": "blue",
+        "o": "orange",
+    }
+    filename_parts = sprite_filename.split("_")
+    if len(filename_parts) <= 1:
+        return list(CHARACTER_COLORS.values())
+
+    # Get the final part of the filename and remove the ".bin" extension
+    suffix = filename_parts[-1][0:-4]
+    if len(suffix) > len(CHARACTER_COLORS.values()):
+        return list(CHARACTER_COLORS.values())  # Too long, not a color suffix
+
+    return [color for letter, color in CHARACTER_COLORS.items() if letter in suffix]
+
+
 def set_character_sprite_from_settings(rom: RomData):
     sprite = get_settings()["tloz_oos_options"]["character_sprite"]
     sprite_dir = Path(Utils.local_path(os.path.join('data', 'sprites', 'oos_ooa')))
@@ -549,8 +575,8 @@ def set_character_sprite_from_settings(rom: RomData):
 
     palette = get_settings()["tloz_oos_options"]["character_palette"]
     if palette == "random":
-        colors = list(PALETTE_BYTES.keys())
-        palette = colors[random.randint(0, len(colors) - 1)]
+        palette = random.choice(get_available_random_colors_from_sprite_name(sprite))
+
     if palette == "green":
         return  # Nothing to change
     if palette not in PALETTE_BYTES:
