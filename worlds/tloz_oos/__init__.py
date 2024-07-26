@@ -91,7 +91,7 @@ class OracleOfSeasonsWorld(World):
     game = "The Legend of Zelda - Oracle of Seasons"
     options_dataclass = OracleOfSeasonsOptions
     options: OracleOfSeasonsOptions
-    required_client_version = (0, 4, 4)
+    required_client_version = (0, 5, 0)
     web = OracleOfSeasonsWeb()
 
     settings: ClassVar[OracleOfSeasonsSettings]
@@ -116,38 +116,6 @@ class OracleOfSeasonsWorld(World):
         self.shop_prices: Dict[str, int] = SHOP_PRICES_DIVIDERS.copy()
         self.random_rings_pool: List[str] = []
         self.remaining_progressive_gasha_seeds = 0
-
-    def fill_slot_data(self) -> dict:
-        # Put options that are useful to the tracker inside slot data
-        options = ["goal", "death_link",
-                   # Logic-impacting options
-                   "logic_difficulty", "normalize_horon_village_season", "warp_to_start",
-                   "shuffle_dungeons", "shuffle_portals",
-                   "randomize_lost_woods_item_sequence", "randomize_lost_woods_main_sequence",
-                   "duplicate_seed_tree", "default_seed", "master_keys",
-                   "remove_d0_alt_entrance", "remove_d2_alt_entrance",
-                   # Locations
-                   "shuffle_golden_ore_spots", "shuffle_old_men", "advance_shop", "shuffle_essences",
-                   # Requirements
-                   "required_essences", "tarm_gate_required_jewels", "treehouse_old_man_requirement",
-                   "sign_guy_requirement", "golden_beasts_requirement",
-                   # Tracker QoL
-                   "enforce_potion_in_shop", "keysanity_small_keys", "keysanity_boss_keys", "starting_maps_compasses"
-                   ]
-
-        slot_data = self.options.as_dict(*options)
-        slot_data["animal_companion"] = self.options.animal_companion.current_key.title()
-        slot_data["default_seed"] = SEED_ITEMS[self.options.default_seed.value]
-
-        slot_data["default_seasons_option"] = self.options.default_seasons.current_key
-        slot_data["default_seasons"] = {}
-        for region_name, season in self.default_seasons.items():
-            slot_data["default_seasons"][region_name] = season
-
-        slot_data["dungeon_entrances"] = self.dungeon_entrances
-        slot_data["portal_connections"] = self.portal_connections
-
-        return slot_data
 
     def generate_early(self):
         self.remaining_progressive_gasha_seeds = self.options.deterministic_gasha_locations.value
@@ -696,6 +664,38 @@ class OracleOfSeasonsWorld(World):
         rom_path = os.path.join(output_directory, f"{self.multiworld.get_out_file_name_base(self.player)}"
                                                   f"{patch.patch_file_ending}")
         patch.write(rom_path)
+
+    def fill_slot_data(self) -> dict:
+        # Put options that are useful to the tracker inside slot data
+        options = ["goal", "death_link",
+                   # Logic-impacting options
+                   "logic_difficulty", "normalize_horon_village_season", "warp_to_start",
+                   "shuffle_dungeons", "shuffle_portals",
+                   "randomize_lost_woods_item_sequence", "randomize_lost_woods_main_sequence",
+                   "duplicate_seed_tree", "default_seed", "master_keys",
+                   "remove_d0_alt_entrance", "remove_d2_alt_entrance",
+                   # Locations
+                   "shuffle_golden_ore_spots", "shuffle_old_men", "advance_shop", "shuffle_essences",
+                   # Requirements
+                   "required_essences", "tarm_gate_required_jewels", "treehouse_old_man_requirement",
+                   "sign_guy_requirement", "golden_beasts_requirement",
+                   # Tracker QoL
+                   "enforce_potion_in_shop", "keysanity_small_keys", "keysanity_boss_keys", "starting_maps_compasses"
+                   ]
+
+        slot_data = self.options.as_dict(*options)
+        slot_data["animal_companion"] = self.options.animal_companion.current_key.title()
+        slot_data["default_seed"] = SEED_ITEMS[self.options.default_seed.value]
+
+        slot_data["default_seasons_option"] = self.options.default_seasons.current_key
+        slot_data["default_seasons"] = {}
+        for region_name, season in self.default_seasons.items():
+            slot_data["default_seasons"][region_name] = season
+
+        slot_data["dungeon_entrances"] = self.dungeon_entrances
+        slot_data["portal_connections"] = self.portal_connections
+
+        return slot_data
 
     def write_spoiler(self, spoiler_handle):
         spoiler_handle.write(f"\n\nDefault Seasons ({self.multiworld.player_name[self.player]}):\n")
