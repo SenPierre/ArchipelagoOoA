@@ -421,7 +421,7 @@
     db 20,74,68,61,6e,01     ; " than\n"
     
     db 09,01                 ; red color
-    /include signGuyRequirementDigits
+    /include text.signGuyRequirementDigits
     db 09,00                 ; default color
     db 2c,20,6f,72,20        ; ", or"
     db 65,6c,73,65,2e,2e,2e  ; "else..."

@@ -129,6 +129,16 @@
 # Replace TX_0602 (linked story text) by "Unknown Dungeon"
 1d/2735/TX_0602: db $55,$6e,$04,$98,$6e,$20,$44,$05,$8a,$00
 
+# Change the textbox for the girl in the mayor's house to tell how many Gasha Nuts will contain deterministic loot
+1f/2a9e/: |
+    db $0c,$18,$01                                      ; "\stop\n"
+    db $03,$e8,$03,$55,$03,$8c,$01                      ; "You should know\n"
+    db $04,$b5,$02,$80,$04,$81,$01                      ; "only your first\n"
+    db $09,$04                                          ; "\col(4)<NUM> \col(0) nuts can\n"
+    /include text.deterministicGashaCountDigits         ; ^^^
+    db $09,$00,$20,$6e,$75,$74,$73,$20,$63,$61,$6e,$01  ; ^^^
+    db $05,$5c,$05,$db,$04,$b0,$03,$39,$01              ; "contain anything\n"
+    db $75,$73,$65,$66,$75,$6c,$2e,$00                  ; "useful."
 
 # ===================================================================
 #   TRADE ITEMS OBTENTION TEXT
