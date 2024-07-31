@@ -70,7 +70,7 @@
 
 # if var 71 is already nonzero, use that as the collect mode instead of
 # whatever this is.
-15//keepNonzeroCollectMode: |
+16//keepNonzeroCollectMode: |
     ld e,$71
     ld a,(de)
     and a
@@ -82,4 +82,4 @@
     and $07
     ld (de),a
     ret
-15/453e/: call keepNonzeroCollectMode
+16/453e/: call keepNonzeroCollectMode
