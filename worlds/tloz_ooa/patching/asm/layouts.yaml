@@ -119,7 +119,9 @@
     set 1,(hl)
     pop hl
     ret
-0c/7a6f/: db asm15; dw setBridgeFlag
+0c/7a6f/: |
+  db asm15
+  dw setBridgeFlag
 
 # put a "return bush" for long hook across from syrup's shop.
 23/7ea0/: db 27,c8
