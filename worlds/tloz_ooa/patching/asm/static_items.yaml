@@ -9,8 +9,24 @@
   dwbe $0011, locations.symmetryCityHP
   dwbe $05c0, locations.ridgeWestHP
   dwbe $000d, locations.ridgeUpperHP
+  dwbe $0604, locations.d0Basement
+  dwbe $0628, locations.d2ThwompTunnel
+  dwbe $0627, locations.d2ThwompShelf
+  dwbe $0589, locations.d8Stalfos
 
   # ------- Drops / spawned items -------
+  dwbe $041e, locations.d1GhiniDrop
+  dwbe $0439, locations.d2MoblinDrop
+  dwbe $0442, locations.d2StatuePuzzle
+  dwbe $042e, locations.d2BasementDrop
+  dwbe $045e, locations.d3ArmosDrop
+  dwbe $0461, locations.d3StatueDrop
+  dwbe $0464, locations.d3SixBlocDrop
+  dwbe $044b, locations.d3MoldormDrop
+  dwbe $047b, locations.d4ColorDrop
+  dwbe $0553, locations.d7CaneDiamondPuzzle
+  dwbe $054b, locations.d7FlowerRoom
+  dwbe $0555, locations.d7DiamondPuzzle
 
 
 0a//staticItemsReplacementsLookup_body: |
@@ -42,6 +58,15 @@
 10/74bd/: call staticItemsReplacementsLookup
 # ShoreDigspot
 
+### SPAWNED ITEMS (Drops, etc...) ###########################################
+
+0b//handleRandomizedSpawnedItem: |
+    ld (hl),INTERACID_TREASURE
+    inc l
+    jp staticItemsReplacementsLookup
+
+# Call our custom handler in scriptCmd_spawnItem
+15/471f/: call handleRandomizedSpawnedItem
 
 ###################################################################################################################
 09/6d3d/: | # Hijacking red bear code. We don't need the bear. He is dead now. Now it's the Impa gift.

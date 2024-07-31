@@ -378,8 +378,8 @@ LOCATIONS_DATA = {
     "Nuun Highlands Cave": {
         "region_id": "nuun highlands cave",
         "vanilla_item": "Light Ring L-1",
-        "flag_byte": 0xFFFF,
-        "room": [0x02f4, 0x02ec, 0x05b8], # Moosh Rick & Dim respectively
+        "flag_byte": [0xc7ec, 0xc7f4, 0xcab8],
+        "room": [0x02ec, 0x02f4, 0x05b8], # Moosh Rick & Dim respectively
         "map_tile": 0x37, # TODO : May need a fix for one animal?
         "collect": COLLECT_CHEST,
     },
@@ -925,6 +925,7 @@ LOCATIONS_DATA = {
         "room": 0x0604,
         "map_tile": 0x148,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "d0Basement",
     },
     ##########################################
     "Spirit's Grave: One-Button Chest": {
@@ -998,6 +999,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc91e,
         "room": 0x041e,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d1GhiniDrop",
     },
     "Spirit's Grave: Basement": {
     	"region_id": "d1 basement",
@@ -1064,6 +1066,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc939,
         "room": 0x0439,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d2MoblinDrop",
     },
     "Wing Dungeon (1F): Statue Puzzle": {
     	"region_id": "d2 statue puzzle",
@@ -1072,6 +1075,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc942,
         "room": 0x0442,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d2StatuePuzzle",
     },
     "Wing Dungeon (B1F): Thwomp Shelf": {
     	"region_id": "d2 thwomp shelf",
@@ -1079,7 +1083,7 @@ LOCATIONS_DATA = {
     	"dungeon" : 2,
         "flag_byte": 0xFFFF,
         "room": 0x0627,
-        "collect": COLLECT_DROP,
+        "collect": COLLECT_TOUCH,
         "symbolic_name": "d2ThwompShelf",
     },
     "Wing Dungeon (B1F): Thwomp Tunnel": {
@@ -1088,7 +1092,7 @@ LOCATIONS_DATA = {
     	"dungeon" : 2,
         "flag_byte": 0xFFFF,
         "room": 0x0628,
-        "collect": COLLECT_DROP,
+        "collect": COLLECT_TOUCH,
         "symbolic_name": "d2ThwompTunnel",
     },
     "Wing Dungeon (B1F): Basement Chest": {
@@ -1106,6 +1110,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc92e,
         "room": 0x042e,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d2BasementDrop",
     },
     "Wing Dungeon (1F): Boss": {
     	"region_id": "d2 boss",
@@ -1163,6 +1168,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc95e,
         "room": 0x045e,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d3ArmosDrop",
     },
     "Moonlit Grotto (1F): Statue Drop": {
     	"region_id": "d3 statue drop",
@@ -1171,6 +1177,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc961,
         "room": 0x0461,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d3StatueDrop",
     },
     "Moonlit Grotto (1F): Six Blocs Drop": {
     	"region_id": "d3 six-blocs drop",
@@ -1179,6 +1186,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc964,
         "room": 0x0464,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d3SixBlocDrop",
     },
     "Moonlit Grotto (B1F): Moldorm Drop": {
     	"region_id": "d3 moldorm drop",
@@ -1187,6 +1195,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc94b,
         "room": 0x044b,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d3MoldormDrop",
     },
     "Moonlit Grotto (B1F): East": {
     	"region_id": "d3 B1F east",
@@ -1284,6 +1293,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc97b,
         "room": 0x047b,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d4ColorDrop",
     },
     'Skull Dungeon (B1F): Large Floor Puzzle': {
     	"region_id": "d4 large floor puzzle",
@@ -1552,6 +1562,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xca53,
         "room": 0x0553,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d7CaneDiamondPuzzle",
     },
     "Jabu-Jabu's Belly (1F): Boxed Chest": {
     	"region_id": "d7 boxed chest",
@@ -1568,6 +1579,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xca4b,
         "room": 0x054b,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d7FlowerRoom",
     },
     "Jabu-Jabu's Belly (1F): Diamond Puzzle": {
     	"region_id": "d7 diamond puzzle",
@@ -1576,6 +1588,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xca55,
         "room": 0x0555,
         "collect": COLLECT_DROP,
+        "symbolic_name": "d7DiamondPuzzle",
     },
     "Jabu-Jabu's Belly (1F): Crab Chest": {
     	"region_id": "d7 crab chest",

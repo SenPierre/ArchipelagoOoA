@@ -48,13 +48,6 @@
 12/6101/dekuForestTreeSubId: db 4d
 
 ################################
-# DungeonDrops
-0c/4bbb/: dwbe locations.d1Basement
-0c/4c0f/: dwbe locations.d2ThwompShelf
-0c/4c0a/: dwbe locations.d2ThwompTunnel
-0a/6077/: dwbe locations.d8Stalfos
-
-################################
 # Nayru's house spawner doesn't usually spawn
 0b//setNayruHouseItem: |
     inc l

@@ -372,6 +372,7 @@ ASM_FILES = [
     "asm/misc.yaml",
     "asm/new_treasures.yaml",
     "asm/item_events.yaml",
+    "asm/timeportals.yaml",
     #"asm/remove_item_on_use.yaml",
 ]
 
