@@ -56,6 +56,11 @@
 
 # staticHeartPiece
 10/74bd/: call staticItemsReplacementsLookup
+# scriptCmd_spawnItem
+0c/4423/: |
+  nop
+  nop
+  call staticItemsReplacementsLookup
 # ShoreDigspot
 
 ### SPAWNED ITEMS (Drops, etc...) ###########################################

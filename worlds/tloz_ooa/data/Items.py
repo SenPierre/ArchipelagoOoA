@@ -534,7 +534,7 @@ ITEMS_DATA = {
     "Tuni Nut": {
         'classification': ItemClassification.progression,
         'id': 0x4c,
-        'subid': 0x02
+        'subid': 0x01
     },
     "Zora Scale": {
         'classification': ItemClassification.progression,
