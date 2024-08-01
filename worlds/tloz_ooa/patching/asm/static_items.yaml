@@ -7,7 +7,7 @@
   dwbe $05b1, locations.dekuForestHP
   dwbe $03af, locations.restorationWallHP
   dwbe $0011, locations.symmetryCityHP
-  dwbe $05c0, locations.ridgeWestHP
+  dwbe $05c1, locations.ridgeWestHP
   dwbe $000d, locations.ridgeUpperHP
   dwbe $0604, locations.d0Basement
   dwbe $0628, locations.d2ThwompTunnel

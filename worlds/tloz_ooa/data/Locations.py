@@ -406,9 +406,11 @@ LOCATIONS_DATA = {
     "Bomb Fairy": {
         "region_id": "bomb fairy",
         "vanilla_item": "Bombs (10)", # "Bomb Upgrade",
-        "flag_byte": 0xc750,
+        "flag_byte": 0xc6b2,
+        "bit_mask": 0x01,
         "room": 0x0050,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "bombFairy",
     },
     "Talus Peaks Chest": {
         "region_id": "talus peaks chest",

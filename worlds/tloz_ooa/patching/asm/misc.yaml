@@ -16,3 +16,16 @@
   or a     
 0b/52e3/: jp interactionDelete # storm
 12/638f/: db $f3,$57,$41,$ff   # item in chicken hut
+
+15//bombFairyCall: |
+  ld a,$1c # GLOBALFLAG_GOT_BOMB_UPGRADE_FROM_FAIRY
+  call setGlobalFlag
+  ld bc,locations.bombFairy
+  call spawnTreasureOnLink
+  ret
+
+# Bomb fairy replacement
+15/7061/: |
+  db $e0
+  dw bombFairyCall
+  db $00                  # End script
