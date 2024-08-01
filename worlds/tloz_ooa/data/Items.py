@@ -483,7 +483,7 @@ ITEMS_DATA = {
         'id': 0x42,
     },
     "Island Chart": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.progression,
         'id': 0x54
     },
     "Lava Juice": {

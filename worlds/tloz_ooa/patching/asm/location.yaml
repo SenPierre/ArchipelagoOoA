@@ -30,7 +30,6 @@
 0c/65e3/: dwbe locations.towerWorker
 0c//: dwbe locations.dekuForestSoldier
 15/5bbb/: dwbe locations.wildTokayGame
-15/5b36/: dwbe locations.hiddenTokayCave
 15/7929/: dwbe locations.symmetryCityBrother
 15/76cf/: dwbe locations.tokkeyComposition
 
@@ -101,3 +100,16 @@
 15/42ed/: | 
     ld bc,locations.vasuGift
     jp spawnTreasureOnLink
+
+##### HIDDEN TOKAY ###################################################
+# make tokay who gives shield upgrade always give the same item, and in a
+# format compatible with lookupItemSprite.
+15/5b35/: |
+    ld bc,$0101
+    ld a,b
+    ld b,c
+    ld c,a
+    scf
+    nop
+    nop
+15/5b36/: dwbe locations.hiddenTokayCave
