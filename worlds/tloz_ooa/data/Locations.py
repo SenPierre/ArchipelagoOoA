@@ -1017,6 +1017,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc913,
         "room": 0x0413,
         "collect": COLLECT_POOF,
+        "symbolic_name": "d1Boss",
     },
     ##########################################
     "Wing Dungeon (1F): Color Room": {
@@ -1119,6 +1120,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc92b,
         "room": 0x062b,
         "collect": COLLECT_POOF,
+        "symbolic_name": "d2Boss",
     },
     ##########################################
     "Moonlit Grotto (1F): Bridge Chest": {
@@ -1228,6 +1230,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc94a,
         "room": 0x044a,
         "collect": COLLECT_POOF,
+        "symbolic_name": "d3Boss",
     },
     ##########################################
     'Skull Dungeon (1F): Second Crystal Switch': {
@@ -1310,6 +1313,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc96b,
         "room": 0x046b,
         "collect": COLLECT_POOF,
+        "symbolic_name": "d4Boss",
     },
     ##########################################
     "Crown Dungeon (1F): Diamond Chest": {
@@ -1399,6 +1403,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc9bf,
         "room": 0x04bf,
         "collect": COLLECT_POOF,
+        "symbolic_name": "d5Boss",
     },
     ##########################################
     "Mermaid's Cave (Present): Vire Chest": {
@@ -1529,6 +1534,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xca36,
         "room": 0x0536,
         "collect": COLLECT_POOF,
+        "symbolic_name": "d6Boss",
     },
     ##########################################
     "Jabu-Jabu's Belly (1F): Island Chest": {
@@ -1653,6 +1659,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xca62,
         "room": 0x0562,
         "collect": COLLECT_POOF,
+        "symbolic_name": "d7Boss",
     },
     ##########################################
     'Ancient Tomb (1F): Single Chest': {
@@ -1783,6 +1790,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xca78,
         "room": 0x0578,
         "collect": COLLECT_POOF,
+        "symbolic_name": "d8Boss",
     },
     ##########################################
     "Spirit's Grave: Essence": {
