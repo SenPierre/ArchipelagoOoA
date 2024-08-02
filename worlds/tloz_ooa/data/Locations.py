@@ -406,7 +406,7 @@ LOCATIONS_DATA = {
     "Bomb Fairy": {
         "region_id": "bomb fairy",
         "vanilla_item": "Bombs (10)", # "Bomb Upgrade",
-        "flag_byte": 0xc6b2,
+        "flag_byte": 0xFFFF,
         "bit_mask": 0x01,
         "room": 0x0050,
         "collect": COLLECT_TOUCH,
