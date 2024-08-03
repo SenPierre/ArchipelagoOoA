@@ -66,9 +66,9 @@ EOB_ADDR = [
 ]
 
 DEFINES = {
-    # TODO : A VERIFIER
-    # constants
     "AREAFLAG_OUTDOORS":"$01",
+    "BTN_A": "$01",
+    "BTN_B": "$02",
     "COLLECT_PICKUP_NOFLAG":"$02",
     "COLLECT_PICKUP":"$0a",
     "COLLECT_POOF":"$1a",
@@ -242,6 +242,11 @@ DEFINES = {
     "w1Link.yh":"$d00b",
     "w1Link.xh":"$d00d",
     "w7ActiveBank":"$d0d4",
+    "wWarpDestGroup":"$cc47",
+    "wWarpDestRoom":"$cc48",
+    "wWarpTransition":"$cc49",
+    "wWarpDestPos":"$cc4a",
+    "wWarpTransition2":"$cc4b",
 
     # rom 00
     "interBankCall":"$008a",
@@ -304,6 +309,8 @@ DEFINES = {
     "wDisabledObjects":"$cc8a",
     "wPlayingInstrument1":"$cc8d",
     "wRoomLayout":"$cf00",
+    "wLinkObjectIndex":"$cc2c",
+    "wMenuLoadState":"$cbcc",
 
     # rom 00
     "getRandomNumber":"$043e",
@@ -335,6 +342,7 @@ DEFINES = {
     "fadeInFromWhite":"$3299",
     "incMakuTreeState":"$3e53",
     "interactionDelete":"$3b05",
+    "clearStaticObjects":"$319f",
 
     # rom 02
     "_closeMenu":"$4fba",
@@ -358,6 +366,8 @@ DEFINES = {
 
     # Custom Global Flag
     "GLOBALFLAG_GOT_SEACHART":"$03",
+    "GLOBALFLAG_WON_FIRST_DANCE":"$07",
+    "GLOBALFLAG_WON_LETTER_DANCE":"$0b",
 }
 
 ASM_FILES = [
@@ -379,6 +389,7 @@ ASM_FILES = [
     "asm/timeportals.yaml",
     "asm/boss_items.yaml",
     "asm/keysanity.yaml",
+    "asm/warp_to_start.yaml",
     #"asm/remove_item_on_use.yaml",
 ]
 
@@ -413,7 +424,7 @@ SEED_TREE_DATA = {
     },
     "Rolling Ridge East" : {
         "location" : "Rolling Ridge East: Seed Tree",
-        "codeAdress" : 0x9f46,
+        "codeAdress" : 0x49f46,
     },
     "Zora Present" : {
         "location" : "Zora Village: Seed Tree",

@@ -85,10 +85,8 @@
     pop af
     jr z,@incoming
     @outgoing:
-    ; call dirtSetFakeId
     call tingleSetFakeId
-    ; call symmetryBrotherSetFakeId
-    ; call goronDanceSetFakeId
+    call goronDanceSetFakeId
     ; call kingZoraSetFakeId
     @incoming:
     ; call setD6BossKey
@@ -161,20 +159,6 @@
 #    pop hl
 #    ret
 
-## set fake item ID to track getting the "gloves" from south short dirt.
-#09//dirtSetFakeId: |
-#    push bc
-#    ld bc,$9800
-#    call compareRoom
-#    pop bc
-#    ret nz
-#    push hl
-#    ld hl,wObtainedTreasureFlags
-#    ld a,TREASURE_MAGNET_GLOVES
-#    call setFlag
-#    pop hl
-#    ret
-
 # set fake item ID to track getting the "island chart" from tingle.
 09//tingleSetFakeId: |
     push bc
@@ -205,34 +189,29 @@
 #    call setFlag
 #    pop hl
 #    ret
-#
-## set treasure ID 12 (nothing) for first goron dance, and 14 (nothing) for
-## the second. if you're in the present, it's always 12. if you're in the
-## past, it's 12 iff you don't have letter of introduction.
-#09//goronDanceSetFakeId: |
-#    push bc
-#    ld bc,$ed02 # present
-#    call compareRoom
-#    pop bc
-#    jr z,@next
-#    push bc
-#    ld bc,$ef02 # past
-#    call compareRoom
-#    pop bc
-#    ret nz
-#    ld a,TREASURE_GORON_LETTER
-#    call checkTreasureObtained
-#    ld a,$14 # nil treasure
-#    jr c,.next2
-#    .next
-#    ld a,12 # nil treasure
-#    .next2
-#    push hl
-#    ld hl,wObtainedTreasureFlags
-#    call setFlag
-#    pop hl
-#    ret
-#
+
+09//goronDanceSetFakeId: |
+    push bc
+    ld bc,$ed02 # present
+    call compareRoom
+    pop bc
+    jr z,@next
+    push bc
+    ld bc,$ef02 # past
+    call compareRoom
+    pop bc
+    ret nz
+    ld a,TREASURE_GORON_LETTER
+    call checkTreasureObtained
+    ld a,$GLOBALFLAG_WON_LETTER_DANCE # nil treasure
+    jr c,@next2
+    @next:
+    ld a,GLOBALFLAG_WON_FIRST_DANCE # nil treasure
+    @next2:
+    call setGlobalFlag
+    pop hl
+    ret
+
 ## set fake item ID to track getting the "library key" from king zora.
 #09/kingZoraSetFakeId: |
 #    push bc
@@ -256,29 +235,20 @@
 #    ld a,02
 #    ld (wMakuTreeState),a
 #    ret
-#
-#
-## dig up item on south shore regardless of ricky state
-#04/6b76/: jr nz,00
-#04/6b7a/: jr z,00
-#0a/5e2e/: jr nz,00
-#0a/5e32/: jr z,00
-#
+
 ## check fake ids to track:
 #04/6b7c/: ld a,TREASURE_MAGNET_GLOVES # south shore dirt
 #0a/5e34/: ld a,TREASURE_MAGNET_GLOVES # ^
 #09/42a4/: ld a,TREASURE_ROD_OF_SEASONS # shop, 150 rupees
 #09/4327/: ld a,TREASURE_ROD_OF_SEASONS # ^
 #0b/5489/: ld a,10 # king zora
-#0c/67d7/: db jumpifitemobtained,14 # goron dance w/ letter
-#0c/6851/: db jumpifitemobtained,14 # ^
-#0c/697a/: db jumpifitemobtained,14 # ^
-#0c/67df/: db jumpifitemobtained,12 # goron dance present
-#0c/6859/: db jumpifitemobtained,12 # ^
-#0c/6982/: db jumpifitemobtained,12 # ^
+0c/67d7/: db jumpifglobalflagset,GLOBALFLAG_WON_LETTER_DANCE # goron dance w/ letter
+0c/6851/: db jumpifglobalflagset,GLOBALFLAG_WON_LETTER_DANCE # ^
+0c/697a/: db jumpifglobalflagset,GLOBALFLAG_WON_LETTER_DANCE # ^
+0c/67df/: db jumpifglobalflagset,GLOBALFLAG_WON_FIRST_DANCE # goron dance present
+0c/6859/: db jumpifglobalflagset,GLOBALFLAG_WON_FIRST_DANCE # ^
+0c/6982/: db jumpifglobalflagset,GLOBALFLAG_WON_FIRST_DANCE # ^
 0c/7dff/: db jumpifglobalflagset,GLOBALFLAG_GOT_SEACHART # tingle 1
-#15/77ef/: ld a,TREASURE_FOOLS_ORE # symmetry city brother
-#15/78f5/: db jumpifitemobtained,TREASURE_FOOLS_ORE # ^
 
 ## king zora should give the item first, *then* give permission to enter jabu
 ## (on another visit (as in vanilla)).
@@ -303,14 +273,6 @@
 #    bit 6,a
 #    ret
 #0b/5469/: ld a,31; call checkKingZoraSequence2; nop; nop
-#
-## change harp (nayru's house?) interaction to allow subid.
-#0b/6825/: |
-#    push bc
-#    ld bc,1100 # id/subid
-#    call createTreasure
-#    pop bc
-#    ret nz
 
 # ignore satchel level when talking to tingle for second item.
 0b/75c5/: xor a
@@ -347,52 +309,41 @@
     db $5d,$ee # jump
 09/5207/: dw script_dekuForestSoldier
 
-## set room flag 6 when "boomerang" item is given in script.
-#0c/script_giveTargetCartsSecondPrize: |
-#    db giveitem,TREASURE_BOOMERANG,02 # set during randomization
-#    db orroomflag,40
-#    db retscript
-#0c/6e6e/: dw script_giveTargetCartsSecondPrize
+# set room flag 6 when "boomerang" item is given in script.
+0c//script_giveTargetCartsSecondPrize: |
+    db giveitem
+    dwbe locations.targetCart2
+    db orroomflag,$40
+    db retscript
+0c/6e6e/: dw script_giveTargetCartsSecondPrize
 
 # stop tingle script from making ricky leave :(
 0c/7e2a/: |
     db enableinput
-    dw fe7d
+    dw $fe7d
     db setdisabledobjectsto11 # ??
 # or refilling seed satchel.
 0c/7e7d/: |
     db jumpalways
-    dw 7e80
+    dw $7e80
 
-## always make "boomerang" second prize for target carts, checking room flag 6
-## to track it.
-#15/getTargetCartsPrize: |
-#    call getThisRoomFlags
-#    bit 6,a
-#    ld a,04
-#    jp z,66bb
-#    call getRandomNumber
-#    jp 66a5
-#15/66a2/: jp getTargetCartsPrize
-#
-## skip normal boomerang check in target carts, since EOB code handles it.
-#15/66ae/: jr 0b
-## remove "boomerang" from random prizes (it's guaranteed second instead).
-#15/66e5/: db 03,03,03 # prize indexes in a table
-## don't give boomerang as a shooting gallery prize either.
-#15/52b6/: db jumpalways,c3,52,scriptend
-#
-## make tokay who gives shield upgrade always give the same item, and in a
-## format compatible with lookupItemSprite.
-#15/5b35/: |
-#    ld bc,0101 # id/subid
-#    ld a,b
-#    ld b,c
-#    ld c,a
-#    scf
-#    nop
-#    nop
-#
-## trade lava juice without having the mermaid key.
-#15/6879/: jr nc,00
-#
+# always make "boomerang" second prize for target carts, checking room flag 6
+# to track it.
+15//getTargetCartsPrize: |
+    call getThisRoomFlags
+    bit 6,a
+    ld a,$04
+    jp z,$66bb
+    call getRandomNumber
+    jp $66a5
+15/66a2/: jp getTargetCartsPrize
+
+# skip normal boomerang check in target carts, since EOB code handles it.
+15/66ae/: jr $0b
+# remove "boomerang" from random prizes (it's guaranteed second instead).
+15/66e5/: db 03,03,03 # prize indexes in a table
+# don't give boomerang as a shooting gallery prize either.
+15/52b6/: db jumpalways,c3,52,scriptend
+
+# trade lava juice without having the mermaid key.
+15/6879/: jr nc,$00

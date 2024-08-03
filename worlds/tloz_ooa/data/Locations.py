@@ -509,7 +509,8 @@ LOCATIONS_DATA = {
     "First Goron Dance": {
         "region_id": "first goron dance",
         "vanilla_item": "Brother Emblem",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc6d0,
+        "bit_mask": 0x80,
         "room": [0x2ed, 0x2ef], # present & past
         "map_tile": 0x13d,
         "collect": COLLECT_TOUCH,
@@ -518,7 +519,8 @@ LOCATIONS_DATA = {
     "Goron Dance, With Letter": {
         "region_id": "goron dance, with letter",
         "vanilla_item": "Mermaid Key",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc6d1,
+        "bit_mask": 0x08,
         "room": 0x2ef,
         "map_tile": 0x13d,
         "collect": COLLECT_TOUCH,
@@ -590,7 +592,7 @@ LOCATIONS_DATA = {
     "Ridge Bush Cave": {
         "region_id": "ridge bush cave",
         "vanilla_item": "Rupees (100)",
-        "flag_byte": 0xFFFF, # TODO : GLOBAL FLAG
+        "flag_byte": 0xc81f, # TODO : GLOBAL FLAG
         "room": 0x031f,
         "map_tile": 0x11c,
         "collect": COLLECT_CHEST,
@@ -599,7 +601,8 @@ LOCATIONS_DATA = {
     "target carts 1": {
         "region_id": "target carts 1",
         "vanilla_item": "Rock Brisket",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xcad8,
+        "bit_mask": 0x20,
         "room": 0x05d8,
         "map_tile": 0x1d,
         "collect": COLLECT_TOUCH,
@@ -608,7 +611,8 @@ LOCATIONS_DATA = {
     "target carts 2": {
         "region_id": "target carts 2",
         "vanilla_item": "Boomerang",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xcad8,
+        "bit_mask": 0x40,
         "room": 0x05d8,
         "map_tile": 0x1d,
         "collect": COLLECT_TOUCH,

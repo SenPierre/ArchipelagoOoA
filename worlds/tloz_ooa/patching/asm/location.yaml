@@ -11,13 +11,14 @@
 0c/7e7a/: dwbe locations.tingleUpgrade
 0c/757d/: dwbe locations.defeatGreatMoblin
 15/7386/: dwbe locations.goronElder
-#0c/6a6c/: dwbe locations.targetCart1 # TODO
-#0c/6a6c/: dwbe locations.targetCart2 # TODO
+15/66e8/: dwbe locations.targetCart1 
+0c/6e71/: dwbe locations.targetCart1 
+15/66f0/: dwbe locations.targetCart2 
 0c/698c/: dwbe locations.goronDance1
 0c/699f/: dwbe locations.goronDance2
 15/6b2c/: dwbe locations.tradeRockBrisket
 15/6b23/: dwbe locations.tradeGoronVase
-#0c/6a6c/: dwbe locations.bigBangGame # TODO
+15/6742/: dwbe locations.bigBangGame # TODO
 15/5285/: dwbe locations.goronShootingGallery
 0c/6ee9/: dwbe locations.tradeLavaJuice
 15/54f1/: dwbe locations.rescueNayru
@@ -33,7 +34,7 @@
 15/76cf/: dwbe locations.tokkeyComposition
 
 ################################
-# Seed tree types (differentl from in seasons)
+# Seed tree types (different than in seasons)
 12/59a1/symmetryCityTreeSubId: db 35
 12/59b8/crescentIslandTreeSubId: db 17
 12/59bf/zoraVillagePresentTreeSubId: db 38

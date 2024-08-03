@@ -137,4 +137,4 @@
     db $38,$3d,$ff,$0e
     db $38,$3e,$ff,$0e
     db $38,$3f,$ff,$0e
-#15/51de/: dw ringsObjectData # TODO CHECK
+16/53e7/: dw ringsObjectData # TODO CHECK
