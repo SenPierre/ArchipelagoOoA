@@ -173,7 +173,7 @@ DEFINES = {
     "writememory":"$91",
     "ormemory":"$92",
     "rungenericnpc":"$97",
-    "cmd_showtext":"$98",
+    "showtext":"$98",
     "checkabutton":"$9e",
     "checkcfc0_bit0":"$a0",
     "jumpifroomflagset":"$b0",
@@ -194,7 +194,7 @@ DEFINES = {
     "loseitem":"$dc",
     "spawnitem":"$dd",
     "jumpifglobalflagset":"$b5",
-    "cmd_setglobalflag":"$b6",
+    "setglobalflag":"$b6",
     "giveitem":"$de",
     "jumpifitemobtained":"$df",
     "asm15":"$e0",
@@ -357,7 +357,7 @@ DEFINES = {
     "interaction60SubidData":"$66db",
 
     # Custom Global Flag
-    "GLOBALFLAG_GOT_SEACHART":"$03" 
+    "GLOBALFLAG_GOT_SEACHART":"$03",
 }
 
 ASM_FILES = [
@@ -378,6 +378,7 @@ ASM_FILES = [
     "asm/item_events.yaml",
     "asm/timeportals.yaml",
     "asm/boss_items.yaml",
+    "asm/keysanity.yaml",
     #"asm/remove_item_on_use.yaml",
 ]
 

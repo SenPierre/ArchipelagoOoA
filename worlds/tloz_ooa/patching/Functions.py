@@ -89,7 +89,30 @@ def write_chest_contents(rom: RomData, patch_data):
         rom.write_byte(chest_addr, item_id)
         rom.write_byte(chest_addr + 1, item_subid)
 
-        
+
+def define_compass_rooms_table(assembler: Z80Assembler, patch_data):
+    table = []
+    for location_name, item_name in patch_data["locations"].items():
+        _, item_subid = get_item_id_and_subid(item_name)
+        dungeon = 0xff
+        if item_name.startswith("Small Key") or item_name.startswith("Master Key") or item_name.startswith(
+                "Dungeon Map"):
+            dungeon = item_subid
+        elif item_name.startswith("Boss Key"):
+            dungeon = item_subid + 1
+
+        if dungeon != 0xff:
+            location_data = LOCATIONS_DATA[location_name]
+            rooms = location_data["room"]
+            if not isinstance(rooms, list):
+                rooms = [rooms]
+            for room in rooms:
+                room_id = room & 0xff
+                group_id = room >> 8
+                table.extend([group_id, room_id, dungeon])
+    table.append(0xff)  # End of table
+    assembler.add_floating_chunk("compassRoomsTable", table)
+       
 
 def define_collect_properties_table(assembler: Z80Assembler, patch_data):
     """

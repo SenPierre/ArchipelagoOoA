@@ -57,7 +57,7 @@
 12/6668/: db ff
 
 # skip twinrova cutscene and additional dialouge after getting maku seed.
-15/7298/: db cmd_setglobalflag,35,cmd_setglobalflag,13,enableinput,scriptend
+15/7298/: db setglobalflag,35,setglobalflag,13,enableinput,scriptend
 
 # skip cutscene when talking to worker outside black tower.
 15/601f/: |
@@ -80,5 +80,5 @@
 
 # skip a text box in the symmetry city brothers' script
 15/7910/: |
-    db cmd_showtext,04
+    db showtext,04
     dw 1c79 # reverse endian addr

@@ -324,14 +324,14 @@
 0c//script_soldierGiveItem: |
     db initcollisions
     db checkabutton
-    db cmd_showtext
+    db showtext
     dw $0b59
     db writec6xx,$bd,$00
     db ormemory
     dw wStatusBarNeedsRefresh
     db $02
     db giveitem
-    dw locations.dekuForestSoldier # item set at randomization
+    dwbe locations.dekuForestSoldier # item set at randomization
     db orroomflag,$20
     db jumpalways
     dw script_soldierDone

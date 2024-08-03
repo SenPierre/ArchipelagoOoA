@@ -47,7 +47,7 @@ class OoAPatchExtensions(APPatchExtension):
 
         # Define dynamic data blocks
         # TODO
-        #define_compass_rooms_table(assembler, patch_data)
+        define_compass_rooms_table(assembler, patch_data)
         define_collect_properties_table(assembler, patch_data)
         #set_file_select_text(assembler, caller.player_name)
 

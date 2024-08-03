@@ -26,7 +26,7 @@
 
 # make guy in front of d2 go away if you have bombs.
 09/5242/: |
-    ld a,03
+    ld a,$03
     call checkTreasureObtained
     jp c,interactionDelete
 # and center him on a tile so you can't get stuck in a currents loop.
@@ -46,7 +46,7 @@
   nop
 
 # allow harvesting seeds from trees with either shooter or satchel.
-11/checkCanHarvestSeeds: |
+11//checkCanHarvestSeeds: |
     call checkTreasureObtained
     ret c
     ld a,TREASURE_SHOOTER
@@ -65,14 +65,19 @@
 # event doesn't happen in fairies' woods.
 15/75bf/: db setglobalflag,a2 # bit 7 = unset flag
 
+
+# use different seed capacity table, so that level zero satchel can still
+# hold 20 seeds.
+3f//seedCapacityTable: |
+    db 20,20,50,99
 3f/4607/: ld hl,seedCapacityTable
 
 # don't equip sword in shooting gallery if link doesn't have it. it wouldn't
 # work anyway.
-15/setShootingGalleryEquips: |
+15//setShootingGalleryEquips: |
     ld a,TREASURE_SWORD
     call checkTreasureObtained
-    ld a,00
+    ld a,$00
     ldi (hl),a
     ret nc
     dec hl

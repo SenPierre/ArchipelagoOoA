@@ -210,7 +210,8 @@ LOCATIONS_DATA = {
     "Tingle Upgrade": {
         "region_id": "balloon guy's upgrade",
         "vanilla_item": "Seed Satchel",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc6d8,
+        "bit_mask": 0x40,
         "room": 0x0079,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "tingleUpgrade",
@@ -300,8 +301,8 @@ LOCATIONS_DATA = {
     "Deku Forest Soldier": {
         "region_id": "deku forest soldier",
         "vanilla_item": "Bombs (10)",
-        "flag_byte": 0xc881,
-        "room": 0x0181,
+        "flag_byte": 0xc872,
+        "room": 0x0172,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "dekuForestSoldier",
     },
