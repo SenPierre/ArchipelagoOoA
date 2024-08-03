@@ -173,7 +173,7 @@ DEFINES = {
     "writememory":"$91",
     "ormemory":"$92",
     "rungenericnpc":"$97",
-    "showtext":"$98",
+    "cmd_showtext":"$98",
     "checkabutton":"$9e",
     "checkcfc0_bit0":"$a0",
     "jumpifroomflagset":"$b0",
@@ -193,7 +193,8 @@ DEFINES = {
     "setcounter1":"$d7",
     "loseitem":"$dc",
     "spawnitem":"$dd",
-    "setglobalflag":"$b6",
+    "jumpifglobalflagset":"$b5",
+    "cmd_setglobalflag":"$b6",
     "giveitem":"$de",
     "jumpifitemobtained":"$df",
     "asm15":"$e0",
@@ -354,6 +355,9 @@ DEFINES = {
     # rom 3f
     "realignUnappraisedRings":"$466f",
     "interaction60SubidData":"$66db",
+
+    # Custom Global Flag
+    "GLOBALFLAG_GOT_SEACHART":"$03" 
 }
 
 ASM_FILES = [

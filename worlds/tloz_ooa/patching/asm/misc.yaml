@@ -24,8 +24,59 @@
   call spawnTreasureOnLink
   ret
 
+# make guy in front of d2 go away if you have bombs.
+09/5242/: |
+    ld a,03
+    call checkTreasureObtained
+    jp c,interactionDelete
+# and center him on a tile so you can't get stuck in a currents loop.
+12/611c/: db 48
+
 # Bomb fairy replacement
 15/7061/: |
   db $e0
   dw bombFairyCall
   db $00                  # End script
+
+
+# stop d6 boss key chest from setting past boss key flag.
+10/793c/: | 
+  ret
+  nop
+  nop
+
+# allow harvesting seeds from trees with either shooter or satchel.
+11/checkCanHarvestSeeds: |
+    call checkTreasureObtained
+    ret c
+    ld a,TREASURE_SHOOTER
+    jp checkTreasureObtained
+11/4aba/: call checkCanHarvestSeeds
+  
+# remove the usual deku soldier event (taken to palace etc).
+12/58f5/: ret
+# cut off end of soldier's text so it makes sense when giving item.
+23/6656/: db 00
+# position the "you may go now" text correctly on screen.
+23/65d8/: db 00
+
+
+# prevent bridge-building foreman from setting flag 22 so that animal/flute
+# event doesn't happen in fairies' woods.
+15/75bf/: db setglobalflag,a2 # bit 7 = unset flag
+
+3f/4607/: ld hl,seedCapacityTable
+
+# don't equip sword in shooting gallery if link doesn't have it. it wouldn't
+# work anyway.
+15/setShootingGalleryEquips: |
+    ld a,TREASURE_SWORD
+    call checkTreasureObtained
+    ld a,00
+    ldi (hl),a
+    ret nc
+    dec hl
+    ld a,TREASURE_SWORD
+    ldi (hl),a
+    ret
+15/50ae/: call setShootingGalleryEquips

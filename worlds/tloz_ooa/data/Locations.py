@@ -201,7 +201,8 @@ LOCATIONS_DATA = {
     "Tingle Present": {
         "region_id": "balloon guy's gift",
         "vanilla_item": "Island Chart",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc6d0,
+        "bit_mask": 0x08,
         "room": 0x0079,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "tingleGift",
@@ -406,8 +407,8 @@ LOCATIONS_DATA = {
     "Bomb Fairy": {
         "region_id": "bomb fairy",
         "vanilla_item": "Bombs (10)", # "Bomb Upgrade",
-        "flag_byte": 0xFFFF,
-        "bit_mask": 0x01,
+        "flag_byte": 0xc6d3,
+        "bit_mask": 0x10,
         "room": 0x0050,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "bombFairy",
