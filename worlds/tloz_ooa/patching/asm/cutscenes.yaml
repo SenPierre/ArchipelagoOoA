@@ -37,6 +37,7 @@
 # edit out most of the nayru cutscene on maku tree screen.
 0c/56e3/: dw $e856 # reverse endian addr
 0c/56e8/: |
+    db setglobalflag,GLOBALFLAG_NAYRU_SAVED
     db loadscript,$15
     dw $54f0
 0c/771a/: dw $3a77 # reverse endian addr

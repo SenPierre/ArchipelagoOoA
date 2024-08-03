@@ -87,7 +87,7 @@
 # maku tree item drops at a specific script pos, otherwise use regular mode.
 06//collectMakuTree: |
     ld a,($d258) # script position
-    cp $84
+    cp $8e
     ld e,COLLECT_FALL
     ret z
     ld e,COLLECT_PICKUP

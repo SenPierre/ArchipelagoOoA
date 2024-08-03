@@ -10,6 +10,7 @@
   dwbe $05c1, locations.ridgeWestHP
   dwbe $000d, locations.ridgeUpperHP
   dwbe $0604, locations.d0Basement
+  dwbe $0610, locations.d1Basement
   dwbe $0628, locations.d2ThwompTunnel
   dwbe $0627, locations.d2ThwompShelf
   dwbe $0589, locations.d8Stalfos

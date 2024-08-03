@@ -39,7 +39,7 @@ LOCATIONS_DATA = {
         "bit_mask": 0x20,
         "scouting_byte": 0xFFFF,
         "collect": COLLECT_TOUCH,
-        "symbolic_name": "shop1",
+        "symbolic_name": "lynnaShop1",
     },
     "Lynna Shop Item #2": {
         "region_id": "lynna shop",
@@ -50,7 +50,7 @@ LOCATIONS_DATA = {
         "bit_mask": 0x40,
         "scouting_byte": 0xFFFF,
         "collect": COLLECT_TOUCH,
-        "symbolic_name": "shop2",
+        "symbolic_name": "lynnaShop2",
     },
     "Lynna Shop Item #3": {
         "region_id": "lynna shop",
@@ -61,7 +61,7 @@ LOCATIONS_DATA = {
         "bit_mask": 0x80,
         "scouting_byte": 0xFFFF,
         "collect": COLLECT_TOUCH,
-        "symbolic_name": "shop3",
+        "symbolic_name": "lynnaShop3",
     },
     # -----
     "Hidden Shop Item #1": {
@@ -173,7 +173,8 @@ LOCATIONS_DATA = {
     "Rescue Nayru": {
         "region_id": "rescue nayru",
         "vanilla_item": "Progressive Harp",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc6d1,
+        "bit_mask": 0x20,
         "room": 0x0038,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "rescueNayru",
@@ -182,7 +183,7 @@ LOCATIONS_DATA = {
     "Maku Tree gift": {
         "region_id": "maku tree",
         "vanilla_item": "Seed Satchel",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc738,
         "room": 0x0038,
         "map_tile": 0x38,
         "collect": COLLECT_MAKU_TREE,

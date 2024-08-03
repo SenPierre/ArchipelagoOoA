@@ -90,7 +90,7 @@
     ; call kingZoraSetFakeId
     @incoming:
     ; call setD6BossKey
-    ; call makuSeedResetTreeState
+    call makuSeedResetTreeState
     ld a,e
     jp giveTreasure
 09/4c4e/: call handleGetItem
@@ -225,16 +225,16 @@
 #    call setFlag
 #    pop hl
 #    ret
-#
-## reset maku tree to state 02 after getting the maku seed. i think so that
-## you can still get the "satchel" item afterward if you haven't already.
-#09/makuSeedResetTreeState: |
-#    ld a,e
-#    cp TREASURE_MAKU_SEED
-#    ret nz
-#    ld a,02
-#    ld (wMakuTreeState),a
-#    ret
+
+# reset maku tree to state 02 after getting the maku seed. i think so that
+# you can still get the "satchel" item afterward if you haven't already.
+09//makuSeedResetTreeState: |
+    ld a,e
+    cp TREASURE_MAKU_SEED
+    ret nz
+    ld a,$02
+    ld (wMakuTreeState),a
+    ret
 
 ## check fake ids to track:
 #04/6b7c/: ld a,TREASURE_MAGNET_GLOVES # south shore dirt
