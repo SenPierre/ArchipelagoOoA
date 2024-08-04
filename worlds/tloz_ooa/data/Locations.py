@@ -255,6 +255,7 @@ LOCATIONS_DATA = {
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "syrupShop1",
     },
     "Syrup Shop Item #2": {
         "region_id": "syrup shop",
@@ -264,6 +265,7 @@ LOCATIONS_DATA = {
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "syrupShop2",
     },
     "Syrup Shop Item #3": {
         "region_id": "syrup shop",
@@ -273,6 +275,7 @@ LOCATIONS_DATA = {
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "syrupShop3",
     },
     ##########################################
     "Fairies' Woods Chest": {

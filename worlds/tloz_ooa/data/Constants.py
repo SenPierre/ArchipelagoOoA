@@ -77,20 +77,20 @@ DUNGEON_ENTRANCES = {
 }
 
 SHOP_PRICES_DIVIDERS = {
-    "lynna shop 1": 1,
-    "lynna shop 2": 1,
-    "lynna shop 3": 1,
-    "special shop 1": 1,
-    "special shop 2": 1,
-    "special shop 3": 1,
-    "advance shop 1": 1,
-    "advance shop 2": 1,
-    "advance shop 3": 1,
-    "syrup shop 1": 1,
-    "syrup shop 2": 1,
-    "syrup shop 3": 1,
-    "tokey market 1": 2,
-    "tokey market 2": 2,
+    "lynnaShop1": 1,
+    "lynnaShop2": 1,
+    "lynnaShop3": 1,
+    "hiddenShop1": 1,
+    "hiddenShop2": 1,
+    "hiddenShop3": 1,
+    "advanceShop1": 1,
+    "advanceShop2": 1,
+    "advanceShop3": 1,
+    "syrupShop1": 1,
+    "syrupShop2": 1,
+    "syrupShop3": 1,
+    "tokeyMarket1": 2,
+    "tokeyMarket2": 2,
 }
 
 ITEM_GROUPS = {

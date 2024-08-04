@@ -247,6 +247,8 @@ DEFINES = {
     "wWarpTransition":"$cc49",
     "wWarpDestPos":"$cc4a",
     "wWarpTransition2":"$cc4b",
+    "wBoughtItems1":"$c642",
+    "wBoughtItems2":"$c643",
 
     # rom 00
     "interBankCall":"$008a",
@@ -320,6 +322,7 @@ DEFINES = {
     "loadUncompressedGfxHeader":"$05da",
     "forceEnableIntroInputs":"$0886",
     "playSound":"$0c98",
+    "saveFile": "$09d8",
     "setMusicVolume":"$0cad",
     "giveTreasure":"$171c",
     "checkTreasureObtained":"$1748",
@@ -391,8 +394,34 @@ ASM_FILES = [
     "asm/boss_items.yaml",
     "asm/keysanity.yaml",
     "asm/warp_to_start.yaml",
+    "asm/shops_handling.yaml",
+    "asm/gfx.yaml",
     #"asm/remove_item_on_use.yaml",
 ]
+
+RUPEE_VALUES = {
+    0: 0x00,
+    1: 0x01,
+    2: 0x02,
+    5: 0x03,
+    10: 0x04,
+    20: 0x05,
+    40: 0x06,
+    30: 0x07,
+    60: 0x08,
+    70: 0x09,
+    25: 0x0a,
+    50: 0x0b,
+    100: 0x0c,
+    200: 0x0d,
+    400: 0x0e,
+    150: 0x0f,
+    300: 0x10,
+    500: 0x11,
+    900: 0x12,
+    80: 0x13,
+    999: 0x14,
+}
 
 SEED_TREE_DATA = {
     "Lynna Present" : {

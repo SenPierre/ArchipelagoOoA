@@ -33,6 +33,19 @@
 15/7929/: dwbe locations.symmetryCityBrother
 15/76cf/: dwbe locations.tokkeyComposition
 
+09/4509/: dwbe locations.syrupShop1
+09/450b/: dwbe locations.syrupShop2
+09/450d/: dwbe locations.syrupShop3
+09/44ff/: dwbe locations.lynnaShop1
+09/44fd/: dwbe locations.lynnaShop2
+09/44f9/: dwbe locations.lynnaShop3
+09/44f7/: dwbe locations.hiddenShop1
+09/44fb/: dwbe locations.hiddenShop2
+09/4501/: dwbe locations.hiddenShop3
+09/4513/: dwbe locations.advanceShop1
+09/4515/: dwbe locations.advanceShop2
+09/4517/: dwbe locations.advanceShop3
+
 ################################
 # Seed tree types (different than in seasons)
 12/59a1/symmetryCityTreeSubId: db 35
@@ -56,20 +69,6 @@
     ret
 
 0b/682b/: call setNayruHouseItem
-
-################################
-# Shop
-09/4511/: dwbe locations.shop1
-#0b/6a6c/: dwbe locations.shop2
-#0b/6a6c/: dwbe locations.shop3
-#0b/6a6c/: dwbe locations.hiddenShop1
-#0b/6a6c/: dwbe locations.hiddenShop2
-#0b/6a6c/: dwbe locations.hiddenShop3
-#0b/6a6c/: dwbe locations.advanceShop1
-#0b/6a6c/: dwbe locations.advanceShop2
-#0b/6a6c/: dwbe locations.advanceShop3
-#0b/6a6c/: dwbe locations.tokayMarket1
-#0b/6a6c/: dwbe locations.tokayMarket2
 
 ################################
 # Dig
