@@ -166,11 +166,11 @@ class OracleOfAgesClient(BizHawkClient):
             }])
 
     async def process_scouted_locations(self, ctx: "BizHawkClientContext", flag_bytes):
-        return
+        
         
         local_scouted_locations = set(ctx.locations_scouted)
         for name, location in LOCATIONS_DATA.items():
-            if "scouting_byte" not in location:
+            if "scouting_byte" not in location or location["scouting_byte"] == 0xFFFF :
                 continue
 
             # Check "scouting_byte" to see if map has been visited for scoutable locations

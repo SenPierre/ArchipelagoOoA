@@ -60,6 +60,13 @@
 12/6101/dekuForestTreeSubId: db 4d
 
 ################################
+# Maku Tree Gift
+15/70e0/: db locations.makuTreeGift.id
+15/70e3/: db locations.makuTreeGift.subid
+15/7115/: db locations.makuTreeGift.id
+15/7118/: db locations.makuTreeGift.subid
+
+################################
 # Nayru's house spawner doesn't usually spawn
 0b//setNayruHouseItem: |
     inc l

@@ -2,14 +2,14 @@
 0a//staticItemsReplacementsTable: |
   # ------- Freestanding items -------
   dwbe $0186, locations.blackTowerHP
-  dwbe $04a6, locations.makuPathHP
+  dwbe $0406, locations.makuPathHP
   dwbe $008b, locations.yollGraveyardHP
   dwbe $05b1, locations.dekuForestHP
   dwbe $03af, locations.restorationWallHP
   dwbe $0011, locations.symmetryCityHP
   dwbe $05c1, locations.ridgeWestHP
   dwbe $000d, locations.ridgeUpperHP
-  dwbe $0604, locations.d0Basement
+  dwbe $0605, locations.d0Basement
   dwbe $0610, locations.d1Basement
   dwbe $0628, locations.d2ThwompTunnel
   dwbe $0627, locations.d2ThwompShelf

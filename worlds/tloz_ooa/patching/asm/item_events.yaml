@@ -123,24 +123,6 @@
     pop hl
     ret
 
-## set fake item ID to track getting the "tuni nut" from a brother.
-#09//symmetryBrotherSetFakeId: |
-#    push bc
-#    ld bc,$6e03
-#    call compareRoom
-#    jr z,@next
-#    inc b
-#    call compareRoom
-#    @next:
-#    pop bc
-#    ret nz
-#    push hl
-#    ld hl,wObtainedTreasureFlags
-#    ld a,TREASURE_FOOLS_ORE
-#    call setFlag
-#    pop hl
-#    ret
-
 09//goronDanceSetFakeId: |
     push bc
     ld bc,$ed02 # present
@@ -154,26 +136,25 @@
     ret nz
     ld a,TREASURE_GORON_LETTER
     call checkTreasureObtained
-    ld a,$GLOBALFLAG_WON_LETTER_DANCE # nil treasure
+    ld a,$GLOBALFLAG_WON_LETTER_DANCE
     jr c,@next2
     @next:
-    ld a,GLOBALFLAG_WON_FIRST_DANCE # nil treasure
+    ld a,GLOBALFLAG_WON_FIRST_DANCE 
     @next2:
     call setGlobalFlag
     pop hl
     ret
 
-## set fake item ID to track getting the "library key" from king zora.
-#09/kingZoraSetFakeId: |
+# set fake item ID to track getting the "library key" from king zora.
+#09//kingZoraSetFakeId: |
 #    push bc
-#    ld bc,ab05
+#    ld bc,$ab05
 #    call compareRoom
 #    pop bc
 #    ret nz
 #    push hl
-#    ld hl,wObtainedTreasureFlags
-#    ld a,10 # nil treasure
-#    call setFlag
+#    ld a,GLOBALFLAG_REWARD_KING_ZORA
+#    call setGlobalFlag
 #    pop hl
 #    ret
 
@@ -188,11 +169,7 @@
     ret
 
 ## check fake ids to track:
-#04/6b7c/: ld a,TREASURE_MAGNET_GLOVES # south shore dirt
-#0a/5e34/: ld a,TREASURE_MAGNET_GLOVES # ^
-#09/42a4/: ld a,TREASURE_ROD_OF_SEASONS # shop, 150 rupees
-#09/4327/: ld a,TREASURE_ROD_OF_SEASONS # ^
-#0b/5489/: ld a,10 # king zora
+0b/5489/: db jumpifglobalflagset,GLOBALFLAG_REWARD_KING_ZORA # king zora
 0c/67d7/: db jumpifglobalflagset,GLOBALFLAG_WON_LETTER_DANCE # goron dance w/ letter
 0c/6851/: db jumpifglobalflagset,GLOBALFLAG_WON_LETTER_DANCE # ^
 0c/697a/: db jumpifglobalflagset,GLOBALFLAG_WON_LETTER_DANCE # ^
@@ -201,29 +178,32 @@
 0c/6982/: db jumpifglobalflagset,GLOBALFLAG_WON_FIRST_DANCE # ^
 0c/7dff/: db jumpifglobalflagset,GLOBALFLAG_GOT_SEACHART # tingle 1
 
-## king zora should give the item first, *then* give permission to enter jabu
-## (on another visit (as in vanilla)).
-#0b/checkKingZoraSequence1: |
+# king zora should give the item first, *then* give permission to enter jabu
+# (on another visit (as in vanilla)).
+#0b//checkKingZoraSequence1: |
 #    call checkGlobalFlag
 #    ret z
-#    ld a,10 # set by kingZoraSetFakeId
-#    call checkTreasureObtained
-#    ld a,00
-#    ret nc
+#    ld a,GLOBALFLAG_REWARD_KING_ZORA # set by kingZoraSetFakeId
+#    call checkGlobalFlag
+#    ret nz
 #    inc a
 #    ret
 #0b/5464/: call checkKingZoraSequence1
-#
-## also, get permission to enter jabu even if you've already completed d7 (as
-## can happen in dungeon shuffle).
-#0b/checkKingZoraSequence2: |
+
+# also, get permission to enter jabu even if you've already completed d7 (as
+# can happen in dungeon shuffle).
+#0b//checkKingZoraSequence2: |
 #    call checkGlobalFlag
 #    ret z
-#    ld a,40
+#    ld a,$40
 #    call checkTreasureObtained
 #    bit 6,a
 #    ret
-#0b/5469/: ld a,31; call checkKingZoraSequence2; nop; nop
+#0b/5469/: |
+#    ld a,$31
+#    call checkKingZoraSequence2
+#    nop
+#    nop
 
 # ignore satchel level when talking to tingle for second item.
 0b/75c5/: xor a
