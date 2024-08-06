@@ -773,8 +773,8 @@ LOCATIONS_DATA = {
     "Lynna Village: Postman Trade": {
         "region_id": "postman trade",
         "vanilla_item": "Stationary",
-        "flag_byte": 0xc7f5,
-        "room": 0x02f5, # May be wrong, todo check
+        "flag_byte": 0xc72f,
+        "room": 0x022f, 
         "collect": COLLECT_TOUCH,
         "symbolic_name": "postman",
     },

@@ -38,7 +38,7 @@
     @outgoing:
     call tingleSetFakeId
     call goronDanceSetFakeId
-    ; call kingZoraSetFakeId
+    call kingZoraSetFakeId
     @incoming:
     ; call setD6BossKey
     call makuSeedResetTreeState
@@ -146,17 +146,17 @@
     ret
 
 # set fake item ID to track getting the "library key" from king zora.
-#09//kingZoraSetFakeId: |
-#    push bc
-#    ld bc,$ab05
-#    call compareRoom
-#    pop bc
-#    ret nz
-#    push hl
-#    ld a,GLOBALFLAG_REWARD_KING_ZORA
-#    call setGlobalFlag
-#    pop hl
-#    ret
+09//kingZoraSetFakeId: |
+    push bc
+    ld bc,$ab05
+    call compareRoom
+    pop bc
+    ret nz
+    push hl
+    ld a,GLOBALFLAG_REWARD_KING_ZORA
+    call setGlobalFlag
+    pop hl
+    ret
 
 # reset maku tree to state 02 after getting the maku seed. i think so that
 # you can still get the "satchel" item afterward if you haven't already.
@@ -169,7 +169,9 @@
     ret
 
 ## check fake ids to track:
-0b/5489/: db jumpifglobalflagset,GLOBALFLAG_REWARD_KING_ZORA # king zora
+0b/5489/: |
+    ld a,GLOBALFLAG_REWARD_KING_ZORA                        # king zora
+    call checkGlobalFlag
 0c/67d7/: db jumpifglobalflagset,GLOBALFLAG_WON_LETTER_DANCE # goron dance w/ letter
 0c/6851/: db jumpifglobalflagset,GLOBALFLAG_WON_LETTER_DANCE # ^
 0c/697a/: db jumpifglobalflagset,GLOBALFLAG_WON_LETTER_DANCE # ^
@@ -180,30 +182,30 @@
 
 # king zora should give the item first, *then* give permission to enter jabu
 # (on another visit (as in vanilla)).
-#0b//checkKingZoraSequence1: |
-#    call checkGlobalFlag
-#    ret z
-#    ld a,GLOBALFLAG_REWARD_KING_ZORA # set by kingZoraSetFakeId
-#    call checkGlobalFlag
-#    ret nz
-#    inc a
-#    ret
+0b//checkKingZoraSequence1: |
+    call checkGlobalFlag
+    ret z
+    ld a,GLOBALFLAG_REWARD_KING_ZORA # set by kingZoraSetFakeId
+    call checkGlobalFlag
+    ret nz
+    inc a
+    ret
 #0b/5464/: call checkKingZoraSequence1
 
 # also, get permission to enter jabu even if you've already completed d7 (as
 # can happen in dungeon shuffle).
-#0b//checkKingZoraSequence2: |
-#    call checkGlobalFlag
-#    ret z
-#    ld a,$40
-#    call checkTreasureObtained
-#    bit 6,a
-#    ret
-#0b/5469/: |
-#    ld a,$31
-#    call checkKingZoraSequence2
-#    nop
-#    nop
+0b//checkKingZoraSequence2: |
+    call checkGlobalFlag
+    ret z
+    ld a,$40
+    call checkTreasureObtained
+    bit 6,a
+    ret
+0b/5469/: |
+    ld a,$31
+    call checkKingZoraSequence2
+    nop
+    nop
 
 # ignore satchel level when talking to tingle for second item.
 0b/75c5/: xor a
