@@ -387,8 +387,8 @@ LOCATIONS_DATA = {
     "Nuun Highlands Cave": {
         "region_id": "nuun highlands cave",
         "vanilla_item": "Light Ring L-1",
-        "flag_byte": [0xc7ec, 0xc7f4, 0xcab8],
-        "room": [0x02ec, 0x02f4, 0x05b8], # Moosh Rick & Dim respectively
+        "flag_byte": [0xc7ec, 0xcab8, 0xc7f4],
+        "room": [0x02ec, 0x05b8, 0x02f4], # Rick, Dim & Moosh respectively
         "map_tile": 0x37, # TODO : May need a fix for one animal?
         "collect": COLLECT_CHEST,
     },
@@ -432,14 +432,18 @@ LOCATIONS_DATA = {
     "Patch Tuni Nut Ceremony": {
         "region_id": "patch tuni nut ceremony",
         "vanilla_item": "Tuni Nut",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc6d3,
+        "bit_mask": 0x40,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "patchTuni",
     },
     "Patch Broken Sword Ceremony": {
         "region_id": "patch broken sword ceremony",
         "vanilla_item": "Progressive Sword",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc6d5,
+        "bit_mask": 0x20,
         "collect": COLLECT_TOUCH,
+        "symbolic_name": "patchSword",
     },
     ##########################################
     "Goron Elder": {
@@ -504,7 +508,8 @@ LOCATIONS_DATA = {
     "Treasure Hunting Goron": {
         "region_id": "treasure hunting goron",
         "vanilla_item": "Red Luck Ring",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc7f7,
+        "room": 0x02f7,
         "collect": COLLECT_CHEST,
     },
     ##########################################
@@ -590,19 +595,20 @@ LOCATIONS_DATA = {
     "Trade Lava Juice": {
         "region_id": "trade lava juice",
         "vanilla_item": "Letter of Introduction",
-        "flag_byte": 0xFFFF, # TODO : GLOBAL FLAG
+        "flag_byte": 0xc81f, 
         "room": 0x031f,
+        "bit_mask": 0x40,
         "map_tile": 0x11c,
-        "collect": COLLECT_TOUCH,
+        "collect": COLLECT_GORON_BUSH_ROOM,
         "symbolic_name": "tradeLavaJuice",
     },
     "Ridge Bush Cave": {
         "region_id": "ridge bush cave",
         "vanilla_item": "Rupees (100)",
-        "flag_byte": 0xc81f, # TODO : GLOBAL FLAG
+        "flag_byte": 0xc81f, 
         "room": 0x031f,
         "map_tile": 0x11c,
-        "collect": COLLECT_CHEST,
+        "collect": COLLECT_GORON_BUSH_ROOM,
     },
     ##########################################
     "target carts 1": {
@@ -612,7 +618,7 @@ LOCATIONS_DATA = {
         "bit_mask": 0x20,
         "room": 0x05d8,
         "map_tile": 0x1d,
-        "collect": COLLECT_TOUCH,
+        "collect": COLLECT_TARGET_CART,
         "symbolic_name": "targetCart1",
     },
     "target carts 2": {
@@ -622,7 +628,7 @@ LOCATIONS_DATA = {
         "bit_mask": 0x40,
         "room": 0x05d8,
         "map_tile": 0x1d,
-        "collect": COLLECT_TOUCH,
+        "collect": COLLECT_TARGET_CART,
         "symbolic_name": "targetCart2",
     },
     "Big Bang Game": {
@@ -631,7 +637,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc83e,
         "room": 0x033e,
         "map_tile": 0x1c,
-        "collect": COLLECT_TOUCH,
+        "collect": COLLECT_BIGBANG,
         "symbolic_name": "bigBangGame",
     },
     "Ridge NE Cave Present": {
@@ -821,8 +827,8 @@ LOCATIONS_DATA = {
     "Lynna City: Comedian Trade": {
         "region_id": "lynna city comedian trade",
         "vanilla_item": "Funny Joke",
-        "flag_byte": 0xc757,
-        "room": 0x0057,
+        "flag_byte": 0xc756,
+        "room": 0x0056,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "comedian",
     },
@@ -837,7 +843,8 @@ LOCATIONS_DATA = {
     "Maple Trade": {
         "region_id": "maple trade",
         "vanilla_item": "Magic Oar",
-        "flag_byte": 0xFFFF,
+        "flag_byte": 0xc6d2,
+        "bit_mask": 0x80,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "mapleTrade",
     },
@@ -1581,7 +1588,7 @@ LOCATIONS_DATA = {
     	"dungeon" : 7,
         "flag_byte": 0xca53,
         "room": 0x0553,
-        "collect": COLLECT_DROP,
+        "collect": COLLECT_CHEST,
         "symbolic_name": "d7CaneDiamondPuzzle",
     },
     "Jabu-Jabu's Belly (1F): Boxed Chest": {

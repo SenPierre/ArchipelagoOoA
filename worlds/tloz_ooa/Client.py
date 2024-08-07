@@ -66,7 +66,6 @@ class OracleOfAgesClient(BizHawkClient):
         except bizhawk.RequestFailedError:
             return False
 
-        print("SUCCESS")
         ctx.game = self.game
         ctx.items_handling = 0b101  # Remote items + starting inventory
         ctx.want_slot_data = True

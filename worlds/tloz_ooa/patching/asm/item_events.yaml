@@ -180,6 +180,19 @@
 0c/6982/: db jumpifglobalflagset,GLOBALFLAG_WON_FIRST_DANCE # ^
 0c/7dff/: db jumpifglobalflagset,GLOBALFLAG_GOT_SEACHART # tingle 1
 
+0b//mapleTradeHandle: |
+    ld a,GLOBALFLAG_TRADE_MAPLE
+    call setGlobalFlag
+    ld bc, locations.mapleTrade
+    call createTreasure
+    ret
+
+0b/5cde/: |
+    nop
+    nop
+    nop
+    call mapleTradeHandle
+
 # king zora should give the item first, *then* give permission to enter jabu
 # (on another visit (as in vanilla)).
 0b//checkKingZoraSequence1: |
@@ -280,3 +293,54 @@
 
 # trade lava juice without having the mermaid key.
 15/6879/: jr nc,$00
+
+
+# Tuni nut check treasure and not subtreasure anymore
+3f/7b78/: ld a, $3b
+3f/7b81/: |
+    nop
+    nop
+# Make it loose the tuni nut treasure correctly
+3f/7c79/: db $3b
+
+# PATCH
+# Change Give item script
+15//patchGainTuniNut: |
+    ld bc, locations.patchTuni
+    call spawnTreasureOnLink
+    ld a,GLOBALFLAG_REPAIRED_TUNI
+    call setGlobalFlag
+    ld a, $4c
+    call loseTreasure
+    ret
+0c/78dc/: |
+    db $e0
+    dw patchGainTuniNut
+15//patchGainSword: |
+    ld bc, locations.patchSword
+    call spawnTreasureOnLink
+    ld a,GLOBALFLAG_REPAIRED_SWORD
+    call setGlobalFlag
+    ld a, $3a
+    call loseTreasure
+    ret
+0c/78e0/: |
+    db $e0
+    dw patchGainSword
+    db $c1 # ret script
+
+# Make patch check the proper treasure.
+0a/78dc/: db $3a
+0a/78e2/: |
+    nop
+    nop
+    nop
+    nop
+
+
+# Remove the set of the flag GLOBALFLAG_PATCH_REPAIRED_EVERYTHING
+# DONT USE IT, or patch won't fix anything anymore
+0a/7a3a/: |
+    nop
+    nop
+    nop

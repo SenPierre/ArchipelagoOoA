@@ -325,6 +325,7 @@ DEFINES = {
     "saveFile": "$09d8",
     "setMusicVolume":"$0cad",
     "giveTreasure":"$171c",
+    "loseTreasure":"$1733",
     "checkTreasureObtained":"$1748",
     "refillSeedSatchel":"$180c",
     "showTextNonExitable":"$186e",
@@ -373,6 +374,9 @@ DEFINES = {
     "GLOBALFLAG_WON_LETTER_DANCE":"$0b",
     "GLOBALFLAG_NAYRU_SAVED":"$0d",
     "GLOBALFLAG_REWARD_KING_ZORA":"$10",
+    "GLOBALFLAG_TRADE_MAPLE":"$17",
+    "GLOBALFLAG_REPAIRED_TUNI":"$1e",
+    "GLOBALFLAG_REPAIRED_SWORD":"$2d",
 }
 
 ASM_FILES = [

@@ -78,7 +78,7 @@ def write_chest_contents(rom: RomData, patch_data):
     This puts the item described in the patch data inside each chest in the game.
     """
     for location_name, location_data in LOCATIONS_DATA.items():
-        if 'collect' not in location_data or 'room' not in location_data or location_data['collect'] != COLLECT_CHEST:
+        if ('collect' not in location_data or 'room' not in location_data or location_data['collect'] != COLLECT_CHEST) and location_name != "Ridge Bush Cave":
             continue
         if location_name == "Nuun Highlands Cave":
             chest_addr = rom.get_chest_addr(location_data['room'][patch_data["options"]["animal_companion"]])
@@ -137,7 +137,6 @@ def define_collect_properties_table(assembler: Z80Assembler, patch_data):
         for room in rooms:
             room_id = room & 0xff
             group_id = room >> 8
-            print(f"{location_name} - {room} => {mode}")
             table.extend([group_id, room_id, mode])
 
     table.append(0xff)

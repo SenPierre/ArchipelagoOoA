@@ -18,7 +18,8 @@
 0c/699f/: dwbe locations.goronDance2
 15/6b2c/: dwbe locations.tradeRockBrisket
 15/6b23/: dwbe locations.tradeGoronVase
-15/6742/: dwbe locations.bigBangGame # TODO
+15/6742/: dwbe locations.bigBangGame
+0c/707a/: dwbe locations.bigBangGame
 15/5285/: dwbe locations.goronShootingGallery
 0c/6ee9/: dwbe locations.tradeLavaJuice
 15/54f1/: dwbe locations.rescueNayru
@@ -93,9 +94,6 @@
 15/62e5/: dwbe locations.comedian
 15/592d/: dwbe locations.sadBoi
 15/6b76/: dwbe locations.oldZora
-
-################################
-# Patch (TODO)
 
 ################################
 # Maple Trade (TODO)

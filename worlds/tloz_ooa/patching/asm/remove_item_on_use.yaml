@@ -5,17 +5,17 @@
 # (trade items, rusty/pirate's bell...).
 
 seasons:
-  # Lose dungeon keys when used in keyholes for inventory cleansing
-  06/loseKeyInsideKeyhole: |
-    ld (wSubscreen1CurrentSlotIndex),a
-    call checkTreasureObtained
-    jr nc,.end
-    ld a,(wSubscreen1CurrentSlotIndex)
-    call loseTreasure
-    scf
-    .end
-    ret
-  06/420d/: call loseKeyInsideKeyhole
+  ## Lose dungeon keys when used in keyholes for inventory cleansing
+  #06/loseKeyInsideKeyhole: |
+  #  ld (wSubscreen1CurrentSlotIndex),a
+  #  call checkTreasureObtained
+  #  jr nc,.end
+  #  ld a,(wSubscreen1CurrentSlotIndex)
+  #  call loseTreasure
+  #  scf
+  #  .end
+  #  ret
+  #06/420d/: call loseKeyInsideKeyhole
 
   # Add a "remove item" script command attached to unused script byte 0xdc
   0b/scriptCmd_removeItem: |

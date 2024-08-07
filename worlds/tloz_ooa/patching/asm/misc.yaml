@@ -24,6 +24,12 @@
   call spawnTreasureOnLink
   ret
 
+# Bomb fairy replacement
+15/7061/: |
+  db $e0
+  dw bombFairyCall
+  db $00                  # End script
+
 # make guy in front of d2 go away if you have bombs.
 09/5242/: |
     ld a,$03
@@ -31,13 +37,6 @@
     jp c,interactionDelete
 # and center him on a tile so you can't get stuck in a currents loop.
 12/611c/: db 48
-
-# Bomb fairy replacement
-15/7061/: |
-  db $e0
-  dw bombFairyCall
-  db $00                  # End script
-
 
 # stop d6 boss key chest from setting past boss key flag.
 10/793c/: | 

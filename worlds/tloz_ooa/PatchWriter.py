@@ -48,7 +48,6 @@ def ooa_create_appp_patch(world: "OracleOfAgesWorld") -> OoAProcedurePatch:
         loc_patcher_name = loc.name
         if loc_patcher_name != "":
             patch_data["locations"][loc_patcher_name] = item_name
-        print(f"{loc_patcher_name} : {item_name}")
 
     patch.write_file("patch.dat", yaml.dump(patch_data).encode('utf-8'))
     return patch

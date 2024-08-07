@@ -16,6 +16,8 @@
 16/5412/: db $0a,$00,$63,$79  # Magic Oar (#38)
 16/5416/: db $0a,$00,$64,$7a  # Sea Ukulele (#39)
 16/541a/: db $0a,$00,$65,$7b  # Broken Sword (#3a)
+### OTHER ITEMS ###
+16/541e/: db $0a,$00,$37,$5c  # Repaired Tuni Nut (#3b)
 
 ############################################################
 #   INVENTORY DISPLAY DATA
@@ -49,7 +51,7 @@
 15/5cdf/: db $df,TREASURE_DUMBBELL        # Dumbbell (#1b)
 15/62cd/: db $df,TREASURE_CHEESY_MUSTACHE # Cheesy Mustache (#1c)
 15/58e2/: db $df,TREASURE_FUNNY_JOKE      # Funny Joke (#1f)
-13/47a3/: db TREASURE_TOUCHING_BOOK       # Touching Book (#35)
+05/6994/: db TREASURE_TOUCHING_BOOK       # Touching Book (#35)
+05/6998/: db $00,$00,$00,$00,$00,$00      # ^
 15/6b61/: db $df,TREASURE_MAGIC_OAR       # Magic Oar (#38)
 15/6195/: db $df,TREASURE_SEA_UKULELE     # Sea Ukulele (#39)
-#//: db $df,TREASURE_BROKEN_SWORD    # Broken Sword (#3a)
