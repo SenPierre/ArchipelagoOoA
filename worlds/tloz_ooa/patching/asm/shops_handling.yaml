@@ -111,17 +111,12 @@
 #### SYRUP'S SHOP ###################################################################
 #
 ## Remove Syrup quantity checks, and set price textbox substitution instead to allow for variable prices
-#08/6d82/: |
-#    ld hl,wTextNumberSubstitution
-#    ld (hl),c
-#    inc l
-#    ld (hl),b
-#    jr $1d
-#
-#
-
-
-
+09/6efb/: |
+    ld hl,wTextNumberSubstitution
+    ld (hl),c
+    inc l
+    ld (hl),b
+    jr $1d
 
 ### PRICES #######################################################################
 
