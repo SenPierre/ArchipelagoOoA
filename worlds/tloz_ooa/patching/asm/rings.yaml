@@ -12,7 +12,7 @@
 
 # auto-equip rings when selected in ring list.
 02//autoEquipRing: |
-    call $716c   ; _ringMenu_updateSelectedRingFromList
+    call $723b   ; _ringMenu_updateSelectedRingFromList
     ld (wActiveRing),a
     ret
 
@@ -32,7 +32,7 @@
     ld hl,wScreenOffsetY
     ldi (hl),a
     ldi (hl),a
-    jp $5072       ; clearMenu
+    jp $50b1       ; clearMenu
 
 # put obtained rings directly into ring list (no need for appraisal), and
 # tell the player what type of ring it is.
@@ -48,27 +48,34 @@
     call showText
     ret
 
+02/5074/: call ringListGfxFix
+02/56dd/: call openRingList
+02/6fbc/: call autoEquipRing
+3f/4614/: |
+    nop
+    jp autoAppraiseRing
+
 # use expert's or fist ring with only one button unequipped.
-#06/490e/: nop # TODO CHECK
+06/4969/: nop 
 
 # remove regular text box when getting a ring from a gasha nut so that the
 # auto-appraisal text can display instead.
-0a//removeGashaNutRingText: |
+0b//removeGashaNutRingText: |
     ld a,c
     cp $04
     jp nz,showText
     pop hl
     ret
-#0a/4863/: jp removeGashaNutRingText # TODO CHECK
+0b/45b0/: jp removeGashaNutRingText 
 
 # skip forced ring appraisal and ring list with vasu (prevents softlock).
 0c/4a27/: dw $354a
 
 # replace ring appraisal text with "you got the {ring}".
-#1f/5d99/: db $02,$03,$0f,$fd,$21,$00 # TODO CHECK
+#1f/6a48/: db $02,$03,$0f,$fd,$21,$00 
 
 # inject a new ring object data providing one subid per ring type to TREASURE_RING
-15//ringsObjectData: |
+16//ringsObjectData: |
     db $09,$ff,$ff,$0e
     db $29,$ff,$ff,$0e
     db $49,$ff,$ff,$0e
@@ -137,4 +144,4 @@
     db $38,$3d,$ff,$0e
     db $38,$3e,$ff,$0e
     db $38,$3f,$ff,$0e
-16/53e7/: dw ringsObjectData # TODO CHECK
+16/53e7/: dw ringsObjectData 

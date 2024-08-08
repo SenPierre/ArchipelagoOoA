@@ -62,7 +62,7 @@ EOB_ADDR = [
   0x8000, # 3c
   0x8000, # 3d
   0x8000, # 3e
-  0x7ca7  # 3f - garbage data here
+  0x7d0a  # 3f 
 ]
 
 DEFINES = {
@@ -94,6 +94,7 @@ DEFINES = {
     "TREASURE_SWITCH_HOOK":"$0a",
     "TREASURE_FLUTE":"$0e",
     "TREASURE_SHOOTER":"$0f",
+    "TREASURE_HARP":"$11",
     "TREASURE_SLINGSHOT":"$13",
     "TREASURE_BRACELET":"$16",
     "TREASURE_FEATHER":"$17",
@@ -291,6 +292,7 @@ DEFINES = {
     "wFluteIcon":"$c6b5",
     "wEssencesObtained":"$c6bf",
     "wTradeItem":"$c6c0",
+    "wSatchelSelectedSeeds": "$c6c4",
     "wActiveRing":"$c6cb",
     "wRingBoxLevel":"$c6cc",
     "wMakuMapTextPresent":"$c6e6",
@@ -401,6 +403,8 @@ ASM_FILES = [
     "asm/warp_to_start.yaml",
     "asm/shops_handling.yaml",
     "asm/gfx.yaml",
+    "asm/get_item_behavior.yaml",
+    "asm/vars.yaml",
     #"asm/remove_item_on_use.yaml",
 ]
 

@@ -3,7 +3,7 @@
 # given a treasure id & subid in b & c, if the treasure needs to be upgraded,
 # set hl = the start of the upgraded treasure data + 1 and b = the new
 # treasure ID.
-16//getUpgradedTreasure: |
+16/562a/getUpgradedTreasure: |
     ; Filter out the fake "Sword spinslash" treasure given at Hero's Cave chest
     ; and while opening Maku Tree gate solely for cosmetic purpose
     ld a,b
@@ -54,7 +54,7 @@
 # set hl = the address of the treasure with ID b and sub ID c, accounting for
 # progressive upgrades. call through getTreasureDataBCE or
 # getTreasureDataSprite!
-16//getTreasureData_body: |
+16/565d/getTreasureData_body: |
     ld hl,$5332      ; treasureObjectData in bank 16
     ld a,b
     add a,a
@@ -77,7 +77,7 @@
     jp getUpgradedTreasure
 
 # load fianl treasure ID, param, and text into b, c, and e.
-16//getTreasureDataBCE: |
+16/5676/getTreasureDataBCE: |
     call getTreasureData_body
     ld c,(hl)
     inc hl
@@ -85,7 +85,7 @@
     ret
 
 # load final treasure sprite into e.
-16//getTreasureDataSprite: |
+16/5686/getTreasureDataSprite: |
     call getTreasureData_body
     inc hl
     inc hl
@@ -125,7 +125,7 @@
 ## AGES SPECIFICS
 
 # progressive item upgrade data (old ID, old related var, new ID, new addr)
-16//progressiveUpgrades: |
+16/5695/progressiveUpgrades: |
     db TREASURE_SHIELD,$01,TREASURE_SHIELD
     dw $54c2 # iron shield
     db TREASURE_SHIELD,$02,TREASURE_SHIELD

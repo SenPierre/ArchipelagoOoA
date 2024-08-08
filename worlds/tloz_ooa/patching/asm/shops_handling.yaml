@@ -69,7 +69,7 @@
     pop bc
 
     push de
-    ;call saveFile
+    call saveFile
     pop de
     ret
 09/4425/: call shopGiveTreasure

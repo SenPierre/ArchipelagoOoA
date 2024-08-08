@@ -43,6 +43,10 @@
   ret
   nop
   nop
+  
+# first and second time portals (near maku tree) are always active.
+10/7d4e/: jr nz,$00 # present -> past
+10/7d57/: jr c,$00  # past -> present
 
 # allow harvesting seeds from trees with either shooter or satchel.
 11//checkCanHarvestSeeds: |
