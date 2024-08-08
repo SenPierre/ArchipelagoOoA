@@ -10,6 +10,37 @@ from pathlib import Path
 from .. import LOCATIONS_DATA
 
 
+def get_treasure_addr(rom: RomData, item_name: str):
+    item_id, item_subid = get_item_id_and_subid(item_name)
+    addr = 0x59332 + (item_id * 4)
+    if rom.read_byte(addr) & 0x80 != 0:
+        addr = 0x54000 + rom.read_word(addr + 1)
+    return addr + (item_subid * 4)
+
+
+def set_treasure_data(rom: RomData,
+                      item_name: str, text_id: int | None,
+                      sprite_id: int | None = None,
+                      param_value: int | None = None):
+    addr = get_treasure_addr(rom, item_name)
+    if text_id is not None:
+        rom.write_byte(addr + 0x02, text_id)
+    if sprite_id is not None:
+        rom.write_byte(addr + 0x03, sprite_id)
+    if param_value is not None:
+        rom.write_byte(addr + 0x01, param_value)
+        print("modify adress " + str(addr) + " to " + str(param_value))
+
+def alter_treasures(rom: RomData):
+    # Set data for remote Archipelago items
+    #set_treasure_data(rom, "Archipelago Item", 0x57, 0x53)
+    #set_treasure_data(rom, "Archipelago Progression Item", 0x57, 0x52)
+
+    # Make bombs increase max carriable quantity when obtained from treasures,
+    # not drops (see asm/seasons/bomb_bag_behavior)
+    set_treasure_data(rom, "Bombs (10)", None, None, 0x90)
+
+
 def get_asm_files(patch_data):
     asm_files = ASM_FILES.copy()
 #    if patch_data["options"]["quick_flute"]:

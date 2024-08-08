@@ -2,8 +2,6 @@
 
 ################################
 # Generic cases
-#00/10f7/: dw locations.impaGift # TODO
-#0b/6a6c/: dwbe locations.makuTreeGift # TODO
 10/750c/: dw locations.graveUnderTree
 0c/723b/: dwbe locations.chevalTest
 0c/7232/: dwbe locations.chevalInvention
@@ -117,3 +115,7 @@
     nop
     nop
 15/5b36/: dwbe locations.hiddenTokayCave
+
+### GORON TREASURE #####################################################
+# Skip wait for the goron to break the wall
+0c/6d0a/: db $c0

@@ -447,7 +447,7 @@ SEED_TREE_DATA = {
     },
     "Deku Forest" : {
         "location" : "Deku Forest: Seed Tree",
-        "codeAdress" : 0x50101,
+        "codeAdress" : 0x4a101,
     },
     "Crescent Island" : {
         "location" : "Crescent Island: Seed Tree",
