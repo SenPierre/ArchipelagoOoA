@@ -859,8 +859,8 @@ LOCATIONS_DATA = {
     "Rolling Ridge: Old Zora Trade": {
         "region_id": "old zora trade",
         "vanilla_item": "Broken Sword",
-        "flag_byte": 0xc8fa,
-        "room": 0x03fa, # May be wrong, todo check
+        "flag_byte": 0xc7f5,
+        "room": 0x02f5, 
         "collect": COLLECT_TOUCH,
         "symbolic_name": "oldZora",
     },

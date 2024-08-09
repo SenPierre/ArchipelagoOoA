@@ -54,4 +54,4 @@
 05/6994/: db TREASURE_TOUCHING_BOOK       # Touching Book (#35)
 05/6998/: db $00,$00,$00,$00,$00,$00      # ^
 15/6b61/: db $df,TREASURE_MAGIC_OAR       # Magic Oar (#38)
-15/6195/: db $df,TREASURE_SEA_UKULELE     # Sea Ukulele (#39)
+15/6196/: db $df,TREASURE_SEA_UKULELE     # Sea Ukulele (#39)
