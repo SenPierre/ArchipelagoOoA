@@ -29,7 +29,6 @@ def set_treasure_data(rom: RomData,
         rom.write_byte(addr + 0x03, sprite_id)
     if param_value is not None:
         rom.write_byte(addr + 0x01, param_value)
-        print("modify adress " + str(addr) + " to " + str(param_value))
 
 def alter_treasures(rom: RomData):
     # Set data for remote Archipelago items

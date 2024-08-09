@@ -88,3 +88,30 @@
     ldi (hl),a
     ret
 15/50ae/: call setShootingGalleryEquips
+
+# Handle D8 slate staircase
+0a//d8SlateStaircaseHandle : |
+  ; Check if it's the right stair (not sure if the check is necessary)
+  ld a,(hl) 
+  and $0f
+  call getNumSetBits
+  cp option.required_slates
+  ret
+
+0a/70f9/: |
+  call d8SlateStaircaseHandle
+  nop
+  nop
+  ;ret nz
+
+0b//d8removeSlateIfStairOpen : |
+  ld a,$0a  ; What the call replaced
+  ld (de),a
+
+  call getThisRoomFlags
+  bit 6,a
+  jp nz,interactionDelete
+  ret  
+
+0b/7f80/ : |
+  call d8removeSlateIfStairOpen
