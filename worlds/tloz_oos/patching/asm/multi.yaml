@@ -25,6 +25,10 @@
     jr z,@done
     cp $02
     jr z,@done
+    ; Don't spawn the item if Link is riding a minecart or anything else
+    ld a,(wLinkObjectIndex)
+    cp $d0
+    jr nz,@done
     ; All lights are green, spawn the item
     ld hl,wNetTreasureIn
     ldi a,(hl)
