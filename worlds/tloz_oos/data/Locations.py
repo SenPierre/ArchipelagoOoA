@@ -1918,6 +1918,7 @@ LOCATIONS_DATA = {
 
     "Gnarled Root Dungeon: Essence": {
         "region_id": "d1 boss",
+        "dungeon": 1,
         "flag_byte": 0xc913,
         "room": 0x0413,
         "vanilla_item": "Fertile Soil",
@@ -1926,6 +1927,7 @@ LOCATIONS_DATA = {
     },
     "Snake's Remains: Essence": {
         "region_id": "d2 boss",
+        "dungeon": 2,
         "flag_byte": 0xc92c,
         "room": 0x042c,
         "vanilla_item": "Gift of Time",
@@ -1934,6 +1936,7 @@ LOCATIONS_DATA = {
     },
     "Poison Moth's Lair: Essence": {
         "region_id": "d3 boss",
+        "dungeon": 3,
         "flag_byte": 0xc940,
         "room": 0x0440,
         "vanilla_item": "Bright Sun",
@@ -1942,6 +1945,7 @@ LOCATIONS_DATA = {
     },
     "Dancing Dragon Dungeon: Essence": {
         "region_id": "d4 boss",
+        "dungeon": 4,
         "flag_byte": 0xc960,
         "room": 0x0460,
         "vanilla_item": "Soothing Rain",
@@ -1950,6 +1954,7 @@ LOCATIONS_DATA = {
     },
     "Unicorn's Cave: Essence": {
         "region_id": "d5 boss",
+        "dungeon": 5,
         "flag_byte": 0xc988,
         "room": 0x0488,
         "vanilla_item": "Nurturing Warmth",
@@ -1958,6 +1963,7 @@ LOCATIONS_DATA = {
     },
     "Ancient Ruins: Essence": {
         "region_id": "d6 boss",
+        "dungeon": 6,
         "flag_byte": 0xc898,
         "room": 0x0398,
         "vanilla_item": "Blowing Wind",
@@ -1966,6 +1972,7 @@ LOCATIONS_DATA = {
     },
     "Explorer's Crypt: Essence": {
         "region_id": "d7 boss",
+        "dungeon": 7,
         "flag_byte": 0xca4f,
         "room": 0x054f,
         "vanilla_item": "Seed of Life",
@@ -1974,6 +1981,7 @@ LOCATIONS_DATA = {
     },
     "Sword & Shield Dungeon: Essence": {
         "region_id": "d8 boss",
+        "dungeon": 8,
         "flag_byte": 0xca5f,
         "room": 0x055f,
         "vanilla_item": "Changing Seasons",

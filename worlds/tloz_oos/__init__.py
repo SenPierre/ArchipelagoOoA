@@ -571,7 +571,7 @@ class OracleOfSeasonsWorld(World):
             dungeon_location_names = [name for name, loc in LOCATIONS_DATA.items()
                                       if "dungeon" in loc and loc["dungeon"] == i]
             dungeon_locations = [loc for loc in self.multiworld.get_locations(self.player)
-                                 if loc.name in dungeon_location_names]
+                                 if loc.name in dungeon_location_names and not loc.locked]
 
             # From the list of all dungeon items that needs to be placed restrictively, only filter the ones for the
             # dungeon we are currently processing.
