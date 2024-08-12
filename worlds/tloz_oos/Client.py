@@ -170,9 +170,10 @@ class OracleOfSeasonsClient(BizHawkClient):
         for name, location in LOCATIONS_DATA.items():
             if "scouting_byte" not in location:
                 continue
-            # Do not hint forced shop slot, since it would be cause an error on MultiServer's side
-            if ctx.slot_data["enforce_potion_in_shop"] and name == "Horon Village: Shop #3":
-                continue
+            # Do not hint forced shop slot if it is enabled, since it would cause an error on MultiServer's side
+            if name == "Horon Village: Shop #3":
+                if ctx.slot_data is None or ctx.slot_data["enforce_potion_in_shop"]:
+                    continue
 
             # Check "scouting_byte" to see if map has been visited for scoutable locations
             byte_to_test = location["scouting_byte"]
