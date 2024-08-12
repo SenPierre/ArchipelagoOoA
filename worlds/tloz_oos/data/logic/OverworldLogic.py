@@ -310,17 +310,35 @@ def make_holodrum_logic(player: int):
         ])],
 
         ["d5 stump", "d5 entrance", False, lambda state: all([
-            any([
-                oos_has_autumn(state, player),
-                # If we don't have autumn, we need to ensure we were able to reach that node with autumn as default
-                # season without changing to another season which we wouldn't be able to revert back
-                all([
-                    oos_get_default_season(state, player, "EYEGLASS_LAKE") == SEASON_AUTUMN,
-                    oos_can_swim(state, player, False)
-                ])
-            ]),
+            # If we don't have autumn, we need to ensure we were able to reach that node with autumn as default
+            # season without changing to another season which we wouldn't be able to revert back.
+            # For this reason, "default season is autumn" case is handled through direct routes from the lake portal
+            # and from D1 stump.
+            oos_has_autumn(state, player),
             oos_can_break_mushroom(state, player, True)
         ])],
+        # Direct route #1 to reach D5 entrance taking advantage of autumn as default season
+        ["d1 stump", "d5 entrance", False, lambda state: all([
+            oos_get_default_season(state, player, "EYEGLASS_LAKE") == SEASON_AUTUMN,
+            oos_can_jump_1_wide_pit(state, player, True),
+            oos_can_break_mushroom(state, player, True),
+            any([
+                oos_can_swim(state, player, False),
+                all([
+                    # To be able to use Dimitri, we need the bracelet to throw him above the pit
+                    oos_option_medium_logic(state, player),
+                    oos_can_summon_dimitri(state, player),
+                    oos_has_bracelet(state, player)
+                ])
+            ]),
+        ])],
+        # Direct route #2 to reach D5 entrance taking advantage of autumn as default season
+        ["eyeglass lake portal", "d5 entrance", False, lambda state: all([
+            oos_get_default_season(state, player, "EYEGLASS_LAKE") == SEASON_AUTUMN,
+            oos_can_swim(state, player, False),
+            oos_can_break_mushroom(state, player, True)
+        ])],
+
         ["d5 entrance", "d5 stump", False, lambda state: any([
             # Leaving D5 entrance is a risky action since you need quite a few things to be able to get
             # back to that entrance. Ensure player can warp if that's not the case.
