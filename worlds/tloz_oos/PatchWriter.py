@@ -52,7 +52,7 @@ def oos_create_ap_procedure_patch(world: "OracleOfSeasonsWorld") -> OoSProcedure
             patch_data["locations"][loc.name] = {
                 "item": loc.item.name,
                 "player": world.multiworld.get_player_name(loc.item.player),
-                "progression": loc.item.classification in [ItemClassification.progression, ItemClassification.progression_skip_balancing]
+                "progression": (loc.item.classification & ItemClassification.progression) != 0
             }
 
     patch.write_file("patch.dat", yaml.dump(patch_data).encode('utf-8'))
