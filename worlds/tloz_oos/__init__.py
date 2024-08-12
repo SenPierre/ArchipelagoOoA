@@ -460,7 +460,7 @@ class OracleOfSeasonsWorld(World):
             item_name = loc_data['vanilla_item']
             if "Ring" in item_name:
                 item_name = "Random Ring"
-            if item_name in removed_item_quantities:
+            if item_name in removed_item_quantities and removed_item_quantities[item_name] > 0:
                 # If item was put in the "remove_items_from_pool" option, replace it with a random filler item
                 removed_item_quantities[item_name] -= 1
                 filler_item_count += 1
