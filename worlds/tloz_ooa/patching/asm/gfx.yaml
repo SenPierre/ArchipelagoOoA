@@ -73,6 +73,6 @@
     db $C0,$C0,$E0,$20,$90,$70,$3C,$FC,$7E,$C2,$F9,$87,$FD,$BF,$7F,$43
     db $F9,$C7,$F1,$2F,$D1,$3F,$91,$7F,$12,$FE,$1C,$FC,$20,$E0,$C0,$C0
 # Use that custom sprite with a blue palette inside GFX#5a (will be used for regular remote items)
-3f/67e6/: db $7f,$12,$13 # SHOULD BE $7b,$10,$43 but for some reason, the game show 4 black strip instead of the object
+3f/67e9/: db $7f,$12,$13 # SHOULD BE $7b,$10,$43 but for some reason, the game show 4 black strip instead of the object
 # Use that custom sprite with a red palette inside GFX#59 (will be used for progression remote items)
-3f/67e3/: db $7f,$12,$23  # SHOULD BE $7b,$10,$53 but for some reason, the game show 4 black strip instead of the object
+3f/67e6/: db $7f,$12,$23  # SHOULD BE $7b,$10,$53 but for some reason, the game show 4 black strip instead of the object

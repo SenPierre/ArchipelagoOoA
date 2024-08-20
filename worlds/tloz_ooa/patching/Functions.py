@@ -32,8 +32,8 @@ def set_treasure_data(rom: RomData,
 
 def alter_treasures(rom: RomData):
     # Set data for remote Archipelago items
-    set_treasure_data(rom, "Archipelago Item", 0x57, 0x59)
-    set_treasure_data(rom, "Archipelago Progression Item", 0x57, 0x58)
+    set_treasure_data(rom, "Archipelago Item", 0x57, 0x5a)
+    set_treasure_data(rom, "Archipelago Progression Item", 0x57, 0x59)
 
     # Make bombs increase max carriable quantity when obtained from treasures,
     # not drops (see asm/seasons/bomb_bag_behavior)
