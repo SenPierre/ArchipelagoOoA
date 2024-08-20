@@ -286,8 +286,8 @@ DEFINES = {
     "wDungeonBossKeys":"$c682",
     "wInventoryB":"$c688",
     "wObtainedTreasureFlags":"$c69a",
-    "wNetCountInL":"$c6a9",
-    "wNetCountInH":"$c6aa",
+    "wNetCountInL":"$c6a8",
+    "wNetCountInH":"$c6a9",
     "wSeedSatchelLevel":"$c6b4",
     "wFluteIcon":"$c6b5",
     "wEssencesObtained":"$c6bf",
@@ -405,6 +405,7 @@ ASM_FILES = [
     "asm/gfx.yaml",
     "asm/get_item_behavior.yaml",
     "asm/vars.yaml",
+    "asm/text.yaml",
     #"asm/remove_item_on_use.yaml",
 ]
 

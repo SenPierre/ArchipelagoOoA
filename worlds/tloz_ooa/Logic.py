@@ -25,7 +25,7 @@ def create_connections(multiworld: MultiWorld, player: int):
     ]
 
     # Check unreachable regions
-    unused_region = REGIONS
+    unused_region = REGIONS.copy()
     unused_region.remove("Menu")
     for logic_array in all_logic:
         for entrance_desc in logic_array:

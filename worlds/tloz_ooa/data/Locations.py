@@ -259,6 +259,7 @@ LOCATIONS_DATA = {
         "scouting_mask": 0x10,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "syrupShop1",
+        "randomized": False,
     },
     "Syrup Shop Item #2": {
         "region_id": "syrup shop",
@@ -356,6 +357,7 @@ LOCATIONS_DATA = {
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "randomized": False,
     },
     "Tokay Market Item #2": {
         "region_id": "tokay market 2",
@@ -365,6 +367,7 @@ LOCATIONS_DATA = {
         "scouting_byte": 0xFFFF,
         "scouting_mask": 0xFFFF,
         "collect": COLLECT_TOUCH,
+        "randomized": False,
     },
     ##########################################
     "Under Crescent Island": {

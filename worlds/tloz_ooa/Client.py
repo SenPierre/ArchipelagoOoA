@@ -23,13 +23,13 @@ ROM_ADDRS = {
 
 RAM_ADDRS = {
     "game_state": (0xC2EE, 1, "System Bus"),
-    "received_item_index": (0xC6A0, 2, "System Bus"),
+    "received_item_index": (0xC6A8, 2, "System Bus"),
     "received_item": (0xCBFB, 1, "System Bus"),
     "location_flags": (0xC600, 0x500, "System Bus"),
 
-    "current_map_group": (0xCC49, 1, "System Bus"),
-    "current_map_id": (0xCC4C, 1, "System Bus"),
-    "is_dead": (0xCC34, 1, "System Bus"),
+    "current_map_group": (0xCC2d, 1, "System Bus"),
+    "current_map_id": (0xCC30, 1, "System Bus"),
+    "is_dead": (0xCDD5, 1, "System Bus"),
 }
 
 
@@ -119,7 +119,7 @@ class OracleOfAgesClient(BizHawkClient):
             await self.process_scouted_locations(ctx, flag_bytes)
 
             # Process received items (only if we aren't in Blaino's Gym to prevent him from calling us cheaters)
-            if received_item_is_empty and current_room != ROOM_BLAINOS_GYM:
+            if received_item_is_empty:
                 await self.process_received_items(ctx, num_received_items)
 
             if not ctx.finished_game:

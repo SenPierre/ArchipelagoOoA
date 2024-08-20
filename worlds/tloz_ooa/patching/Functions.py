@@ -32,8 +32,8 @@ def set_treasure_data(rom: RomData,
 
 def alter_treasures(rom: RomData):
     # Set data for remote Archipelago items
-    #set_treasure_data(rom, "Archipelago Item", 0x57, 0x53)
-    #set_treasure_data(rom, "Archipelago Progression Item", 0x57, 0x52)
+    set_treasure_data(rom, "Archipelago Item", 0x57, 0x59)
+    set_treasure_data(rom, "Archipelago Progression Item", 0x57, 0x58)
 
     # Make bombs increase max carriable quantity when obtained from treasures,
     # not drops (see asm/seasons/bomb_bag_behavior)
@@ -101,6 +101,19 @@ def define_text_constants(assembler: Z80Assembler, patch_data):
         "Lynna Village: Advance Shop",
     ]
 
+    assembler.add_floating_chunk("text.getArchipelagoItem", [
+        0x03, 0xe8, 0x04, 0x42, 0x05, 0xea,  # You found an
+        0x69, 0x74, 0x65, 0x6d, 0x20, 0x04, 0x91, 0x61, 0x6e, 0x03, 0x0f, 0x01,  # item for another
+        0x03, 0x75, 0x21, 0x00  # world!
+    ])
+
+    assembler.add_floating_chunk("text.getEmberSeeds", [
+        0x02, 0x12, 0x04, 0x79, 0x01,  # You got Ember
+        0x02, 0x53, 0x21, 0x20, 0x05, 0xa9, 0x01,  # Seeds! Open
+        0x79, 0x02, 0x65,  # your Seed
+        0x02, 0x6e, 0x05, 0xda, 0x04, 0xaa, 0x01,  # Satchel to use
+        0x74, 0x68, 0x65, 0x6d, 0x2e, 0x00  # them.
+    ])
 
 def write_chest_contents(rom: RomData, patch_data):
     """
