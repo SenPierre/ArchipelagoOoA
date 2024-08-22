@@ -427,7 +427,7 @@ ITEMS_DATA = {
     },
     "Funny Joke": {
         'classification': ItemClassification.progression,
-        'id': 0x1f
+        'id': 0x3c
     },
     "Touching Book": {
         'classification': ItemClassification.progression,

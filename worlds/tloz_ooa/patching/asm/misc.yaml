@@ -115,3 +115,8 @@
 
 0b/7f80/ : |
   call d8removeSlateIfStairOpen
+
+# Make Rafton skip the raft explanation 
+# (by checking the room flag instead of the 3rd essence)
+15/6b43/: dw $c71f
+15/6b45/: db $ff

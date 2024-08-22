@@ -144,13 +144,6 @@
     ret
 10/7914/: call checkBlackTowerState
 
-# change conditions for rafton 2's script based on whether the player has the
-# magic oar, not on essences. doesn't matter since trade quest is gone now.
-15/6b42/: |
-    db jumpifmemoryeq
-    dw wTradeItem
-    db $09
-
 # change symmetry city wives' state based on brother's item obtained, not
 # global flag (fool's ore is used as a "dummy" item id set by the brothers.
 15/784f/: db jumpifitemobtained,TREASURE_FOOLS_ORE
