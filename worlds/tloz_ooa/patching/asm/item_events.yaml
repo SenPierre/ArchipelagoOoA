@@ -136,11 +136,12 @@
     ret nz
     ld a,TREASURE_GORON_LETTER
     call checkTreasureObtained
-    ld a,$GLOBALFLAG_WON_LETTER_DANCE
+    ld a,GLOBALFLAG_WON_LETTER_DANCE
     jr c,@next2
     @next:
     ld a,GLOBALFLAG_WON_FIRST_DANCE 
     @next2:
+    push hl
     call setGlobalFlag
     pop hl
     ret

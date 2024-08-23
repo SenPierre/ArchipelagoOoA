@@ -120,3 +120,7 @@
 # (by checking the room flag instead of the 3rd essence)
 15/6b43/: dw $c71f
 15/6b45/: db $ff
+
+# Sea of storm specific chest. (change if in linked game)
+10/79ab/: dwbe locations.seaofstorm
+10/79ad/: dwbe locations.seaofstorm

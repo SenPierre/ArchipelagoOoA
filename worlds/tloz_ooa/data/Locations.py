@@ -757,6 +757,7 @@ LOCATIONS_DATA = {
         "room": 0x03ff,
         "map_tile": 0x1c7,
         "collect": COLLECT_CHEST,
+        "symbolic_name": "seaofstorm",
     },
     #"Sea of Storms Present": {
     #    "region_id": "sea of storms present",
