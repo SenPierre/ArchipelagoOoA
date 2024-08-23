@@ -201,10 +201,11 @@
     ret z
     ld a,GLOBALFLAG_REWARD_KING_ZORA # set by kingZoraSetFakeId
     call checkGlobalFlag
-    ret nz
+    ld a,$00
+    ret z
     inc a
     ret
-#0b/5464/: call checkKingZoraSequence1
+0b/5464/: call checkKingZoraSequence1
 
 # also, get permission to enter jabu even if you've already completed d7 (as
 # can happen in dungeon shuffle).
