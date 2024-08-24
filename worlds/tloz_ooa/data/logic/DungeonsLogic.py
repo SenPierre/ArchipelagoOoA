@@ -544,7 +544,7 @@ def make_d6past_logic(player: int):
             any([
                 ooa_has_feather(state, player),
                 all([
-                    ooa_option_hard_logic(state, player),
+                    ooa_option_medium_logic(state, player),
                     ooa_can_use_mystery_seeds(state, player),
                 ])
             ])

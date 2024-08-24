@@ -40,7 +40,7 @@
     call goronDanceSetFakeId
     call kingZoraSetFakeId
     @incoming:
-    ; call setD6BossKey
+    call setD6BossKey
     call makuSeedResetTreeState
     ld a,e
     jp giveTreasure
@@ -91,24 +91,24 @@
     pop hl
     ret
 
-## make boss key in D6 present also give it in D6 past.
-#09//setD6BossKey: |
-#    ld a,e
-#    cp TREASURE_BOSS_KEY
-#    ret nz
-#    ld a,(wDungeonIndex)
-#    cp 06
-#    jr z,.next
-#    cp 0c
-#    ret nz
-#    .next
-#    push hl
-#    ld hl,wDungeonBossKeys
-#    set 6,(hl)
-#    inc hl
-#    set 4,(hl)
-#    pop hl
-#    ret
+# make boss key in D6 present also give it in D6 past.
+09//setD6BossKey: |
+    ld a,e
+    cp TREASURE_BOSS_KEY
+    ret nz
+    ld a,(wDungeonIndex)
+    cp $06
+    jr z,@next
+    cp $0c
+    ret nz
+    @next:
+    push hl
+    ld hl,wDungeonBossKeys
+    set 6,(hl)
+    inc hl
+    set 4,(hl)
+    pop hl
+    ret
 
 # set fake item ID to track getting the "island chart" from tingle.
 09//tingleSetFakeId: |

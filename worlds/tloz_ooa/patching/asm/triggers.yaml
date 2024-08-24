@@ -21,12 +21,14 @@
     ret
     @notAtMakuTree:
     ld a,(wEssencesObtained)
-    inc a
+    call getNumSetBits
+    cp option.requiredEssences
+    jr c,@notAllEssences
     scf
-    jr nz,@notAllEssences
     ld a,$0e
     ret
     @notAllEssences:
+    scf
     ld a,(wMakuTreeState)
     ret
 00/3e56/: call checkMakuState

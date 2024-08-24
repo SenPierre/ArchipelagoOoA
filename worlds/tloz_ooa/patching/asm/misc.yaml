@@ -124,3 +124,11 @@
 # Sea of storm specific chest. (change if in linked game)
 10/79ab/: dwbe locations.seaofstorm
 10/79ad/: dwbe locations.seaofstorm
+
+# Veran is beaten
+10//thatallfolks: |
+  ld a,GLOBALFLAG_VERAN_BEATEN
+  call setGlobalFlag
+  call incMakuTreeState
+  ret
+10/5aae/: call thatallfolks

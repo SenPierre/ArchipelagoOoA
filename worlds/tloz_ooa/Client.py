@@ -200,18 +200,17 @@ class OracleOfAgesClient(BizHawkClient):
             ], "System Bus")])
 
     async def process_game_completion(self, ctx: "BizHawkClientContext", flag_bytes, current_room: int):
-        return
         game_clear = False
         if ctx.slot_data is not None:
-            if ctx.slot_data["goal"] == OracleOfAgesGoal.option_beat_onox:
-                # Room with Din's descending crystal was reached, it's a win
-                game_clear = (current_room == ROOM_AFTER_DRAGONOX)
-            elif ctx.slot_data["goal"] == OracleOfAgesGoal.option_beat_ganon:
-                # Room with Zelda lying down was reached, and Ganon was beaten
-                ganon_flag_offset = 0xCA9A - RAM_ADDRS["location_flags"][0]
-                ganon_was_beaten = (flag_bytes[ganon_flag_offset] & 0x80 == 0x80)
-                game_clear = (current_room == ROOM_ZELDA_ENDING) and ganon_was_beaten
-
+            if ctx.slot_data["goal"] == OracleOfAgesGoal.option_beat_veran:
+                veran_flag_offset = 0xC6D8 - RAM_ADDRS["location_flags"][0]
+                veran_was_beaten = (flag_bytes[veran_flag_offset] & 0x80 == 0x80)
+                game_clear = veran_was_beaten
+            #elif ctx.slot_data["goal"] == OracleOfAgesGoal.option_beat_ganon:
+            #    # Room with Zelda lying down was reached, and Ganon was beaten
+            #    ganon_flag_offset = 0xCA9A - RAM_ADDRS["location_flags"][0]
+            #    ganon_was_beaten = (flag_bytes[ganon_flag_offset] & 0x80 == 0x80)
+            #    game_clear = (current_room == ROOM_ZELDA_ENDING) and ganon_was_beaten
         if game_clear:
             await ctx.send_msgs([{
                 "cmd": "StatusUpdate",
