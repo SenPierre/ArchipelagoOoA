@@ -369,6 +369,14 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "randomized": False,
     },
+    "Tokay Pot Cave": {
+        "region_id": "tokay pot cave",
+        "vanilla_item": "Power Ring L-2",
+        "flag_byte": 0xcaf7,
+        "room": 0x05f7,
+        "map_tile": 0x1dd,
+        "collect": COLLECT_CHEST,
+    },
     ##########################################
     "Under Crescent Island": {
         "region_id": "under crescent island",
@@ -376,14 +384,6 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc8fd,
         "room": 0x03fd,
         "map_tile": 0xba,
-        "collect": COLLECT_CHEST,
-    },
-    "Tokay Pot Cave": {
-        "region_id": "tokay pot cave",
-        "vanilla_item": "Power Ring L-2",
-        "flag_byte": 0xcaf7,
-        "room": 0x05f7,
-        "map_tile": 0x1dd,
         "collect": COLLECT_CHEST,
     },
     ##########################################

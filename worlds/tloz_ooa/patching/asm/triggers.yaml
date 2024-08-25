@@ -20,6 +20,9 @@
     cp $11
     ret
     @notAtMakuTree:
+    ld a,($c738)
+    and $20
+    jp z,@notAllEssences
     ld a,(wEssencesObtained)
     call getNumSetBits
     cp option.requiredEssences
@@ -31,6 +34,7 @@
     scf
     ld a,(wMakuTreeState)
     ret
+    
 00/3e56/: call checkMakuState
 
 # make ricky appear if you have his gloves, even if rafton doesn't have rope.

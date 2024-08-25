@@ -42,6 +42,7 @@
     @incoming:
     call setD6BossKey
     call makuSeedResetTreeState
+    call checkEssencePostSavedWaifu
     ld a,e
     jp giveTreasure
 09/4c4e/: call handleGetItem
@@ -61,6 +62,20 @@
     pop hl
     pop de
     pop bc
+    ret
+
+09//checkEssencePostSavedWaifu: |
+    push bc
+    ld bc,$3800 # present
+    call compareRoom
+    pop bc
+    ret nz
+    ld a,(wEssencesObtained)
+    call getNumSetBits
+    cp option.requiredEssences
+    ret c
+    ld a,$0e
+    ld (wMakuTreeState),a
     ret
 
 # give 20 of the starting seeds along with the seed shooter.
