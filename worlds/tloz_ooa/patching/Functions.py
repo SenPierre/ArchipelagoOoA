@@ -31,6 +31,9 @@ def set_treasure_data(rom: RomData,
         rom.write_byte(addr + 0x01, param_value)
 
 def alter_treasures(rom: RomData):
+
+    set_treasure_data(rom, "Potion", 0x6d)
+
     # Set data for remote Archipelago items
     set_treasure_data(rom, "Archipelago Item", 0x57, 0x5a)
     set_treasure_data(rom, "Archipelago Progression Item", 0x57, 0x59)

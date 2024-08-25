@@ -76,3 +76,8 @@
 3f/67e9/: db $7f,$12,$13 # SHOULD BE $7b,$10,$43 but for some reason, the game show 4 black strip instead of the object
 # Use that custom sprite with a red palette inside GFX#59 (will be used for progression remote items)
 3f/67e6/: db $7f,$12,$23  # SHOULD BE $7b,$10,$53 but for some reason, the game show 4 black strip instead of the object
+
+
+# give items that don't normally appear as treasure interactions entries in
+# the treasure graphics table.
+3f/676b/: db $79,$01,$23 # potion

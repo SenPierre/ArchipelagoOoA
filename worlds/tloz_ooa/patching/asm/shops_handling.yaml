@@ -11,7 +11,7 @@
     db $9a,$04,$0a,$10   ; Test TREASURE_PUNCH obtained (always) to redirect to entry 0xa
     db $42,$20,$ff,$00   ; Syrup 2
     db $42,$40,$ff,$00   ; Syrup 3
-    db $42,$80,$ff,$00   ; Syrup 1
+    db $42,$00,$ff,$00   ; Syrup 1
     db $92,$04,$09,$18
     db $92,$04,$09,$18
     db $43,$01,$ff,$00   ; Advance 1
@@ -83,7 +83,6 @@
 ## Don't set a ricky flag when buying 150-rupee shop item.
 ## This has become useless since we randomize the cheap item instead of the special Flute replacement
 ## 0b/4823/: db ormemory; dw wRickyState; db 00
-
 
 #### HIDDEN SHOP ##################################################################
 #

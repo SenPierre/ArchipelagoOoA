@@ -252,7 +252,7 @@ LOCATIONS_DATA = {
     # -----
     "Syrup Shop Item #1": {
         "region_id": "syrup shop",
-        "vanilla_item": "Potion",
+        "vanilla_item": "Gasha Seed",
         "flag_byte": 0xc642,
         "bit_mask": 0x80,
         "scouting_byte": 0xc8ed,
@@ -273,7 +273,7 @@ LOCATIONS_DATA = {
     },
     "Syrup Shop Item #3": {
         "region_id": "syrup shop",
-        "vanilla_item": "Gasha Seed",
+        "vanilla_item": "Potion",
         "flag_byte": 0xc642,
         "bit_mask": 0x40,
         "scouting_byte": 0xc8ed,
