@@ -81,29 +81,4 @@
 #    jp showTextNonExitable
 #0b/42e8/: call scriptShowTextNonExitableCustom
 
-1e/7957/getArchipelagoItemText: /include text.getArchipelagoItem
-
-# overwrites rosa hide and seek preamble
-# 1f/4533/cliffWarningText: ''
-# 1f/4584/hssSkipWarningText: ''
-# 1c/6b52/: dw $9202   # pointer to above
-# 1f/459f/warningEndText: ''
-# 1c/6b54/: dw $921d   # pointer to above
-
-# override addresses for owl statue text.
-# 3f//owlText: ''
-# 3f//useOwlText: |
-#     ld (w7ActiveBank),a
-#     ld a,(wTextIndexH)
-#     cp a,3d
-#     ret nz
-#     ld hl,owlTextOffsets
-#     ld a,(wTextIndexL)
-#     rst 18
-#     ldi a,(hl)
-#     ld h,(hl)
-#     ld l,a
-#     ld a,BANK_OWL_TEXT
-#     ld (w7ActiveBank),a
-#     ret
-# 3f/4fd9/: call useOwlText
+1e/4957/getArchipelagoItemText: /include text.getArchipelagoItem
