@@ -20,6 +20,8 @@
     db $92,$04,$09,$18
     db $92,$04,$09,$18
     db $92,$04,$09,$18
+    db $92,$04,$09,$18
+    db $9a,$04,$05,$00   ; Test TREASURE_PUNCH obtained (always) to redirect to entry 0x5
 
 # remove generic text from shopItemTextTable so that replacement text can be displayed.
 09/457b/: db $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
@@ -41,6 +43,7 @@
 0c/4841/: db $00
 0c/484b/: db $00
 0c/4855/: db $00
+0c/4877/: db $00
 
 # Call giveTreasureCustom instead of giveTreasure for shop slots, and also
 # set the flag related to that shop item so it can't be bought again

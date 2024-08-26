@@ -16,69 +16,51 @@
 # the wrong one in random given seed type
 #1d/5730/: db $00
 
-#1e/64d7/TX_1716: /include text.horonShop1 # (Cutscene after d8)
-#1e/681d/TX_172d: /include text.horonShop2 # (Cutscene after d6)
-#1e/6361/TX_1707: /include text.horonShop3 # (Cutscene after d2)
-#
-#1e/4c05/TX_0c12: /include text.advanceShop1 # (Onox finding Din in linked intro troupe cutscene)
-#1e/4c3f/TX_0c13: /include text.advanceShop2 # (Onox taunting Link in linked intro troupe cutscene)
-#1e/5497/TX_0e25: /include text.advanceShop3 # (vanilla text)
-#
-#1e/5052/TX_0d0c: /include text.syrupShop1 # (text shown AFTER buying bombchus in vanilla)
-#1e/4f19/TX_0d01: /include text.syrupShop2 # (vanilla text)
-#1e/4fac/TX_0d05: /include text.syrupShop3 # (vanilla text)
-#
-#1e/5375/TX_0e1c: /include text.memberShop1 # (vanilla text)
-#1e/63e0/TX_1709: /include text.memberShop2 # (cutscene after d3)
-#1e/53a0/TX_0e1e: /include text.memberShop3 # (vanilla text)
-
-# Replace cutscene after d4 is d5 < d4 by a copy of the end text inside textbank 17, which
-# will be used by text injections performed in that textbank
-#1e/67ba/TX_172b: /include text.subrosianMarketEnd
-#
-#1e/6699/TX_1726: |  # (cutscene after d4 if d4 < d5)
-#    /include text.subrosianMarket1 
-#    db $07,$2b  # jump to TX_172b (end text copy)
-#1e/66f6/TX_1728: |  # (cutscene after d5 if d5 < d4)
-#    /include text.subrosianMarket2
-#    db $07,$2b  # jump to TX_172b (end text copy)
-#1f/4df1/TX_2b05: |  # (vanilla text slot)
-#    /include text.subrosianMarket3
-#    db $07,$0b  # jump to TX_2b0b (original end text)
-#1e/6777/TX_172a: |  # (cutscene after d5 if d4 < d5)
-#    /include text.subrosianMarket4
-#    db $07,$2b  # jump to TX_172b (end text copy)
-#1f/4ed4/TX_2b10: |  # (vanilla text slot)
-#    /include text.subrosianMarket5
-#    db $07,$0b  # jump to TX_2b0b (original end text)
+1e/4da5/TX_0101: /include text.lynnaShop1 # (Cutscene save impa pt1)
+1e/4e45/TX_0102: /include text.lynnaShop2 # (Cutscene save impa pt2)
+1e/4e85/TX_0103: /include text.lynnaShop3 # (Cutscene save impa pt2 - LINKED)
+1e/4fec/TX_0113: /include text.advanceShop1 # (Cutscene Unpossessed Impa pt2)
+1e/51fa/TX_0118: /include text.advanceShop2 # (Cutscene Unpossessed Impa pt3)
+1f/60b1/TX_0e24: /include text.advanceShop3 # (Original)
+1e/5067/TX_0114: /include text.syrupShop1 # (Cutscene Unpossessed Impa pt4)
+1e/519e/TX_0117: /include text.syrupShop2 # (Cutscene After Sword Given)
+1e/535b/TX_0125: /include text.syrupShop3 # (Cutscene at the entrance of the black tower pt2)
+1f/5df5/TX_0e09: /include text.hiddenShop1 # (Original)
+1e/5569/TX_012a: /include text.hiddenShop2 # (Cutscene Zelda saved)
+1e/56c3/TX_0131: /include text.hiddenShop3 # (Cutscene with zelda)
 
 # replace text in script command 9a (showtextnonexitable) using
 # scriptTextReplacements: four-byte entries, first two bytes are old text
 # index, second two bytes are new text index.
-#0b//scriptTextReplacements: |
-#    db $0e,$04,$17,$16    ; Horon shop 1
-#    db $0e,$03,$17,$2d    ; Horon shop 2
-#    db $0e,$02,$17,$07    ; Horon shop 3
-#    db $0e,$22,$0c,$12    ; Advance shop 1
-#    db $0e,$23,$0c,$13    ; Advance shop 2
-#    db $0d,$0a,$0d,$0c    ; Syrup shop 1
-#    db $0e,$1d,$17,$09    ; Member shop 2
-#    db $2b,$00,$17,$26    ; Market 1
-#    db $2b,$01,$17,$28    ; Market 2
-#    db $2b,$06,$17,$2a    ; Market 4
-#    db $ff
-#0b//scriptShowTextNonExitableCustom: |
-#    push de
-#    ld e,$02
-#    ld hl,scriptTextReplacements
-#    call searchDoubleKey
-#    pop de
-#    jr nc,@done
-#    ldi a,(hl)
-#    ld b,a
-#    ld c,(hl)
-#    @done:
-#    jp showTextNonExitable
-#0b/42e8/: call scriptShowTextNonExitableCustom
+0c//scriptTextReplacements: |
+    db $0e,$04,$01,$01    ; Lynna shop 1
+    db $0e,$03,$01,$02    ; Lynna shop 2
+    db $0e,$02,$01,$03    ; Lynna shop 3
+    db $0e,$1c,$01,$13    ; Advance shop 1
+    db $0e,$23,$01,$18    ; Advance shop 2
+    db $0d,$0a,$01,$14    ; Syrup shop 1
+    db $0d,$01,$01,$17    ; Syrup shop 2
+    db $0d,$05,$01,$25    ; Syrup shop 3
+    db $0e,$1d,$01,$2a    ; Hidden shop 2
+    db $0e,$2c,$01,$31    ; Hidden shop 3
+    db $ff
+0c//scriptShowTextNonExitableCustom: |
+    push de
+    ld e,$02
+    ld hl,scriptTextReplacements
+    call searchDoubleKey
+    pop de
+    jr nc,@done
+    ldi a,(hl)
+    ld b,a
+    ld c,(hl)
+    @done:
+    jp showTextNonExitable
+
+0c/4300/: call scriptShowTextNonExitableCustom
+
+# Some required redirections
+0c/4822/: db $2c
+0c/483c/: db $1c
 
 1e/4957/getArchipelagoItemText: /include text.getArchipelagoItem

@@ -96,13 +96,49 @@ def define_option_constants(assembler: Z80Assembler, patch_data):
     assembler.define_byte("option.requiredEssences", options["required_essences"])
     assembler.define_byte("option.required_slates", options["required_slates"])
 
+def process_item_name_for_shop_text(item_name: str) -> List[int]:
+    words = item_name.split(" ")
+    current_line = 0
+    lines = [""]
+    while len(words) > 0:
+        line_with_word = lines[current_line]
+        if len(line_with_word) > 0:
+            line_with_word += " "
+        line_with_word += words[0]
+        if len(line_with_word) <= 16:
+            lines[current_line] = line_with_word
+        else:
+            current_line += 1
+            lines.append(words[0])
+        words = words[1:]
+
+    result = []
+    for line in lines:
+        if len(result) > 0:
+            result.append(0x01)  # Newline
+        result.extend(line.encode())
+    return result
+
 def define_text_constants(assembler: Z80Assembler, patch_data):
     overworld_shops = [
-        "Lynna City: Shop",
-        "Lynna City: Secret's Shop",
-        "Poe Graveyard: Syrup Shop",
-        "Lynna Village: Advance Shop",
+        "Lynna Shop",
+        "Hidden Shop",
+        "Syrup Shop",
+        "Advance Shop",
     ]
+
+    for shop_name in overworld_shops:
+        for i in range(1, 4):
+            location_name = f"{shop_name} #{i}"
+            symbolic_name = LOCATIONS_DATA[location_name]["symbolic_name"]
+            if location_name not in patch_data["locations"]:
+                continue
+            item_name_bytes = process_item_name_for_shop_text(patch_data["locations"][location_name])
+
+            text_bytes = [0x09, 0x01] + item_name_bytes + [0x09, 0x00, 0x0c, 0x18, 0x01]  # Item name
+            text_bytes.extend([0x20, 0x0c, 0x08, 0x20, 0x03, 0x7b, 0x01])  # Price
+            text_bytes.extend([0x02, 0x00, 0x00])  # OK / No thanks
+            assembler.add_floating_chunk(f"text.{symbolic_name}", text_bytes)
 
     assembler.add_floating_chunk("text.getArchipelagoItem", [
         0x02, 0x7c, 0x20, 0x61, 0x6e, 0x01,  # You found an

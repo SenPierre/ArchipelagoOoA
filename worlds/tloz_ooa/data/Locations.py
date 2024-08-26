@@ -30,7 +30,7 @@ LOCATIONS_DATA = {
         "collect": COLLECT_CHEST,
     },
     # -----
-    "Lynna Shop Item #1": {
+    "Lynna Shop #1": {
         "region_id": "lynna shop",
         "vanilla_item": "Progressive Shield",
         "flag_byte": 0xc643,
@@ -42,7 +42,7 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "symbolic_name": "lynnaShop1",
     },
-    "Lynna Shop Item #2": {
+    "Lynna Shop #2": {
         "region_id": "lynna shop",
         "vanilla_item": "Bombs (10)",
         "flag_byte": 0xc643,
@@ -54,7 +54,7 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "symbolic_name": "lynnaShop2",
     },
-    "Lynna Shop Item #3": {
+    "Lynna Shop #3": {
         "region_id": "lynna shop",
         "vanilla_item": "Flute",
         "flag_byte": 0xc643,
@@ -67,7 +67,7 @@ LOCATIONS_DATA = {
         "symbolic_name": "lynnaShop3",
     },
     # -----
-    "Hidden Shop Item #1": {
+    "Hidden Shop #1": {
         "region_id": "hidden shop",
         "vanilla_item": "Gasha Seed",
         "flag_byte": 0xc642,
@@ -77,7 +77,7 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "symbolic_name": "hiddenShop1",
     },
-    "Hidden Shop Item #2": {
+    "Hidden Shop #2": {
         "region_id": "hidden shop",
         "vanilla_item": "Piece of Heart",
         "flag_byte": 0xc642,
@@ -87,7 +87,7 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "symbolic_name": "hiddenShop2",
     },
-    "Hidden Shop Item #3": {
+    "Hidden Shop #3": {
         "region_id": "hidden shop",
         "vanilla_item": "Biggoron's Sword", # That's not the Ring box you're looking for.
         "flag_byte": 0xc642,
@@ -134,7 +134,7 @@ LOCATIONS_DATA = {
         "symbolic_name": "gashaFarmer",
     },
     # -----
-    "Advance Shop Item #1": {
+    "Advance Shop #1": {
         "region_id": "advance shop",
         "vanilla_item": "Gasha Seed",
         "flag_byte": 0xc643,
@@ -144,7 +144,7 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "symbolic_name": "advanceShop1",
     },
-    "Advance Shop Item #2": {
+    "Advance Shop #2": {
         "region_id": "advance shop",
         "vanilla_item": "GBA Time Ring",
         "flag_byte": 0xc643,
@@ -154,7 +154,7 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "symbolic_name": "advanceShop2",
     },
-    "Advance Shop Item #3": {
+    "Advance Shop #3": {
         "region_id": "advance shop",
         "vanilla_item": "Heart Ring L-1",
         "flag_byte": 0xc643,
@@ -250,9 +250,9 @@ LOCATIONS_DATA = {
         "symbolic_name": "graveUnderTree",
     },
     # -----
-    "Syrup Shop Item #1": {
+    "Syrup Shop #1": {
         "region_id": "syrup shop",
-        "vanilla_item": "Gasha Seed",
+        "vanilla_item": "Potion",
         "flag_byte": 0xc642,
         "bit_mask": 0x80,
         "scouting_byte": 0xc8ed,
@@ -261,7 +261,7 @@ LOCATIONS_DATA = {
         "symbolic_name": "syrupShop1",
         "randomized": False,
     },
-    "Syrup Shop Item #2": {
+    "Syrup Shop #2": {
         "region_id": "syrup shop",
         "vanilla_item": "Gasha Seed",
         "flag_byte": 0xc642,
@@ -271,9 +271,9 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "symbolic_name": "syrupShop2",
     },
-    "Syrup Shop Item #3": {
+    "Syrup Shop #3": {
         "region_id": "syrup shop",
-        "vanilla_item": "Potion",
+        "vanilla_item": "Gasha Seed",
         "flag_byte": 0xc642,
         "bit_mask": 0x40,
         "scouting_byte": 0xc8ed,
@@ -349,7 +349,7 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "symbolic_name": "wildTokayGame",
     },
-    "Tokay Market Item #1": {
+    "Tokay Market #1": {
         "region_id": "tokay market 1",
         "vanilla_item": "Progressive Shield",
         "flag_byte": 0xFFFF,
@@ -359,7 +359,7 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "randomized": False,
     },
-    "Tokay Market Item #2": {
+    "Tokay Market #2": {
         "region_id": "tokay market 2",
         "vanilla_item": "Gasha Seed",
         "flag_byte": 0xFFFF,
