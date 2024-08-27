@@ -382,17 +382,6 @@ class OracleOfAgesWorld(World):
 
     def pre_fill_seeds(self) -> None:
         
-        TREES_TABLE = {
-            OracleOfAgesDuplicateSeedTree.option_lynna_city: "Lynna City: Seed Tree",
-            OracleOfAgesDuplicateSeedTree.option_ambi_palace: "Ambi's Palace: Seed Tree",
-            OracleOfAgesDuplicateSeedTree.option_deku_forest: "Deku Forest: Seed Tree",
-            OracleOfAgesDuplicateSeedTree.option_crescent_island: "Crescent Island: Seed Tree",
-            OracleOfAgesDuplicateSeedTree.option_symmetry_city: "Symmetry city: Seed Tree",
-            OracleOfAgesDuplicateSeedTree.option_rolling_ridge_west: "Rolling Ridge West: Seed Tree",
-            OracleOfAgesDuplicateSeedTree.option_rolling_ridge_east: "Rolling Ridge East: Seed Tree",
-            OracleOfAgesDuplicateSeedTree.option_zora_village: "Zora Village: Seed Tree",
-        }
-
         def place_seed(seed_name: str, location_name: str):
             seed_item = self.create_item(seed_name)
             self.multiworld.get_location(location_name, self.player).place_locked_item(seed_item)
@@ -401,7 +390,7 @@ class OracleOfAgesWorld(World):
         seeds_to_place = set([name for name in SEED_ITEMS if name != SEED_ITEMS[self.options.default_seed.value]])
 
         manually_placed_trees = ["Lynna City: Seed Tree"]
-        trees_to_process = [name for name in TREES_TABLE.values() if name not in manually_placed_trees]
+        trees_to_process = [name for name in TREES_TABLE if name not in manually_placed_trees]
 
         # Place default seed type in Horon Village tree
         place_seed(SEED_ITEMS[self.options.default_seed.value], "Lynna City: Seed Tree")

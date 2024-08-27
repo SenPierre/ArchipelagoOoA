@@ -21,6 +21,18 @@ SEED_ITEMS = [
     "Gale Seeds"
 ]
 
+TREES_TABLE = [
+    "Lynna City: Seed Tree",
+    "Ambi's Palace: Seed Tree",
+    "Deku Forest: Seed Tree",
+    "Crescent Island: Seed Tree",
+    "Symmetry city: Seed Tree",
+    "Rolling Ridge West: Seed Tree",
+    "Rolling Ridge East: Seed Tree",
+    "Zora Village: Seed Tree",
+]
+
+
 DUNGEON_NAMES = [
     "Maku Path",
     "Spirit's Grave",

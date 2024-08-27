@@ -5,6 +5,7 @@ from Options import Choice, DeathLink, DefaultOnToggle, PerGameCommonOptions, Ra
 
 class OracleOfAgesGoal(Choice):
     """
+    <NOT IMPLEMENTED, ONLY VERAN IS HANDLED RIGHT NOW>
     The goal to accomplish in order to complete the seed.
     - Beat Veran: beat the usual final boss (same as vanilla)
     - Beat Ganon: teleport to the Room of Rites after beating Veran, then beat Ganon (same as linked game)
@@ -85,27 +86,10 @@ class OracleOfAgesDefaultSeedType(Choice):
 
     default = 0
 
-# TODO No sure we still need that
-class OracleOfAgesDuplicateSeedTree(Choice):
-    """
-    """
-    display_name = "Duplicate Seed Tree"
-
-    option_lynna_city = 0
-    option_lynna_city = 1
-    option_ambi_palace = 2
-    option_deku_forest = 3 
-    option_crescent_island = 4
-    option_symmetry_city = 5
-    option_rolling_ridge_west = 6
-    option_rolling_ridge_east = 7
-    option_zora_village = 8
-
-    default = 0
-
 
 class OracleOfAgesDungeonShuffle(Choice):
     """
+    <NOT IMPLEMENTED RIGHT NOW>
     - Vanilla: each dungeon entrance leads to its intended dungeon
     - Shuffle: each dungeon entrance leads to a random dungeon picked at generation time
     """
@@ -119,6 +103,7 @@ class OracleOfAgesDungeonShuffle(Choice):
 
 class OracleOfAgesMasterKeys(Choice):
     """
+    <NOT IMPLEMENTED RIGHT NOW>
     - Disabled: All dungeon keys must be obtained individually, just like in vanilla
     - All Small Keys: Small Keys are replaced by a single Master Key for each dungeon which is capable of opening
       every small keydoor for that dungeon
@@ -136,6 +121,7 @@ class OracleOfAgesMasterKeys(Choice):
 
 class OracleOfAgesSmallKeyShuffle(Toggle):
     """
+    <NOT IMPLEMENTED RIGHT NOW>
     If enabled, dungeon Small Keys can be found anywhere instead of being confined in their dungeon of origin.
     """
     display_name = "Keysanity (Small Keys)"
@@ -143,6 +129,7 @@ class OracleOfAgesSmallKeyShuffle(Toggle):
 
 class OracleOfAgesBossKeyShuffle(Toggle):
     """
+    <NOT IMPLEMENTED RIGHT NOW>
     If enabled, dungeon Boss Keys can be found anywhere instead of being confined in their dungeon of origin.
     """
     display_name = "Keysanity (Boss Keys)"
@@ -150,6 +137,7 @@ class OracleOfAgesBossKeyShuffle(Toggle):
 
 class OracleOfAgesMapCompassShuffle(Toggle):
     """
+    <NOT IMPLEMENTED RIGHT NOW>
     If enabled, Dungeon Maps and Compasses can be found anywhere instead of being confined in their dungeon of origin.
     """
     display_name = "Maps & Compasses Outside Dungeon"
@@ -157,6 +145,7 @@ class OracleOfAgesMapCompassShuffle(Toggle):
 
 class OracleOfAgesSlateShuffle(Toggle):
     """
+    <Yes, implemented despite all others keysanity function not implemented>
     If enabled, Slates can be found anywhere instead of being confined in Dungeon 8.
     """
     display_name = "Slates Outside Dungeon 8"
@@ -211,6 +200,7 @@ class OracleOfAgesWarpToStart(DefaultOnToggle):
 
 class OracleOfAgesCombatDifficulty(Choice):
     """
+    <NOT IMPLEMENTED RIGHT NOW>
     Modifies the damage taken during combat to make this aspect of the game easier or harder depending on the
     type of experience you want to have
     """
@@ -227,6 +217,7 @@ class OracleOfAgesCombatDifficulty(Choice):
 
 class OracleOfAgesQuickFlute(DefaultOnToggle):
     """
+    <NOT IMPLEMENTED RIGHT NOW>
     When enabled, playing the flute will immobilize you during a very small amount of time compared to vanilla game.
     """
     display_name = "Quick Flute"
@@ -234,6 +225,7 @@ class OracleOfAgesQuickFlute(DefaultOnToggle):
 
 class OracleOfAgesHeartBeepInterval(Choice):
     """
+    <NOT IMPLEMENTED RIGHT NOW>
     - Default: play the beeping sound at the usual frequency when low on health
     - Half: play the beeping sound two times less when low on health
     - Quarter: play the beeping sound four times less when low on health
@@ -251,6 +243,7 @@ class OracleOfAgesHeartBeepInterval(Choice):
 
 class OracleOfAgesCharacterSprite(Choice):
     """
+    <NOT IMPLEMENTED RIGHT NOW>
     The sprite to use as a character during this seed.
     (Sprites extracted from ardnaxelarak's rando)
     """
@@ -266,6 +259,7 @@ class OracleOfAgesCharacterSprite(Choice):
 
 class OracleOfAgesCharacterPalette(Choice):
     """
+    <NOT IMPLEMENTED RIGHT NOW>
     The color tint to apply to the character sprite during this seed
     """
     display_name = "Character Tint"
