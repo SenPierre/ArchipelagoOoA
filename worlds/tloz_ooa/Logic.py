@@ -74,18 +74,18 @@ def apply_self_locking_rules(multiworld: MultiWorld, player: int):
     # Process other self-locking items
     OTHER_SELF_LOCKING_ITEMS = {
         # TODO Trade Sequence OOA
-        'Yoll Graveyard: Graveyard Poe':"Poe Clock",
-        'Lynna Village: Postman':"Stationary",
-        'Lynna Village: Toilet Hand':"Stink Bag",
-        'Crescent Island: Tokay Chef':"Tasty Meat",
-        'Nuun: Happy Mask Salesman':"Doggie Mask",
-        'Lynna Village: Mamamu Yan':"Dumbbell",
-        'Symmetry City: Middle man':"Cheesy Mustache",
-        'Lynna City: Comedian':"Funny Joke",
-        'Lynna Village: Sad boi':"Touching Book",
-        'Maple Trade':"Magic Oar",
-        'Lynna Village Coast: Rafton':"Sea Ukulele",
-        'Shore of No Return: Old Zora':"Broken Sword",
+        #'Yoll Graveyard: Graveyard Poe Trade':"Poe Clock",
+        #'Lynna Village: Postman Trade':"Stationary",
+        #'Lynna Village: The Toilet Hand Trade':"Stink Bag",
+        #'Crescent Island (Present): Tokay Chef Trade':"Tasty Meat",
+        #'Nuun Highland: Happy Mask Salesman Trade':"Doggie Mask",
+        #'Lynna Village: Mamamu Yan Trade':"Dumbbell",
+        #'Symmetry City: Middle man Trade':"Cheesy Mustache",
+        #'Lynna City: Comedian Trade':"Funny Joke",
+        #'Lynna Village: Sad boi Trade':"Touching Book",
+        #'Maple Trade':"Magic Oar",
+        #'Lynna Village: Rafton Trade':"Sea Ukulele",
+        #'Rolling Ridge: Old Zora Trade':"Broken Sword",
     }
 
     for loc_name, item_name in OTHER_SELF_LOCKING_ITEMS.items():
