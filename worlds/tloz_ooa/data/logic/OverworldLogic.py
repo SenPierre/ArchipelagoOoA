@@ -130,7 +130,8 @@ def make_overworld_logic(player: int):
         ["graveyard door", "syrup shop", False, lambda state: all([
             any([
                 ooa_can_jump_2_wide_liquid(state, player),
-                ooa_can_swim(state, player, True),                    
+                ooa_can_swim(state, player, True),
+                ooa_has_long_hook(state, player)                    
             ]),
             ooa_has_rupees(state, player, 400)
         ])],

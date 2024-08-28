@@ -131,13 +131,12 @@ def define_text_constants(assembler: Z80Assembler, patch_data):
         for i in range(1, 4):
             location_name = f"{shop_name} #{i}"
             symbolic_name = LOCATIONS_DATA[location_name]["symbolic_name"]
-            if location_name not in patch_data["locations"]:
-                continue
-            item_name_bytes = process_item_name_for_shop_text(patch_data["locations"][location_name])
-
-            text_bytes = [0x09, 0x01] + item_name_bytes + [0x09, 0x00, 0x0c, 0x18, 0x01]  # Item name
-            text_bytes.extend([0x20, 0x0c, 0x08, 0x20, 0x03, 0x7b, 0x01])  # Price
-            text_bytes.extend([0x02, 0x00, 0x00])  # OK / No thanks
+            text_bytes = []
+            if location_name in patch_data["locations"]:
+                item_name_bytes = process_item_name_for_shop_text(patch_data["locations"][location_name])
+                text_bytes = [0x09, 0x01] + item_name_bytes + [0x09, 0x00, 0x0c, 0x18, 0x01]  # Item name
+                text_bytes.extend([0x20, 0x0c, 0x08, 0x20, 0x03, 0x7b, 0x01])  # Price
+                text_bytes.extend([0x02, 0x00, 0x00])  # OK / No thanks
             assembler.add_floating_chunk(f"text.{symbolic_name}", text_bytes)
 
     assembler.add_floating_chunk("text.getArchipelagoItem", [
