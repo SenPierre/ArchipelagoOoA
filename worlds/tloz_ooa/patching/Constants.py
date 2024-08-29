@@ -380,6 +380,7 @@ DEFINES = {
     "GLOBALFLAG_REPAIRED_TUNI":"$1e",
     "GLOBALFLAG_REPAIRED_SWORD":"$2d",
     "GLOBALFLAG_VERAN_BEATEN":"$47",
+    "GLOBALFLAG_GOT_TUNINUT_FROM_BROTHER":"$48",
 }
 
 ASM_FILES = [
@@ -407,7 +408,7 @@ ASM_FILES = [
     "asm/get_item_behavior.yaml",
     "asm/vars.yaml",
     "asm/text.yaml",
-    #"asm/remove_item_on_use.yaml",
+    "asm/remove_item_on_use.yaml",
 ]
 
 RUPEE_VALUES = {

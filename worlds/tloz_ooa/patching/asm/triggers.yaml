@@ -152,6 +152,19 @@
 
 # change symmetry city wives' state based on brother's item obtained, not
 # global flag (fool's ore is used as a "dummy" item id set by the brothers.
-15/784f/: db jumpifitemobtained,TREASURE_FOOLS_ORE
+15/784f/: db jumpifglobalflagset,GLOBALFLAG_GOT_TUNINUT_FROM_BROTHER
 # don't change symmetry city brothers' state if the tuni nut has been placed.
 15/78e5/: db jumpifroomflagset,$02
+# Ignore the fact that the player has already the tuni nut
+15/78f5/: db jumpifglobalflagset,GLOBALFLAG_GOT_TUNINUT_FROM_BROTHER
+# Rewrite symmetryNpc_getTuniNutState
+15/77ef/: |
+    ld a,GLOBALFLAG_GOT_TUNINUT_FROM_BROTHER
+    call checkGlobalFlag
+    ld b,$00
+    jr z,@notTaken
+    inc b
+    @notTaken:
+    ld a,b
+    ld ($cfc1),a
+    ret

@@ -39,6 +39,7 @@
     call tingleSetFakeId
     call goronDanceSetFakeId
     call kingZoraSetFakeId
+    call symmetryBrotherSetFakeId
     @incoming:
     call setD6BossKey
     call makuSeedResetTreeState
@@ -157,6 +158,23 @@
     ld a,GLOBALFLAG_WON_FIRST_DANCE 
     @next2:
     push hl
+    call setGlobalFlag
+    pop hl
+    ret
+
+# set fake item ID to track getting the "tuni nut" from a brother.
+09//symmetryBrotherSetFakeId: |
+    push bc
+    ld bc,$6e03
+    call compareRoom
+    jr z,@next
+    inc b
+    call compareRoom
+    @next:
+    pop bc
+    ret nz
+    push hl
+    ld a,GLOBALFLAG_GOT_TUNINUT_FROM_BROTHER
     call setGlobalFlag
     pop hl
     ret
