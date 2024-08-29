@@ -399,31 +399,31 @@ ITEMS_DATA = {
 
     "Poe Clock": {
         'classification': ItemClassification.progression,
-        'id': 0x10
+        'id': 0x3d
     },
     "Stationary": {
         'classification': ItemClassification.progression,
-        'id': 0x12
+        'id': 0x3e
     },
     "Stink Bag": {
         'classification': ItemClassification.progression,
-        'id': 0x14
+        'id': 0x3f
     },
     "Tasty Meat": {
         'classification': ItemClassification.progression,
-        'id': 0x18
+        'id': 0x47
     },
     "Doggie Mask": {
         'classification': ItemClassification.progression,
-        'id': 0x1a
+        'id': 0x56
     },
     "Dumbbell": {
         'classification': ItemClassification.progression,
-        'id': 0x1b
+        'id': 0x57
     },
     "Cheesy Mustache": {
         'classification': ItemClassification.progression,
-        'id': 0x1c
+        'id': 0x5f
     },
     "Funny Joke": {
         'classification': ItemClassification.progression,
