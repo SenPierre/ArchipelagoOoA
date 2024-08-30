@@ -15,6 +15,16 @@
     rst 10
     ret
     
+
+# red soldier sprite data for deku forest soldier check.
+3f//soldierSpriteData: |
+    db 4d,00,22
+
+    
+3f//customSpriteJumpTableNotItem: |
+    dwbe 4000,soldierSpriteData
+    db ff
+
 # format (ID, subID, jump address). these functions *must* pop af as the last
 # instruction before returning.
 3f//customSpriteJumpTable: |
@@ -39,7 +49,6 @@
     push af
     push hl
     push bc
-    
     ld e,$41
     ld a,(de)
     ld b,a
@@ -50,11 +59,14 @@
     ld hl,customSpriteJumpTable
     call searchDoubleKey
     jr c,@customSprite
+    ; Same stuff with not item sprite
+    ld hl,customSpriteJumpTableNotItem
+    call searchDoubleKey
+    jr c,@customSpriteNotItem
     pop bc
     pop hl
     pop af
     ret
-
     @customSprite:
     pop bc
     ldi a,(hl)
@@ -64,6 +76,17 @@
     call lookupItemSprite_body
     pop af
     ret
+    @customSpriteNotItem:
+    pop bc
+    ldi a,(hl)
+    ld b,a
+    ld c,(hl)
+    pop hl
+    ld h,b
+    ld l,c
+    pop af
+    ret
+
 3f/4356/: call checkLoadCustomSprite
 
 # Inject the "Archipelago Item" sprite in subrosian sprite sheet in place of the rosa bow (which shouldn't be used because no linked game)
