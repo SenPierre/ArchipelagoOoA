@@ -180,7 +180,7 @@ class OracleOfAgesPricesFactor(Range):
 
 class OracleOfAgesAdvanceShop(Toggle):
     """
-    In the vanilla game, there is a house northwest of Horon Village hosting the secret "Advance Shop" that can only
+    In the vanilla game, there is secret "Advance Shop" next to the shooting gallery in past Lynna Village that can only
     be accessed if the game is being played on a Game Boy Advance console.
     If enabled, this option makes this shop always open, adding 3 shop locations to the game (and some rupees to the
     item pool to compensate for the extra purchases that might be required)
