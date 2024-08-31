@@ -156,8 +156,12 @@ ITEMS_DATA = {
         'id': 0x2e
     },
     "Potion": {
-        'classification': ItemClassification.progression,
+        'classification': ItemClassification.useful,
         'id': 0x2f
+    },
+    "King Zora's Potion": {
+        'classification': ItemClassification.progression,
+        'id': 0x37
     },
 
     "Small Key (Maku Path)": {

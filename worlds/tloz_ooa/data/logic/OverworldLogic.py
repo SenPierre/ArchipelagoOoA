@@ -550,7 +550,7 @@ def make_overworld_logic(player: int):
         ["library present", "library past", False, lambda state: state.has("Book of Seals", player)],
         ["zora village", "zora seas chest", False, lambda state: state.has("Fairy Powder", player)],
         ["zora village", "zora king gift", False, lambda state: all([
-            state.has("Potion", player)
+            state.has("King Zora's Potion", player)
         ])],
         ["zora king gift", "d7 entrance", False, lambda state: all([
             state.has("Fairy Powder", player),

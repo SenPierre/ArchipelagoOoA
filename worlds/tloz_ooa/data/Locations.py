@@ -136,7 +136,7 @@ LOCATIONS_DATA = {
     # -----
     "Advance Shop #1": {
         "region_id": "advance shop",
-        "vanilla_item": "Gasha Seed",
+        "vanilla_item": "Rupees (100)",
         "flag_byte": 0xc643,
         "bit_mask": 0x01,
         "scouting_byte": 0xc8fe,
@@ -158,7 +158,7 @@ LOCATIONS_DATA = {
     },
     "Advance Shop #3": {
         "region_id": "advance shop",
-        "vanilla_item": "Heart Ring L-1",
+        "vanilla_item": "Rupees (100)",
         "flag_byte": 0xc643,
         "bit_mask": 0x04,
         "scouting_byte": 0xc8fe,
@@ -255,14 +255,13 @@ LOCATIONS_DATA = {
     # -----
     "Syrup Shop #1": {
         "region_id": "syrup shop",
-        "vanilla_item": "Potion",
+        "vanilla_item": "King Zora's Potion",
         "flag_byte": 0xc642,
         "bit_mask": 0x80,
         "scouting_byte": 0xc8ed,
         "scouting_mask": 0x10,
         "collect": COLLECT_TOUCH,
         "symbolic_name": "syrupShop1",
-        "randomized": False,
     },
     "Syrup Shop #2": {
         "region_id": "syrup shop",

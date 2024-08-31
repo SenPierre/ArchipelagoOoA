@@ -98,7 +98,10 @@
 # Use that custom sprite with a blue palette inside GFX#5a (will be used for regular remote items)
 3f/67e9/: db $65,$14,$43 
 # Use that custom sprite with a red palette inside GFX#59 (will be used for progression remote items)
-3f/67e6/: db $65,$14,$53 
+3f/67e6/: db $65,$14,$63 
+
+# King Zora Potion
+3f/67f5/: db $79,$01,$13 
 
 # give items that don't normally appear as treasure interactions entries in
 # the treasure graphics table.

@@ -118,7 +118,6 @@ DEFINES = {
     "TREASURE_COMPASS":"$32",
     "TREASURE_MAP":"$33",
     "TREASURE_MAKU_SEED":"$36",
-    "TREASURE_ORE_CHUNKS":"$37",
     "TREASURE_ESSENCE":"$40",
     "TREASURE_TRADEITEM":"$41",
     "TREASURE_STAR_ORE":"$45",
@@ -160,6 +159,7 @@ DEFINES = {
     "TREASURE_BROKEN_SWORD":"$3a",
     "TREASURE_GASHA_SEED":"$34",
     "TREASURE_POTION":"$2f",
+    "TREASURE_ZORA_POTION":"$37", # Replace Ore Chunk
     "TX_REMOTE_ITEM":"$3b",
     "DEV_RING":"$40",
     "INTERAC_MULTI_BYTE":"$7f # low byte of struct",

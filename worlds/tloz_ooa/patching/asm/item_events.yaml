@@ -227,6 +227,10 @@
     nop
     call mapleTradeHandle
 
+# king zora check the custom potion now
+0c/7b71/: db TREASURE_ZORA_POTION
+0b/54cc/: db TREASURE_ZORA_POTION
+
 # king zora should give the item first, *then* give permission to enter jabu
 # (on another visit (as in vanilla)).
 0b//checkKingZoraSequence1: |

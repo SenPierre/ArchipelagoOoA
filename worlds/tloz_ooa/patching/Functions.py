@@ -37,6 +37,7 @@ def alter_treasures(rom: RomData):
     # Set data for remote Archipelago items
     set_treasure_data(rom, "Archipelago Item", 0x57, 0x5a)
     set_treasure_data(rom, "Archipelago Progression Item", 0x57, 0x59)
+    set_treasure_data(rom, "King Zora's Potion", 0x45, 0x5e)
 
     # Make bombs increase max carriable quantity when obtained from treasures,
     # not drops (see asm/seasons/bomb_bag_behavior)
@@ -143,6 +144,12 @@ def define_text_constants(assembler: Z80Assembler, patch_data):
         0x02, 0x7c, 0x20, 0x61, 0x6e, 0x01,  # You found an
         0x69, 0x74, 0x65, 0x6d, 0x05, 0x55, 0x20, 0x61, 0x6e, 0x03, 0xb9, 0x01,  # item for another
         0x03, 0xc9, 0x21, 0x00  # world!
+    ])
+    
+    assembler.add_floating_chunk("text.KingZoraPotionText", [
+        0x02, 0x7c, 0x01,   # You got
+        0x4b, 0x69, 0x6e, 0x67, 0x20, 0x5a, 0x6f, 0x72, 0x61, 0x27, 0x73, 0x01,  # King Zora's 
+        0x09, 0x01, 0x03, 0x0a, 0x09, 0x00, 0x21, 0x00,  # Magic Potion! 
     ])
 
     # TODO REWORK
