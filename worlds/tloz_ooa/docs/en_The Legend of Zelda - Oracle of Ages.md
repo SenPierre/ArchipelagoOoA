@@ -15,6 +15,29 @@ This exclude Rare Maple drop, the Tokay Market, The Essences and the Maku Seed.
 
 Items belonging to other worlds use an easily recognizable Archipelago sprite, which is blue if the item is unimportant, and red if it is a progression item. When collecting it, the game will inform you that you just sent an item to another player, and you can check on the client window to see which item was actually sent.
 
+## Currently Known Bugs
+
+- Some locations doesn't show their item properly (and show instead the vanilla item). This include :
+    - The Hidden Tokay
+    - Cheval Invention
+    - Cheval Test
+    - Patch Tuni nut Ceremony
+    - Patch Broken Sword Ceremony
+    - Wild Tokay Game
+- Maku Tree gift doesn't drop properly (instead just spawn on the ground)
+- Flute sprite show the strange flute sprite instead of the correct companion flute sprite
+- There is some strange visual glitch when you open and close a menu.
+- Progressive Shield doesn't work properly if you lose your shield to a like-like
+- Default Seed is not always the same seed than in Lynna city
+- Essences & Trees aren't properly tracked
+- Cheating in an essence break the second screen of the inventory
+- Gasha trees are turbo broken
+- Present D6 Compass show a map sprite
+- Initial Max Bomb is not properly set
+- Crescent Island portal sign doesn't have the proper text that state that the portal only open with current.
+- Rings description is misplaced in the ring menu
+- send_location command doesn't seems to work properly with the trees
+
 ## Frequently Asked Questions
 
 **What does medium / hard logic expects from me?**
