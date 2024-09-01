@@ -72,5 +72,5 @@
     ld de,$9c20
     ld hl,dma_FileSelectStringTiles
     jp queueDmaTransfer
-02/4206/: call displayFileSelectString
-02/4a54/: jp displayFileSelectString
+02/0206/: call displayFileSelectString
+02/0a54/: jp displayFileSelectString

@@ -1,10 +1,10 @@
 # map pop-up icons for seed trees
-02/6c60/: db locations.horonVillageSeedTree.id - $0b
-02/6c5d/: db locations.woodsOfWinterSeedTree.id - $0b
-02/6c57/: db locations.northHoronSeedTree.id - $0b
-02/6c5a/: db locations.spoolSwampSeedTree.id - $0b
-02/6c54/: db locations.sunkenCitySeedTree.id - $0b
-02/6c51/: db locations.tarmRuinsSeedTree.id - $0b
+02/2c60/: db locations.horonVillageSeedTree.id - $0b
+02/2c5d/: db locations.woodsOfWinterSeedTree.id - $0b
+02/2c57/: db locations.northHoronSeedTree.id - $0b
+02/2c5a/: db locations.spoolSwampSeedTree.id - $0b
+02/2c54/: db locations.sunkenCitySeedTree.id - $0b
+02/2c51/: db locations.tarmRuinsSeedTree.id - $0b
 
 # Store a few additional variables when checking the SELECT button to open map
 02//extendedMenuOpenCheck: |
@@ -15,7 +15,7 @@
     ld a,(wKeysJustPressed)
     ret
 # Replace the second `ld a,(wKeysJustPressed)` in b2_updateMenus by an extension
-02/4fc5/: call extendedMenuOpenCheck
+02/0fc5/: call extendedMenuOpenCheck
 
 # When booting the map, handle a "cycling order" that can be issued using the keybinding defined
 # by above functions. Pressing that button reopens the map with another map mode,
@@ -39,7 +39,7 @@
     ld a,(wDungeonIndex)
     inc a
     cp $09
-    jr z,@invalidDungeon
+    jr nc,@invalidDungeon
     
     ld (wDungeonIndex),a
     jr @openDungeon
@@ -53,7 +53,7 @@
     ld a,(wMinimapGroup)
     inc a
     cp $02
-    jr z,@swapToDungeon
+    jr nc,@swapToDungeon
     
     ld (wMinimapGroup),a
     jr @open
@@ -73,7 +73,7 @@
     call disableLcd
     jp $5ee3    ; mapMenu_state0
 # Change the pointer to state0 inside runMapMenu jump table
-02/5edf/: dw extendedBootMapMenu
+02/1edf/: dw extendedBootMapMenu
 
 # Handle a keybinding to change map type (overworld, Subrosia, dungeons)
 02//worldMapStartButtonSupport: |
@@ -90,9 +90,9 @@
     call fastFadeoutToWhite
     ret
 # Replace `jp nz,closeMenu` in @noDirectionButtonPressed by an extension (outside maps)
-02/6089/: call worldMapStartButtonSupport
+02/2089/: call worldMapStartButtonSupport
 # Replace `jp nz,closeMenu` in @dungeon by an extension (dungeon maps)
-02/602c/: call worldMapStartButtonSupport
+02/202c/: call worldMapStartButtonSupport
 
 # Extend the close menu procedure to reset temporarily changed variable with the value
 # they had when initially opening the map
@@ -108,7 +108,7 @@
     ld hl,wMenuLoadState
     ret
 # Replace `ld hl,wMenuLoadState` in menuStateFadeOutOfMenu by an extension
-02/508b/: call extendedMenuClose
+02/108b/: call extendedMenuClose
 
 # Tests if player really is in the dungeon that is being looked at through the dungeon
 # map (sets flag Z if inside)
@@ -138,7 +138,7 @@
     ret
 # replace the unique calls of the 3 functions contained inside dontDrawDungeonIfNotInside by a
 # call to it
-02/5f64/: |
+02/1f64/: |
     call dontDrawDungeonIfNotInside
     jr $04
 
@@ -155,7 +155,7 @@
     @done:
     ret
 # Replace the only call to dungeonMap_drawLinkIcons by the extension above
-02/63dc/: jp dontDrawDungeonSpritesIfNotInside
+02/23dc/: jp dontDrawDungeonSpritesIfNotInside
 
 # Prevent from scrolling floors if not inside dungeon (and therefore map is not displayed)
 02//onlyAllowScrollingIfInsideDungeon: |
@@ -167,7 +167,7 @@
     pop af      ; pop return address from stack
     ret
 # Replace first call of dungeonMap_scrollingState0 by this extension
-02/62fe/: call onlyAllowScrollingIfInsideDungeon
+02/22fe/: call onlyAllowScrollingIfInsideDungeon
 
 # On overworld & Subrosia maps, don't draw the arrow if we aren't in that dimension
 02//drawWorldArrowOnlyIfInDimension: |
@@ -180,7 +180,7 @@
     pop af      ; pop return address from stack
     ret
 # Replace the first instruction of mapMenu_drawArrow by a call to above extension
-02/657d/: call drawWorldArrowOnlyIfInDimension
+02/257d/: call drawWorldArrowOnlyIfInDimension
 
 # Override initialization of cursor position to set it to origin position if we have cycled
 # mode at least once
@@ -194,7 +194,7 @@
     @done:
     ret
 # Replace the instruction `ld (wMapMenu.cursorIndex),a` inside mapMenu_state0 by a call to above function
-02/5f2d/: call initializeCursorPosition
+02/1f2d/: call initializeCursorPosition
 
 # If dungeon map is owned, return with flag Z unset to indicate dungeon has
 # been visited and needs to be displayed on map. Otherwise, perform the usual
@@ -206,4 +206,71 @@
     ret nz
     jp $611a    ; @checkDungeonEntered
 # Replace the unique call to @checkDungeonEntered by a call to above extension
-02/60f3/: call extendedCheckForDungeonDisplay
+02/20f3/: call extendedCheckForDungeonDisplay
+
+# ========== PORTAL TEXT HANDLING
+
+# Put a fixed "Maku Tree" text on its tile instead of being able to ask for remote advice by selecting its tile.
+# This way, we can reuse the "@specialCode0" to handle dynamic names for Subrosian Portals
+02/2ae2/: db $17
+
+# Stop calling func_6e06 to set portal bit when it is spawned
+15/2dfb/: |
+    nop
+    nop
+    nop
+
+# Make minimapPopupType_portalSpot always show the portal icon
+02/21e0/: |
+    ld a,e
+    ret
+
+# Generic function setting portal bit for the current room (or the matching overworld room, when in Horon basement or
+# in Temple Remains summit)
+05//playSoundAndSetPortalBit: |
+    call playSound  ; Function call which was overwritten
+    ; Call the function which was initially used to set the flag when spawning the portal
+    ld hl,$6e0b
+    ld e,$15
+    jp interBankCall
+# Set portal bit when entering a portal
+05/0c8d/: call playSoundAndSetPortalBit
+# Set portal bit when landing out of a portal
+05/0d32/: call playSoundAndSetPortalBit
+
+# Replace @specialCode0 (used in vanilla for Maku Tree text on map, which is
+# useless in rando) by dynamic portal text, showing the portal destination if
+# portal has already been visited, or "Unknown Portal" otherwise.
+# ---------------------------
+# in(c) = portal index
+# out(b) = text group
+# out(c) = text index
+02//getPortalText: |
+    ld a,(wMapMenuCursorIndex)
+    ld b,a
+    ld a,(wMapMenuMode)
+    
+    call getRoomFlags
+    bit 3,a
+    jr z,@unknownPortal
+
+    ; if "Portal visited" flag is set, show the full portal label
+    ld b,$56 ; textgroup
+    ld a,$01 ; base_textid
+    add a,c
+    ld c,a
+    ret
+
+    @unknownPortal:
+    ; otherwise, show a generic "Unknown Portal" text
+    ld bc,$5600
+    ret
+# Overwrite @specialCode0 to call above function
+02/20dd/: |
+    ld a,c
+    add a,a
+    swap a
+    and $0f
+    ld c,a
+
+    jp getPortalText

@@ -1,68 +1,70 @@
+from ..data.Constants import *
+
 EOB_ADDR = [
     0x3ec8,  # 00
-    0x7e89,  # 01
-    0x75bb,  # 02
-    0x7dd7,  # 03
-    0x7e12,  # 04
-    0x7e2d,  # 05
-    0x7864,  # 06 - 128 bytes reserved for sprite expansion w/ web patcher
-    0x7900,  # 07
-    0x7fc0,  # 08
-    0x7f4e,  # 09
-    0x7bf9,  # 0a
-    0x7f6d,  # 0b
-    0x7ea1,  # 0c
-    0x7b82,  # 0d
-    0x7ef3,  # 0e
-    0x7f9d,  # 0f
-    0x7bee,  # 10
-    0x7eb0,  # 11
-    0x7c8f,  # 12
-    0x7bd2,  # 13
-    0x6fc9,  # 14 - ton of free space here
-    0x792d,  # 15
-    0x7a07,  # 16
-    0x7f3a,  # 17
-    0x7e6d,  # 18
-    0x76e1,  # 19
-    0x70f0,  # 1a - here too
-    0x7c40,  # 1b
-    0x8000,  # 1c
-    0x8000,  # 1d
-    0x8000,  # 1e
-    0x8000,  # 1f
-    0x8000,  # 20
-    0x8000,  # 21
-    0x8000,  # 22
-    0x8000,  # 23
-    0x8000,  # 24
-    0x8000,  # 25
-    0x8000,  # 26
-    0x8000,  # 27
-    0x8000,  # 28
-    0x8000,  # 29
-    0x8000,  # 2a
-    0x8000,  # 2b
-    0x8000,  # 2c
-    0x8000,  # 2d
-    0x8000,  # 2e
-    0x8000,  # 2f
-    0x8000,  # 30
-    0x8000,  # 31
-    0x8000,  # 32
-    0x8000,  # 33
-    0x8000,  # 34
-    0x8000,  # 35
-    0x8000,  # 36
-    0x8000,  # 37
-    0x7df0,  # 38
-    0x8000,  # 39
-    0x8000,  # 3a
-    0x8000,  # 3b
-    0x8000,  # 3c
-    0x8000,  # 3d
-    0x8000,  # 3e
-    0x714b  # 3f - also here
+    0x3e89,  # 01
+    0x35bb,  # 02
+    0x3dd7,  # 03
+    0x3e12,  # 04
+    0x3e2d,  # 05
+    0x3864,  # 06 - 128 bytes reserved for sprite expansion w/ web patcher
+    0x3900,  # 07
+    0x3fc0,  # 08
+    0x3f4e,  # 09
+    0x3bf9,  # 0a
+    0x3f6d,  # 0b
+    0x3ea1,  # 0c
+    0x3b82,  # 0d
+    0x3ef3,  # 0e
+    0x3f9d,  # 0f
+    0x3bee,  # 10
+    0x3eb0,  # 11
+    0x3c8f,  # 12
+    0x3bd2,  # 13
+    0x2fc9,  # 14 - ton of free space here
+    0x392d,  # 15
+    0x3a07,  # 16
+    0x3f3a,  # 17
+    0x3e6d,  # 18
+    0x36e1,  # 19
+    0x30f0,  # 1a - here too
+    0x3c40,  # 1b
+    0x4000,  # 1c
+    0x4000,  # 1d
+    0x4000,  # 1e
+    0x4000,  # 1f
+    0x4000,  # 20
+    0x4000,  # 21
+    0x4000,  # 22
+    0x4000,  # 23
+    0x4000,  # 24
+    0x4000,  # 25
+    0x4000,  # 26
+    0x4000,  # 27
+    0x4000,  # 28
+    0x4000,  # 29
+    0x4000,  # 2a
+    0x4000,  # 2b
+    0x4000,  # 2c
+    0x4000,  # 2d
+    0x4000,  # 2e
+    0x4000,  # 2f
+    0x4000,  # 30
+    0x4000,  # 31
+    0x4000,  # 32
+    0x4000,  # 33
+    0x4000,  # 34
+    0x4000,  # 35
+    0x4000,  # 36
+    0x4000,  # 37
+    0x3df0,  # 38
+    0x4000,  # 39
+    0x4000,  # 3a
+    0x4000,  # 3b
+    0x4000,  # 3c
+    0x4000,  # 3d
+    0x4000,  # 3e
+    0x314b   # 3f - also here
 ]
 
 DEFINES = {
@@ -74,19 +76,21 @@ DEFINES = {
     "wKeysPressed": "$c481",
     "wKeysJustPressed": "$c482",
     "wPaletteThread_mode": "$c4ab",
+    "wCustomBuffer": "$c4bf",  # Custom address
     "wAnimalRegion": "$c610",
     "wRingsObtained": "$c616",
     "wTotalSignsDestroyed": "$c626",
+    "wDeathRespawnBuffer": "$c62b",
     "wMinimapGroup": "$c63a",
     "wBoughtShopItems2": "$c640",
     "wBoughtSubrosianItems": "$c642",
     "wDimitriState": "$c644",
     "wAnimalTutorialFlags": "$c646",
+    "wGashaSpotFlags": "$c649",
     "wDungeonCompasses": "$c67c",
     "wDungeonMaps": "$c67e",
-    "wObtainedTreasureFlags": "$c69a",
-    "wNetCountInL": "$c6a0",
-    "wNetCountInH": "$c6a1",
+    "wObtainedTreasureFlags": "$c692",
+    "wNetCountIn": "$c6a0",
     "wLinkMaxHealth": "$c6a3",
     "wCurrentBombs": "$c6aa",
     "wMaxBombs": "$c6ab",
@@ -99,8 +103,11 @@ DEFINES = {
     "wActiveRing": "$c6c5",
     "wRingBoxLevel": "$c6c6",
     "wInsertedJewels": "$c6e1",
+    "wTextIndexL": "$cba2",
+    "wTextIndexH": "$cba3",
     "wTextNumberSubstitution": "$cba8",
     "wDungeonMapScroll": "$cbb4",
+    "wMapMenuMode": "$cbb3",
     "wMapMenuCursorIndex": "$cbb6",
     "wMenuLoadState": "$cbcc",
     "wMenuActiveState": "$cbcd",
@@ -112,6 +119,7 @@ DEFINES = {
     "wFrameCounter": "$cc00",
     "wIsLinkedGame": "$cc01",
     "wMenuDisabled": "$cc02",
+    "wLinkDeathTrigger": "$cc34",
     "wRememberedCompanionRoom": "$cc42",
     "wRememberedCompanionY": "$cc43",
     "wLinkObjectIndex": "$cc48",
@@ -119,6 +127,8 @@ DEFINES = {
     "wActiveRoom": "$cc30",
     "wActiveRoomPack": "$cc4d",
     "wRoomStateModifier": "$cc4e",
+    "wLostWoodsTransitionCounter1": "$cc53",
+    "wLostWoodsTransitionCounter2": "$cc54",
     "wDungeonIndex": "$cc55",
     "wDungeonFloor": "$cc57",
     "wWarpDestGroup": "$cc63",
@@ -127,11 +137,15 @@ DEFINES = {
     "wWarpDestPos": "$cc66",
     "wWarpTransition2": "$cc67",
     "wLinkGrabState": "$cc75",
+    "wLinkSwimmingState": "$cc78",
+    "wLinkImmobilized": "$cc7c",
     "wDisabledObjects": "$cca4",
     "wDisableWarpTiles": "$ccaa",
+    "wScreenTransitionDirection": "$cd02",
     "wScreenOffsetY": "$cd08",
 
     "w1Link.yh": "$d00b",
+    "w7ActiveBank": "$d0d4",
 
     # High RAM offsets (FF00 + offset)
     "hRomBank": "$97",
@@ -158,6 +172,7 @@ DEFINES = {
     "showTextNonExitable": "$1847",
     "showText": "$184b",
     "getThisRoomFlags": "$1956",
+    "getRoomFlags": "$1963",
     "openMenu": "$1a76",
     "linkInteractWithAButtonSensitiveObjects": "$1b23",
     "lookupKey": "$1dc4",
@@ -167,6 +182,7 @@ DEFINES = {
     "convertShortToLongPosition": "$2089",
     "objectCopyPosition": "$21fd",
     "objectCopyPosition_rawAddress": "$2202",
+    "interactionIncState": "$239b",
     "interactionSetScript": "$24fe",
     "createTreasure": "$271b",
     "setLinkIdOverride": "$2a16",
@@ -186,6 +202,10 @@ DEFINES = {
     "BTN_A": "$01",
     "BTN_B": "$02",
     "BTN_START": "$08",
+    "BTN_RIGHT": "$10",
+    "BTN_LEFT": "$20",
+    "BTN_UP": "$40",
+    "BTN_DOWN": "$80",
     "COLLECT_PICKUP": "$0a",
     "COLLECT_PICKUP_NOFLAG": "$02",
     "COLLECT_CHEST": "$38",
@@ -197,6 +217,12 @@ DEFINES = {
     "SND_SOLVEPUZZLE_2": "$5b",
     "SND_GETSEED": "$5e",
     "SND_TELEPORT": "$8d",
+    "SND_COMPASS": "$a2",
+
+    "SEASON_SPRING": "$00",
+    "SEASON_SUMMER": "$01",
+    "SEASON_AUTUMN": "$02",
+    "SEASON_WINTER": "$03",
 
     "TREASURE_SHIELD": "$01",
     "TREASURE_PUNCH": "$02",
@@ -316,11 +342,11 @@ ASM_FILES = [
     "asm/compass_chimes.yaml",
     "asm/cutscenes.yaml",
     "asm/file_select_custom_string.yaml",
+    "asm/gasha_loot.yaml",
     "asm/get_item_behavior.yaml",
     "asm/gfx.yaml",
     "asm/impa_refill.yaml",
     "asm/item_events.yaml",
-    "asm/keysanity.yaml",
     "asm/layouts.yaml",
     "asm/locations.yaml",
     "asm/map_menu.yaml",
@@ -367,14 +393,6 @@ RUPEE_VALUES = {
     900: 0x12,
     80: 0x13,
     999: 0x14,
-}
-
-SEASON_VALUES = {
-    "spring": 0x00,
-    "summer": 0x01,
-    "autumn": 0x02,
-    "winter": 0x03,
-    "chaotic": 0xff
 }
 
 DUNGEON_ENTRANCES = {
@@ -458,60 +476,96 @@ DUNGEON_EXITS = {
 PORTAL_WARPS = {
     "eastern suburbs portal": {
         "addr": 0x134fd,
-        "map_tile": 0x9a
-    },
-    "volcanoes east portal": {
-        "addr": 0x136b5,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0x9a,
+        "in_subrosia": False,
+        "text_index": 0x0,
     },
     "spool swamp portal": {
         "addr": 0x13501,
-        "map_tile": 0xb0
-    },
-    "subrosia market portal": {
-        "addr": 0x136b9,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0xb0,
+        "in_subrosia": False,
+        "text_index": 0x1,
     },
     "mt. cucco portal": {
         "addr": 0x13601,
-        "map_tile": 0x1e
-    },
-    "strange brothers portal": {
-        "addr": 0x136bd,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0x1e,
+        "in_subrosia": False,
+        "text_index": 0x2,
     },
     "eyeglass lake portal": {
         "addr": 0x13509,
-        "map_tile": 0xb9
-    },
-    "great furnace portal": {
-        "addr": 0x136c1,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0xb9,
+        "in_subrosia": False,
+        "text_index": 0x3,
     },
     "horon village portal": {
         "addr": 0x13905,
-        "map_tile": 0xf7
-    },
-    "house of pirates portal": {
-        "addr": 0x13729,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0xf7,
+        "in_subrosia": False,
+        "text_index": 0x4,
     },
     "temple remains lower portal": {
         "addr": 0x1350d,
-        "map_tile": 0x25
-    },
-    "volcanoes west portal": {
-        "addr": 0x136c5,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0x25,
+        "in_subrosia": False,
+        "text_index": 0x5,
     },
     "temple remains upper portal": {
         "addr": 0x1388d,
-        "map_tile": 0x04
+        "map_tile": 0x04,
+        "in_subrosia": False,
+        "text_index": 0x6,
+    },
+
+    "volcanoes east portal": {
+        "addr": 0x136b5,
+        "map_tile": 0x05,
+        "in_subrosia": True,
+        "text_index": 0x7,
+    },
+    "subrosia market portal": {
+        "addr": 0x136b9,
+        "map_tile": 0x3e,
+        "in_subrosia": True,
+        "text_index": 0x8,
+    },
+    "strange brothers portal": {
+        "addr": 0x136bd,
+        "map_tile": 0x3a,
+        "in_subrosia": True,
+        "text_index": 0x9,
+    },
+    "great furnace portal": {
+        "addr": 0x136c1,
+        "map_tile": 0x36,
+        "in_subrosia": True,
+        "text_index": 0xa,
+    },
+    "house of pirates portal": {
+        "addr": 0x13729,
+        "map_tile": 0x4f,
+        "in_subrosia": True,
+        "text_index": 0xb,
+    },
+    "volcanoes west portal": {
+        "addr": 0x136c5,
+        "map_tile": 0x0e,
+        "in_subrosia": True,
+        "text_index": 0xc,
     },
     "d8 entrance portal": {
         "addr": 0x136c9,
-        "map_tile": 0x00  # TODO
+        "map_tile": 0x16,
+        "in_subrosia": True,
+        "text_index": 0xd,
     }
+}
+
+PALETTE_BYTES = {
+    "green": 0x00,
+    "blue": 0x01,
+    "red": 0x02,
+    "orange": 0x03,
 }
 
 # Scripting constants
@@ -525,12 +579,16 @@ WRITE_OBJECT_BYTE = 0x8e
 SHOW_TEXT_LOW_INDEX = 0x98
 ENABLE_ALL_OBJECTS = 0xb9
 
-DIRECTION_UP = 0
-DIRECTION_RIGHT = 1
-DIRECTION_DOWN = 2
-DIRECTION_LEFT = 3
+DIRECTION_STRINGS = {
+    DIRECTION_UP: [0x15, 0x20],
+    DIRECTION_DOWN: [0x16, 0x20],
+    DIRECTION_LEFT: [0x17, 0x20],
+    DIRECTION_RIGHT: [0x18, 0x20],
+}
 
-SEASON_SPRING = 0
-SEASON_SUMMER = 1
-SEASON_AUTUMN = 2
-SEASON_WINTER = 3
+SEASON_STRINGS = {
+    SEASON_SPRING: [0x02, 0xde],
+    SEASON_SUMMER: ['S'.encode()[0], 0x04, 0xbc],
+    SEASON_AUTUMN: ['A'.encode()[0], 0x05, 0x25],
+    SEASON_WINTER: [0x03, 0x7e]
+}

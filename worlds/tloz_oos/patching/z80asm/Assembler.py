@@ -1,118 +1,9 @@
-import collections
 from copy import copy
-import re
-from typing import List, Dict
-
+from typing import Dict
+from .Util import *
 from .Errors import *
 from .MnemonicsTree import MNEMONICS
-
-
-def strip_line(line):
-    """
-    Strips indent and comment from line, if present.
-    """
-    line = line.strip()
-    return re.sub(r' *[;#].*\n?', '', line)
-
-
-def parse_hex_string_to_value(string: str):
-    """
-    Parse an hexadecimal string into a numeric value, handling some operators
-    """
-    string = string.replace("$", "")
-    if "+" in string:
-        split = string.split("+")
-        return int(split[0], 16) + int(split[1], 16)
-    elif "-" in string:
-        split = string.split("-")
-        return int(split[0], 16) - int(split[1], 16)
-    elif "*" in string:
-        split = string.split("*")
-        return int(split[0], 16) * int(split[1], 16)
-    elif "|" in string:
-        split = string.split("|")
-        return int(split[0], 16) | int(split[1], 16)
-    else:
-        return int(string, 16)
-
-
-def value_to_byte_array(value: int, expected_size: int):
-    """
-    Converts a value into a little endian byte array
-    (e.g. "0x4Fa7DEadBEef" => [0xef, 0xbe, 0xad, 0xde, 0xa7, 0x4f])
-    """
-    output = []
-    while value > 0:
-        output.append(value & 0xFF)
-        value >>= 8
-    if len(output) > expected_size:
-        raise ArgumentOverflowError(value, expected_size)
-    while len(output) < expected_size:
-        output.append(0x00)
-
-    return output
-
-
-def parse_hex_byte(string: str):
-    """
-    Converts a byte literal hexadecimal string into a byte value
-    (e.g. "$4F" => 0x4f)
-    """
-    value = parse_hex_string_to_value(string)
-    return value_to_byte_array(value, 1)[0]
-
-
-def parse_hex_word(string: str):
-    """
-    Converts a word literal hexadecimal string into a little endian byte array
-    (e.g. "$4Fa7" => [0xa7, 0x4f])
-    """
-    value = parse_hex_string_to_value(string)
-    return value_to_byte_array(value, 2)
-
-
-def parse_argument(arg: str, mnemonic_subtree: collections.abc.Mapping) -> (str, List[int]):
-    """
-    Parse an argument to extract a generic form and potential extra bytes
-        "$1a"     => ("$8",     [0x1a])
-        "($c43f)" => ("($16)",  [0x3f,0xc4])
-        "bc"      => ("bc",     [])
-        "$04+$29" => ("$8",     [0x2d])
-    """
-    arg = arg.strip()
-    enclosed_in_parentheses = arg.startswith("(") and arg.endswith(")")
-    if enclosed_in_parentheses:
-        arg = arg[1:-1]
-
-    # If argument is a literal, determine the expected size of that literal using the
-    # mnemonic subtree that was passed as parameter
-    if arg.startswith("$"):
-        value = 0
-        try:
-            value = parse_hex_string_to_value(arg)
-        except ValueError:
-            pass
-
-        for size in [8, 16]:
-            generic_arg = f"${size}"
-            if enclosed_in_parentheses:
-                generic_arg = f"({generic_arg})"
-            if generic_arg in mnemonic_subtree:
-                return generic_arg, value_to_byte_array(value, int(size/8))
-
-    # If we reached that point, this means we need to keep the symbol as it is: it can be a register name,
-    # or an invalid name which will get rejected at a later point
-    if enclosed_in_parentheses:
-        return f"({arg})", []
-    else:
-        return arg, []
-
-
-def get_bank_bounds(bank: int) -> (int, int):
-    if bank == 0:
-        return 0x0000, 0x4000
-    bank_start = (bank-1) * 0x4000
-    return bank_start, bank_start + 0x8000
+from ..Util import hex_str
 
 
 class GameboyAddress:
@@ -120,22 +11,14 @@ class GameboyAddress:
         self.bank = bank
         self.offset = offset
 
-    def full_address(self):
-        if self.bank < 2:
-            base_addr = 0x0000
-        else:
-            base_addr = (self.bank - 1) * 0x4000
-        return base_addr + self.offset
-
-    def to_byte(self):
-        return "$" + hex(self.offset)[2:]
+    def address_in_rom(self):
+        return (self.bank * 0x4000) + self.offset
 
     def to_word(self):
-        return "$" + hex(self.offset)[2:].rjust(4, '0')
-
-    def to_bytes(self):
-        full_addr = self.full_address()
-        return [full_addr & 0xFF, full_addr >> 8]
+        mapped_offset = self.offset
+        if self.bank > 0:
+            mapped_offset += 0x4000
+        return f"${hex_str(mapped_offset,2)}"
 
 
 class Z80Block:
@@ -147,7 +30,12 @@ class Z80Block:
             raise Exception(f"Invalid metalabel '{metalabel}'")
         if split_metalabel[1] == "":
             split_metalabel[1] = "ffff"  # <-- means that it needs to be injected in some code cave
-        self.addr = GameboyAddress(int(split_metalabel[0], 16), int(split_metalabel[1], 16))
+
+        offset = int(split_metalabel[1], 16)
+        if offset >= 0x4000 and offset != 0xffff:
+            raise InvalidAddressError(offset)
+        self.addr = GameboyAddress(int(split_metalabel[0], 16), offset)
+
         self.label = split_metalabel[2]
 
         stripped_lines = [strip_line(line) for line in contents.split("\n")]
@@ -172,13 +60,16 @@ class Z80Block:
 
 
 class Z80Assembler:
-    def __init__(self):
+    def __init__(self, end_of_banks: List[int], defines: Dict[str, str]):
         self.defines = {}
+        for key, value in defines.items():
+            self.define(key, value)
+
+        self.end_of_banks = copy(end_of_banks)
+
         self.floating_chunks = {}
         self.global_labels = {}
         self.blocks = []
-        self.end_of_banks = [0x4000]
-        self.end_of_banks.extend([0x8000] * 0x3f)
 
     def define(self, key: str, replacement_string: str):
         if key in self.defines:
@@ -190,16 +81,14 @@ class Z80Assembler:
             byte += 0x100
         while byte >= 0x100:
             byte -= 0x100
-        hex_str = "$" + hex(byte)[2:].rjust(2, "0")
-        self.define(key, hex_str)
+        self.define(key, f"${hex_str(byte)}")
 
     def define_word(self, key: str, word: int):
         while word < 0:
             word += 0x10000
         while word >= 0x10000:
             word -= 0x10000
-        hex_str = "$" + hex(word)[2:].rjust(4, "0")
-        self.define(key, hex_str)
+        self.define(key, f"${hex_str(word, 2)}")
 
     def add_floating_chunk(self, name: str, byte_array: List[int]):
         """
@@ -225,10 +114,8 @@ class Z80Assembler:
             if block.label.startswith("dma_") and injection_offset % 0x10 != 0:
                 injection_offset += 0x10 - (injection_offset % 0x10)
 
-            bank_start, bank_end = get_bank_bounds(block.addr.bank)
-            bank_size = bank_end - bank_start
-            if injection_offset + block.precompiled_size > bank_size:
-                raise Exception(f"Not enough space for block {block.label} in bank {block.addr.bank} "
+            if injection_offset + block.precompiled_size > 0x4000:
+                raise Exception(f"Not enough space for block {block.label} in bank {hex_str(block.addr.bank)} "
                                 f"({hex(injection_offset + block.precompiled_size)})")
             block.set_base_offset(injection_offset)
             self.end_of_banks[block.addr.bank] = injection_offset + block.precompiled_size
@@ -267,7 +154,7 @@ class Z80Assembler:
                         raise Exception(f"Label {arg} is too far away, offset cannot be expressed as a single byte ({difference})")
                     if difference < 0:
                         difference = 0x100 + difference
-                    output = "$" + hex(difference)[2:].rjust(2, '0')
+                    output = f"${hex_str(difference)}"
                 else:
                     output = addr.to_word()
 

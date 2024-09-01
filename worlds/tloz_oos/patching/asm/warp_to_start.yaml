@@ -3,14 +3,14 @@
     jp nz,$6560     ; _mapMenu_checkRoomVisited
     or a
     ret
-02/5ec8/: call checkTreeVisited
-02/65e1/: call checkTreeVisited
+02/1ec8/: call checkTreeVisited
+02/25e1/: call checkTreeVisited
 
 # always treat starting seed tree as visited for warping purposes.
 02//checkCursorVisited: |
     ld a,(wMapMenuCursorIndex)
     jp checkTreeVisited
-02/609b/: call checkCursorVisited
+02/209b/: call checkCursorVisited
 
 # warp to horon village tree if holding start when opening the map screen.
 02//checkWarpToStart: |
@@ -39,6 +39,21 @@
     ld a,option.startingSeason
     ld (wRoomStateModifier),a
     
+    ; Setup respawn to prevent save-scumming
+    ld hl,wDeathRespawnBuffer
+    ld a,option.startingGroup
+    ldi (hl),a  ; Room group
+    ld a,option.startingRoom
+    ldi (hl),a  ; Room
+    ld a,option.startingSeason
+    ldi (hl),a  ; Season
+    ld a,$02
+    ldi (hl),a  ; Direction
+    ld a,option.startingPosY
+    ldi (hl),a  ; Y
+    ld a,option.startingPosX
+    ld (hl),a   ; X
+    
     ld a,SND_TELEPORT
     call playSound
     
@@ -57,4 +72,4 @@
     @done:
     jp $5029    ; @openMenu
 # Replace the unique call to @openMenu by the above extension checking for warp to start
-02/501f/: call checkWarpToStart
+02/101f/: call checkWarpToStart

@@ -55,6 +55,12 @@
 
 # Add a special bypass to not show textboxes for Small Keys dropping from ceiling
 09//bypassKeydropsTextbox: |
+    ; Don't bypass anything if keysanity is on, since we want the textbox to indicate for which dungeon 
+    ; that key was for.
+    ld a,option.keysanity_small_keys
+    or a
+    jr nz,@regularText
+    
     ld e,$71            ; var31, containing spawn mode
     ld a,(de)
     cp $02
@@ -74,7 +80,7 @@
     ld e,$75            ; var35, containing text id
     ld a,(de)
     ret
-09/42ef/: call bypassKeydropsTextbox
+09/02ef/: call bypassKeydropsTextbox
 
 # collect modes starting at 80 index this jump table to determine the actual
 # mode.

@@ -1,32 +1,50 @@
-VERSION = "7.0"
+VERSION = "7.2"
+ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
 
-SEASONS = [
-    "spring",
-    "summer",
-    "autumn",
-    "winter"
-]
-
+DIRECTION_UP = 0
+DIRECTION_RIGHT = 1
+DIRECTION_DOWN = 2
+DIRECTION_LEFT = 3
 DIRECTIONS = [
-    "up",
-    "right",
-    "down",
-    "left"
+    DIRECTION_UP,
+    DIRECTION_RIGHT,
+    DIRECTION_DOWN,
+    DIRECTION_LEFT
 ]
+
+SEASON_SPRING = 0x00
+SEASON_SUMMER = 0x01
+SEASON_AUTUMN = 0x02
+SEASON_WINTER = 0x03
+SEASON_CHAOTIC = 0xFF
+SEASONS = [
+    SEASON_SPRING,
+    SEASON_SUMMER,
+    SEASON_AUTUMN,
+    SEASON_WINTER
+]
+
+SEASON_NAMES = {
+    SEASON_SPRING: "spring",
+    SEASON_SUMMER: "summer",
+    SEASON_AUTUMN: "autumn",
+    SEASON_WINTER: "winter",
+    SEASON_CHAOTIC: "chaotic"
+}
 
 SEASON_ITEMS = {
-    "winter": "Rod of Seasons (Winter)",
-    "summer": "Rod of Seasons (Summer)",
-    "spring": "Rod of Seasons (Spring)",
-    "autumn": "Rod of Seasons (Autumn)",
+    SEASON_WINTER: "Rod of Seasons (Winter)",
+    SEASON_SUMMER: "Rod of Seasons (Summer)",
+    SEASON_SPRING: "Rod of Seasons (Spring)",
+    SEASON_AUTUMN: "Rod of Seasons (Autumn)",
 }
 
 SEED_ITEMS = [
     "Ember Seeds",
     "Scent Seeds",
     "Pegasus Seeds",
+    "Gale Seeds",
     "Mystery Seeds",
-    "Gale Seeds"
 ]
 
 DUNGEON_NAMES = [
@@ -64,17 +82,17 @@ VALID_RUPEE_VALUES = [
 ]
 
 DEFAULT_SEASONS = {
-    "EYEGLASS_LAKE": "winter",
-    "HOLODRUM_PLAIN": "spring",
-    "EASTERN_SUBURBS": "autumn",
-    "WOODS_OF_WINTER": "summer",
-    "SUNKEN_CITY": "summer",
-    "WESTERN_COAST": "winter",
-    "SPOOL_SWAMP": "autumn",
-    "TEMPLE_REMAINS": "winter",
-    "LOST_WOODS": "autumn",
-    "TARM_RUINS": "spring",
-    "HORON_VILLAGE": "spring"
+    "EYEGLASS_LAKE": SEASON_WINTER,
+    "HOLODRUM_PLAIN": SEASON_SPRING,
+    "EASTERN_SUBURBS": SEASON_AUTUMN,
+    "WOODS_OF_WINTER": SEASON_SUMMER,
+    "SUNKEN_CITY": SEASON_SUMMER,
+    "WESTERN_COAST": SEASON_WINTER,
+    "SPOOL_SWAMP": SEASON_AUTUMN,
+    "TEMPLE_REMAINS": SEASON_WINTER,
+    "LOST_WOODS": SEASON_AUTUMN,
+    "TARM_RUINS": SEASON_SPRING,
+    "HORON_VILLAGE": SEASON_CHAOTIC
 }
 
 DUNGEON_CONNECTIONS = {
@@ -100,10 +118,17 @@ PORTAL_CONNECTIONS = {
 }
 
 LOST_WOODS_ITEM_SEQUENCE = [
-    "winter", "left",
-    "autumn", "left",
-    "spring", "left",
-    "summer", "left"
+    [DIRECTION_LEFT, SEASON_WINTER],
+    [DIRECTION_LEFT, SEASON_AUTUMN],
+    [DIRECTION_LEFT, SEASON_SPRING],
+    [DIRECTION_LEFT, SEASON_SUMMER],
+]
+
+LOST_WOODS_MAIN_SEQUENCE = [
+    [DIRECTION_LEFT, SEASON_WINTER],
+    [DIRECTION_DOWN, SEASON_AUTUMN],
+    [DIRECTION_RIGHT, SEASON_SPRING],
+    [DIRECTION_UP, SEASON_SUMMER],
 ]
 
 # The order of keys in this dictionary matters, since it's the same as the one used inside the ROM
@@ -129,25 +154,35 @@ RUPEE_OLD_MAN_LOCATIONS = [
     "Tarm Ruins: Old Man Near D6"
 ]
 
+SUBROSIA_HIDDEN_DIGGING_SPOTS_LOCATIONS = [
+    "Subrosia: Hot Bath Digging Spot",
+    "Subrosia: Market Portal Digging Spot",
+    "Subrosia: Hard-Working Subrosian Digging Spot",
+    "Subrosia: Temple of Seasons Digging Spot",
+    "Subrosia: Northern Volcanoes Digging Spot",
+    "Subrosia: D8 Portal Digging Spot",
+    "Subrosia: Western Volcanoes Digging Spot"
+]
+
 SAMASA_GATE_CODE = [2, 2, 1, 0, 0, 3, 3, 3]
 
 SHOP_PRICES_DIVIDERS = {
-    "horonShop1": 1,
-    "horonShop2": 1,
-    "horonShop3": 1,
+    "horonShop1": 1.5,
+    "horonShop2": 1.5,
+    "horonShop3": 1.5,
     "memberShop1": 1,
     "memberShop2": 1,
     "memberShop3": 1,
-    "advanceShop1": 1,
-    "advanceShop2": 1,
-    "advanceShop3": 1,
+    "advanceShop1": 1.25,
+    "advanceShop2": 1.25,
+    "advanceShop3": 1.25,
     "syrupShop1": 1,
     "syrupShop2": 1,
     "syrupShop3": 1,
-    "subrosianMarket2": 2,
-    "subrosianMarket3": 2,
-    "subrosianMarket4": 2,
-    "subrosianMarket5": 2,
+    "subrosianMarket2": 1.5,
+    "subrosianMarket3": 1.5,
+    "subrosianMarket4": 1.5,
+    "subrosianMarket5": 1.5,
 }
 
 ITEM_GROUPS = {
@@ -222,7 +257,8 @@ LOCATION_GROUPS = {
         'Gnarled Root Dungeon: Chest in Left Stalfos Room',
         'Gnarled Root Dungeon: Hidden Chest Revealed by Button',
         'Gnarled Root Dungeon: Chest in Goriya Room',
-        'Gnarled Root Dungeon: Boss Reward'
+        'Gnarled Root Dungeon: Boss Reward',
+        'Gnarled Root Dungeon: Essence',
     ],
     'D2': [
         "Snake's Remains: Drop in Left Rope Room",
@@ -234,7 +270,8 @@ LOCATION_GROUPS = {
         "Snake's Remains: Chest in Moving Blades Room",
         "Snake's Remains: Chest in Bomb Spiral Maze Room",
         "Snake's Remains: Chest on Terrace",
-        "Snake's Remains: Boss Reward"
+        "Snake's Remains: Boss Reward",
+        "Snake's Remains: Essence",
     ],
     'D3': [
         "Poison Moth's Lair (B1F): Chest in Roller Room",
@@ -246,7 +283,8 @@ LOCATION_GROUPS = {
         "Poison Moth's Lair (1F): Chest Above West Trampoline & Owl",
         "Poison Moth's Lair (1F): Chest in Room Behind Hidden Cracked Wall",
         "Poison Moth's Lair (B1F): Chest in Moving Blade Room",
-        "Poison Moth's Lair (1F): Boss Reward"
+        "Poison Moth's Lair (1F): Boss Reward",
+        "Poison Moth's Lair: Essence",
     ],
     'D4': [
         'Dancing Dragon Dungeon (2F): Pots on Buttons Puzzle Drop',
@@ -259,7 +297,8 @@ LOCATION_GROUPS = {
         'Dancing Dragon Dungeon (1F): Chest Revealed by Minecart Torches',
         'Dancing Dragon Dungeon (1F): Crumbling Room Chest',
         'Dancing Dragon Dungeon (1F): Eye Diving Spot Item',
-        'Dancing Dragon Dungeon (B1F): Boss Reward'
+        'Dancing Dragon Dungeon (B1F): Boss Reward',
+        'Dancing Dragon Dungeon: Essence',
     ],
     'D5': [
         "Unicorn's Cave: Right Cart Chest",
@@ -272,7 +311,8 @@ LOCATION_GROUPS = {
         "Unicorn's Cave: Magnet Spinner Chest",
         "Unicorn's Cave: Chest in Right Half of Minecart Bay Room",
         "Unicorn's Cave: Treadmills Basement Item",
-        "Unicorn's Cave: Boss Reward"
+        "Unicorn's Cave: Boss Reward",
+        "Unicorn's Cave: Essence",
     ],
     'D6': [
         'Ancient Ruins (1F): Magnet Ball Puzzle Drop',
@@ -286,7 +326,8 @@ LOCATION_GROUPS = {
         'Ancient Ruins (1F): Chest on Terrace Left of Entrance',
         'Ancient Ruins (2F): Chest After Time Trial',
         'Ancient Ruins (2F): Chest on Red Terrace Before Vire',
-        'Ancient Ruins (5F): Boss Reward'
+        'Ancient Ruins (5F): Boss Reward',
+        'Ancient Ruins: Essence',
     ],
     'D7': [
         "Explorer's Crypt (1F): Chest in Wizzrobe Room",
@@ -300,13 +341,14 @@ LOCATION_GROUPS = {
         "Explorer's Crypt (1F): Chest Above Trampoline Near 2nd Poe",
         "Explorer's Crypt (B2F): Drop in Room North of Stair Maze",
         "Explorer's Crypt (B1F): Chest in Jumping Stalfos Room",
-        "Explorer's Crypt (B1F): Boss Reward"
+        "Explorer's Crypt (B1F): Boss Reward",
+        "Explorer's Crypt: Essence",
     ],
     'D8': [
         'Sword & Shield Dungeon (1F): Eye Drop Near Entrance',
         'Sword & Shield Dungeon (1F): Three Eyes Chest',
         'Sword & Shield Dungeon (1F): Drop in Hardhat & Magnet Ball Room',
-        'Sword & Shield Dungeon (1F): U-shaped Spiky Freezer Chest',
+        'Sword & Shield Dungeon (1F): U-Shaped Spiky Freezer Chest',
         'Sword & Shield Dungeon (B1F): Chest Right of Spinner',
         'Sword & Shield Dungeon (1F): Top Chest in Lava Bridge Room',
         'Sword & Shield Dungeon (1F): Bottom Chest in Lava Bridge Room',
@@ -316,7 +358,8 @@ LOCATION_GROUPS = {
         'Sword & Shield Dungeon (B1F): Southeast Lava Chest',
         'Sword & Shield Dungeon (B1F): Southwest Lava Chest',
         'Sword & Shield Dungeon (1F): Chest in Sparks & Pots Room',
-        'Sword & Shield Dungeon (B1F): Boss Reward'
+        'Sword & Shield Dungeon (B1F): Boss Reward',
+        'Sword & Shield Dungeon: Essence',
     ],
     'Trade Sequence': [
         'Horon Village: Dr. Left Reward',
@@ -337,6 +380,25 @@ LOCATION_GROUPS = {
         'Sunken City: Syrup Shop #3'
     ]
 }
+
+GASHA_SPOT_REGIONS = [
+    "impa gasha spot",
+    "horon gasha spot",
+    "suburbs gasha spot",
+    "holodrum plain gasha spot",
+    "holodrum plain island gasha spot",
+    "spool swamp north gasha spot",
+    "spool swamp south gasha spot",
+    "sunken city gasha spot",
+    "mt cucco gasha spot",
+    "goron mountain left gasha spot",
+    "goron mountain right gasha spot",
+    "eyeglass lake gasha spot",
+    "tarm ruins gasha spot",
+    "western coast gasha spot",
+    "samasa desert gasha spot",
+    "onox gasha spot",
+]
 
 TREASURE_SPAWN_INSTANT = 0x00
 TREASURE_SPAWN_POOF = 0x10

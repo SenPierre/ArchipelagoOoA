@@ -106,8 +106,7 @@
     @next:
     ld a,c
     add a,a
-    add a,a
-    rst 10
+    rst 18
     inc hl
     jp getUpgradedTreasure
 
@@ -138,7 +137,7 @@
     ld b,a
     swap a
     ret
-15/465a/: call modifyTreasure
+15/065a/: call modifyTreasure
 
 # given a treasure at dx40, return hl = the start of the treasure data + 1,
 # accounting for progressive upgrades. also writes the new treasure ID to
@@ -190,9 +189,8 @@
     ld a,e
     cp $ff
     ret z
-    ld b,$00
-    ld c,e
+    call checkCustomTreasureTextId
     call showText
     xor a
     ret
-0a/7b93/: call giveTreasureCustom
+0a/3b93/: call giveTreasureCustom

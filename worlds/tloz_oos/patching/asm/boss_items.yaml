@@ -28,9 +28,9 @@
     pop hl
     ret
 
-0b/4b8f/: |
+0b/0b8f/: |
     db asm15
     dw spawnBossItem
-0b/4bb1/: |
+0b/0bb1/: |
     db asm15
     dw spawnBossItem

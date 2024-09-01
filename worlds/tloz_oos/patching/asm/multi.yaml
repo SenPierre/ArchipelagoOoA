@@ -2,16 +2,34 @@
 # var INTERAC_MULTI_BYTE is used to signal the destination player number, and
 # var 71 is set to override normal collect/player properties lookup.
 05//checkNetItemBuffer: |
+    call $5e3d  ; checkLinkPushingAgainstBed 
     push bc
     push de
     push hl
     
+    ; Don't spawn the item if menu is disabled (cutscenes, etc...)
     ld a,(wMenuDisabled)
-    and a
+    or a
     jr nz,@done
+    ; Don't spawn the item if Link is grabbing something
     ld a,(wLinkGrabState)
-    and a
+    or a
     jr nz,@done
+    ; Don't spawn the item if Link is immobilized for some reason (falling down a pit, etc...)
+    ld a,(wLinkImmobilized)
+    or a
+    jr nz,@done
+    ; Don't spawn the item if Link is drowning
+    ld a,(wLinkSwimmingState)
+    cp $01
+    jr z,@done
+    cp $02
+    jr z,@done
+    ; Don't spawn the item if Link is riding a minecart or anything else
+    ld a,(wLinkObjectIndex)
+    cp $d0
+    jr nz,@done
+    ; All lights are green, spawn the item
     ld hl,wNetTreasureIn
     ldi a,(hl)
     or a
@@ -21,7 +39,7 @@
     
     ; If item in buffer is 0xFF, it's a deathlink signal so make Link die
     ld a,$fe
-    ld ($cc34),a
+    ld (wLinkDeathTrigger),a
     jr @done
     
     @notDeathlink:
@@ -29,15 +47,14 @@
     ld c,(hl)
     call spawnTreasureOnLink
     jr nz,@done
-    ld l,$71
-    ld (hl),$02
+    ld l,$71  ; Set forced collect mode in var31
+    ld (hl),COLLECT_PICKUP_NOFLAG
     
-    ld hl,wNetCountInL
+    ld hl,wNetCountIn
     inc (hl)
-    ld a,(hl)
+    ldi a,(hl)
     or a
     jr nz,@noOverflow
-    ld hl,wNetCountInH
     inc (hl)
     
     @noOverflow:
@@ -50,9 +67,9 @@
     pop hl
     pop de
     pop bc
-    call linkInteractWithAButtonSensitiveObjects
     ret
-05/54ca/: call checkNetItemBuffer
+# Replace the call to checkLinkPushingAgainstBed by a call to this function
+05/1513/: call checkNetItemBuffer
 
 # run treasure state 1 code immediately following treasure state 0 code, so
 # that link can pick up items on the same frame they're spawned. this avoids
@@ -66,7 +83,7 @@
     cp TREASURE_MAKU_SEED
     ret z
     jp $4000    ; interactionCode60
-09/4033/: jp treasureCollideImmediately
+09/0033/: jp treasureCollideImmediately
 
 # if var 71 is already nonzero, use that as the collect mode instead of
 # whatever this is.
@@ -82,12 +99,12 @@
     and $07
     ld (de),a
     ret
-15/465f/: call keepNonzeroCollectMode
+15/065f/: call keepNonzeroCollectMode
 
 # don't set global flag 30 when defeating onox in multiworld
-0f/7145/: |
+0f/3145/: |
     nop
     nop
     nop
 # don't set file to completed when saving after credits in multiworld
-15/49bc/: ret
+15/09bc/: ret

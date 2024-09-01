@@ -132,12 +132,12 @@ ITEMS_DATA = {
         'subid': 0x02
     },
     "Rupees (20)": {
-        'classification': ItemClassification.progression_skip_balancing,
+        'classification': ItemClassification.filler,
         'id': 0x28,
         'subid': 0x03
     },
     "Rupees (30)": {
-        'classification': ItemClassification.progression_skip_balancing,
+        'classification': ItemClassification.filler,
         'id': 0x28,
         'subid': 0x04
     },
@@ -156,21 +156,32 @@ ITEMS_DATA = {
         'id': 0x28,
         'subid': 0x08
     },
+    "Ore Chunks (10)": {
+        'classification': ItemClassification.filler,
+        'id': 0x37,
+        'subid': 0x02
+    },
+    "Ore Chunks (25)": {
+        'classification': ItemClassification.progression_skip_balancing,
+        'id': 0x37,
+        'subid': 0x01
+    },
     "Ore Chunks (50)": {
         'classification': ItemClassification.progression_skip_balancing,
-        'id': 0x37
+        'id': 0x37,
+        'subid': 0x00
     },
     "Heart Container": {
         'classification': ItemClassification.useful,
         'id': 0x2a
     },
     "Piece of Heart": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.filler,
         'id': 0x2b,
         'subid': 0x01
     },
     "Rare Peach Stone": {
-        'classification': ItemClassification.useful,
+        'classification': ItemClassification.filler,
         'id': 0x2b,
         'subid': 0x02
     },

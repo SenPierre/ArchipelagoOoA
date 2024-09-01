@@ -1,18 +1,13 @@
 import hashlib
-import os
 import pkgutil
 
 import yaml
-
-import Utils
 from worlds.Files import APProcedurePatch, APTokenMixin, APPatchExtension
 
 from .Functions import *
 from .Constants import *
 from .RomData import RomData
 from .z80asm.Assembler import Z80Assembler, Z80Block
-
-ROM_HASH = "f2dc6c4e093e4f8c6cbea80e8dbd62cb"
 
 
 class OoSPatchExtensions(APPatchExtension):
@@ -24,31 +19,22 @@ class OoSPatchExtensions(APPatchExtension):
         patch_data = yaml.load(caller.get_file(patch_file).decode("utf-8"), yaml.Loader)
 
         if patch_data["version"] != VERSION:
-            raise Exception(f"Invalid version: this seed was generated on v{patch_data['version']}, "
+            raise Exception(f"Invalid version: this patch was generated on v{patch_data['version']}, "
                             f"you are currently using v{VERSION}")
 
-        if patch_data["options"]["enforce_potion_in_shop"]:
-            patch_data["locations"]["Horon Village: Shop #3"] = "Potion"
+        assembler = Z80Assembler(EOB_ADDR, DEFINES)
 
-        assembler = Z80Assembler()
-
-        # Define static values & data blocks
-        for i, offset in enumerate(EOB_ADDR):
-            assembler.end_of_banks[i] = offset
-        for key, value in DEFINES.items():
-            assembler.define(key, value)
-        for symbolic_name, price in patch_data["shop_prices"].items():
-            assembler.define_byte(f"shopPrices.{symbolic_name}", RUPEE_VALUES[price])
+        # Define assembly constants & floating chunks
         define_location_constants(assembler, patch_data)
         define_option_constants(assembler, patch_data)
         define_season_constants(assembler, patch_data)
         define_text_constants(assembler, patch_data)
-
-        # Define dynamic data blocks
         define_compass_rooms_table(assembler, patch_data)
         define_collect_properties_table(assembler, patch_data)
+        define_additional_tile_replacements(assembler, patch_data)
         define_samasa_combination(assembler, patch_data)
-        set_lost_woods_sequence(assembler, patch_data)
+        define_dungeon_items_text_constants(assembler, patch_data)
+        define_lost_woods_sequences(assembler, patch_data)
         set_file_select_text(assembler, caller.player_name)
 
         # Parse assembler files, compile them and write the result in the ROM
@@ -59,16 +45,21 @@ class OoSPatchExtensions(APPatchExtension):
                 assembler.add_block(Z80Block(metalabel, contents))
         assembler.compile_all()
         for block in assembler.blocks:
-            rom_data.write_bytes(block.addr.full_address(), block.byte_array)
+            rom_data.write_bytes(block.addr.address_in_rom(), block.byte_array)
 
         # Perform direct edits on the ROM
-        alter_treasures(rom_data)
+        alter_treasure_types(rom_data)
         write_chest_contents(rom_data, patch_data)
         set_old_men_rupee_values(rom_data, patch_data)
         set_dungeon_warps(rom_data, patch_data)
         set_portal_warps(rom_data, patch_data)
         apply_miscellaneous_options(rom_data, patch_data)
+        set_fixed_subrosia_seaside_location(rom_data, patch_data)
 
+        # Initialize random seed with the one used for generation + the player ID, so that cosmetic stuff set
+        # to "random" always generate the same for successive patchings for a given slot
+        random.seed(patch_data["seed"] + caller.player)
+        # Apply cosmetic settings
         set_heart_beep_interval_from_settings(rom_data)
         set_character_sprite_from_settings(rom_data)
         inject_slot_name(rom_data, caller.player_name)
@@ -91,7 +82,7 @@ class OoSProcedurePatch(APProcedurePatch, APTokenMixin):
     def get_source_data(cls) -> bytes:
         base_rom_bytes = getattr(cls, "base_rom_bytes", None)
         if not base_rom_bytes:
-            file_name = get_settings().tloz_oos_options["rom_file"]
+            file_name = get_settings()["tloz_oos_options"]["rom_file"]
             if not os.path.exists(file_name):
                 file_name = Utils.user_path(file_name)
 
@@ -104,4 +95,3 @@ class OoSProcedurePatch(APProcedurePatch, APTokenMixin):
                                 "Get the correct game and version, then dump it.")
             setattr(cls, "base_rom_bytes", base_rom_bytes)
         return base_rom_bytes
-

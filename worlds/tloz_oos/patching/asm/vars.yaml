@@ -1,22 +1,18 @@
 # locations of sparkles on treasure map
-02/6663/jewelCoordsRound: db $b5
-02/6664/jewelCoordsPyramid: db $1d
-02/6665/jewelCoordsSquare: db $c2
-02/6666/jewelCoordsXShaped: db $f4
-
-
+# 02/2663/jewelCoordsRound: db $b5
+# 02/2664/jewelCoordsPyramid: db $1d
+# 02/2665/jewelCoordsSquare: db $c2
+# 02/2666/jewelCoordsXShaped: db $f4
 
 # set initial season correctly in the init variables.
-07/4188/initialSeason: db $2d,defaultSeason.EYEGLASS_LAKE
-
-
+07/0188/initialSeason: db $2d,defaultSeason.EYEGLASS_LAKE
 
 # Edit @extraItemsToAddTable to set seed type given with the Seed Satchel
-3f/453b/: db option.defaultSeedType
+3f/053b/: db option.defaultSeedType
 # Add a new entry to @extraItemsToAddTable to give the player seeds when they
 # get the slingshot. This overwrites the beginning of @itemsToRemoveTable,
 # but that table is useless in rando.
-3f/4543/: |
+3f/0543/: |
     db TREASURE_SLINGSHOT
     db option.defaultSeedType
     db $20
@@ -24,9 +20,9 @@
     db $00  ; End of table
 # Change the pointer of @itemsToRemoveTable to point to its end of table byte,
 # virtually emptying the table (I told you it was useless!)
-3f/44ce/: ld hl,$454d
+3f/04ce/: ld hl,$454d
 
-16/2233/oldManRupeeValues: |
+15/2233/oldManRupeeValues: |
     db $10    ; Goron mountain
     db $0d    ; North Horon
     db $0c    ; D1 stump
@@ -35,7 +31,7 @@
     db $0d    ; Tarm Ruins
     db $0b    ; Woods of Winter
     db $0c    ; Ghastly stump
-0b/187b/oldManGiveTake: |
+0a/187b/oldManGiveTake: |
     dw $7472  ; Goron mountain
     dw $7472  ; North Horon
     dw $7472  ; D1 stump
@@ -45,11 +41,4 @@
     dw $7488  ; Woods of Winter
     dw $7488  ; Ghastly stump
 
-08/23cb/foolsOreDamage: db option.foolsOreDamage
-03/1116/heartBeepInterval: db $3f
-
-02/1e3e/lostWoodsItemSequence1: db lostWoodsItemSequence.0.season, lostWoodsItemSequence.0.direction
-02/1e46/lostWoodsItemSequence2: db lostWoodsItemSequence.1.season, lostWoodsItemSequence.1.direction
-02/1e4e/lostWoodsItemSequence3: db lostWoodsItemSequence.2.season, lostWoodsItemSequence.2.direction
-02/1e56/lostWoodsItemSequence4: db lostWoodsItemSequence.3.season, lostWoodsItemSequence.3.direction
-1f/56d/lostWoodsPhonographText: /include lostWoodsPhonographText
+07/23cb/foolsOreDamage: db option.foolsOreDamage

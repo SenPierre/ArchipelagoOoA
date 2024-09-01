@@ -2,19 +2,19 @@
 # at actual file creation.
 
 # Change Link starting point
-07/4193/: db option.startingGroup       # Room
-07/4195/: db option.startingRoom        # Room
-07/4197/: db option.startingPosY        # Y
-07/4199/: db option.startingPosX        # X
-07/41a6/: db option.animalCompanion     # Natzu layout
+07/0193/: db option.startingGroup       # Room
+07/0195/: db option.startingRoom        # Room
+07/0197/: db option.startingPosY        # Y
+07/0199/: db option.startingPosX        # X
+07/01a6/: db option.animalCompanion     # Natzu layout
 
 # Set new game max bombs to 0 instead of 10
-07/418d/: db $00
+07/018d/: db $00
 
 # overwrite initial health and max health (since they are overwritten by another function anyway) to set
 # the initial seed selection instead. first byte is low c6xx address, second is index.
-07/418e/satchelInitialSelection: db $be, option.defaultSeedType - $20
-07/419a/slingshotInitialSelection: db $bf, option.defaultSeedType - $20
+07/018e/satchelInitialSelection: db $be, option.defaultSeedType - $20
+07/019a/slingshotInitialSelection: db $bf, option.defaultSeedType - $20
 
 # On file creation, set additional flags to skip a few events/cutscenes/tutorials
 # from the vanilla game which are cumbersome in a rando context.
@@ -32,6 +32,19 @@
   ; Animal vars
   ld a,$ff
   ld (wAnimalTutorialFlags),a
+  
+  ; Starting Maps & Compasses
+  ld a,option.startingMapsCompasses
+  or a
+  jr z,@skipMapsCompasses
+  ld a,$ff
+  ld hl,wDungeonCompasses
+  ldi (hl),a
+  ldi (hl),a
+  ldi (hl),a
+  ld (hl),a
+  @skipMapsCompasses:
+  
   ; Remove the requirement to go in the screen under Sunken City tree to make Dimitri bullies appear
   ld a,$20
   ld (wDimitriState),a
@@ -58,8 +71,8 @@
   ld ($c7e9),a   ; Sokra in town
   ld ($c7a7),a   ; Vanilla start room
 
-  ; Room flags 3 | 5 | 6 | 7
-  ld a,$e8
+  ; Room flags 5 | 6 | 7
+  ld a,$e0
   ld ($c79a),a  # Rosa portal
 
   ; Room flags 6 | 7
@@ -69,7 +82,7 @@
 
   ; Room flag 0
   ld a,$01
-  ld ($c701),a  # Flower/rock tile exists near D6
+  ld ($c716),a  ; Enable a tile replacement in Temple Remains to prevent softlock when exiting cave
 
   ; Give L-3 ring box
   ld a,$10
@@ -87,16 +100,16 @@
   @done:
   ld hl,$4182  ; initialFileVariables
   ret
-07/400a/: call setInitialFlags
+07/000a/: call setInitialFlags
 
 # Remove the "Accept our quest, hero!" cutscene when launching the game
 # for the first time
-02/1874/: |
+01/1874/: |
   nop
   nop
   xor a
   cp $01
 
 # Disable Impa intro script by jumping directly to @impaIntroDone
-0b/74aa/: db $74,$ef
+0b/34aa/: db $74,$ef
 # Space from 0x2F4AC to 0x2F4EE (included) is free
