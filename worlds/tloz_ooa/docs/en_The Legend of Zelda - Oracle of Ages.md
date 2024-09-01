@@ -1,4 +1,4 @@
-# The Legend of Zelda: Oracle of Seasons # TODO ADAPT
+# The Legend of Zelda: Oracle of Ages 
 
 ## Where is the settings page?
 
@@ -8,22 +8,40 @@ configure and export a config file.
 ## What does randomization do to this game?
 
 Most acquirable pickups are shuffled among each other, following some logic to ensure the game ends up being completable.
+This includes chests, keydrops, NPC items, trade sequence items, free standing item such as the heart container, and more.
+This exclude Rare Maple drop, the Tokay Market, The Essences and the Maku Seed.
 
-There are a few checks still **not** being randomized:
-- Maple Ghastly Doll drop (having Lon Lon Egg will always give Ghastly Doll)
-- Subrosian sign-loving guy
-- golden Old Man asking you to fight golden beasts 
-- rare Maple drop (Piece of Heart in vanilla)
-- any Gasha Seed contents
+## What does another world's item look like in Oracle of Ages?
 
-Linked games (e.g. starting a game with a code coming from Oracle of Ages) aren't supported and will most likely never be, so linked-only checks are not handled either.
+Items belonging to other worlds use an easily recognizable Archipelago sprite, which is blue if the item is unimportant, and red if it is a progression item. When collecting it, the game will inform you that you just sent an item to another player, and you can check on the client window to see which item was actually sent.
 
-## What does another world's item look like in Oracle of Seasons?
+## Frequently Asked Questions
 
-Items belonging to other worlds are currently being represented as a "galaxy blue" colored Star Ore sprite.
-When collecting it, the game will inform you that you just sent an item to another player, but you need to check
-on the client to see which item was actually sent.
+**What does medium / hard logic expects from me?**
 
-## Changes from the vanilla game
+> - **Casual logic** only expects what you are forced to know when doing a casual playthrough of the game
+> - **Medium logic** expects you to have a complete knowledge of the game, but nothing execution-heavy will be required (no tricks or glitches)
+> - **Hard logic** expects you to use glitches and perform tricks such as bomb jumps
 
-- If enabled, you can warp to start by holding Start while exiting the map menu
+**Is there a tracker for this game?**
+
+> Not yet, but Brooty is working on it.
+
+**How can I warp to start?**
+
+> You need to press A+B while the screen is fading to white into any menu (e.g. after pressing START or SELECT)
+
+**Can I do linked games using passwords from Oracle of Seasons?**
+
+> No, linked features are completely disabled in this randomizer since it changes the world events and locations too heavily to be reasonable to maintain.
+
+**What feature can we expect in a near future ?**
+
+> - Keysanity
+> - Dungeon Shuffle
+> - Keyrings
+> - Various QOL
+> - The possibility to fight Ganon
+> - Impa refilling your items
+> - Check in the Tokay Market
+> - And more.
