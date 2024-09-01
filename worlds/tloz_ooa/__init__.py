@@ -99,9 +99,7 @@ class OracleOfAgesWorld(World):
         self.restrict_non_local_items()
 
         if self.options.shuffle_dungeons == "shuffle":
-            shuffled_entrances = list(self.dungeon_entrances.values())
-            self.random.shuffle(shuffled_entrances)
-            self.dungeon_entrances = dict(zip(self.dungeon_entrances, shuffled_entrances))
+            self.shuffle_dungeons()
 
         self.randomize_shop_prices()
 
@@ -117,6 +115,12 @@ class OracleOfAgesWorld(World):
             self.options.non_local_items.value -= self.item_name_groups["Compasses"]
         if not self.options.keysanity_slates:
             self.options.non_local_items.value -= set(["Slate"])
+
+    
+    def shuffle_dungeons(self):
+        shuffled_dungeons = list(self.dungeon_entrances.values())
+        self.random.shuffle(shuffled_dungeons)
+        self.dungeon_entrances = dict(zip(self.dungeon_entrances, shuffled_dungeons))
 
     def randomize_shop_prices(self):
         prices_pool = get_prices_pool()

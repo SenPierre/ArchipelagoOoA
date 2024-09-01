@@ -1,0 +1,25 @@
+
+# Attempting to enter Jabu without mermaid suit will cancel the warp and instead
+# cause Link to drown. (Could happen with dungeon entrance randomization.)
+# Credit to Stewmat
+01//drownLinkOnD7Entrance: |
+  ld a,TREASURE_MERMAID_SUIT
+  call checkTreasureObtained
+  jr c,@passedUnderwaterCheck
+  ld a,(wWarpDestGroup)
+  and $7f
+  cp $05 ; Only checking the group number here
+  jr nz,@passedUnderwaterCheck
+  ld a,(wWarpDestRoom)
+  cp $01 ; Actually checking the "warp dest index" not the room index
+  jr nz,@passedUnderwaterCheck  
+  ; Is leading to jabu. Replace the warp tile with a deep water tile.
+  ld h,$cf
+  ld a,($FF8D)
+  ld l,a
+  ld (hl),$fc
+  jp $619f ; noWarpInitiated
+  @passedUnderwaterCheck:
+  jp $6163 ; initiateWarp
+
+01/61cf/ : jp drownLinkOnD7Entrance

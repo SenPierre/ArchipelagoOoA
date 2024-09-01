@@ -66,6 +66,7 @@ class OoAPatchExtensions(APPatchExtension):
         alter_treasures(rom_data)
         write_chest_contents(rom_data, patch_data)
         write_seed_tree_content(rom_data, patch_data)
+        set_dungeon_warps(rom_data, patch_data)
         #apply_miscellaneous_options(rom_data, patch_data)
 
         #set_heart_beep_interval_from_settings(rom_data)

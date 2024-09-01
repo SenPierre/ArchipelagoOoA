@@ -4,8 +4,8 @@ from settings import get_settings
 from . import RomData
 from .Util import *
 from .z80asm.Assembler import Z80Assembler
-from .Constants import *
 from ..data.Constants import *
+from .Constants import *
 from pathlib import Path
 from .. import LOCATIONS_DATA
 
@@ -245,3 +245,40 @@ def write_seed_tree_content(rom: RomData, patch_data):
         item_id, _ = get_item_id_and_subid(item_name)
         newdata = (original_data & 0x0f) | (item_id - 0x20) << 4
         rom.write_bytes(tree_data["codeAdress"], [newdata])
+
+def set_dungeon_warps(rom: RomData, patch_data):
+    warp_matchings = patch_data["dungeon_entrances"]
+    enter_values = {name: rom.read_word(dungeon["addr"]) for name, dungeon in DUNGEON_ENTRANCES.items()}
+    exit_values = {name: rom.read_word(addr) for name, addr in DUNGEON_EXITS.items()}
+
+    # Apply warp matchings expressed in the patch
+    for from_name, to_name in warp_matchings.items():
+        default_entrance_of_to_name = [name for name, dungeon in DUNGEON_ENTRANCES.items() if dungeon["default"] == to_name][0]
+        default_exit_of_from_name = DUNGEON_ENTRANCES[from_name]["default"]
+        entrance_addr = DUNGEON_ENTRANCES[from_name]["addr"]
+        exit_addr = DUNGEON_EXITS[to_name]
+        rom.write_word(entrance_addr, enter_values[default_entrance_of_to_name])
+        rom.write_word(exit_addr, exit_values[default_exit_of_from_name])
+
+    # Build a map dungeon => entrance (useful for essence warps)
+    entrance_map = dict((v, k) for k, v in warp_matchings.items())
+
+    # D1-D8 Essence Warps (hardcoded in one array using a unified format)
+    for i in range(8):
+        entrance_name = f"d{i + 1}"
+        if i == 5:
+            entrance_name += " past"
+        entrance = DUNGEON_ENTRANCES[entrance_map[entrance_name]]
+        rom.write_bytes(0x2874f + (i * 4), [
+            entrance["group"] | 0x80,
+            entrance["room"],
+            entrance["position"],
+            0x0e if entrance["shifted"] else 0x01
+        ])
+
+#    # Change Minimap popups to indicate the randomized dungeon's name
+#    for i in range(8):
+#        entrance_name = f"d{i}"
+#        dungeon_index = int(warp_matchings[entrance_name][1:])
+#        map_tile = DUNGEON_ENTRANCES[entrance_name]["map_tile"]
+#        rom.write_byte(0x???? + map_tile, 0x81 | (dungeon_index << 3))
