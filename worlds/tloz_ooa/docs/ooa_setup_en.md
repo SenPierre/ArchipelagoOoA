@@ -8,7 +8,7 @@
 
 ## Installation Instructions
 
-1. Put your **Oracle of Ages US ROM** inside your Archipelago install folder (named "Legend of Zelda, The - Oracle of Seasons (USA).gbc")
+1. Put your **Oracle of Ages US ROM** inside your Archipelago install folder (named "Legend of Zelda, The - Oracle of Ages (USA).gbc")
 2. Download the **Oracle of Ages .apworld file** and double-click it to install it the "custom_worlds/" subdirectory of your Archipelago install directory
 3. Generate a seed using your .yaml settings file (see below if you don't know how to get the template)
 4. Download the .apooa patch file that was built by the server while generating, this will be used to generate your modified ROM
