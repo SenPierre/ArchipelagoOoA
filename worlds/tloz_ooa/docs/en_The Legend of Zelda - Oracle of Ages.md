@@ -37,6 +37,7 @@ Items belonging to other worlds use an easily recognizable Archipelago sprite, w
 - Crescent Island portal sign doesn't have the proper text that state that the portal only open with current.
 - Rings description is misplaced in the ring menu
 - send_location command doesn't seems to work properly with the trees
+- Fairy hide & seek cinematic still trigger, yet shouldn't.
 
 ## Frequently Asked Questions
 
