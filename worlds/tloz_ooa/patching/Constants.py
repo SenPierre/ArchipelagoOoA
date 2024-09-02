@@ -502,14 +502,14 @@ DUNGEON_ENTRANCES = {
         "shifted": False,
         "default":"d5"
     },
-    "d6 past": {
-        "addr": 0x139b4,
-        "map_tile": 0x13c,
-        "room": 0x0f,
-        "group": 0x03,
+    "d6 present": {
+        "addr": 0x13748,
+        "map_tile": 0x03c,
+        "room": 0x0e,
+        "group": 0x01,
         "position": 0x16,
         "shifted": False,
-        "default":"d6 past"
+        "default":"d6 present"
     },
     "d7": {
         "addr": 0x13874,
@@ -529,14 +529,14 @@ DUNGEON_ENTRANCES = {
         "shifted": True,
         "default":"d8"
     },
-    "d6 present": {
-        "addr": 0x13748,
-        "map_tile": 0x03c,
-        "room": 0x0e,
-        "group": 0x01,
+    "d6 past": {
+        "addr": 0x139b4,
+        "map_tile": 0x13c,
+        "room": 0x0f,
+        "group": 0x03,
         "position": 0x16,
         "shifted": False,
-        "default":"d6 present"
+        "default":"d6 past"
     },
 }
 
@@ -548,10 +548,10 @@ DUNGEON_EXITS = {
     "d3": 0x13ad8,
     "d4": 0x13adc,
     "d5": 0x13ae0,
-    "d6 past": 0x13c54,
+    "d6 present": 0x13c48,
     "d7": 0x13c60,
     "d8": 0x13c74,
-    "d6 present": 0x13c48,
+    "d6 past": 0x13c54,
 }
 
 SEED_TREE_DATA = {

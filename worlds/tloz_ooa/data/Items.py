@@ -197,12 +197,12 @@ ITEMS_DATA = {
     "Small Key (Mermaid's Cave Past)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
-        'subid': 0x06
+        'subid': 0x0C
     },
     "Small Key (Mermaid's Cave Present)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
-        'subid': 0x09
+        'subid': 0x06
     },
     "Small Key (Jabu-Jabu's Belly)": {
         'classification': ItemClassification.progression,
@@ -257,47 +257,47 @@ ITEMS_DATA = {
     "Master Key (Ancient Tomb)": {
         'classification': ItemClassification.progression,
         'id': 0x30,
-        'subid': 0x07
+        'subid': 0x08
     },
     "Boss Key (Spirit's Grave)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
-        'subid': 0x00
+        'subid': 0x01
     },
     "Boss Key (Wing Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
-        'subid': 0x01
+        'subid': 0x05
     },
     "Boss Key (Moonlit Grotto)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
-        'subid': 0x02
+        'subid': 0x03
     },
     "Boss Key (Skull Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
-        'subid': 0x03
+        'subid': 0x04
     },
     "Boss Key (Crown Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
-        'subid': 0x04
+        'subid': 0x05
     },
     "Boss Key (Mermaid's Cave)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
-        'subid': 0x05
+        'subid': 0x0C
     },
     "Boss Key (Jabu-Jabu's Belly)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
-        'subid': 0x06
+        'subid': 0x07
     },
     "Boss Key (Ancient Tomb)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
-        'subid': 0x07
+        'subid': 0x08
     },
     "Compass (Spirit's Grave)": {
         'classification': ItemClassification.useful,
@@ -327,12 +327,12 @@ ITEMS_DATA = {
     "Compass (Mermaid's Cave Past)": {
         'classification': ItemClassification.useful,
         'id': 0x32,
-        'subid': 0x06
+        'subid': 0x0C
     },
     "Compass (Mermaid's Cave Present)": {
         'classification': ItemClassification.useful,
         'id': 0x32,
-        'subid': 0x09
+        'subid': 0x06
     },
     "Compass (Jabu-Jabu's Belly)": {
         'classification': ItemClassification.useful,
@@ -372,12 +372,12 @@ ITEMS_DATA = {
     "Dungeon Map (Mermaid's Cave Past)": {
         'classification': ItemClassification.useful,
         'id': 0x33,
-        'subid': 0x06
+        'subid': 0x0C
     },
     "Dungeon Map (Mermaid's Cave Present)": {
         'classification': ItemClassification.useful,
         'id': 0x33,
-        'subid': 0x09
+        'subid': 0x06
     },
     "Dungeon Map (Jabu-Jabu's Belly)": {
         'classification': ItemClassification.useful,

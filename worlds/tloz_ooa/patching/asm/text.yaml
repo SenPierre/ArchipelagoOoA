@@ -63,5 +63,82 @@
 0c/4822/: db $2c
 0c/483c/: db $1c
 
-1e/4957/getArchipelagoItemText: /include text.getArchipelagoItem
-1e/47d5/KingZoraPotionText: /include text.KingZoraPotionText
+1e/4957/getArchipelagoItemText: |
+    db $02,$7c,$20,$61,$6e,$01                          ; You found an
+    db $69,$74,$65,$6d,$05,$55,$20,$61,$6e,$03,$b9,$01  ; item for another
+    db $03,$c9,$21,$00                                  ; world!
+
+1e/47d5/KingZoraPotionText: |
+    db $02,$7c,$01                                     ; You got
+    db $4b,$69,$6e,$67,$20,$5a,$6f,$72,$61,$27,$73,$01 ; King Zora's 
+    db $09,$01,$03,$0a,$09,$00,$21,$00                 ; Magic Potion! 
+
+#3f//TX_560f: /include text.smallKeyD0
+#3f//TX_5610: /include text.smallKeyD1
+#3f//TX_5611: /include text.smallKeyD2
+#3f//TX_5612: /include text.smallKeyD3
+#3f//TX_5613: /include text.smallKeyD4
+#3f//TX_5614: /include text.smallKeyD5
+#3f//TX_5615: /include text.smallKeyD6Present
+#3f//TX_5616: /include text.smallKeyD7
+#3f//TX_5617: /include text.smallKeyD8
+#3f//TX_5618: /include text.smallKeyD6Past
+#3f//TX_5619: /include text.bossKeyD1
+#3f//TX_561a: /include text.bossKeyD2
+#3f//TX_561b: /include text.bossKeyD3
+#3f//TX_561c: /include text.bossKeyD4
+#3f//TX_561d: /include text.bossKeyD5
+#3f//TX_561e: /include text.bossKeyD6Present
+#3f//TX_561f: /include text.bossKeyD7
+#3f//TX_5620: /include text.bossKeyD8
+#3f//TX_5621: /include text.bossKeyD6Past
+#3f//TX_5622: /include text.dungeonMapD1
+#3f//TX_5623: /include text.dungeonMapD2
+#3f//TX_5624: /include text.dungeonMapD3
+#3f//TX_5625: /include text.dungeonMapD4
+#3f//TX_5626: /include text.dungeonMapD5
+#3f//TX_5627: /include text.dungeonMapD6Present
+#3f//TX_5628: /include text.dungeonMapD7
+#3f//TX_5629: /include text.dungeonMapD8
+#3f//TX_562a: /include text.dungeonMapD6Past
+#3f//TX_562b: /include text.compassD1
+#3f//TX_562c: /include text.compassD2
+#3f//TX_562d: /include text.compassD3
+#3f//TX_562e: /include text.compassD4
+#3f//TX_562f: /include text.compassD5
+#3f//TX_5630: /include text.compassD6Present
+#3f//TX_5631: /include text.compassD7
+#3f//TX_5632: /include text.compassD8
+#3f//TX_5633: /include text.compassD6Past
+#
+#3f//customTextTable: |
+#    dw TX_5600, TX_5601, TX_5602, TX_5603
+#    dw TX_5604, TX_5605, TX_5606, TX_5607
+#    dw TX_5608, TX_5609, TX_560a, TX_560b
+#    dw TX_560c, TX_560d, TX_560e, TX_560f
+#    dw TX_5610, TX_5611, TX_5612, TX_5613
+#    dw TX_5614, TX_5615, TX_5616, TX_5617
+#    dw TX_5618, TX_5619, TX_561a, TX_561b
+#    dw TX_561c, TX_561d, TX_561e, TX_561f
+#    dw TX_5620, TX_5621, TX_5622, TX_5623
+#    dw TX_5624, TX_5625, TX_5626, TX_5627
+#    dw TX_5628, TX_5629, TX_562a, TX_562b
+#    dw TX_562c, TX_562d, TX_562e, TX_562f
+#    dw TX_5630, TX_5631, TX_5632, TX_5633
+#
+## Override getTextAddress to have a specific custom bank_id point to text somewhere else
+#3f//checkCustomTextOverride: |
+#    ld (w7ActiveBank),a
+#    ld a,(wTextIndexH)
+#    cp $5a      ; 0x56 is the custom text group, and there are 4 dictionaries before them
+#    ret nz
+#    ld hl,customTextTable
+#    ld a,(wTextIndexL)
+#    rst 18      ; rst_addDoubleIndex
+#    ldi a,(hl)
+#    ld h,(hl)
+#    ld l,a
+#    ld a,$3f    ; 0x3f is the ROM bank where custom text is located
+#    ld (w7ActiveBank),a
+#    ret
+#3f/0fd9/: call checkCustomTextOverride
