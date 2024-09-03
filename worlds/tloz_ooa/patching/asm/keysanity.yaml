@@ -15,6 +15,7 @@
 16/53f3/: dw smallKeyObjectsTable
 
 16//bossKeyObjectsTable: |
+    db $00,$00,$00,$00
     db $00,$01,$89,$43    ; D1
     db $00,$02,$8a,$43    ; D2
     db $00,$03,$8b,$43    ; D3
@@ -26,6 +27,7 @@
 16/53f7/: dw bossKeyObjectsTable
 
 16//dungeonMapObjectsTable: |
+    db $00,$00,$00,$00
     db $00,$01,$91,$40    ; D1
     db $00,$02,$92,$40    ; D2
     db $00,$03,$93,$40    ; D3
@@ -41,6 +43,7 @@
 16/53ff/: dw dungeonMapObjectsTable
 
 16//compassObjectsTable: |
+    db $00,$00,$00,$00
     db $00,$01,$9a,$41    ; D1
     db $00,$02,$9b,$41    ; D2
     db $00,$03,$9c,$41    ; D3
