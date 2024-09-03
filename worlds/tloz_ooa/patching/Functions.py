@@ -262,3 +262,72 @@ def set_dungeon_warps(rom: RomData, patch_data):
 #        dungeon_index = int(warp_matchings[entrance_name][1:])
 #        map_tile = DUNGEON_ENTRANCES[entrance_name]["map_tile"]
 #        rom.write_byte(0x???? + map_tile, 0x81 | (dungeon_index << 3))
+
+def define_dungeon_items_text_constants(assembler: Z80Assembler, patch_data):
+    for i in range(1, 10): # D0 has no map, no compass, no boss key, and the unique small key use the default text. 
+        # " for\nDungeon X"
+        trueI = i if i != 9 else 6
+        dungeon_precision = [0x03, 0x39, 0x44, 0x05, 0xe6, 0x20, (0x30 + trueI)]
+        dungeon_tag = f"D{trueI}"
+        dungeon_precisionForBossKey = dungeon_precision.copy()
+
+        if i == 6:
+            #\n(present)
+            dungeon_precision.extend([0x01, 0x28, 0x03, 0x2e, 0x29])
+            dungeon_tag += "Present"
+        if i == 9:
+            #\n(past)
+            dungeon_precision.extend([0x01, 0x28, 0x70, 0x61, 0x73, 0x74, 0x29])
+            dungeon_tag += "Past"
+
+        # ###### Small keys ##############################################
+        # "You found a\n\color(RED)"
+        small_key_text = [0x02, 0x7c, 0x20, 0x61, 0x01, 0x09, 0x01]
+        if patch_data["options"]["master_keys"]:
+            # "Master Key"
+            small_key_text.extend([0x4d, 0x61, 0x73, 0x74, 0x65, 0x72, 0x20, 0x03, 0x37])
+        else:
+            # "Small Key"
+            small_key_text.extend([0x53, 0x6d, 0x04, 0xd2, 0x4b, 0x65, 0x79])
+        if patch_data["options"]["keysanity_small_keys"]:
+            small_key_text.extend(dungeon_precision)
+        small_key_text.extend([0x09, 0x00, 0x21, 0x00])  # "\color(WHITE)!(end)"
+        assembler.add_floating_chunk(f"text.smallKey{dungeon_tag}", small_key_text)
+
+        # Hero's Cave only has Small Keys, so skip other texts
+        if i == 0:
+            continue
+
+        # ###### Boss keys ##############################################
+        # "You found the\n\color(RED)Boss Key"
+        if i < 9:
+            boss_key_text = [
+                0x02, 0x7c, 0x20, 0x05, 0xb4,
+                0x09, 0x01, 0x42, 0x6f, 0x73, 0x73, 0x20, 0x4b, 0x65, 0x79
+            ]
+            if patch_data["options"]["keysanity_boss_keys"]:
+                boss_key_text.extend(dungeon_precisionForBossKey)
+            boss_key_text.extend([0x09, 0x00, 0x21, 0x00])  # "\color(WHITE)!(end)"
+            assembler.add_floating_chunk(f"text.bossKeyD{trueI}", boss_key_text)
+
+        # ###### Dungeon maps ##############################################
+        # "You found the\n\color(RED)"
+        dungeon_map_text = [0x02, 0x7c, 0x20, 0x05, 0xb4, 0x09, 0x01]
+        if patch_data["options"]["keysanity_maps_compasses"]:
+            dungeon_map_text.extend([0x4d, 0x61, 0x70])  # "Map"
+            dungeon_map_text.extend(dungeon_precision)
+        else:
+            dungeon_map_text.extend([0x44, 0x05, 0x8a, 0x20, 0x4d, 0x61, 0x70])  # "Dungeon Map"
+        dungeon_map_text.extend([0x09, 0x00, 0x21, 0x00])  # "\color(WHITE)!(end)"
+        assembler.add_floating_chunk(f"text.dungeonMap{dungeon_tag}", dungeon_map_text)
+
+        # ###### Compasses ##############################################
+        # "You found the\n\color(RED)Compass"
+        compasses_text = [
+            0x02, 0x7c, 0x20, 0x05, 0xb4, 0x09, 0x01,
+            0x09, 0x01, 0x43, 0x6f, 0x6d, 0x05, 0xfe
+        ]
+        if patch_data["options"]["keysanity_maps_compasses"]:
+            compasses_text.extend(dungeon_precision)
+        compasses_text.extend([0x09, 0x00, 0x21, 0x00])  # "\color(WHITE)!(end)"
+        assembler.add_floating_chunk(f"text.compass{dungeon_tag}", compasses_text)
