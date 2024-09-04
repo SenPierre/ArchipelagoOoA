@@ -2,7 +2,7 @@
 # searches for an interaction with ID a and returns the ID address in de,
 # and z flag if found. this is here because it's currently only used by
 # handleSpecialCurrentsActions.
-00//findObjectWithId: |
+06//findObjectWithId: |
     push bc
     ld b,a
     ld de,$d041

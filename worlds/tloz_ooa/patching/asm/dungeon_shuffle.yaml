@@ -23,3 +23,17 @@
   jp $6163 ; initiateWarp
 
 01/61cf/ : jp drownLinkOnD7Entrance
+
+# prevent surfacing from underwater without the mermaid suit. this is only
+# relevant for the sea of no return if entrances are unrandomized.
+05//checkPreventSurface: |
+    ld a,(wDisableTransitions)
+    or a
+    ret nz
+    ld a,($c6a3) # byte in wObtainedTreasureFlags
+    and $04
+    cp $04
+    ret
+05/516c/: |
+  call checkPreventSurface
+  nop

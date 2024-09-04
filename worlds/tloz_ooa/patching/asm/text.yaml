@@ -29,6 +29,21 @@
 1e/5569/TX_012a: /include text.hiddenShop2 # (Cutscene Zelda saved)
 1e/56c3/TX_0131: /include text.hiddenShop3 # (Cutscene with zelda)
 
+
+# Replace First Deku meeting by essence & slate requirement
+1e/64c7/: |
+    db $04,$92,$05,$a0,$20,$09,$03 ; You need
+    db $30 + option.requiredEssences ; X
+    db $09,$00,$01,$65,$73,$73,$65,$6e,$63,$65,$73,$04,$47 ; essences to
+    db $05,$57,$04,$46,$01 ; get the
+    db $4d,$61,$6b,$75,$20,$53,$65,$65,$64,$04,$58 ; Maku Seed
+
+    db $04,$92,$05,$a0,$20,$09,$03 ; You need
+    db $30 + option.required_slates ; X
+    db $09,$00,$01,$73,$6c,$61,$74,$65,$73,$04,$57,$05,$50,$01 ; slates to open
+    db $44,$38,$20,$62,$61,$73,$65,$6d,$65,$6e,$74,$2e,$00 ; D8 basement
+
+
 # replace text in script command 9a (showtextnonexitable) using
 # scriptTextReplacements: four-byte entries, first two bytes are old text
 # index, second two bytes are new text index.
@@ -142,13 +157,16 @@
     ld hl,setCustomBankForText
     call interBankCall
     ret
+    @textRedirect:
+
+
 3f/4faa/: call checkCustomTextOverride
 
 # "Get item" text is confined to text group $00, which makes it hard to add new
 # entries without rebuilding the whole textbanks. We inject this small function
 # to check for text IDs > 0x80, in which case we unset the 7th bit and redirect
 # to our custom textbank.
-00//checkCustomTreasureTextId: |
+09//checkCustomTreasureTextId: |
     bit 7,a
     jr nz,@customText
     
@@ -164,3 +182,40 @@
     ld b,$5a  ; CUSTOM_TEXT_GROUP_ID
     ret
 09/4c64/: call checkCustomTreasureTextId
+
+# Insert a redirection table inside showText
+38//customTextJumpTable: |
+    dwbe 2e0d, 0564 ; maku path sign into maku tree introduction
+    db ff
+
+38//showCustomText_body: |
+    ld a,b
+    ld e,c
+    push bc
+    ld b,a
+    ld c,e
+    ld hl,customTextJumpTable
+    call searchDoubleKey
+    pop bc
+    jr c,@customText
+    ret
+    @customText:
+    ldi a,(hl)
+    ld b,a
+    ld c,(hl)
+    ret
+
+00//showCustomText: |
+    push hl
+    push de
+    push af
+    ld e,$38
+    ld hl,showCustomText_body
+    call interBankCall
+    pop hl
+    pop de
+    pop af
+    ld a,($cbae)
+    ret
+
+00/1876/: call showCustomText

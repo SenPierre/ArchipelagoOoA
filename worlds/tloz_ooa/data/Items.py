@@ -267,7 +267,7 @@ ITEMS_DATA = {
     "Boss Key (Wing Dungeon)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
-        'subid': 0x05
+        'subid': 0x02
     },
     "Boss Key (Moonlit Grotto)": {
         'classification': ItemClassification.progression,
@@ -287,7 +287,7 @@ ITEMS_DATA = {
     "Boss Key (Mermaid's Cave)": {
         'classification': ItemClassification.progression,
         'id': 0x31,
-        'subid': 0x0C
+        'subid': 0x06
     },
     "Boss Key (Jabu-Jabu's Belly)": {
         'classification': ItemClassification.progression,
