@@ -174,9 +174,11 @@
 00//handleSpecialExits: |
     ld (wWarpDestRoom),a
     push bc
+    push hl
     ld e,$38
     ld hl,handleSpecialExits_body
     call interBankCall
+    pop hl
     pop bc
     ret
 
