@@ -1,0 +1,11 @@
+
+# skip tokkey's dance.
+15/7674/: |
+  db jumpalways
+  dw c360
+15/76d5/: |
+  db jumpalways
+  dw c36e
+
+# skip joke
+15/58f2/: db 28,59

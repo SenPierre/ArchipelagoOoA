@@ -410,6 +410,7 @@ ASM_FILES = [
     "asm/text.yaml",
     "asm/remove_item_on_use.yaml",
     "asm/dungeon_shuffle.yaml",
+    "asm/conditional/skip_dance_and_joke.yaml",
 ]
 
 RUPEE_VALUES = {
