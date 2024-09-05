@@ -136,3 +136,49 @@
 #Mermaid QOL
 05/5910/: db 29
 05/5924/: db 00,00,00
+
+# d2: if past entrance is closed, force it open upon exit
+# d7: reset water level when exiting (see logic comments).
+# NOTE : Potentially movable to another bank ?
+38//checkDekuForestEntrance: |
+    ld a,(wWarpDestRoom)
+    cp $83
+    ret nz
+    ld a,(wWarpDestGroup)
+    cp $01
+    ret nz
+    ld a,($c883) ; room flags for d2 past entrance
+    or $80
+    ld ($c883),a
+    ret
+
+38//checkJabuJabuEntrance: |
+    ld a,(wWarpDestRoom)
+    cp $56
+    ret nz
+    ld a,(wWarpDestGroup)
+    cp $05
+    ret nz
+    ld bc,$4d05 # d7 staircase above miniboss room
+    call compareRoom
+    ret z
+    ld a,$21
+    ld (wJabuWaterLevel),a
+    ret
+
+38//handleSpecialExits_body: |
+    call checkDekuForestEntrance
+    call checkJabuJabuEntrance
+    ret
+
+00//handleSpecialExits: |
+    ld (wWarpDestRoom),a
+    push bc
+    ld e,$38
+    ld hl,handleSpecialExits_body
+    call interBankCall
+    pop bc
+    ret
+
+04/45e8/: call handleSpecialExits
+0a/4738/: call handleSpecialExits

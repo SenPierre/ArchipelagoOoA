@@ -7,19 +7,6 @@
     cp b
     ret
 
-# returns the byte at e:hl into e.
-00//readByte: |
-    ldh a,(hRomBank)
-    push af
-    ld a,e
-    ldh (hRomBank),a
-    ld ($2222),a
-    ld e,(hl)
-    pop af
-    ldh (hRomBank),a
-    ld ($2222),a
-    ret
-
 # searches for a value in a table starting at hl, with an entry matching
 # keys b and subkey c, and values e bytes long. sets c if found. a key of
 # ff ends the table.
@@ -59,22 +46,6 @@
     @match:
     ld a,b
     pop bc
-    ret
-
-# (de) = array of map IDs ($FF terminated)
-# (hl) = beginning of map flags array for map group
-# returns nz if any of the maps has item flag set, z otherwise
-00//scanItemGetFlagsForMaps: |
-    @loop:
-    ld a,(de)
-    cp $ff
-    jr z,@done
-    ld l,a
-    bit 5,(hl)
-    jr nz,@done
-    inc de
-    jr @loop
-    @done:
     ret
 
 # b = treasure id

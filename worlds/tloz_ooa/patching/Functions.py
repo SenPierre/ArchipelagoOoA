@@ -46,9 +46,7 @@ def alter_treasures(rom: RomData):
 
 def get_asm_files(patch_data):
     asm_files = ASM_FILES.copy()
-    print("option")
     if patch_data["options"]["quick_flute"]:
-        print("quick flute")
         asm_files.append("asm/conditional/quick_flute.yaml")
 #    if patch_data["options"]["shuffle_old_men"] == OracleOfSeasonsOldMenShuffle.option_turn_into_locations:
 #        asm_files.append("asm/conditional/old_men_as_locations.yaml")
