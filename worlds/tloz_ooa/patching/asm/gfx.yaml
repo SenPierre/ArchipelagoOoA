@@ -40,6 +40,14 @@
     dwbe 4709, locations.syrupShop2
     dwbe 470a, locations.syrupShop3
     dwbe 470b, locations.syrupShop1
+    dwbe 6314, locations.hiddenTokayCave
+    dwbe 6315, locations.hiddenTokayCave
+    dwbe 633e, locations.wildTokayGame
+    dwbe 6b0b, locations.chevalInvention
+    dwbe 6b0c, locations.chevalTest
+    dwbe 7731, locations.d8Stalfos
+    dwbe 8007, locations.libraryPast
+    dwbe 8008, locations.libraryPresent
     db ff
 
 # overrides the sprite data loaded for certain interactions. this is mostly
