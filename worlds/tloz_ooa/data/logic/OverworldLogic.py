@@ -187,19 +187,7 @@ def make_overworld_logic(player: int):
             ])
         ])],
         ["deku forest", "deku forest soldier", False, lambda state: all([
-            ooa_has_mystery_seeds(state, player),                    
-            any([
-                ooa_can_jump_1_wide_pit(state, player, False),
-                ooa_can_use_ember_seeds(state, player, False),   
-                ooa_can_switch_past_and_present(state, player),
-                all([
-                    ooa_has_bracelet(state, player),
-                    any([
-                        ooa_can_warp_using_gale_seeds(state, player),
-                        ooa_has_switch_hook(state, player), 
-                    ])
-                ])                 
-            ])
+            ooa_can_use_mystery_seeds(state, player)
         ])],
         ["deku forest", "d2 past entrance", False, lambda state: ooa_has_bombs(state, player)],
 
