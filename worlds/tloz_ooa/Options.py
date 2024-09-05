@@ -191,7 +191,7 @@ class OracleOfAgesAdvanceShop(Toggle):
 
 class OracleOfAgesWarpToStart(DefaultOnToggle):
     """
-    When enabled, you can warp to start by holding Start while exiting map screen.
+    When enabled, you can warp to start by holding A+B while entering map or inventory screen.
     This can be used to make backtracking a bit more bearable in seeds where Gale Seeds take time to obtain and prevent
     most softlock situations from happening
     """
