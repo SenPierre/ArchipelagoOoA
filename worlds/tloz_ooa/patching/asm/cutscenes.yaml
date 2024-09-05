@@ -83,3 +83,7 @@
 15/7910/: |
     db showtext,04
     dw 1c79 # reverse endian addr
+
+
+#skip a bunch of the dialogue of the dumbbell guy
+15/5ce1/: db $f5
