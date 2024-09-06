@@ -105,6 +105,9 @@
     ld a,$03
     ld (wRingBoxLevel),a
 
+    ld a,GLOBALFLAG_WON_FAIRY_HIDING_GAME
+    call setGlobalFlag
+
     pop hl
     ret
 03/6e97/: jp setInitialFlags

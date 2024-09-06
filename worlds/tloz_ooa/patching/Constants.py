@@ -370,6 +370,9 @@ DEFINES = {
     "realignUnappraisedRings":"$466f",
     "interaction60SubidData":"$66db",
 
+    # Existing Global Flag
+    "GLOBALFLAG_WON_FAIRY_HIDING_GAME":"$0e",
+
     # Custom Global Flag
     "GLOBALFLAG_GOT_SEACHART":"$03",
     "GLOBALFLAG_WON_FIRST_DANCE":"$07",
