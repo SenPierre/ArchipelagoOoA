@@ -198,7 +198,7 @@ LOCATIONS_DATA = {
         "flag_byte": 0xc738,
         "room": 0x0038,
         "map_tile": 0x38,
-        "collect": COLLECT_MAKU_TREE,
+        "collect": COLLECT_DROP,
         "symbolic_name": "makuTreeGift",
     },
     # Maku seed is 0xC85D
