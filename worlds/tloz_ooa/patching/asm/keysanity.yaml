@@ -1,61 +1,61 @@
 16//smallKeyObjectsTable: |
-    db $00,$00,$1a,$42    ; D0 
-    db $00,$01,$80,$42    ; D1
-    db $00,$02,$81,$42    ; D2
-    db $00,$03,$82,$42    ; D3
-    db $00,$04,$83,$42    ; D4
-    db $00,$05,$84,$42    ; D5
-    db $00,$06,$85,$42    ; D6 Present
-    db $00,$07,$86,$42    ; D7
-    db $00,$08,$87,$42    ; D8
+    db $00,$0d,$80,$42    ; D0 
+    db $00,$01,$81,$42    ; D1
+    db $00,$02,$82,$42    ; D2
+    db $00,$03,$83,$42    ; D3
+    db $00,$04,$84,$42    ; D4
+    db $00,$05,$85,$42    ; D5
+    db $00,$06,$86,$42    ; D6 Present
+    db $00,$07,$87,$42    ; D7
+    db $00,$08,$88,$42    ; D8
     db $00,$00,$00,$00
     db $00,$00,$00,$00
     db $00,$00,$00,$00
-    db $00,$0c,$88,$42    ; D6 Past
+    db $00,$0c,$89,$42    ; D6 Past
 16/53f3/: dw smallKeyObjectsTable
 
 16//bossKeyObjectsTable: |
     db $00,$00,$00,$00
-    db $00,$01,$89,$43    ; D1
-    db $00,$02,$8a,$43    ; D2
-    db $00,$03,$8b,$43    ; D3
-    db $00,$04,$8c,$43    ; D4
-    db $00,$05,$8d,$43    ; D5
-    db $00,$06,$8e,$43    ; D6
-    db $00,$07,$8f,$43    ; D7
-    db $00,$08,$90,$43    ; D8
+    db $00,$01,$8a,$43    ; D1
+    db $00,$02,$8b,$43    ; D2
+    db $00,$03,$8c,$43    ; D3
+    db $00,$04,$8d,$43    ; D4
+    db $00,$05,$8e,$43    ; D5
+    db $00,$06,$8f,$43    ; D6
+    db $00,$07,$90,$43    ; D7
+    db $00,$08,$91,$43    ; D8
 16/53f7/: dw bossKeyObjectsTable
 
 16//dungeonMapObjectsTable: |
     db $00,$00,$00,$00
-    db $00,$01,$91,$40    ; D1
-    db $00,$02,$92,$40    ; D2
-    db $00,$03,$93,$40    ; D3
-    db $00,$04,$94,$40    ; D4
-    db $00,$05,$95,$40    ; D5
-    db $00,$06,$96,$40    ; D6 Present
-    db $00,$07,$97,$40    ; D7
-    db $00,$08,$98,$40    ; D8
+    db $00,$01,$92,$40    ; D1
+    db $00,$02,$93,$40    ; D2
+    db $00,$03,$94,$40    ; D3
+    db $00,$04,$95,$40    ; D4
+    db $00,$05,$96,$40    ; D5
+    db $00,$06,$97,$40    ; D6 Present
+    db $00,$07,$98,$40    ; D7
+    db $00,$08,$99,$40    ; D8
     db $00,$00,$00,$00
     db $00,$00,$00,$00
     db $00,$00,$00,$00
-    db $00,$0c,$99,$40    ; D6 Past
+    db $00,$0c,$9a,$40    ; D6 Past
 16/53ff/: dw dungeonMapObjectsTable
 
 16//compassObjectsTable: |
     db $00,$00,$00,$00
-    db $00,$01,$9a,$41    ; D1
-    db $00,$02,$9b,$41    ; D2
-    db $00,$03,$9c,$41    ; D3
-    db $00,$04,$9d,$41    ; D4
-    db $00,$05,$9e,$41    ; D5
-    db $00,$06,$9f,$41    ; D6 Present
-    db $00,$07,$a0,$41    ; D7
-    db $00,$08,$a1,$41    ; D8
+    db $00,$01,$9b,$41    ; D1
+    db $00,$02,$9c,$41    ; D2
+    db $00,$03,$9d,$41    ; D3
+    db $00,$04,$9e,$41    ; D4
+    db $00,$05,$9f,$41    ; D5
+    db $00,$06,$a0,$41    ; D6 Present
+    db $00,$07,$a1,$41    ; D7
+    db $00,$08,$a2,$41    ; D8
     db $00,$00,$00,$00
     db $00,$00,$00,$00
     db $00,$00,$00,$00
-    db $00,$0c,$a2,$41    ; D6 Past
+    db $00,$0c,$a3,$41    ; D6 Past
 16/53fb/: dw compassObjectsTable
 
 # Change @mode6 (compasses, maps & boss keys) to make it set the bit related
@@ -68,7 +68,8 @@
 
 # Change @mode7 (small keys) to make it increment the counter related to their
 # subid instead of the dungeon we're currently in
-3f/4597/: |
+3f/4597/TEST: |
     ld a,c
     nop
     nop
+

@@ -264,7 +264,8 @@ def set_dungeon_warps(rom: RomData, patch_data):
 #        rom.write_byte(0x???? + map_tile, 0x81 | (dungeon_index << 3))
 
 def define_dungeon_items_text_constants(assembler: Z80Assembler, patch_data):
-    for i in range(1, 10): # D0 has no map, no compass, no boss key, and the unique small key use the default text. 
+
+    for i in range(0, 10): # D0 has no map, no compass, no boss key, and the unique small key use the default text. 
         # " for\nDungeon X"
         trueI = i if i != 9 else 6
         dungeon_precision = [0x03, 0x39, 0x44, 0x05, 0xe6, 0x20, (0x30 + trueI)]
