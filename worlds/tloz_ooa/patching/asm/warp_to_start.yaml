@@ -55,4 +55,4 @@
     @done:
     jp $5068    ; @openMenu
 # Replace the unique call to @openMenu by the above extension checking for warp to start
-02/505c/: call checkWarpToStart
+02/505e/: call checkWarpToStart
