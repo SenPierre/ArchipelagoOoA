@@ -17,8 +17,8 @@ SEED_ITEMS = [
     "Ember Seeds",
     "Scent Seeds",
     "Pegasus Seeds",
-    "Mystery Seeds",
-    "Gale Seeds"
+    "Gale Seeds",
+    "Mystery Seeds"
 ]
 
 TREES_TABLE = [
