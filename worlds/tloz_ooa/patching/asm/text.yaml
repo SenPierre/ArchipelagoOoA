@@ -224,9 +224,9 @@
     ret
 
 00//showCustomText: |
-    push hl
-    push de
     push af
+    push de
+    push hl
     ld e,$38
     ld hl,showCustomText_body
     call interBankCall

@@ -193,6 +193,7 @@
     ret z
     ld b,$00
     ld c,e
+    call checkCustomTreasureTextId
     call showText
     xor a
     ret
