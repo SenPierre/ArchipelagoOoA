@@ -43,11 +43,11 @@
     dwbe 6314, locations.hiddenTokayCave
     dwbe 6315, locations.hiddenTokayCave
     dwbe 633e, locations.wildTokayGame
-    dwbe 6b0b, locations.chevalInvention
-    dwbe 6b0c, locations.chevalTest
+    ;dwbe 6b0b, locations.chevalInvention
+    ;dwbe 6b0c, locations.chevalTest
     dwbe 7731, locations.d8Stalfos
-    dwbe 8007, locations.libraryPast
-    dwbe 8008, locations.libraryPresent
+    ;dwbe 8007, locations.libraryPast
+    ;dwbe 8008, locations.libraryPresent
     db ff
 
 # overrides the sprite data loaded for certain interactions. this is mostly
@@ -96,6 +96,44 @@
     ret
 
 3f/4356/: call checkLoadCustomSprite
+
+## Some treasure don't actually use the treasure animation, this fix it. 
+#3f//interactionGetIDForAnimationTable_body: |
+#    push bc
+#    ld e,$41 ; Interaction.id
+#    ld a,(de)
+#    ld b,a
+#    inc e
+#    ld a,(de)
+#    ld c,a
+#    ld e,$02
+#    ld hl,customSpriteJumpTable
+#    call searchDoubleKey
+#    jr nc,@normal
+#
+#    ; It's a special case; use the animation table for INTERACID_TREASURE
+#    ld a,INTERACID_TREASURE
+#    ld e,a
+#    jr @ret
+#
+#    @normal:
+#    ; It's not a special case; return the unmodified interaction ID
+#    ld e,b
+#
+#    @ret:
+#    pop bc
+#    ret
+#
+#00//interactionGetIDForAnimationTable: |
+#    ld e,$3f
+#    ld hl,interactionGetIDForAnimationTable_body
+#    call interBankCall
+#    ld a,e
+#    ret
+#
+#00/263c/: |
+#    call interactionGetIDForAnimationTable
+
 
 # Inject the "Archipelago Item" sprite in subrosian sprite sheet in place of the rosa bow (which shouldn't be used because no linked game)
 1a/6620/: |
