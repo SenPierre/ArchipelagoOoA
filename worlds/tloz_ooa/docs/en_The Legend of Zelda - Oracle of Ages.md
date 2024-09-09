@@ -29,6 +29,8 @@ Items belonging to other worlds use an easily recognizable Archipelago sprite, w
 - Cheating in an essence break the second screen of the inventory (Please don't)
 - Gasha trees are turbo broken
 - send_location command doesn't seems to work properly with the trees
+- The harp can become cursed when you get the seedshooter (you can select it and reselect a song to fix it)
+- Seed satchel upgrade think it's a key.
 
 ## Frequently Asked Questions
 
