@@ -89,7 +89,6 @@ class OracleOfAgesDefaultSeedType(Choice):
 
 class OracleOfAgesDungeonShuffle(Choice):
     """
-    <NOT IMPLEMENTED RIGHT NOW>
     - Vanilla: each dungeon entrance leads to its intended dungeon
     - Shuffle: each dungeon entrance leads to a random dungeon picked at generation time
     """
@@ -121,7 +120,6 @@ class OracleOfAgesMasterKeys(Choice):
 
 class OracleOfAgesSmallKeyShuffle(Toggle):
     """
-    <NOT IMPLEMENTED RIGHT NOW>
     If enabled, dungeon Small Keys can be found anywhere instead of being confined in their dungeon of origin.
     """
     display_name = "Keysanity (Small Keys)"
@@ -129,7 +127,6 @@ class OracleOfAgesSmallKeyShuffle(Toggle):
 
 class OracleOfAgesBossKeyShuffle(Toggle):
     """
-    <NOT IMPLEMENTED RIGHT NOW>
     If enabled, dungeon Boss Keys can be found anywhere instead of being confined in their dungeon of origin.
     """
     display_name = "Keysanity (Boss Keys)"
@@ -137,7 +134,6 @@ class OracleOfAgesBossKeyShuffle(Toggle):
 
 class OracleOfAgesMapCompassShuffle(Toggle):
     """
-    <NOT IMPLEMENTED RIGHT NOW>
     If enabled, Dungeon Maps and Compasses can be found anywhere instead of being confined in their dungeon of origin.
     """
     display_name = "Maps & Compasses Outside Dungeon"
@@ -145,7 +141,6 @@ class OracleOfAgesMapCompassShuffle(Toggle):
 
 class OracleOfAgesSlateShuffle(Toggle):
     """
-    <Yes, implemented despite all others keysanity function not implemented>
     If enabled, Slates can be found anywhere instead of being confined in Dungeon 8.
     """
     display_name = "Slates Outside Dungeon 8"
@@ -164,6 +159,11 @@ class OracleOfAgesRingQuality(Choice):
 
     default = 1
 
+class OracleOfAgesEnableTokkeyDanceAndKidJoke(Toggle):
+    """
+    Defines if you don't want to skip the small dance that tokkay does and the joke you tell the kid. (Because some people like it)
+    """
+    display_name = "Enable Tokkey Dance and Kid Joke"
 
 class OracleOfAgesPricesFactor(Range):
     """
@@ -218,10 +218,9 @@ class OracleOfAgesCombatDifficulty(Choice):
 
 class OracleOfAgesQuickFlute(DefaultOnToggle):
     """
-    <NOT IMPLEMENTED RIGHT NOW>
-    When enabled, playing the flute will immobilize you during a very small amount of time compared to vanilla game.
+    When enabled, playing the flute and the harp will immobilize you during a very small amount of time compared to vanilla game.
     """
-    display_name = "Quick Flute"
+    display_name = "Quick Flute & Harp"
 
 
 class OracleOfAgesHeartBeepInterval(Choice):
@@ -277,6 +276,7 @@ class OracleOfAgesCharacterPalette(Choice):
 class OracleOfAgesOptions(PerGameCommonOptions):
     start_inventory_from_pool: StartInventoryPool
     goal: OracleOfAgesGoal
+    enable_dance_and_joke: OracleOfAgesEnableTokkeyDanceAndKidJoke
     logic_difficulty: OracleOfAgesLogicDifficulty
     required_essences: OracleOfAgesRequiredEssences
     required_slates: OracleOfAgesRequiredSlates
