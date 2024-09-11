@@ -185,8 +185,8 @@
 # to check for text IDs > 0x80, in which case we unset the 7th bit and redirect
 # to our custom textbank.
 09//checkCustomTreasureTextId: |
-    bit 7,a
-    jr nz,@customText
+    cp $81
+    jr nc,@customText
     
     ; Usual behavior: take the specified text_id from text group 0
     ld c,a
@@ -195,11 +195,11 @@
     
     @customText:
     ; Custom behavior: take the specified (text_id-0x80) from custom text group
-    sub $80
+    sub $81
     ld c,a
     ld b,$5a  ; CUSTOM_TEXT_GROUP_ID
     ret
-09/4c64/: call checkCustomTreasureTextId
+#09/4c64/: call checkCustomTreasureTextId
 
 # Insert a redirection table inside showText
 38//customTextJumpTable: |
