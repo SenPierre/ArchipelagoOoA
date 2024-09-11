@@ -112,7 +112,7 @@
     ld a,e
     cp TREASURE_BOSS_KEY
     ret nz
-    ld a,(wDungeonIndex)
+    ld a,c
     cp $06
     jr z,@next
     cp $0c
