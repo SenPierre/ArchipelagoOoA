@@ -1,4 +1,4 @@
-from worlds.tloz_ooa.data.logic.LogicPredicates import *
+from .LogicPredicates import *
 
 
 def make_overworld_logic(player: int):

@@ -9,7 +9,7 @@ from Options import Accessibility
 from worlds.AutoWorld import WebWorld, World
 from typing import Any, Set, List, Dict, Optional, Tuple, ClassVar, TextIO, Union
 from .Data import *
-from worlds.tloz_ooa.data.Items import *
+from .data.Items import *
 from .Logic import create_connections, apply_self_locking_rules
 from .Options import *
 from .PatchWriter import ooa_create_appp_patch

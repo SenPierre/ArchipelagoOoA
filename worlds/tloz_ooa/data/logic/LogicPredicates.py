@@ -1,6 +1,6 @@
 from BaseClasses import CollectionState
 from Options import Accessibility
-from worlds.tloz_ooa.data.Constants import DUNGEON_NAMES, ESSENCES
+from ..Constants import DUNGEON_NAMES, ESSENCES
 
 
 # Items predicates ############################################################

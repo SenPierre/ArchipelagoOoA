@@ -1,8 +1,8 @@
 from BaseClasses import MultiWorld
-from worlds.tloz_ooa import LOCATIONS_DATA
-from worlds.tloz_ooa.data.logic.DungeonsLogic import *
-from worlds.tloz_ooa.data.logic.OverworldLogic import make_overworld_logic
-from worlds.tloz_ooa.data.Regions import REGIONS
+from . import LOCATIONS_DATA
+from .data.logic.DungeonsLogic import *
+from .data.logic.OverworldLogic import make_overworld_logic
+from .data.Regions import REGIONS
 
 def create_connections(multiworld: MultiWorld, player: int):
     dungeon_entrances = []

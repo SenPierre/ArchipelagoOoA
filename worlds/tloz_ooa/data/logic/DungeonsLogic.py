@@ -1,4 +1,4 @@
-from worlds.tloz_ooa.data.logic.LogicPredicates import *
+from .LogicPredicates import *
 
 
 def make_d0_logic(player: int):

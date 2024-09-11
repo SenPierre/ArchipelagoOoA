@@ -4,7 +4,7 @@ import yaml
 
 from typing import TYPE_CHECKING
 from BaseClasses import ItemClassification
-from worlds.tloz_ooa.patching.ProcedurePatch import OoAProcedurePatch
+from .patching.ProcedurePatch import OoAProcedurePatch
 from .data.Constants import *
 from .data.Locations import LOCATIONS_DATA
 
