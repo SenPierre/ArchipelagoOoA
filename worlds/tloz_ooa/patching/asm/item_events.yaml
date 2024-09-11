@@ -31,7 +31,6 @@
     and a
     push af
     call satchelRefillSeeds
-    call seedShooterGiveSeeds
     call activateFlute
     pop af
     jr z,@incoming
@@ -52,7 +51,10 @@
 09//satchelRefillSeeds: |
     ld a,e
     cp TREASURE_SEED_SATCHEL
+    jp z,@refill
+    cp TREASURE_SHOOTER
     ret nz
+    @refill:
     push bc
     push de
     push hl
@@ -77,18 +79,6 @@
     ret c
     ld a,$0e
     ld (wMakuTreeState),a
-    ret
-
-# give 20 of the starting seeds along with the seed shooter.
-09//seedShooterGiveSeeds: |
-    ld a,e
-    cp TREASURE_SHOOTER
-    ret nz
-    push bc
-    ld a,$00 # item ID set by randomization
-    ld c,$20
-    call giveTreasure
-    pop bc
     ret
 
 # sets flute icon and animal flags based on flute param.
