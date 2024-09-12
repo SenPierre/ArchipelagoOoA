@@ -81,8 +81,8 @@ class OracleOfAgesDefaultSeedType(Choice):
     option_ember = 0
     option_scent = 1
     option_pegasus = 2
-    option_mystery = 3
-    option_gale = 4
+    option_gale = 3
+    option_mystery = 4
 
     default = 0
 
