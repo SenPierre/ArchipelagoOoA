@@ -2,27 +2,64 @@
 # Attempting to enter Jabu without mermaid suit will cancel the warp and instead
 # cause Link to drown. (Could happen with dungeon entrance randomization.)
 # Credit to Stewmat
-01//drownLinkOnD7Entrance: |
+01//checkWarpEntrances: |
   ld a,TREASURE_MERMAID_SUIT
   call checkTreasureObtained
-  jr c,@passedUnderwaterCheck
+  jr c,@notJabuEntrance
   ld a,(wWarpDestGroup)
   and $7f
   cp $05 ; Only checking the group number here
-  jr nz,@passedUnderwaterCheck
+  jr nz,@notJabuDungeon
   ld a,(wWarpDestRoom)
   cp $01 ; Actually checking the "warp dest index" not the room index
-  jr nz,@passedUnderwaterCheck  
-  ; Is leading to jabu. Replace the warp tile with a deep water tile.
+  jr z,@drownPlease  
+
+  @notJabuDungeon:
+  ld a,(wWarpDestGroup)
+  and $7f
+  cp $02 ; Only checking the group number here
+  jr nz,@notJabuEntrance
+  ld a,(wWarpDestRoom)
+  cp $00 ; Actually checking the "warp dest index" not the room index
+  jr z,@drownPlease  
+
+  @notJabuEntrance:
+  ld a,(wWarpDestGroup)
+  and $7f
+  cp $00 ; Only checking the group number here
+  jr nz,@initiateWarp
+  ld a,(wWarpDestRoom)
+  cp $03 ; Actually checking the "warp dest index" not the room index
+  jr nz,@initiateWarp  
+  ld a,GLOBALFLAG_TUNI_NUT_PLACED
+  call checkGlobalFlag
+  jr z,@burnPlease
+
+  @initiateWarp:
+  ld a,$00
+  ld ($cd00),a ; wScrollMode
+  jp $6167 ; initiateWarp continuation
+
+  @drownPlease:
+  ; Is leading to jabu dungeon or entrance. Replace the warp tile with a deep water tile.
   ld h,$cf
   ld a,($FF8D)
   ld l,a
   ld (hl),$fc
   jp $619f ; noWarpInitiated
-  @passedUnderwaterCheck:
-  jp $6163 ; initiateWarp
 
-01/61cf/ : jp drownLinkOnD7Entrance
+  @burnPlease:
+  ; Is leading to Symmetry Active Volcano. Replace the warp tile with a lava tile.
+  ld h,$cf
+  ld a,($FF8D)
+  ld l,a
+  ld (hl),$fc
+  jp $619f ; noWarpInitiated
+  
+01/6163/ : |
+  nop
+  jp checkWarpEntrances
+
 
 # prevent surfacing from underwater without the mermaid suit. this is only
 # relevant for the sea of no return if entrances are unrandomized.
