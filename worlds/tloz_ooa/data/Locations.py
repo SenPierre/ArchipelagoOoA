@@ -1450,7 +1450,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Present): Vire Chest": {
     	"region_id": "d6 present vire chest",
     	"vanilla_item": "Progressive Flippers",
-    	"dungeon" : 9,
+    	"dungeon" : 6,
         "flag_byte": 0xca13,
         "room": 0x0513,
         "collect": COLLECT_CHEST,
@@ -1458,7 +1458,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Present): Spinner Chest": {
     	"region_id": "d6 present spinner chest",
     	"vanilla_item": "Small Key (Mermaid's Cave Present)",
-    	"dungeon" : 9,
+    	"dungeon" : 6,
         "flag_byte": 0xca14,
         "room": 0x0514,
         "collect": COLLECT_CHEST,
@@ -1466,7 +1466,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Present): Rope Chest": {
     	"region_id": "d6 present rope chest",
     	"vanilla_item": "Small Key (Mermaid's Cave Present)",
-    	"dungeon" : 9,
+    	"dungeon" : 6,
         "flag_byte": 0xca1b,
         "room": 0x051b,
         "collect": COLLECT_CHEST,
@@ -1474,7 +1474,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Present): RNG Chest": {
     	"region_id": "d6 present rng chest",
     	"vanilla_item": "Boss Key (Mermaid's Cave)",
-    	"dungeon" : 9,
+    	"dungeon" : 6,
         "flag_byte": 0xca1c,
         "room": 0x051c,
         "collect": COLLECT_CHEST,
@@ -1482,7 +1482,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Present): Diamond Chest": {
     	"region_id": "d6 present diamond chest",
     	"vanilla_item": "Dungeon Map (Mermaid's Cave Present)",
-    	"dungeon" : 9,
+    	"dungeon" : 6,
         "flag_byte": 0xca1d,
         "room": 0x051d,
         "collect": COLLECT_CHEST,
@@ -1490,7 +1490,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Present): Beamos Chest": {
     	"region_id": "d6 present beamos chest",
     	"vanilla_item": "Rupees (10)",
-    	"dungeon" : 9,
+    	"dungeon" : 6,
         "flag_byte": 0xca1f,
         "room": 0x051f,
         "collect": COLLECT_CHEST,
@@ -1498,7 +1498,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Present): Cube Chest": {
     	"region_id": "d6 present cube chest",
     	"vanilla_item": "Small Key (Mermaid's Cave Present)",
-    	"dungeon" : 9,
+    	"dungeon" : 6,
         "flag_byte": 0xca21,
         "room": 0x0521,
         "collect": COLLECT_CHEST,
@@ -1506,7 +1506,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Present): Channel Chest": {
     	"region_id": "d6 present channel chest",
     	"vanilla_item": "Compass (Mermaid's Cave Present)",
-    	"dungeon" : 9,
+    	"dungeon" : 6,
         "flag_byte": 0xca25,
         "room": 0x0525,
         "collect": COLLECT_CHEST,
@@ -1515,7 +1515,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Past) (1F): Stalfos Chest": {
     	"region_id": "d6 past stalfos chest",
     	"vanilla_item": "Small Key (Mermaid's Cave Past)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
         "flag_byte": 0xca3c,
         "room": 0x053c,
         "collect": COLLECT_CHEST,
@@ -1523,7 +1523,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Past) (1F): Color Room": {
     	"region_id": "d6 past color room",
     	"vanilla_item": "Compass (Mermaid's Cave Past)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
         "flag_byte": 0xca3f,
         "room": 0x053f,
         "collect": COLLECT_CHEST,
@@ -1531,7 +1531,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Past) (1F): Pool Chest": {
     	"region_id": "d6 past pool chest",
     	"vanilla_item": "Dungeon Map (Mermaid's Cave Past)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
         "flag_byte": 0xca41,
         "room": 0x0541,
         "collect": COLLECT_CHEST,
@@ -1539,7 +1539,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Past) (1F): Wizzrobe": {
     	"region_id": "d6 past wizzrobe",
     	"vanilla_item": "Gasha Seed",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
         "flag_byte": 0xca45,
         "room": 0x0545,
         "collect": COLLECT_CHEST,
@@ -1547,7 +1547,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Past) (B1F): Diamond Chest": {
     	"region_id": "d6 past diamond chest",
     	"vanilla_item": "Small Key (Mermaid's Cave Past)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
         "flag_byte": 0xca2c,
         "room": 0x052c,
         "collect": COLLECT_CHEST,
@@ -1555,7 +1555,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Past) (B1F): Spear Chest": {
     	"region_id": "d6 past spear chest",
     	"vanilla_item": "Rupees (30)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
         "flag_byte": 0xca2e,
         "room": 0x052e,
         "collect": COLLECT_CHEST,
@@ -1563,7 +1563,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Past) (B1F): Rope Chest": {
     	"region_id": "d6 past rope chest",
     	"vanilla_item": "Small Key (Mermaid's Cave Past)",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
         "flag_byte": 0xca31,
         "room": 0x0531,
         "collect": COLLECT_CHEST,
@@ -1571,7 +1571,7 @@ LOCATIONS_DATA = {
     "Mermaid's Cave (Past) (1F): Boss": {
     	"region_id": "d6 boss",
     	"vanilla_item": "Heart Container",
-    	"dungeon" : 6,
+    	"dungeon" : 9,
         "flag_byte": 0xca36,
         "room": 0x0536,
         "collect": COLLECT_POOF,
