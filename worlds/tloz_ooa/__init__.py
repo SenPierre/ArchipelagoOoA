@@ -119,7 +119,11 @@ class OracleOfAgesWorld(World):
     
     def shuffle_dungeons(self):
         shuffled_dungeons = list(self.dungeon_entrances.values())
-        self.random.shuffle(shuffled_dungeons)
+        while True:
+            self.random.shuffle(shuffled_dungeons)
+            if shuffled_dungeons[4] != "enter d0": # Ensure D4 entrance doesn't lead to d0
+                break
+        
         self.dungeon_entrances = dict(zip(self.dungeon_entrances, shuffled_dungeons))
 
     def randomize_shop_prices(self):
