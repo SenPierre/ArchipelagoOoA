@@ -372,7 +372,6 @@ DEFINES = {
 
     # Existing Global Flag
     "GLOBALFLAG_WON_FAIRY_HIDING_GAME":"$0e",
-    "GLOBALFLAG_TUNI_NUT_PLACED":"$29",
 
     # Custom Global Flag
     "GLOBALFLAG_GOT_SEACHART":"$03",

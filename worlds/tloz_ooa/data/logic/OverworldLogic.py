@@ -544,7 +544,7 @@ def make_overworld_logic(player: int):
             state.has("Fairy Powder", player),
         ])],
         ["zora village", "fisher's island cave", False, lambda state: ooa_has_long_hook(state, player)],
-        ["zora village", "zora's reward", False, lambda state:  state.has("_finished_d7", player),],
+        ["d7 boss", "zora's reward", False, None],
         
         # SEA OF NO RETURN
         #######################################

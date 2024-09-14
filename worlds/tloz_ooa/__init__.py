@@ -195,8 +195,6 @@ class OracleOfAgesWorld(World):
         self.create_event("d6 wall B bombed", "_d6_wall_B_bombed")
         self.create_event("d6 canal expanded", "_d6_canal_expanded")
 
-        self.create_event("d7 boss", "_finished_d7")
-
     def exclude_problematic_locations(self):
         locations_to_exclude = []
         # If goal essence requirement is set to a specific value, prevent essence-bound checks which require more
