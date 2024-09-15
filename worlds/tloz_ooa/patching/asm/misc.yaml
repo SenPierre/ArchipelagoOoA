@@ -184,3 +184,81 @@
 
 04/45e8/: call handleSpecialExits
 0a/4738/: call handleSpecialExits
+
+
+# invalid tiles to time warp onto if player doesn't have flippers. the
+# vanilla game assumes you have flippers by the time you have currents, and
+# only checks against deep water tiles.
+01//noFlippersTable: |
+    db f3,00
+    db fe,00
+    db ff,00
+    db e4,00
+    db e5,00
+    db e6,00
+    db e7,00
+    db e8,00
+    db e9,00
+    db fc,01
+    db fa,00
+    db e0,00
+    db e1,00
+    db e2,00
+    db e3,00
+    db 00
+
+# check against a different set of invalid time warp destination tiles if the
+# player doesn't have flippers.
+01//preventDrowningByTimeWarp: |
+    ld hl,$6317
+    ld a,($c69f) # in wObtainedTreasureFlags
+    and $40
+    ret nz
+    ld hl,noFlippersTable
+    ret
+01/6301/: call preventDrowningByTimeWarp
+
+# Gale seed shouldn't work if you didn't visit any tree
+# z set if tree found, unset otherwise
+02//galeCheckAvailableTree_body : |
+  ld c,$00
+  ld b,$00
+  @checkTree:
+  ld a,c
+  call $66be ; getTreeWarpDataIndex
+  ldi a,(hl)
+  or a
+  ret z ; No tree found
+  push bc
+  ld c,a
+  call $6639 ; _mapMenu_checkRoomVisited
+  pop bc
+  jp nz,@treeFound
+  inc c
+  jr @checkTree
+  @treeFound:
+  ld b,$01
+  ret
+
+07//galeCheckAvailableTree: |
+  push de
+  push hl
+  ld a,($cc34) ; wTilesetFlags
+  bit 7,a
+  ld a,$00
+  jp z,@present
+  ld a,$01
+  @present:
+  ld ($cbb3),a ;mapmode
+  ld hl,galeCheckAvailableTree_body
+  ld e,$02
+  call interBankCall
+  pop hl
+  pop de
+  ld a,b
+  or a
+  jp z,$4f65 ; galeSeedUpdateAnimationAndCounter
+  ld a,($ccb5) ; wLinkGrabState2
+  jp $4fb0
+
+07/4fad/: jp galeCheckAvailableTree
