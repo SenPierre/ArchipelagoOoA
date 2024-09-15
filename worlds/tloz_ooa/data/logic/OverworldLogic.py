@@ -195,7 +195,7 @@ def make_overworld_logic(player: int):
         #######################################
         ["lynna village", "crescent past west", True, lambda state: ooa_can_swim_deepwater(state, player, False)],
         ["rafton's raft", "crescent past west", False, None],
-        ["crescent present west", "crescent past west", False, lambda state: ooa_can_open_portal(state, player)],
+        ["crescent present west", "crescent past west", False, lambda state: ooa_can_go_back_to_present(state, player)],
         ["crescent past west", "tokay crystal cave", False, lambda state: all([
             any([
                 ooa_has_shovel(state, player),
@@ -228,6 +228,10 @@ def make_overworld_logic(player: int):
             all([
                 ooa_has_shovel(state, player),
                 ooa_can_open_portal(state, player),
+                any([
+                    ooa_can_warp(state,player),
+                    ooa_has_bracelet(state,player)
+                ])
             ])
         ])],
         ["crescent present west", "d3 entrance", False, None],
