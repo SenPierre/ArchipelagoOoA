@@ -42,8 +42,8 @@
     call symmetryBrotherSetFakeId
     @incoming:
     call setD6BossKey
-    call makuSeedResetTreeState
     call checkEssencePostSavedWaifu
+    call makuSeedResetTreeState
     ld a,e
     jp giveTreasure
 09/4c4e/: call handleGetItem
@@ -82,6 +82,9 @@
     call compareRoom
     pop bc
     ret nz
+    call getThisRoomFlags
+    bit 7,a
+    ret z
     ld a,(wEssencesObtained)
     call getNumSetBits
     cp option.requiredEssences
