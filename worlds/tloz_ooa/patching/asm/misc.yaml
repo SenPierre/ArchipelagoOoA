@@ -240,6 +240,7 @@
   ld b,$01
   ret
 
+# Check the value returned by the body and block gale seed if no tree visited
 07//galeCheckAvailableTree: |
   push de
   push hl
