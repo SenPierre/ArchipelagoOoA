@@ -352,6 +352,8 @@ class OracleOfAgesWorld(World):
             # See `create_items` to see how `self.dungeon_items` is populated depending on current options.
             confined_dungeon_items = [item for item in self.dungeon_items if item.name.endswith(f"({DUNGEON_NAMES[i]})") or (i == 8 and "Slate" in item.name)]
             if len(confined_dungeon_items) == 0:
+                if i == 9 or i == 6:
+                        D6_remaining_location += dungeon_locations
                 continue  # This list might be empty with some keysanity options
             for item in confined_dungeon_items:
                 collection_state.remove(item)
@@ -389,6 +391,7 @@ class OracleOfAgesWorld(World):
                 if attempts_remaining == 0:
                     raise exc
                 logging.debug(f"Failed to shuffle dungeon items for player {self.player}. Retrying...")
+
 
     def pre_fill_seeds(self) -> None:
         
