@@ -204,10 +204,8 @@ def make_overworld_logic(player: int):
             ooa_can_jump_1_wide_pit(state, player, False)
         ])],
         ["lynna village", "hidden tokay cave", True, lambda state: ooa_can_dive(state, player)],
-        ["crescent present west", "crescent past east", False, lambda state: any([
-            ooa_can_break_bush(state, player),
-            ooa_can_go_back_to_present(state, player),   
-        ])],
+        ["crescent past west", "crescent past east", False, lambda state: ooa_can_break_bush(state, player)],
+        ["crescent present west", "crescent past east", False, lambda state: ooa_can_go_back_to_present(state, player)],
         ["crescent past east", "tokay bomb cave", False, lambda state: all([
             ooa_has_bracelet(state, player),
             ooa_has_bombs(state, player),
