@@ -385,3 +385,14 @@
     nop
     nop
     nop
+
+# Set room flag 0x20 when knocking off tree seeds (mostly for tracking purpose)
+11//extendedKnockOffTree: |
+    push hl
+    call getThisRoomFlags
+    or $20
+    ld (hl),a
+    pop hl
+    ld bc,$fec0   ; original instruction replaced by injected call
+    ret
+11/4ac9/: call extendedKnockOffTree
