@@ -79,12 +79,19 @@
 # work anyway.
 15//setShootingGalleryEquips: |
     ld a,TREASURE_SWORD
+    ld b,a
     call checkTreasureObtained
-    ld a,$00
+    jp c,@swordFound
+    ld a,TREASURE_BIGGORON_SWORD
+    ld b,$00
+    call checkTreasureObtained
+    jp nc,@swordFound
+    ld a,TREASURE_BIGGORON_SWORD
     ldi (hl),a
-    ret nc
-    dec hl
-    ld a,TREASURE_SWORD
+    ldi (hl),a
+    ret
+    @swordFound:
+    ld a,b
     ldi (hl),a
     ret
 15/50ae/: call setShootingGalleryEquips

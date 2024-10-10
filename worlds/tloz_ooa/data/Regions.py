@@ -17,6 +17,7 @@ REGIONS = [
     "gasha farmer",
     "black tower worker",
     "advance shop",
+    "lynna shooting gallery",
     "ambi's palace tree",
     "ambi's palace chest",
     "rescue nayru",

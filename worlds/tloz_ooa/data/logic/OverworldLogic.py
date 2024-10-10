@@ -39,6 +39,7 @@ def make_overworld_logic(player: int):
         ["lynna village", "black tower worker", False, None],
         ["lynna village", "black tower heartpiece", False, lambda state: ooa_can_remove_dirt(state, player, False)],
         ["lynna village", "advance shop", False, lambda state: ooa_has_rupees(state, player, 400)],
+        ["lynna village", "lynna shooting gallery", False, lambda state: ooa_has_sword(state, player)],
         ["lynna village", "ambi's palace tree", False, lambda state: ooa_can_harvest_tree(state, player, False)],
         ["lynna village", "ambi's palace chest", False, lambda state: any([
             all([

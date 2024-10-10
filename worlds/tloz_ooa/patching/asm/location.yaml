@@ -122,3 +122,17 @@
 ### GORON TREASURE #####################################################
 # Skip wait for the goron to break the wall
 0c/6d0a/: db $c0
+
+### LYNNA SHOOTING GALERY
+15//wonShootingGalery: |
+    ld a,GLOBALFLAG_WON_LYNNA_SHOOTING_GALLERY
+    call setGlobalFlag
+    ld bc,locations.lynnaShootingGallery
+    jp spawnTreasureOnLink
+15/51d8/: |
+    db $b5
+    db GLOBALFLAG_WON_LYNNA_SHOOTING_GALLERY
+    db $e0,$51
+    db $51,$e2
+15/51f2/: db $e0
+15/51f3/: dw wonShootingGalery

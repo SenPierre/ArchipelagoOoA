@@ -191,6 +191,15 @@ LOCATIONS_DATA = {
         "collect": COLLECT_TOUCH,
         "symbolic_name": "rescueNayru",
     },
+    "Lynna Village Shooting Gallery": {
+        "region_id": "lynna shooting gallery",
+        "vanilla_item": "Red Ring",
+        "flag_byte": 0xc6d9,
+        "bit_mask": 0x02,
+        "room": 0x02e9,
+        "collect": COLLECT_TOUCH,
+        "symbolic_name": "lynnaShootingGallery",
+    },
     ##########################################
     "Maku Tree gift": {
         "region_id": "maku tree",
