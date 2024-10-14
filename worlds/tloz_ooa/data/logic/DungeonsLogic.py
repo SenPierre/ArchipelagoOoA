@@ -567,7 +567,7 @@ def make_d6past_logic(player: int):
             ooa_has_cane(state, player),
             ooa_has_bracelet(state, player),
             ooa_can_jump_1_wide_pit(state, player, False),
-            ooa_has_small_keys(state, player, 6, 1),
+            ooa_has_small_keys(state, player, 9, 1),
             ooa_has_bombs(state, player)
         ])],
         ["d6 wall B bombed", "d6 past spear chest", False, lambda state: ooa_can_dive(state, player)],
@@ -577,9 +577,9 @@ def make_d6past_logic(player: int):
         ])],
         # past, 3 keys
         ["d6 wall B bombed", "d6 boss", False, lambda state: all([
-            ooa_has_boss_key(state, player, 6),
+            ooa_has_boss_key(state, player, 9),
             ooa_can_dive(state, player),
-            ooa_has_small_keys(state, player, 6, 3),
+            ooa_has_small_keys(state, player, 9, 3),
             ooa_has_seedshooter(state, player),
             any([
                 ooa_has_sword(state, player),
@@ -648,7 +648,7 @@ def make_d6present_logic(player: int):
             any([
                 ooa_can_swim(state, player, False),
                 all([
-                    ooa_has_small_keys(state, player, 9, 3),
+                    ooa_has_small_keys(state, player, 6, 3),
                     ooa_has_switch_hook(state, player),
                 ])
             ])
@@ -660,13 +660,13 @@ def make_d6present_logic(player: int):
         ["d6 present beamos chest", "d6 present rng chest", False, lambda state: all([
             ooa_has_bracelet(state, player),
             ooa_can_kill_normal_enemy(state, player, True),
-            ooa_has_small_keys(state, player, 9, 3),
+            ooa_has_small_keys(state, player, 6, 3),
         ])],
 
         ["enter d6 present", "d6 present channel chest", False, lambda state: all([
             state.has("_d6_canal_expanded", player),
             ooa_has_switch_hook(state, player),
-            ooa_has_small_keys(state, player, 9, 3),
+            ooa_has_small_keys(state, player, 6, 3),
         ])],
 
         ["d6 present spinner chest", "d6 present vire chest", False, lambda state: all([
@@ -675,7 +675,7 @@ def make_d6present_logic(player: int):
                 state.has("Expert's Ring", player),
                 ooa_option_hard_logic(state, player) # for switch hook kill (?)
             ]),
-            ooa_has_small_keys(state, player, 9, 3),
+            ooa_has_small_keys(state, player, 6, 3),
             ooa_has_switch_hook(state, player)
         ])],
     ]
