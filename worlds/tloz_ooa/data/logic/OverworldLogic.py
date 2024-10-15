@@ -90,6 +90,7 @@ def make_overworld_logic(player: int):
         
         # SHORE PRESENT
         #######################################
+        ["forest of time", "shore present", True,  lambda state: state.has("Ricky's Gloves", player)],
         ["lynna city", "shore present", True, lambda state: any([
             ooa_can_swim_deepwater(state, player, True),
             ooa_has_bracelet(state, player),
@@ -104,6 +105,7 @@ def make_overworld_logic(player: int):
             any([
                 ooa_has_seedshooter(state, player),
                 ooa_can_summon_ricky(state, player),
+                state.has("Ricky's Gloves", player),
                 ooa_can_go_back_to_present(state, player), #lynna city and lynna village are connected, so no need to create a different logic                    
             ]),
             ooa_can_break_tingle_balloon(state, player)
