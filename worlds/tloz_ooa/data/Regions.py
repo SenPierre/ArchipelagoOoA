@@ -201,6 +201,7 @@ REGIONS = [
     "d2 statue puzzle",
     "d2 thwomp shelf",
     "d2 thwomp tunnel",
+    "d2 miniboss arena",
     "d2 basement",
     "d2 basement chest",
     "d2 basement drop",
