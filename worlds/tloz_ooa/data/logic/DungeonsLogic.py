@@ -62,10 +62,24 @@ def make_d2_logic(player: int):
         ["enter d2", "d2 basement", False, lambda state: all([
             any([
                 ooa_has_small_keys(state, player, 2, 2),
-                ooa_can_jump_2_wide_pit(state, player, False)
+                all([
+                    ooa_can_jump_2_wide_pit(state, player, False),
+                    ooa_can_kill_spiked_beetle(state, player)
+                ])
             ]),
-            ooa_can_kill_spiked_beetle(state, player),
             ooa_generic_boss_and_miniboss_kill(state, player),
+        ])],
+        # The key door doesn't need you to kill the beetles to go past it
+        # So come in with keys, and do the 2-wide pit jump from the other side
+        # To get to these items without being able to kill the spiked beetles.
+        # (only relevant in keysanity)
+        ["d2 basement", "d2 bombed terrace", False, lambda state: all([
+            ooa_can_jump_2_wide_pit(state, player, False),
+            ooa_has_bombs(state, player)
+        ])],
+        ["d2 basement", "d2 moblin drop", False, lambda state: all([
+            ooa_can_jump_2_wide_pit(state, player, False),
+            ooa_can_kill_normal_enemy(state, player)
         ])],
         ["d2 basement", "d2 thwomp tunnel", False, None],
         ["d2 basement", "d2 thwomp shelf", False, lambda state: any([
@@ -105,12 +119,10 @@ def make_d2_logic(player: int):
 
         # 4 keys
         ["enter d2", "d2 rope room", False, lambda state: all([
-            ooa_can_kill_spiked_beetle(state, player),
             ooa_can_kill_normal_enemy(state, player, True, True),
             ooa_has_small_keys(state, player, 2, 4),
         ])],
         ["enter d2", "d2 ladder chest", False, lambda state: all([
-            ooa_can_kill_spiked_beetle(state, player),
             ooa_can_kill_normal_enemy(state, player, True),
             ooa_has_small_keys(state, player, 2, 4),
             ooa_has_bombs(state, player)
