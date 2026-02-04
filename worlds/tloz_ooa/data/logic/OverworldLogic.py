@@ -573,7 +573,15 @@ def make_overworld_logic(player: int):
         
         # SEA OF NO RETURN
         #######################################
-        ["lynna city", "piratian captain", False, lambda state: all([
+       
+        # This would have been for the present version of the sea of storms cave. But since you are focusing on the past version of the sea of storms underwater cave right now, you would actually need to be able to travel to the past, 
+        # ALONG WITH having a zora's scale and a mermaid suit in order to claim the check. That's why I am changing the logic requirement on your sea of storms piratian captian check from needing lynna city to lynna village instead.
+        # ["lynna city", "piratian captain present", False, lambda state: all([
+        #    ooa_can_dive(state, player),
+        #    state.has("Zora Scale", player),
+        # ])],
+        # ["piratian captain", "sea of storms present", False, None],
+         ["lynna village", "piratian captain", False, lambda state: all([
             ooa_can_dive(state, player),
             state.has("Zora Scale", player),
         ])],
