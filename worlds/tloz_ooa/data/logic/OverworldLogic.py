@@ -580,7 +580,7 @@ def make_overworld_logic(player: int):
         #    ooa_can_dive(state, player),
         #    state.has("Zora Scale", player),
         # ])],
-        # ["piratian captain", "sea of storms present", False, None],
+        # ["piratian captain present", "sea of storms present", False, None],
          ["lynna village", "piratian captain", False, lambda state: all([
             ooa_can_dive(state, player),
             state.has("Zora Scale", player),
